@@ -1,10 +1,18 @@
 Descriere:
 Notite unde fiecare user sa poata sa isi adauga notite
+Lista unde sa imi pot bifa progres
 Cheltuieli lunare pentru fiecare user si pentru toata familia cheltuieli de familie
 Notificari care sa pe care sa le pui in diferite moduri si sa ai un snoz foarte fain
 Tag care sa descrie componentele
 
+
 Functionalitati:
+- cand incep sa scriu in subiect sau la taguri sa imi arate ce este deja folosti
+- la fiecare nota sa am un subiect sa am un singur detaliu dar cand selectez un subiect sa imi arata toate detaliile
+- sa pot sa le aranjez in pagina/la subiect dupa cum vreau detaliile chiar sa modific sterg sau sa arhivez detalii
 
 
-
+Hotarat
+- o notita are un subiect scurt un detaliu de o propozitie/paragraf poata sa aiba mai multe taguri
+- de fiecare data cand se mai adauga un detaliu se mai face o nota
+- la fiecare modificare se va salva intr-un history versiunea anterioara modificari

@@ -1,0 +1,58 @@
+General State
+    Note
+    -Subject
+    -Details
+    -Tags
+    -CreatedDate
+    -UpdateDates
+    -User
+
+    -Tags
+        -HighPriority
+        -LowPriority
+        -Archived
+        -Book
+
+General Behaviour:
+    - Add
+    - Modifies
+    - Delete
+        when the entry is really bad, the and it make no sens to archive it
+    - Archive
+        - when the purpose had been fulfilled and is no need to be seen.
+
+->Note:
+    State:
+    -Subject
+    -Details
+    -Tags
+    -User
+
+    Behaviour:
+    -General behaviour
+
+->Check List
+    State
+    -Subject
+    -Details
+    -Tags
+    -User (responsible)
+    -Tasks
+
+    Behaviour:
+    -General behaviour
+
+->Tasks
+    State
+    -Subject
+    -Details
+    -Tags
+    -User
+    -PercentDone
+    -StartDate
+    -EndDate
+    -Priority
+    -Task (Subtasks)
+
+    Behaviour:
+    -General behaviour

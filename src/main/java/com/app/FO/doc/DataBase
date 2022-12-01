@@ -1,2 +1,13 @@
 General
 - it will be a archive table where the entries can ve archived
+
+Entities
+Relations:
+    Note>-<Tag
+    Note-<Detail
+    Note-<User
+    CheckList-<Tasks
+    Tasks-<Subtasks
+
+
+
