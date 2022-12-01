@@ -29,6 +29,8 @@ public class User {
     @OneToMany(mappedBy = "user"/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE}*/)
     private List<UserRole> userRoles;
 
+    @OneToMany(mappedBy = "user"/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE}*/)
+    private List<Note> notes;
 
     public User() {
     }
