@@ -1,2 +1,8 @@
 - cum adica relatie bidirectionala la entitati? gen one to many
 -@enbedebal sa aincepem entitati fara legatura
+
+pt Oli particular
+- ii o idee buna sa fac acest DTO generater;
+
+pt Oli general
+- cum facem sa dam acces doar la userul care ii logat acces la ce a facut el

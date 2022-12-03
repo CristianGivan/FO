@@ -3,6 +3,7 @@ package com.app.FO.model.note;
 import com.app.FO.model.history.NoteHistory;
 import com.app.FO.model.history.TopicHistory;
 import com.app.FO.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,13 +25,14 @@ public class Topic {
     private String subject;
 
     @OneToMany(mappedBy = "topic")
-    private List<Note> notes;
+    private List<TopicNote> topicNotes;
 
     @OneToMany(mappedBy = "topic")
     private List<TopicTag> topicTags;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @Column(name = "create_date")
@@ -48,7 +50,7 @@ public class Topic {
         return "Topic{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", notes=" + notes +
+                ", topicNotes=" + topicNotes +
                 ", topicTags=" + topicTags +
                 ", userId=" + user.getId() +
                 ", createdDate=" + createdDate +
@@ -74,12 +76,12 @@ public class Topic {
         this.subject = subject;
     }
 
-    public List<Note> getNotes() {
-        return notes;
+    public List<TopicNote> getTopicNotes() {
+        return topicNotes;
     }
 
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
+    public void setTopicNotes(List<TopicNote> topicNotes) {
+        this.topicNotes = topicNotes;
     }
 
     public List<TopicTag> getTopicTags() {

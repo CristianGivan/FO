@@ -1,5 +1,7 @@
 package com.app.FO.model.note;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,10 +19,12 @@ public class TopicTag {
 
     @ManyToOne
     @JoinColumn(name = "topic_id")
+    @JsonIgnore
     private Topic topic;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
+    @JsonIgnore
     private Tag tag;
 
     @Column(name = "created_date")

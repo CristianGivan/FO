@@ -3,6 +3,7 @@ package com.app.FO.model.note;
 import com.app.FO.model.history.NoteHistory;
 import com.app.FO.model.history.TopicHistory;
 import com.app.FO.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,25 +24,23 @@ public class Note {
     @Column(name = "note")
     private String note;
 
-    @OneToMany(mappedBy = "note")
+    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<NoteTag> noteTags;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "note")
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "note")
+    private List<TopicNote> topicNotes;
+
+    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<NoteHistory> noteHistories;
-
-
-    @ManyToOne
-    @JoinColumn(name = "topic_id")
-    private Topic topic;
-
-
 
 
     public Note() {
@@ -53,10 +52,17 @@ public class Note {
                 "id=" + id +
                 ", note='" + note + '\'' +
                 ", noteTags=" + noteTags +
+                ", user=" + user +
                 ", createdDate=" + createdDate +
                 ", noteHistories=" + noteHistories +
-                ", topic=" + topic +
+                ", topicNotes=" + topicNotes +
                 '}';
+    }
+
+    public Note(String note, User user, LocalDateTime createdDate) {
+        this.note = note;
+        this.user = user;
+        this.createdDate = createdDate;
     }
 
     public Long getId() {
@@ -72,11 +78,43 @@ public class Note {
         this.note = note;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public List<NoteTag> getNoteTags() {
+        return noteTags;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setNoteTags(List<NoteTag> noteTags) {
+        this.noteTags = noteTags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public List<NoteHistory> getNoteHistories() {
+        return noteHistories;
+    }
+
+    public void setNoteHistories(List<NoteHistory> noteHistories) {
+        this.noteHistories = noteHistories;
+    }
+
+    public List<TopicNote> getTopicNotes() {
+        return topicNotes;
+    }
+
+    public void setTopicNotes(List<TopicNote> topicNotes) {
+        this.topicNotes = topicNotes;
     }
 }

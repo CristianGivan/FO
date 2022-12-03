@@ -1,5 +1,7 @@
 package com.app.FO.model.note;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,14 +19,16 @@ public class NoteTag {
 
     @ManyToOne
     @JoinColumn(name = "note_id")
+    @JsonIgnore
     private Note note;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
+    @JsonIgnore
     private Tag tag;
 
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    @Column(name = "link_date")
+    private LocalDateTime linkDate;
 
 
     public NoteTag() {
@@ -36,7 +40,7 @@ public class NoteTag {
                 "id=" + id +
                 ", noteId=" + note.getId()+
                 ", tagId=" + tag.getId() +
-                ", createdDate=" + createdDate +
+                ", createdDate=" + linkDate +
                 '}';
     }
 
@@ -61,11 +65,11 @@ public class NoteTag {
         this.tag = tag;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getLinkDate() {
+        return linkDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setLinkDate(LocalDateTime createdDate) {
+        this.linkDate = createdDate;
     }
 }

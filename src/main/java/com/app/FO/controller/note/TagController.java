@@ -1,4 +1,4 @@
-package com.app.FO.controller;
+package com.app.FO.controller.note;
 
 import com.app.FO.model.note.Tag;
 import com.app.FO.service.note.TagService;

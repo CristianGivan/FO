@@ -43,6 +43,7 @@ public class JwtSecurityConfig {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/tags/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/notes/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

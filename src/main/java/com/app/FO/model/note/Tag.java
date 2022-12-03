@@ -15,13 +15,14 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
+    @Column(name = "tag")
+    private String tagName;
+
     @OneToMany(mappedBy = "tag")
     private List<NoteTag> noteTags;
     @OneToMany(mappedBy = "tag")
     private List<TopicTag> topicTags;
 
-    @Column(name = "tag")
-    private String tagName;
 
     public Tag() {
     }

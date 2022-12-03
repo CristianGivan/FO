@@ -8,7 +8,9 @@ import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
+import com.app.FO.service.note.NoteService;
 import com.app.FO.service.note.TagService;
+import com.app.FO.service.note.TopicService;
 import com.app.FO.service.user.RoleService;
 import com.app.FO.service.user.UserRoleService;
 import com.app.FO.service.user.UserService;
@@ -28,13 +30,18 @@ public class Runner implements CommandLineRunner {
 
     private TagService tagService;
 
+    private NoteService noteService;
+    private TopicService topicService;
+
     @Autowired
-    public Runner(UserService userService, RoleService roleService,
-                  UserRoleService userRoleService, TagService tagService) {
+    public Runner(UserService userService, RoleService roleService, UserRoleService userRoleService,
+                  TagService tagService, NoteService noteService, TopicService topicService) {
         this.userService = userService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
         this.tagService = tagService;
+        this.noteService = noteService;
+        this.topicService = topicService;
     }
 
     @Override
@@ -108,6 +115,15 @@ public class Runner implements CommandLineRunner {
         Tag savedTag8=tagService.saveTag(tag8);
         Tag savedTag9=tagService.saveTag(tag9);
         Tag savedTag10=tagService.saveTag(tag10);
+
+        Note note1 =new Note("Note1",savedUser1,LocalDateTime.now().minusDays(1));
+        Note note2 =new Note("Note2",savedUser2,LocalDateTime.now().minusDays(2));
+        Note note3 =new Note("Note3",savedUser3,LocalDateTime.now().minusDays(3));
+
+        Note savedNote1=noteService.saveNote(note1);
+        Note savedNote2=noteService.saveNote(note2);
+        Note savedNote3=noteService.saveNote(note3);
+
 
 
 
