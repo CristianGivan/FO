@@ -1,6 +1,6 @@
 package com.app.FO.config;
 
-import com.app.FO.service.JwtRequestFilter;
+import com.app.FO.service.security.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +41,7 @@ public class JwtSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/tags/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

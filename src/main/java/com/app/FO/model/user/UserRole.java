@@ -1,4 +1,4 @@
-package com.app.FO.model;
+package com.app.FO.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

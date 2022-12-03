@@ -1,4 +1,4 @@
-package com.app.FO.service;
+package com.app.FO.service.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -14,7 +14,7 @@ public class JwtTokenService {
     private Algorithm hmac512;
     private JWTVerifier verifier;
 
-    public static final long JWT_TOKEN_VALIDITY = 10001000L;
+    public static final long JWT_TOKEN_VALIDITY = 11001001000L;
 
     public JwtTokenService(@Value("${jwt.secret}") String secret) {
         this.hmac512 = Algorithm.HMAC512(secret);

@@ -3,10 +3,10 @@ package com.app.FO.controller;
 
 import com.app.FO.dto.AuthDTO;
 import com.app.FO.dto.RegisterDTO;
-import com.app.FO.model.User;
-import com.app.FO.service.JwtTokenService;
-import com.app.FO.service.UserDetailsServiceImpl;
-import com.app.FO.service.UserService;
+import com.app.FO.model.user.User;
+import com.app.FO.service.security.JwtTokenService;
+import com.app.FO.service.security.UserDetailsServiceImpl;
+import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,3 +1,5 @@
 - Subtasks can be tasks
 - Toate modificari sa fie legata in acelas tabel sau fac o referire la la un alt tabel
 - Un tag poate sa aiba mai multe subtaguri gen carte sai aiba programara  sau ar trebui sa fie carte de programare ca tag
+- Un user ar putea sa vada tagurile pe care ceilalti useri le are, poate nu sau poate
+ar putea sa fie o setare ca un user sa seteze anumite taguri private sa nu poata fi vazute de alti

@@ -1,8 +1,8 @@
-package com.app.FO.service;
+package com.app.FO.service.note;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserRoleService {
+public class TopicService {
 
 }

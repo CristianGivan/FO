@@ -1,7 +1,11 @@
-package com.app.FO.model;
+package com.app.FO.model.user;
 
 
 import com.app.FO.exceptions.IdAlreadyAllocatedException;
+import com.app.FO.model.history.NoteHistory;
+import com.app.FO.model.history.TopicHistory;
+import com.app.FO.model.note.Note;
+import com.app.FO.model.note.Topic;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,14 +34,18 @@ public class User {
     private List<UserRole> userRoles;
 
     @OneToMany(mappedBy = "user"/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE}*/)
+    private List<Topic> topics;
+
+    @OneToMany(mappedBy = "user")
+    private List<TopicHistory> topicHistories;
+
+    @OneToMany(mappedBy = "user"/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE}*/)
     private List<Note> notes;
 
-    public User() {
-    }
+    @OneToMany(mappedBy = "user")
+    private List<NoteHistory> noteHistories;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password=password;
+    public User() {
     }
 
     @Override
@@ -47,8 +55,18 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", userRoles=" + userRoles +
+                ", topics=" + topics +
+                ", topicHistories=" + topicHistories +
+                ", notes=" + notes +
+                ", noteHistories=" + noteHistories +
                 '}';
     }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password=password;
+    }
+
 
 
     public Long getId() {
@@ -90,5 +108,37 @@ public class User {
 
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
+    }
+
+    public List<TopicHistory> getTopicHistories() {
+        return topicHistories;
+    }
+
+    public void setTopicHistories(List<TopicHistory> topicHistories) {
+        this.topicHistories = topicHistories;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
+    public List<NoteHistory> getNoteHistories() {
+        return noteHistories;
+    }
+
+    public void setNoteHistories(List<NoteHistory> noteHistories) {
+        this.noteHistories = noteHistories;
     }
 }

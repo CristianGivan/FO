@@ -1,6 +1,6 @@
-package com.app.FO.repository;
+package com.app.FO.repository.user;
 
-import com.app.FO.model.User;
+import com.app.FO.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

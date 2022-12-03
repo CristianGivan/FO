@@ -1,9 +1,9 @@
-package com.app.FO.service;
+package com.app.FO.service.user;
 
 
-import com.app.FO.model.Role;
-import com.app.FO.model.RoleType;
-import com.app.FO.repository.RoleRepository;
+import com.app.FO.model.user.Role;
+import com.app.FO.model.user.RoleType;
+import com.app.FO.repository.user.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +18,9 @@ public class RoleService {
 
     public Role findRoleByType(RoleType roleType){
         return roleRepository.findRoleByRoleType(roleType);
+    }
+
+    public Role saveRole(Role role){
+        return roleRepository.save(role);
     }
 }

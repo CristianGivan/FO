@@ -1,8 +1,8 @@
-package com.app.FO.service;
+package com.app.FO.service.security;
 
 
-import com.app.FO.model.User;
-import com.app.FO.repository.UserRepository;
+import com.app.FO.model.user.User;
+import com.app.FO.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

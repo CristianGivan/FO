@@ -1,8 +1,8 @@
 package com.app.FO.controller;
 
 
-import com.app.FO.model.User;
-import com.app.FO.service.UserService;
+import com.app.FO.model.user.User;
+import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

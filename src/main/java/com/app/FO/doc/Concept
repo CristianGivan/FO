@@ -6,6 +6,11 @@ Notificari care sa pe care sa le pui in diferite moduri si sa ai un snoz foarte 
 Tag care sa descrie componentele
 
 
+Posibilitati:
+- un user ar putea fi default la care sa se poata atribui toate lucrurile generate de aplicatie
+gen o lista de taguri generale
+- ar putea fi un user guies care sa nu trebuiasca sa se inregistreze doar sa testeze aplicatia
+
 Functionalitati:
 - cand incep sa scriu in subiect sau la taguri sa imi arate ce este deja folosti
 - la fiecare nota sa am un subiect sa am un singur detaliu dar cand selectez un subiect sa imi arata toate detaliile
@@ -13,6 +18,7 @@ Functionalitati:
 
 
 Hotarat
-- o notita are un subiect scurt un detaliu de o propozitie/paragraf poata sa aiba mai multe taguri
-- de fiecare data cand se mai adauga un detaliu se mai face o nota
+- un topic are un subiect scurt un detaliu de o propozitie/paragraf poata sa aiba mai multe taguri
+- de fiecare data cand se mai adauga o notita se mai face o nota
 - la fiecare modificare se va salva intr-un history versiunea anterioara modificari
+- oricine poate sa vada toate tagurile incluse, pe viitor pot aparea taguri private

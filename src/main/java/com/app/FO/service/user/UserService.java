@@ -1,14 +1,14 @@
-package com.app.FO.service;
+package com.app.FO.service.user;
 
 
 import com.app.FO.dto.RegisterDTO;
 import com.app.FO.exceptions.UserNotFoundException;
-import com.app.FO.model.Role;
-import com.app.FO.model.RoleType;
-import com.app.FO.model.User;
-import com.app.FO.model.UserRole;
-import com.app.FO.repository.UserRepository;
-import com.app.FO.repository.UserRoleRepository;
+import com.app.FO.model.user.Role;
+import com.app.FO.model.user.RoleType;
+import com.app.FO.model.user.User;
+import com.app.FO.model.user.UserRole;
+import com.app.FO.repository.user.UserRepository;
+import com.app.FO.repository.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +40,9 @@ public class UserService {
                 new UserNotFoundException("User not found"));
     }
 
+    public User saveUser(User user){
+        return userRepository.save(user);
+    }
     public List<User> findAllUsers(){
         return userRepository.findAll();
     }
