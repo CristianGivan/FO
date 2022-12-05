@@ -1,7 +1,5 @@
 package com.app.FO.model.note;
 
-import com.app.FO.model.history.NoteHistory;
-import com.app.FO.model.history.TopicHistory;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

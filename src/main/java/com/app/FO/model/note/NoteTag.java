@@ -44,6 +44,11 @@ public class NoteTag {
                 '}';
     }
 
+    public NoteTag(Note note, Tag tag, LocalDateTime linkDate) {
+        this.note = note;
+        this.tag = tag;
+        this.linkDate = linkDate;
+    }
 
     public Long getId() {
         return id;

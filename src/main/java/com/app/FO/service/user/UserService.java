@@ -1,7 +1,7 @@
 package com.app.FO.service.user;
 
 
-import com.app.FO.dto.RegisterDTO;
+import com.app.FO.dto.user.RegisterDTO;
 import com.app.FO.exceptions.UserNotFoundException;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

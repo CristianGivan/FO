@@ -7,6 +7,8 @@ import com.app.FO.repository.user.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoleService {
     RoleRepository roleRepository;
@@ -22,5 +24,14 @@ public class RoleService {
 
     public Role saveRole(Role role){
         return roleRepository.save(role);
+    }
+
+    public List<Role> findRolesByUserId(Long userId){
+        return roleRepository.findRolesByUserId(userId);
+    }
+    public List<String> getAllRolesByUserIdAsStrings(Long userId){
+        return roleRepository.findRolesByUserId(userId).stream()
+                .map(role -> role.getRoleType().toString())
+                .toList();
     }
 }

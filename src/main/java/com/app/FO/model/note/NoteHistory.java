@@ -1,4 +1,4 @@
-package com.app.FO.model.history;
+package com.app.FO.model.note;
 
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.Topic;
@@ -36,4 +36,45 @@ public class NoteHistory {
 //    @Column(name = "note")
 //    private NoteDTO noteOldVersion;
 
+
+    public NoteHistory() {
+    }
+
+    @Override
+    public String toString() {
+        return "NoteHistory{" +
+                "id=" + id +
+                ", modifiedDate=" + modifiedDate +
+                ", userId=" + user.getId() +
+                ", noteId=" + note.getId() +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
 }

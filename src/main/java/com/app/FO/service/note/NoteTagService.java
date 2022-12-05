@@ -15,7 +15,6 @@ public class NoteTagService {
     public NoteTagService(NoteTagRepository noteTagRepository) {
         this.noteTagRepository = noteTagRepository;
     }
-    //todo continue
     public List<Tag> findAllTags(){
         return null;
     }

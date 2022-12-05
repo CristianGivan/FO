@@ -1,8 +1,8 @@
 package com.app.FO.controller;
 
 
-import com.app.FO.dto.AuthDTO;
-import com.app.FO.dto.RegisterDTO;
+import com.app.FO.dto.user.AuthDTO;
+import com.app.FO.dto.user.RegisterDTO;
 import com.app.FO.model.user.User;
 import com.app.FO.service.security.JwtTokenService;
 import com.app.FO.service.security.UserDetailsServiceImpl;
@@ -30,6 +30,8 @@ public class AuthController {
         this.userDetailsService = userDetailsService;
         this.userService=userService;
     }
+
+//Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4MTI2Mjk1N30.36c1ov50JQ2fC_PFs2owD_r34F9zVSuG685-_SFhpRFMtuLKIz_pGfIJ2hu_bWKADBanGoPBDsA9C_EGHrfokQ
 
     @PostMapping("/authenticate")
     public String authenticate(@RequestBody AuthDTO user) {

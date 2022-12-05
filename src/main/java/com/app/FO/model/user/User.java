@@ -2,8 +2,8 @@ package com.app.FO.model.user;
 
 
 import com.app.FO.exceptions.IdAlreadyAllocatedException;
-import com.app.FO.model.history.NoteHistory;
-import com.app.FO.model.history.TopicHistory;
+import com.app.FO.model.note.NoteHistory;
+import com.app.FO.model.note.TopicHistory;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.Topic;
 
@@ -66,7 +66,6 @@ public class User {
         this.username = username;
         this.password=password;
     }
-
 
 
     public Long getId() {
@@ -141,4 +140,8 @@ public class User {
     public void setNoteHistories(List<NoteHistory> noteHistories) {
         this.noteHistories = noteHistories;
     }
+
+
+
+
 }

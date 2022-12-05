@@ -1,10 +1,12 @@
 package com.app.FO.service.note;
 
 import com.app.FO.model.note.Note;
+import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.note.Tag;
 import com.app.FO.repository.note.TagRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,8 +25,7 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    //todo continue
     public List<Tag> getAllTagsFromNote(Note note) {
-        return tagRepository.findAllByNoteTags(note.getNoteTags());
+       return tagRepository.getTagsByNoteId(note.getId());
     }
 }

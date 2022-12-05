@@ -1,13 +1,17 @@
 package com.app.FO;
 
 
+import com.app.FO.dto.ConvertToDTO;
+import com.app.FO.dto.note.ShowNoteDTO;
 import com.app.FO.model.note.Note;
+import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.note.Tag;
 import com.app.FO.model.note.Topic;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
+import com.app.FO.repository.note.TagRepository;
 import com.app.FO.service.note.NoteService;
 import com.app.FO.service.note.TagService;
 import com.app.FO.service.note.TopicService;
@@ -24,6 +28,7 @@ import java.time.LocalDateTime;
 @Component
 public class Runner implements CommandLineRunner {
 
+
     private UserService userService;
     private RoleService roleService;
     private UserRoleService userRoleService;
@@ -32,6 +37,10 @@ public class Runner implements CommandLineRunner {
 
     private NoteService noteService;
     private TopicService topicService;
+    @Autowired
+    private ConvertToDTO convertToDTO;
+    @Autowired
+    private TagRepository tagRepository;
 
     @Autowired
     public Runner(UserService userService, RoleService roleService, UserRoleService userRoleService,
@@ -105,27 +114,75 @@ public class Runner implements CommandLineRunner {
         Tag tag9 = new Tag("Tag9");
         Tag tag10 = new Tag("Tag10");
 
-        Tag savedTag1=tagService.saveTag(tag1);
-        Tag savedTag2=tagService.saveTag(tag2);
-        Tag savedTag3=tagService.saveTag(tag3);
-        Tag savedTag4=tagService.saveTag(tag4);
-        Tag savedTag5=tagService.saveTag(tag5);
-        Tag savedTag6=tagService.saveTag(tag6);
-        Tag savedTag7=tagService.saveTag(tag7);
-        Tag savedTag8=tagService.saveTag(tag8);
-        Tag savedTag9=tagService.saveTag(tag9);
-        Tag savedTag10=tagService.saveTag(tag10);
+        Tag savedTag1 = tagService.saveTag(tag1);
+        Tag savedTag2 = tagService.saveTag(tag2);
+        Tag savedTag3 = tagService.saveTag(tag3);
+        Tag savedTag4 = tagService.saveTag(tag4);
+        Tag savedTag5 = tagService.saveTag(tag5);
+        Tag savedTag6 = tagService.saveTag(tag6);
+        Tag savedTag7 = tagService.saveTag(tag7);
+        Tag savedTag8 = tagService.saveTag(tag8);
+        Tag savedTag9 = tagService.saveTag(tag9);
+        Tag savedTag10 = tagService.saveTag(tag10);
 
-        Note note1 =new Note("Note1",savedUser1,LocalDateTime.now().minusDays(1));
-        Note note2 =new Note("Note2",savedUser2,LocalDateTime.now().minusDays(2));
-        Note note3 =new Note("Note3",savedUser3,LocalDateTime.now().minusDays(3));
+        Note note1 = new Note("Note1", savedUser1, LocalDateTime.now().minusDays(1));
+        Note note2 = new Note("Note2", savedUser2, LocalDateTime.now().minusDays(2));
+        Note note3 = new Note("Note3", savedUser3, LocalDateTime.now().minusDays(3));
 
-        Note savedNote1=noteService.saveNote(note1);
-        Note savedNote2=noteService.saveNote(note2);
-        Note savedNote3=noteService.saveNote(note3);
+        Note savedNote1 = noteService.saveNote(note1);
+        Note savedNote2 = noteService.saveNote(note2);
+        Note savedNote3 = noteService.saveNote(note3);
+
+        NoteTag noteTag1 = new NoteTag(savedNote1, savedTag1, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag2 = new NoteTag(savedNote1, savedTag2, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag3 = new NoteTag(savedNote1, savedTag3, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag4 = new NoteTag(savedNote1, savedTag4, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag5 = new NoteTag(savedNote1, savedTag5, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag6 = new NoteTag(savedNote2, savedTag6, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag7 = new NoteTag(savedNote2, savedTag7, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag8 = new NoteTag(savedNote2, savedTag8, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag9 = new NoteTag(savedNote2, savedTag9, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag10 = new NoteTag(savedNote2, savedTag10, LocalDateTime.now().minusHours(1));
+        NoteTag noteTag11 = new NoteTag(savedNote3, savedTag1, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag12 = new NoteTag(savedNote3, savedTag2, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag13 = new NoteTag(savedNote3, savedTag3, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag14 = new NoteTag(savedNote3, savedTag4, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag15 = new NoteTag(savedNote3, savedTag5, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag16 = new NoteTag(savedNote3, savedTag6, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag17 = new NoteTag(savedNote3, savedTag7, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag18 = new NoteTag(savedNote3, savedTag8, LocalDateTime.now().minusHours(3));
+        NoteTag noteTag19 = new NoteTag(savedNote3, savedTag9, LocalDateTime.now().minusHours(3));
+
+        savedNote1.getNoteTags().add(noteTag1);
+        savedNote1.getNoteTags().add(noteTag2);
+        savedNote1.getNoteTags().add(noteTag3);
+        savedNote1.getNoteTags().add(noteTag4);
+        savedNote1.getNoteTags().add(noteTag5);
+        savedNote2.getNoteTags().add(noteTag6);
+        savedNote2.getNoteTags().add(noteTag7);
+        savedNote2.getNoteTags().add(noteTag8);
+        savedNote2.getNoteTags().add(noteTag9);
+        savedNote2.getNoteTags().add(noteTag10);
+        savedNote3.getNoteTags().add(noteTag11);
+        savedNote3.getNoteTags().add(noteTag12);
+        savedNote3.getNoteTags().add(noteTag13);
+        savedNote3.getNoteTags().add(noteTag14);
+        savedNote3.getNoteTags().add(noteTag15);
+        savedNote3.getNoteTags().add(noteTag16);
+        savedNote3.getNoteTags().add(noteTag17);
+        savedNote3.getNoteTags().add(noteTag18);
+        savedNote3.getNoteTags().add(noteTag19);
 
 
+        savedNote1 = noteService.saveNote(note1);
+        savedNote2 = noteService.saveNote(note2);
+        savedNote3 = noteService.saveNote(note3);
 
+        ShowNoteDTO showNoteDTO=convertToDTO.convertNoteToShowNoteDTO(savedNote1);
 
+        System.out.println(note1.getNoteTags());
+        System.out.println(roleService.findRolesByUserId(1L));
+        System.out.println("\n"+showNoteDTO);
+        System.out.println("END");
     }
 }

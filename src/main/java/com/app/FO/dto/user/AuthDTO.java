@@ -1,4 +1,4 @@
-package com.app.FO.dto;
+package com.app.FO.dto.user;
 
 public class AuthDTO {
     private String username;

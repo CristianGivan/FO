@@ -1,4 +1,4 @@
-package com.app.FO.model.history;
+package com.app.FO.model.note;
 
 import com.app.FO.model.note.Topic;
 import com.app.FO.model.user.User;
