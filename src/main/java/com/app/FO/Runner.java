@@ -2,7 +2,7 @@ package com.app.FO;
 
 
 import com.app.FO.dto.ConvertToDTO;
-import com.app.FO.dto.note.ShowNoteDTO;
+import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.note.Tag;
@@ -178,7 +178,7 @@ public class Runner implements CommandLineRunner {
         savedNote2 = noteService.saveNote(note2);
         savedNote3 = noteService.saveNote(note3);
 
-        ShowNoteDTO showNoteDTO=convertToDTO.convertNoteToShowNoteDTO(savedNote1);
+        NoteFDTO showNoteDTO=convertToDTO.convertNoteToShowNoteDTO(savedNote1);
 
         System.out.println(note1.getNoteTags());
         System.out.println(roleService.findRolesByUserId(1L));

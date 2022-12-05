@@ -2,18 +2,18 @@ package com.app.FO.dto.note;
 
 import java.time.LocalDateTime;
 
-public class ShowNoteHistoryShortDTO {
+public class HistoryNoteSDTO {
     private Long id;
     private LocalDateTime modifiedDate;
 
-    public ShowNoteHistoryShortDTO(Long id, LocalDateTime modifiedDate) {
+    public HistoryNoteSDTO(Long id, LocalDateTime modifiedDate) {
         this.id = id;
         this.modifiedDate = modifiedDate;
     }
 
     @Override
     public String toString() {
-        return "ShowNoteHistoryShortDTO{" +
+        return "HistoryNoteSDTO{" +
                 "id=" + id +
                 ", modifiedDate=" + modifiedDate +
                 '}';

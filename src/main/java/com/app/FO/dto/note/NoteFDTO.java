@@ -5,20 +5,20 @@ import com.app.FO.dto.user.ShowUserShortDTO;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ShowNoteDTO {
+public class NoteFDTO {
 
     private Long id;
     private String note;
-    private List<ShowTagShortDTO> tags;
+    private List<TagSDTO> tags;
     private ShowUserShortDTO user;
     private LocalDateTime createdDateTime;
-    private List<ShowTopicShortDTO> topicsThatContainTheNote;
-    private List<ShowNoteHistoryShortDTO> noteHistory;
+    private List<TopicSDTO> topicsThatContainTheNote;
+    private List<HistoryNoteSDTO> noteHistory;
 
 
-    public ShowNoteDTO(Long id, String note, List<ShowTagShortDTO> tags, ShowUserShortDTO user,
-                       LocalDateTime createdDateTime, List<ShowTopicShortDTO> topicsThatContainTheNote,
-                       List<ShowNoteHistoryShortDTO> noteHistory) {
+    public NoteFDTO(Long id, String note, List<TagSDTO> tags, ShowUserShortDTO user,
+                    LocalDateTime createdDateTime, List<TopicSDTO> topicsThatContainTheNote,
+                    List<HistoryNoteSDTO> noteHistory) {
         this.id = id;
         this.note = note;
         this.tags = tags;
@@ -30,7 +30,7 @@ public class ShowNoteDTO {
 
     @Override
     public String toString() {
-        return "ShowNoteDTO{" +
+        return "NoteFDTO{" +
                 "id=" + id +
                 ", note='" + note + '\'' +
                 ", tags=" + tags +
@@ -57,11 +57,11 @@ public class ShowNoteDTO {
         this.note = note;
     }
 
-    public List<ShowTagShortDTO> getTags() {
+    public List<TagSDTO> getTags() {
         return tags;
     }
 
-    public void setTags(List<ShowTagShortDTO> tags) {
+    public void setTags(List<TagSDTO> tags) {
         this.tags = tags;
     }
 
@@ -81,19 +81,19 @@ public class ShowNoteDTO {
         this.createdDateTime = createdDateTime;
     }
 
-    public List<ShowTopicShortDTO> getTopicsThatContainTheNote() {
+    public List<TopicSDTO> getTopicsThatContainTheNote() {
         return topicsThatContainTheNote;
     }
 
-    public void setTopicsThatContainTheNote(List<ShowTopicShortDTO> topicsThatContainTheNote) {
+    public void setTopicsThatContainTheNote(List<TopicSDTO> topicsThatContainTheNote) {
         this.topicsThatContainTheNote = topicsThatContainTheNote;
     }
 
-    public List<ShowNoteHistoryShortDTO> getNoteHistory() {
+    public List<HistoryNoteSDTO> getNoteHistory() {
         return noteHistory;
     }
 
-    public void setNoteHistory(List<ShowNoteHistoryShortDTO> noteHistory) {
+    public void setNoteHistory(List<HistoryNoteSDTO> noteHistory) {
         this.noteHistory = noteHistory;
     }
 }

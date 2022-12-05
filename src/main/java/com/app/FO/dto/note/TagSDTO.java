@@ -1,20 +1,18 @@
 package com.app.FO.dto.note;
 
-import java.time.LocalDateTime;
-
-public class ShowTagShortDTO {
+public class TagSDTO {
     private Long id;
     private String tagName;
 
     @Override
     public String toString() {
-        return "ShowTagShortDTO{" +
+        return "TagSDTO{" +
                 "id=" + id +
                 ", tagName='" + tagName + '\'' +
                 '}';
     }
 
-    public ShowTagShortDTO(Long id, String tagName) {
+    public TagSDTO(Long id, String tagName) {
         this.id = id;
         this.tagName = tagName;
 

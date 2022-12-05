@@ -1,11 +1,10 @@
 package com.app.FO.dto;
 
-import com.app.FO.dto.note.ShowNoteDTO;
-import com.app.FO.dto.note.ShowNoteHistoryShortDTO;
-import com.app.FO.dto.note.ShowTagShortDTO;
-import com.app.FO.dto.note.ShowTopicShortDTO;
+import com.app.FO.dto.note.NoteFDTO;
+import com.app.FO.dto.note.HistoryNoteSDTO;
+import com.app.FO.dto.note.TagSDTO;
+import com.app.FO.dto.note.TopicSDTO;
 import com.app.FO.dto.user.ShowUserShortDTO;
-import com.app.FO.exceptions.NoteHistoryException;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.Tag;
@@ -34,8 +33,8 @@ public class ConvertToDTO {
         this.tagService = tagService;
     }
 
-    public ShowNoteDTO convertNoteToShowNoteDTO(Note note) {
-        return new ShowNoteDTO(note.getId(), note.getNote(),
+    public NoteFDTO convertNoteToShowNoteDTO(Note note) {
+        return new NoteFDTO(note.getId(), note.getNote(),
                 convertListOfTagToListOfShowTagsShortDTO(tagService.getAllTagsFromNote(note)),
                 convertUserToShowUserShortDTO(note.getUser()), note.getCreatedDate(),
                 convertListOfTopicsToListOfShowTopicShortDTO(topicService.getAllTopicsOfANote(note)),
@@ -43,16 +42,16 @@ public class ConvertToDTO {
         );
     }
 
-    public List<ShowNoteDTO> convertListOfNoteToListOfShowNoteDTO(List<Note> notes) {
+    public List<NoteFDTO> convertListOfNoteToListOfShowNoteDTO(List<Note> notes) {
         return notes.stream().map(this::convertNoteToShowNoteDTO).toList();
     }
 
 
-    private ShowTagShortDTO convertTagToShowTagShortDTO(Tag tag) {
-        return new ShowTagShortDTO(tag.getId(), tag.getTagName());
+    private TagSDTO convertTagToShowTagShortDTO(Tag tag) {
+        return new TagSDTO(tag.getId(), tag.getTagName());
     }
 
-    private List<ShowTagShortDTO> convertListOfTagToListOfShowTagsShortDTO(List<Tag> tags) {
+    private List<TagSDTO> convertListOfTagToListOfShowTagsShortDTO(List<Tag> tags) {
         return tags.stream().map(this::convertTagToShowTagShortDTO).toList();
     }
 
@@ -62,19 +61,19 @@ public class ConvertToDTO {
                 roleService.getAllRolesByUserIdAsStrings(user.getId()));
     }
 
-    private ShowTopicShortDTO convertTopicToShowTopicsShortDTO(Topic topic) {
-        return new ShowTopicShortDTO(topic.getId(), topic.getSubject(), topic.getCreatedDate());
+    private TopicSDTO convertTopicToShowTopicsShortDTO(Topic topic) {
+        return new TopicSDTO(topic.getId(), topic.getSubject(), topic.getCreatedDate());
     }
 
-    private List<ShowTopicShortDTO> convertListOfTopicsToListOfShowTopicShortDTO(List<Topic> topics) {
+    private List<TopicSDTO> convertListOfTopicsToListOfShowTopicShortDTO(List<Topic> topics) {
         return topics.stream().map(this::convertTopicToShowTopicsShortDTO).toList();
     }
 
-    private ShowNoteHistoryShortDTO convertNoteHistoryToShowNoteHistoryDTO(NoteHistory noteHistory) {
-        return new ShowNoteHistoryShortDTO(noteHistory.getId(), noteHistory.getModifiedDate());
+    private HistoryNoteSDTO convertNoteHistoryToShowNoteHistoryDTO(NoteHistory noteHistory) {
+        return new HistoryNoteSDTO(noteHistory.getId(), noteHistory.getModifiedDate());
     }
 
-    private List<ShowNoteHistoryShortDTO> convertListOfNoteHistoryToShowNoteHistoryDTO(List<NoteHistory> noteHistories) {
+    private List<HistoryNoteSDTO> convertListOfNoteHistoryToShowNoteHistoryDTO(List<NoteHistory> noteHistories) {
 //        if (noteHistories == null) {
 //            throw new NoteHistoryException("No note histories found");
 //        } else {

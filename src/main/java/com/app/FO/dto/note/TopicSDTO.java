@@ -2,23 +2,23 @@ package com.app.FO.dto.note;
 
 import java.time.LocalDateTime;
 
-public class ShowNoteShortDTO {
+public class TopicSDTO {
     private Long id;
-    private String note;
+    private String subject;
     private LocalDateTime createdDate;
 
     @Override
     public String toString() {
-        return "ShowNoteShortDTO{" +
+        return "TopicSDTO{" +
                 "id=" + id +
-                ", note='" + note + '\'' +
+                ", subject='" + subject + '\'' +
                 ", createdDate=" + createdDate +
                 '}';
     }
 
-    public ShowNoteShortDTO(Long id, String note, LocalDateTime createdDate) {
+    public TopicSDTO(Long id, String subject, LocalDateTime createdDate) {
         this.id = id;
-        this.note = note;
+        this.subject = subject;
         this.createdDate = createdDate;
     }
 
@@ -30,12 +30,12 @@ public class ShowNoteShortDTO {
         this.id = id;
     }
 
-    public String getNote() {
-        return note;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public LocalDateTime getCreatedDate() {
