@@ -5,24 +5,27 @@ import com.app.FO.model.user.User;
 
 import java.time.LocalDateTime;
 
-public class HistoryNoteSDTO {
+public class HistoryTopicSDTO {
     private Long id;
     private LocalDateTime modifiedDate;
     private UserSDTO user;
 
-    public HistoryNoteSDTO(Long id, LocalDateTime modifiedDate, UserSDTO user) {
-        this.id = id;
-        this.modifiedDate = modifiedDate;
-        this.user = user;
+    public HistoryTopicSDTO() {
     }
 
     @Override
     public String toString() {
-        return "HistoryNoteSDTO{" +
+        return "HistoryTopicSDTO{" +
                 "id=" + id +
                 ", modifiedDate=" + modifiedDate +
                 ", user=" + user +
                 '}';
+    }
+
+    public HistoryTopicSDTO(Long id, LocalDateTime modifiedDate, UserSDTO user) {
+        this.id = id;
+        this.modifiedDate = modifiedDate;
+        this.user = user;
     }
 
     public Long getId() {

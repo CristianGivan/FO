@@ -44,6 +44,11 @@ public class TopicTag {
                 '}';
     }
 
+    public TopicTag(Topic topic, Tag tag, LocalDateTime createdDate) {
+        this.topic = topic;
+        this.tag = tag;
+        this.createdDate = createdDate;
+    }
 
     public Long getId() {
         return id;

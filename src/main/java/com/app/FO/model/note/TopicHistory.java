@@ -35,4 +35,47 @@ public class TopicHistory {
 //    @Column(name = "note")
 //    private NoteDTO noteOldVersion;
 
+    public TopicHistory(){}
+
+    @Override
+    public String toString() {
+        return "TopicHistory{" +
+                "id=" + id +
+                ", modifiedDate=" + modifiedDate +
+                ", userId=" + user.getId() +
+                ", topicId=" + topic.getId() +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
 }

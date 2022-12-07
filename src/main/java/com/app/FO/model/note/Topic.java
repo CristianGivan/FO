@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,10 +23,10 @@ public class Topic {
     @Column(name = "subject")
     private String subject;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TopicNote> topicNotes;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TopicTag> topicTags;
 
     @ManyToOne
@@ -75,6 +76,9 @@ public class Topic {
     }
 
     public List<TopicNote> getTopicNotes() {
+        if(topicNotes==null){
+            topicNotes=new ArrayList<>();
+        }
         return topicNotes;
     }
 
@@ -83,6 +87,9 @@ public class Topic {
     }
 
     public List<TopicTag> getTopicTags() {
+        if (topicTags==null){
+            topicTags=new ArrayList<>();
+        }
         return topicTags;
     }
 
@@ -99,6 +106,7 @@ public class Topic {
     }
 
     public LocalDateTime getCreatedDate() {
+
         return createdDate;
     }
 
@@ -107,6 +115,9 @@ public class Topic {
     }
 
     public List<TopicHistory> getTopicHistory() {
+        if (topicHistory==null){
+            topicHistory=new ArrayList<>();
+        }
         return topicHistory;
     }
 

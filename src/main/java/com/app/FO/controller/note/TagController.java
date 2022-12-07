@@ -1,12 +1,11 @@
 package com.app.FO.controller.note;
 
+import com.app.FO.dto.ConvertToDTO;
+import com.app.FO.dto.note.TagDTO;
 import com.app.FO.model.note.Tag;
 import com.app.FO.service.note.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,6 +13,8 @@ import java.util.List;
 @RequestMapping("/tags")
 public class TagController {
     private TagService tagService;
+    @Autowired
+    private ConvertToDTO convertToDTO;
 
     @Autowired
     public TagController(TagService tagService) {
@@ -21,7 +22,13 @@ public class TagController {
     }
 
     @GetMapping("/getAllTags")
-    public List<Tag> getAllTags(){
-        return tagService.getAllTags();
+    public List<TagDTO> getAllTags(){
+        return convertToDTO.convertListOfTagToListOfTagDTO(tagService.getAllTags());
     }
+    @GetMapping("/getTagById/{tagId}")
+    public TagDTO getTagById(@PathVariable Long tagId){
+        return convertToDTO.convertTagToTagDTO(tagService.getTagById(tagId));
+    }
+
+
 }

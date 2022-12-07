@@ -1,24 +1,24 @@
 package com.app.FO.dto.note;
 
-import com.app.FO.dto.user.ShowUserShortDTO;
+import com.app.FO.dto.user.UserSDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class NoteFDTO {
+public class NoteDTO {
 
     private Long id;
     private String note;
     private List<TagSDTO> tags;
-    private ShowUserShortDTO user;
+    private UserSDTO user;
     private LocalDateTime createdDateTime;
     private List<TopicSDTO> topicsThatContainTheNote;
     private List<HistoryNoteSDTO> noteHistory;
 
 
-    public NoteFDTO(Long id, String note, List<TagSDTO> tags, ShowUserShortDTO user,
-                    LocalDateTime createdDateTime, List<TopicSDTO> topicsThatContainTheNote,
-                    List<HistoryNoteSDTO> noteHistory) {
+    public NoteDTO(Long id, String note, List<TagSDTO> tags, UserSDTO user,
+                   LocalDateTime createdDateTime, List<TopicSDTO> topicsThatContainTheNote,
+                   List<HistoryNoteSDTO> noteHistory) {
         this.id = id;
         this.note = note;
         this.tags = tags;
@@ -65,11 +65,11 @@ public class NoteFDTO {
         this.tags = tags;
     }
 
-    public ShowUserShortDTO getUser() {
+    public UserSDTO getUser() {
         return user;
     }
 
-    public void setUser(ShowUserShortDTO user) {
+    public void setUser(UserSDTO user) {
         this.user = user;
     }
 

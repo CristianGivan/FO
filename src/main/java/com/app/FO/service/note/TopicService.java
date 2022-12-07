@@ -1,6 +1,7 @@
 package com.app.FO.service.note;
 
 import com.app.FO.model.note.Note;
+import com.app.FO.model.note.Tag;
 import com.app.FO.model.note.Topic;
 import com.app.FO.repository.note.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,15 @@ public class TopicService {
         this.topicRepository = topicRepository;
     }
 
-    public List<Topic> getAllTopicsOfANote(Note note) {
+    public Topic saveTopic(Topic topic){
+        return topicRepository.save(topic);
+    }
+
+    public List<Topic> getTopicsByNote(Note note) {
         return topicRepository.getTopicsByNoteId(note.getId());
     }
 
+    public List<Topic> getTopicsByTag(Tag tag){
+        return topicRepository.getTopicsByTagId(tag.getId());
+    }
 }

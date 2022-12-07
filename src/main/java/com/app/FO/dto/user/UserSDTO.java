@@ -1,15 +1,13 @@
 package com.app.FO.dto.user;
 
-import com.app.FO.model.user.Role;
-
 import java.util.List;
 
-public class ShowUserShortDTO {
+public class UserSDTO {
     private Long id;
     private String username;
     private List<String> roles;
 
-    public ShowUserShortDTO(Long id, String username, List<String> role) {
+    public UserSDTO(Long id, String username, List<String> role) {
         this.id = id;
         this.username = username;
         this.roles = role;
@@ -17,7 +15,7 @@ public class ShowUserShortDTO {
 
     @Override
     public String toString() {
-        return "ShowUserShortDTO{" +
+        return "UserSDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", roles=" + roles +

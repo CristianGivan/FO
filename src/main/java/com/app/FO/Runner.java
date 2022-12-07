@@ -2,11 +2,8 @@ package com.app.FO;
 
 
 import com.app.FO.dto.ConvertToDTO;
-import com.app.FO.dto.note.NoteFDTO;
-import com.app.FO.model.note.Note;
-import com.app.FO.model.note.NoteTag;
-import com.app.FO.model.note.Tag;
-import com.app.FO.model.note.Topic;
+import com.app.FO.dto.note.NoteDTO;
+import com.app.FO.model.note.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
@@ -32,25 +29,22 @@ public class Runner implements CommandLineRunner {
     private UserService userService;
     private RoleService roleService;
     private UserRoleService userRoleService;
-
     private TagService tagService;
-
     private NoteService noteService;
     private TopicService topicService;
-    @Autowired
     private ConvertToDTO convertToDTO;
-    @Autowired
-    private TagRepository tagRepository;
 
     @Autowired
     public Runner(UserService userService, RoleService roleService, UserRoleService userRoleService,
-                  TagService tagService, NoteService noteService, TopicService topicService) {
+                  TagService tagService, NoteService noteService, TopicService topicService,
+                  ConvertToDTO convertToDTO) {
         this.userService = userService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
         this.tagService = tagService;
         this.noteService = noteService;
         this.topicService = topicService;
+        this.convertToDTO = convertToDTO;
     }
 
     @Override
@@ -98,10 +92,6 @@ public class Runner implements CommandLineRunner {
         userRoleService.saveUserRole(userRole3);
         userRoleService.saveUserRole(userRole4);
 
-        Topic topic1 = new Topic("subjectNote1", savedUser1, LocalDateTime.now().minusDays(1));
-        Topic topic2 = new Topic("subjectNote2", savedUser2, LocalDateTime.now().minusDays(2));
-        Topic topic3 = new Topic("subjectNote3", savedUser3, LocalDateTime.now().minusDays(3));
-        Topic topic4 = new Topic("subjectNote4", savedUser3, LocalDateTime.now().minusDays(4));
 
         Tag tag1 = new Tag("Tag1");
         Tag tag2 = new Tag("Tag2");
@@ -173,16 +163,74 @@ public class Runner implements CommandLineRunner {
         savedNote3.getNoteTags().add(noteTag18);
         savedNote3.getNoteTags().add(noteTag19);
 
-
         savedNote1 = noteService.saveNote(note1);
         savedNote2 = noteService.saveNote(note2);
         savedNote3 = noteService.saveNote(note3);
 
-        NoteFDTO showNoteDTO=convertToDTO.convertNoteToShowNoteDTO(savedNote1);
+        Topic topic1 = new Topic("Topic1", savedUser1, LocalDateTime.now().minusDays(1));
+        Topic topic2 = new Topic("Topic2", savedUser2, LocalDateTime.now().minusDays(2));
+        Topic topic3 = new Topic("Topic3", savedUser3, LocalDateTime.now().minusDays(3));
+        Topic topic4 = new Topic("Topic4", savedUser3, LocalDateTime.now().minusDays(4));
+
+        Topic savedTopic1 = topicService.saveTopic(topic1);
+        Topic savedTopic2 = topicService.saveTopic(topic2);
+        Topic savedTopic3 = topicService.saveTopic(topic3);
+        Topic savedTopic4 = topicService.saveTopic(topic4);
+
+        TopicTag topicTag1 = new TopicTag(savedTopic1, savedTag1, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag2 = new TopicTag(savedTopic1, savedTag2, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag3 = new TopicTag(savedTopic1, savedTag3, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag4 = new TopicTag(savedTopic2, savedTag4, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag5 = new TopicTag(savedTopic2, savedTag5, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag6 = new TopicTag(savedTopic2, savedTag6, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag7 = new TopicTag(savedTopic3, savedTag7, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag8 = new TopicTag(savedTopic3, savedTag8, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag9 = new TopicTag(savedTopic3, savedTag9, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag10 = new TopicTag(savedTopic3, savedTag10, LocalDateTime.now().minusHours(1));
+
+
+        savedTopic1.getTopicTags().add(topicTag1);
+        savedTopic1.getTopicTags().add(topicTag2);
+        savedTopic1.getTopicTags().add(topicTag3);
+        savedTopic2.getTopicTags().add(topicTag4);
+        savedTopic2.getTopicTags().add(topicTag5);
+        savedTopic2.getTopicTags().add(topicTag6);
+        savedTopic3.getTopicTags().add(topicTag7);
+        savedTopic3.getTopicTags().add(topicTag8);
+        savedTopic3.getTopicTags().add(topicTag9);
+        savedTopic3.getTopicTags().add(topicTag10);
+
+        TopicNote topicNote1 = new TopicNote(savedTopic1, savedNote1, LocalDateTime.now());
+        TopicNote topicNote2 = new TopicNote(savedTopic1, savedNote2, LocalDateTime.now());
+        TopicNote topicNote3 = new TopicNote(savedTopic1, savedNote3, LocalDateTime.now());
+        TopicNote topicNote4 = new TopicNote(savedTopic2, savedNote1, LocalDateTime.now());
+        TopicNote topicNote5 = new TopicNote(savedTopic2, savedNote2, LocalDateTime.now());
+        TopicNote topicNote6 = new TopicNote(savedTopic2, savedNote3, LocalDateTime.now());
+        TopicNote topicNote7 = new TopicNote(savedTopic3, savedNote1, LocalDateTime.now());
+        TopicNote topicNote8 = new TopicNote(savedTopic3, savedNote2, LocalDateTime.now());
+        TopicNote topicNote9 = new TopicNote(savedTopic3, savedNote3, LocalDateTime.now());
+
+        savedTopic1.getTopicNotes().add(topicNote1);
+        savedTopic1.getTopicNotes().add(topicNote2);
+        savedTopic1.getTopicNotes().add(topicNote3);
+        savedTopic2.getTopicNotes().add(topicNote4);
+        savedTopic2.getTopicNotes().add(topicNote5);
+        savedTopic2.getTopicNotes().add(topicNote6);
+        savedTopic3.getTopicNotes().add(topicNote7);
+        savedTopic3.getTopicNotes().add(topicNote8);
+        savedTopic3.getTopicNotes().add(topicNote9);
+
+
+        savedTopic1 = topicService.saveTopic(topic1);
+        savedTopic2 = topicService.saveTopic(topic2);
+        savedTopic3 = topicService.saveTopic(topic3);
+
+
+        NoteDTO showNoteDTO = convertToDTO.convertNoteToNoteDTO(savedNote1);
 
         System.out.println(note1.getNoteTags());
         System.out.println(roleService.findRolesByUserId(1L));
-        System.out.println("\n"+showNoteDTO);
+        System.out.println("\n" + showNoteDTO);
         System.out.println("END");
     }
 }

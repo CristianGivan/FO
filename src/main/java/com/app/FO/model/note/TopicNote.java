@@ -44,6 +44,12 @@ public class TopicNote {
                 '}';
     }
 
+    public TopicNote(Topic topic, Note note, LocalDateTime linkDate) {
+        this.topic = topic;
+        this.note = note;
+        this.linkDate = linkDate;
+    }
+
     public Long getId() {
         return id;
     }
