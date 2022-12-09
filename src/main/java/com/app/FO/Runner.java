@@ -1,14 +1,13 @@
 package com.app.FO;
 
 
-import com.app.FO.dto.ConvertToDTO;
+import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.model.note.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
-import com.app.FO.repository.note.TagRepository;
 import com.app.FO.service.note.NoteService;
 import com.app.FO.service.note.TagService;
 import com.app.FO.service.note.TopicService;
@@ -32,19 +31,19 @@ public class Runner implements CommandLineRunner {
     private TagService tagService;
     private NoteService noteService;
     private TopicService topicService;
-    private ConvertToDTO convertToDTO;
+    private ConverterDTO converterDTO;
 
     @Autowired
     public Runner(UserService userService, RoleService roleService, UserRoleService userRoleService,
                   TagService tagService, NoteService noteService, TopicService topicService,
-                  ConvertToDTO convertToDTO) {
+                  ConverterDTO converterDTO) {
         this.userService = userService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
         this.tagService = tagService;
         this.noteService = noteService;
         this.topicService = topicService;
-        this.convertToDTO = convertToDTO;
+        this.converterDTO = converterDTO;
     }
 
     @Override
@@ -226,7 +225,7 @@ public class Runner implements CommandLineRunner {
         savedTopic3 = topicService.saveTopic(topic3);
 
 
-        NoteDTO showNoteDTO = convertToDTO.convertNoteToNoteDTO(savedNote1);
+        NoteDTO showNoteDTO = converterDTO.convertNoteToNoteDTO(savedNote1);
 
         System.out.println(note1.getNoteTags());
         System.out.println(roleService.findRolesByUserId(1L));

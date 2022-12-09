@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NoteDTO {
 
-    private Long id;
+    private Long noteId;
     private String note;
     private List<TagSDTO> tags;
     private UserSDTO user;
@@ -16,10 +16,10 @@ public class NoteDTO {
     private List<HistoryNoteSDTO> noteHistory;
 
 
-    public NoteDTO(Long id, String note, List<TagSDTO> tags, UserSDTO user,
+    public NoteDTO(Long noteId, String note, List<TagSDTO> tags, UserSDTO user,
                    LocalDateTime createdDateTime, List<TopicSDTO> topicsThatContainTheNote,
                    List<HistoryNoteSDTO> noteHistory) {
-        this.id = id;
+        this.noteId = noteId;
         this.note = note;
         this.tags = tags;
         this.user = user;
@@ -31,7 +31,7 @@ public class NoteDTO {
     @Override
     public String toString() {
         return "NoteFDTO{" +
-                "id=" + id +
+                "noteId=" + noteId +
                 ", note='" + note + '\'' +
                 ", tags=" + tags +
                 ", user=" + user +
@@ -41,12 +41,12 @@ public class NoteDTO {
                 '}';
     }
 
-    public Long getId() {
-        return id;
+    public Long getNoteId() {
+        return noteId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNoteId(Long noteId) {
+        this.noteId = noteId;
     }
 
     public String getNote() {

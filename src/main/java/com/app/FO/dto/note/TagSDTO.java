@@ -1,36 +1,36 @@
 package com.app.FO.dto.note;
 
 public class TagSDTO {
-    private Long id;
-    private String tagName;
+    private Long tagId;
+    private String tag;
 
     @Override
     public String toString() {
         return "TagSDTO{" +
-                "id=" + id +
-                ", tagName='" + tagName + '\'' +
+                "tagId=" + tagId +
+                ", tag='" + tag + '\'' +
                 '}';
     }
 
-    public TagSDTO(Long id, String tagName) {
-        this.id = id;
-        this.tagName = tagName;
+    public TagSDTO(Long tagId, String tagName) {
+        this.tagId = tagId;
+        this.tag = tagName;
 
     }
 
-    public Long getId() {
-        return id;
+    public Long getTagId() {
+        return tagId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTagId(Long tagId) {
+        this.tagId = tagId;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getTag() {
+        return tag;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

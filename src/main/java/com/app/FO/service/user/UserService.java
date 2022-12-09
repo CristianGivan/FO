@@ -9,6 +9,7 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
+import com.app.FO.service.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,11 +42,16 @@ public class UserService {
                 new UserNotFoundException("User not found"));
     }
 
-    public User saveUser(User user){
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
-    public List<User> findAllUsers(){
+
+    public List<User> findAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public User registerStandardUser(RegisterDTO newUser) throws ResponseStatusException {

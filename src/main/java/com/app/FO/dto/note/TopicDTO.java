@@ -1,13 +1,12 @@
 package com.app.FO.dto.note;
 
 import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.note.TopicHistory;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class TopicDTO {
-    private Long id;
+    private Long topicId;
     private String subject;
     private List<NoteSDTO> notes;
     private List<TagSDTO> tags;
@@ -21,7 +20,7 @@ public class TopicDTO {
     @Override
     public String toString() {
         return "TopicDTO{" +
-                "id=" + id +
+                "topicId=" + topicId +
                 ", subject='" + subject + '\'' +
                 ", notes=" + notes +
                 ", tags=" + tags +
@@ -31,9 +30,9 @@ public class TopicDTO {
                 '}';
     }
 
-    public TopicDTO(Long id, String subject, List<NoteSDTO> notes, List<TagSDTO> tags,
+    public TopicDTO(Long topicId, String subject, List<NoteSDTO> notes, List<TagSDTO> tags,
                     UserSDTO user, LocalDateTime createdDate, List<HistoryTopicSDTO> topicHistory) {
-        this.id = id;
+        this.topicId = topicId;
         this.subject = subject;
         this.notes = notes;
         this.tags = tags;
@@ -42,12 +41,12 @@ public class TopicDTO {
         this.topicHistory = topicHistory;
     }
 
-    public Long getId() {
-        return id;
+    public Long getTopicId() {
+        return topicId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTopicId(Long topicId) {
+        this.topicId = topicId;
     }
 
     public String getSubject() {

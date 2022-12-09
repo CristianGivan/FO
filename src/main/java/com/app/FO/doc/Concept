@@ -17,6 +17,7 @@ Functionalitati:
 - sa pot sa le aranjez in pagina/la subiect dupa cum vreau detaliile chiar sa modific sterg sau sa arhivez detalii
 - sa fac un DTO in care sa imi pun toate informatiile care vreau sa le arat
 si un DTO in care sa pun doar ID pentru celelalte entitati pentru a nu avem situatii recurente
+- sa pot ordona notele in topic
 
 Hotarat
 - un topic are un subiect scurt un detaliu de o propozitie/paragraf poata sa aiba mai multe taguri

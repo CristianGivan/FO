@@ -3,7 +3,7 @@ package com.app.FO.dto.note;
 import java.util.List;
 
 public class TagDTO {
-    private Long id;
+    private Long tagId;
     private String tagName;
     private List<NoteSDTO> notes;
     private List<TopicSDTO> topics;
@@ -11,26 +11,26 @@ public class TagDTO {
     @Override
     public String toString() {
         return "TagDTO{" +
-                "id=" + id +
+                "tagId=" + tagId +
                 ", tagName='" + tagName + '\'' +
                 ", notes=" + notes +
                 ", topics=" + topics +
                 '}';
     }
 
-    public TagDTO(Long id, String tagName, List<NoteSDTO> notes, List<TopicSDTO> topics) {
-        this.id = id;
+    public TagDTO(Long tagId, String tagName, List<NoteSDTO> notes, List<TopicSDTO> topics) {
+        this.tagId = tagId;
         this.tagName = tagName;
         this.notes = notes;
         this.topics = topics;
     }
 
-    public Long getId() {
-        return id;
+    public Long getTagId() {
+        return tagId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTagId(Long tagId) {
+        this.tagId = tagId;
     }
 
     public String getTagName() {

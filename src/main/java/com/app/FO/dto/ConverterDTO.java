@@ -11,10 +11,11 @@ import com.app.FO.service.user.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Configuration
-public class ConvertToDTO {
+public class ConverterDTO {
 
 
     private TagService tagService;
@@ -26,7 +27,7 @@ public class ConvertToDTO {
     private NoteService noteService;
 
     @Autowired
-    public ConvertToDTO(TagService tagService) {
+    public ConverterDTO(TagService tagService) {
         this.tagService = tagService;
     }
 
@@ -34,7 +35,7 @@ public class ConvertToDTO {
 
     public NoteDTO convertNoteToNoteDTO(Note note) {
         return new NoteDTO(note.getId(), note.getNote(),
-                convertListOfTagToListOfTagSDTO(tagService.getListOfTagByNote(note)),
+                convertListOfTagToListOfTagSDTO(tagService.getListOfTagByNoteId(note.getId())),
                 convertUserToUserSDTO(note.getUser()), note.getCreatedDate(),
                 convertListOfTopicsToListOfTopicSDTO(topicService.getTopicsByNote(note)),
                 convertListOfNoteHistoryToListOfNoteHistorySDTO(note.getNoteHistories())
@@ -57,7 +58,7 @@ public class ConvertToDTO {
 
     public TagDTO convertTagToTagDTO(Tag tag) {
         return new TagDTO(tag.getId(), tag.getTagName(),
-                convertListOfNoteToListOfNoteSDTO(noteService.getNotesByTag(tag)),
+                convertListOfNoteToListOfNoteSDTO(noteService.getNotesByTagId(tag.getId())),
                 convertListOfTopicsToListOfTopicSDTO(topicService.getTopicsByTag(tag))
         );
     }
@@ -74,17 +75,23 @@ public class ConvertToDTO {
         return tags.stream().map(this::convertTagToTagSDTO).toList();
     }
 
+    public Tag convertTagSDTOToTag(TagSDTO tagSDTO){
+        return new Tag(tagSDTO.getTag());
+    }
 
     //Topic
 
     public TopicDTO convertTopicToTopicDTO(Topic topic) {
         return new TopicDTO(topic.getId(), topic.getSubject(),
-                convertListOfNoteToListOfNoteSDTO(noteService.getNotesByTopic(topic)),
-                convertListOfTagToListOfTagSDTO(tagService.getTagsByTopic(topic)),
+                convertListOfNoteToListOfNoteSDTO(noteService.getNotesByTopicId(topic.getId())),
+                convertListOfTagToListOfTagSDTO(tagService.getTagsByTopicId(topic.getId())),
                 convertUserToUserSDTO(topic.getUser()),
                 topic.getCreatedDate(),
                 convertListOfTopicHistoryToListOfTopicHistorySDTO(topic.getTopicHistory())
         );
+    }
+    public List<TopicDTO> convertListOfTopicToListOfTopicDTO(List<Topic> topics){
+        return topics.stream().map(this::convertTopicToTopicDTO).toList();
     }
 
     private TopicSDTO convertTopicToTopicsSDTO(Topic topic) {

@@ -1,17 +1,17 @@
 package com.app.FO.dto.note;
 
 import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.user.User;
 
 import java.time.LocalDateTime;
 
 public class HistoryNoteSDTO {
-    private Long id;
+    private Long historyNoteId;
     private LocalDateTime modifiedDate;
     private UserSDTO user;
 
-    public HistoryNoteSDTO(Long id, LocalDateTime modifiedDate, UserSDTO user) {
-        this.id = id;
+
+    public HistoryNoteSDTO(Long HistoryNoteId, LocalDateTime modifiedDate, UserSDTO user) {
+        this.historyNoteId = HistoryNoteId;
         this.modifiedDate = modifiedDate;
         this.user = user;
     }
@@ -19,18 +19,18 @@ public class HistoryNoteSDTO {
     @Override
     public String toString() {
         return "HistoryNoteSDTO{" +
-                "id=" + id +
+                "historyNoteId=" + historyNoteId +
                 ", modifiedDate=" + modifiedDate +
                 ", user=" + user +
                 '}';
     }
 
-    public Long getId() {
-        return id;
+    public Long getHistoryNoteId() {
+        return historyNoteId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setHistoryNoteId(Long historyNoteId) {
+        this.historyNoteId = historyNoteId;
     }
 
     public LocalDateTime getModifiedDate() {

@@ -1,8 +1,5 @@
 package com.app.FO.service.note;
 
-import com.app.FO.dto.ConvertToDTO;
-import com.app.FO.dto.note.TagDTO;
-import com.app.FO.dto.note.TagSDTO;
 import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.Tag;
@@ -27,22 +24,30 @@ public class TagService {
     public Tag saveTag(Tag tag) {
         return tagRepository.save(tag);
     }
+    public Tag saveTagFromText(String tagTxt){
+        return tagRepository.save(new  Tag(tagTxt));
+    }
 
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
     }
 
-
-    public List<Tag> getListOfTagByNote(Note note){
-        return tagRepository.getTagsByNoteId(note.getId());
+    public List<Tag> getListOfTagByNoteId(Long noteId){
+        return tagRepository.getTagsByNoteId(noteId);
     }
 
-    public List<Tag> getTagsByTopic(Topic topic){
-        return tagRepository.getTagsByTopicId(topic.getId());
+    public List<Tag> getTagsByTopicId(Long topicId){
+        return tagRepository.getTagsByTopicId(topicId);
     }
+
     public Tag getTagById(Long tagId){
         return tagRepository.findById(tagId).orElseThrow(
                 ()->new TagNotFoundException("Tag not found"));
     }
+
+    public List<Tag> getTagsByName(String tagName){
+        return tagRepository.findTagsByTagName(tagName);
+    }
+
 
 }

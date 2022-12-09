@@ -1,5 +1,6 @@
 package com.app.FO.service.note;
 
+import com.app.FO.exceptions.TopicNotFoundException;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.Tag;
 import com.app.FO.model.note.Topic;
@@ -21,6 +22,14 @@ public class TopicService {
     public Topic saveTopic(Topic topic){
         return topicRepository.save(topic);
     }
+    public List<Topic> getAllTopics(){
+        return topicRepository.findAll();
+    }
+
+    public Topic getTopicById(Long topicId){
+        return topicRepository.findById(topicId).orElseThrow(
+                ()->new TopicNotFoundException("Topic not found"));
+    }
 
     public List<Topic> getTopicsByNote(Note note) {
         return topicRepository.getTopicsByNoteId(note.getId());
@@ -29,4 +38,7 @@ public class TopicService {
     public List<Topic> getTopicsByTag(Tag tag){
         return topicRepository.getTopicsByTagId(tag.getId());
     }
+
+
+
 }

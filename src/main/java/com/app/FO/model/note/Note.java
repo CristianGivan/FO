@@ -58,6 +58,10 @@ public class Note {
                 '}';
     }
 
+    public Note(String note) {
+        this.note = note;
+    }
+
     public Note(String note, User user, LocalDateTime createdDate) {
         this.note = note;
         this.user = user;

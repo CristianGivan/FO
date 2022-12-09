@@ -1,8 +1,9 @@
 package com.app.FO.controller.note;
 
-import com.app.FO.dto.ConvertToDTO;
+import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.TagDTO;
-import com.app.FO.model.note.Tag;
+import com.app.FO.dto.note.TagSDTO;
+import com.app.FO.dto.note.TextDTO;
 import com.app.FO.service.note.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,21 +15,49 @@ import java.util.List;
 public class TagController {
     private TagService tagService;
     @Autowired
-    private ConvertToDTO convertToDTO;
+    private ConverterDTO converterDTO;
 
     @Autowired
     public TagController(TagService tagService) {
         this.tagService = tagService;
     }
 
-    @GetMapping("/getAllTags")
-    public List<TagDTO> getAllTags(){
-        return convertToDTO.convertListOfTagToListOfTagDTO(tagService.getAllTags());
+    @PostMapping("/addNewTag")
+    public TagDTO addNewTag(@RequestBody TextDTO tagText) {
+        return converterDTO.convertTagToTagDTO(
+                tagService.saveTagFromText(tagText.getText()));
     }
-    @GetMapping("/getTagById/{tagId}")
-    public TagDTO getTagById(@PathVariable Long tagId){
-        return convertToDTO.convertTagToTagDTO(tagService.getTagById(tagId));
+    @PostMapping("/addNewTag1")
+    public TagDTO addNewTag(@RequestBody TagSDTO tagSDTO) {
+        return converterDTO.convertTagToTagDTO(
+                tagService.saveTagFromText(tagSDTO.getTag()));
     }
 
+    @GetMapping("/getAllTags")
+    public List<TagDTO> getAllTags() {
+        return converterDTO.convertListOfTagToListOfTagDTO(tagService.getAllTags());
+    }
+
+    @GetMapping("/getTagById/{tagId}")
+    public TagDTO getTagById(@PathVariable Long tagId) {
+        return converterDTO.convertTagToTagDTO(tagService.getTagById(tagId));
+    }
+
+    @GetMapping("/getTagByName/{tagName}")
+    public List<TagDTO> getTagByName(@PathVariable String tagName) {
+        return converterDTO.convertListOfTagToListOfTagDTO(
+                tagService.getTagsByName(tagName));
+    }
+
+    @GetMapping("/getTagByNoteId/{noteId}")
+    public List<TagDTO> getTagByNoteId(@PathVariable Long noteId) {
+        return converterDTO.convertListOfTagToListOfTagDTO(
+                tagService.getListOfTagByNoteId(noteId));
+    }
+    @GetMapping("/getTagByTopicId/{topicId}")
+    public List<TagDTO> getTagByTopicId(@PathVariable Long topicId) {
+        return converterDTO.convertListOfTagToListOfTagDTO(
+                tagService.getListOfTagByNoteId(topicId));
+    }
 
 }

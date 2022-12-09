@@ -2,7 +2,8 @@
 -@enbedebal sa aincepem entitati fara legatura
 
 pt Oli particular
-- ii o idee buna sa fac acest DTO generater;
+- este bine cum mi-am structurat DTO-urile?
 
 pt Oli general
 - cum facem sa dam acces doar la userul care ii logat acces la ce a facut el
+- cum faci u JSON o singura linie?

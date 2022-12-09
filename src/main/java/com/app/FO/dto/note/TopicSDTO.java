@@ -3,31 +3,31 @@ package com.app.FO.dto.note;
 import java.time.LocalDateTime;
 
 public class TopicSDTO {
-    private Long id;
+    private Long topicId;
     private String subject;
     private LocalDateTime createdDate;
 
     @Override
     public String toString() {
         return "TopicSDTO{" +
-                "id=" + id +
+                "topicId=" + topicId +
                 ", subject='" + subject + '\'' +
                 ", createdDate=" + createdDate +
                 '}';
     }
 
-    public TopicSDTO(Long id, String subject, LocalDateTime createdDate) {
-        this.id = id;
+    public TopicSDTO(Long topicId, String subject, LocalDateTime createdDate) {
+        this.topicId = topicId;
         this.subject = subject;
         this.createdDate = createdDate;
     }
 
-    public Long getId() {
-        return id;
+    public Long getTopicId() {
+        return topicId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTopicId(Long topicId) {
+        this.topicId = topicId;
     }
 
     public String getSubject() {

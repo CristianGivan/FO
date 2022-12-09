@@ -1,12 +1,11 @@
 package com.app.FO.dto.note;
 
 import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.user.User;
 
 import java.time.LocalDateTime;
 
 public class HistoryTopicSDTO {
-    private Long id;
+    private Long historyTopicId;
     private LocalDateTime modifiedDate;
     private UserSDTO user;
 
@@ -16,24 +15,24 @@ public class HistoryTopicSDTO {
     @Override
     public String toString() {
         return "HistoryTopicSDTO{" +
-                "id=" + id +
+                "historyTopicId=" + historyTopicId +
                 ", modifiedDate=" + modifiedDate +
                 ", user=" + user +
                 '}';
     }
 
-    public HistoryTopicSDTO(Long id, LocalDateTime modifiedDate, UserSDTO user) {
-        this.id = id;
+    public HistoryTopicSDTO(Long historyTopicId, LocalDateTime modifiedDate, UserSDTO user) {
+        this.historyTopicId = historyTopicId;
         this.modifiedDate = modifiedDate;
         this.user = user;
     }
 
-    public Long getId() {
-        return id;
+    public Long getHistoryTopicId() {
+        return historyTopicId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setHistoryTopicId(Long historyTopicId) {
+        this.historyTopicId = historyTopicId;
     }
 
     public LocalDateTime getModifiedDate() {
