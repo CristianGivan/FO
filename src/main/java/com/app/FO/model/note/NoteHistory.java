@@ -32,9 +32,14 @@ public class NoteHistory {
     @JoinColumn(name = "note_id")
     @JsonIgnore
     private Note note;
+
+    @Column(name = "text")
+    private String noteText;
 // ToDO sa mai adaug celelte atribute care le vreau salvate in history sa vad daca nu pot sa las si asa si se salveaza automat
+//  sa ma gandesc cum ar fi mai bine sa salvez tot ce este in note sau  sa salvez doar diferentele gen Git
 //    @Column(name = "note")
 //    private NoteDTO noteOldVersion;
+
 
 
     public NoteHistory() {
@@ -48,6 +53,13 @@ public class NoteHistory {
                 ", userId=" + user.getId() +
                 ", noteId=" + note.getId() +
                 '}';
+    }
+
+    public NoteHistory(LocalDateTime modifiedDate, User user, Note note, String noteText) {
+        this.modifiedDate = modifiedDate;
+        this.user = user;
+        this.note = note;
+        this.noteText = noteText;
     }
 
     public Long getId() {
@@ -76,5 +88,14 @@ public class NoteHistory {
 
     public void setNote(Note note) {
         this.note = note;
+    }
+
+
+    public String getNoteText() {
+        return noteText;
+    }
+
+    public void setNoteText(String noteText) {
+        this.noteText = noteText;
     }
 }

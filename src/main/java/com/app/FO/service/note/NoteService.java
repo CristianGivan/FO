@@ -2,7 +2,7 @@ package com.app.FO.service.note;
 
 import com.app.FO.exceptions.NoteNotFoundException;
 import com.app.FO.model.note.Note;
-import com.app.FO.model.note.Topic;
+import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.service.user.UserService;
@@ -25,28 +25,48 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    public Note saveNote(Note note){
+    public Note saveNote(Note note) {
         return noteRepository.save(note);
     }
-    public Note saveNote(String note){
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        User user = userService.getUserByUsername(userDetails.getUsername());
-        return new Note(note,user, LocalDateTime.now());
+
+    public Note saveNote(String note) {
+        return noteRepository.save(new Note(note, getActualUser(), LocalDateTime.now()));
     }
-    public List<Note> getAllNotes(){
+
+    public Note modifiesNoteText(Long noteId, String noteText){
+        Note updatedNote = getNoteById(noteId);
+        NoteHistory noteHistory = createNoteHistory(updatedNote);
+        updatedNote.setUser(getActualUser());
+        updatedNote.setNote(noteText);
+        updatedNote.getNoteHistories().add(noteHistory);
+        return noteRepository.save(updatedNote);
+    }
+
+    public List<Note> getAllNotes() {
         return noteRepository.findAll();
     }
-    public Note getNoteById(Long noteId){
+
+    public Note getNoteById(Long noteId) {
         return noteRepository.findById(noteId)
-                .orElseThrow(()->new NoteNotFoundException(" Note not found"));
+                .orElseThrow(() -> new NoteNotFoundException(" Note not found"));
     }
-    public List<Note> getNotesByTagId(Long tagId){
+
+    public List<Note> getNotesByTagId(Long tagId) {
         return noteRepository.getNotesByTagId(tagId);
     }
 
-    public List<Note> getNotesByTopicId(Long topicId){
+    public List<Note> getNotesByTopicId(Long topicId) {
         return noteRepository.getNotesByTopicId(topicId);
+    }
+
+    public NoteHistory createNoteHistory(Note note) {
+        return new NoteHistory(LocalDateTime.now(), note.getUser(), note, note.getNote());
+    }
+
+    public User getActualUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        return userService.getUserByUsername(userDetails.getUsername());
     }
 
 }

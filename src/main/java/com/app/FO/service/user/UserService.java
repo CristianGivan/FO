@@ -12,6 +12,8 @@ import com.app.FO.repository.user.UserRoleRepository;
 import com.app.FO.service.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,6 +24,10 @@ import java.util.List;
 
 @Service
 public class UserService {
+
+    //ToDo ii corect ce am facut aici ca a mai facut un repository static?
+    @Autowired
+    private static UserRepository userRepositoryStatic;
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private RoleService roleService;
@@ -52,6 +58,13 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+    //todo nu merge inmi da err de nullpoint exception
+    static public User getActualUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        User foundUser=userRepositoryStatic.findByUsername(userDetails.getUsername());
+        return foundUser;
     }
 
     public User registerStandardUser(RegisterDTO newUser) throws ResponseStatusException {

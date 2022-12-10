@@ -106,7 +106,7 @@ public class ConverterDTO {
 
     private HistoryNoteSDTO convertNoteHistoryToNoteHistorySDTO(NoteHistory noteHistory) {
         return new HistoryNoteSDTO(noteHistory.getId(), noteHistory.getModifiedDate(),
-                convertUserToUserSDTO(noteHistory.getUser()));
+                convertUserToUserSDTO(noteHistory.getUser()), noteHistory.getNoteText());
     }
 
     private List<HistoryNoteSDTO> convertListOfNoteHistoryToListOfNoteHistorySDTO(List<NoteHistory> noteHistories) {

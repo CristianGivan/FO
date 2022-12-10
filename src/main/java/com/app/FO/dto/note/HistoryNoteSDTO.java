@@ -9,11 +9,15 @@ public class HistoryNoteSDTO {
     private LocalDateTime modifiedDate;
     private UserSDTO user;
 
+    private String noteText;
 
-    public HistoryNoteSDTO(Long HistoryNoteId, LocalDateTime modifiedDate, UserSDTO user) {
-        this.historyNoteId = HistoryNoteId;
+
+    public HistoryNoteSDTO(Long historyNoteId, LocalDateTime modifiedDate,
+                           UserSDTO user, String noteText) {
+        this.historyNoteId = historyNoteId;
         this.modifiedDate = modifiedDate;
         this.user = user;
+        this.noteText = noteText;
     }
 
     @Override
