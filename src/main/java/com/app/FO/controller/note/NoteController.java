@@ -1,17 +1,11 @@
 package com.app.FO.controller.note;
 
 import com.app.FO.dto.ConverterDTO;
+import com.app.FO.dto.general.NumberDTO;
 import com.app.FO.dto.note.NoteDTO;
-import com.app.FO.dto.note.NoteSDTO;
-import com.app.FO.dto.note.TextDTO;
-import com.app.FO.model.note.Note;
-import com.app.FO.model.note.NoteHistory;
-import com.app.FO.model.user.User;
+import com.app.FO.dto.general.TextDTO;
 import com.app.FO.service.note.NoteService;
-import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,25 +51,33 @@ public class NoteController {
                 noteService.saveNote(note.getText()));
     }
     /*new features
-     *1. update a note
-     *2. save a note in history aftere an update
+     *
+     *
      *3. add a tag to a note
      *
      * */
 
-    /*
-    * testez daca schim useru se salvaza in history
-    * */
     @PutMapping("/modifiesNoteText/{noteId}")
     public NoteDTO modifiesNoteText(@PathVariable Long noteId, @RequestBody TextDTO textNote) {
-//        Note foundNote = noteService.getNoteById(noteId);
-//        NoteHistory noteHistory = noteService.createNoteHistory(foundNote);
-//        //foundNote.setUser(UserService.getActualUser());
-//        foundNote.setNote(textNote.getText());
-//        foundNote.getNoteHistories().add(noteHistory);
-//        return converterDTO.convertNoteToNoteDTO(
-//                noteService.saveNote(foundNote));
         return converterDTO.convertNoteToNoteDTO(
                 noteService.modifiesNoteText(noteId, textNote.getText()));
     }
+//    @PutMapping("/addTagToNote/{noteId}")
+//    public NoteDTO addTagToNote(@PathVariable Long noteId, @RequestBody NumberDTO tagId) {
+//        return converterDTO.convertNoteToNoteDTO(
+//                noteService.addTagToNote(noteId, tagId.getNumber()));
+//    }
+
+    @PutMapping("/addTagToNote")
+    public NoteDTO addTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
+        return converterDTO.convertNoteToNoteDTO(
+                noteService.addTagToNote(noteId, tagId));
+    }
+
+    @DeleteMapping("/deleteTagFromNote")
+    public NoteDTO deleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
+        return converterDTO.convertNoteToNoteDTO(
+                noteService.deleteTagFromNote(noteId, tagId));
+    }
+
 }

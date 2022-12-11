@@ -9,14 +9,17 @@ public class HistoryNoteSDTO {
     private LocalDateTime modifiedDate;
     private UserSDTO user;
 
+    private Long noteId;
+
     private String noteText;
 
 
-    public HistoryNoteSDTO(Long historyNoteId, LocalDateTime modifiedDate,
-                           UserSDTO user, String noteText) {
+    public HistoryNoteSDTO(Long historyNoteId, LocalDateTime modifiedDate, UserSDTO user, Long noteId,
+                           String noteText) {
         this.historyNoteId = historyNoteId;
         this.modifiedDate = modifiedDate;
         this.user = user;
+        this.noteId = noteId;
         this.noteText = noteText;
     }
 
@@ -51,5 +54,21 @@ public class HistoryNoteSDTO {
 
     public void setUser(UserSDTO user) {
         this.user = user;
+    }
+
+    public Long getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(Long noteId) {
+        this.noteId = noteId;
+    }
+
+    public String getNoteText() {
+        return noteText;
+    }
+
+    public void setNoteText(String noteText) {
+        this.noteText = noteText;
     }
 }

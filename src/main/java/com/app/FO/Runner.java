@@ -3,12 +3,15 @@ package com.app.FO;
 
 import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.NoteDTO;
+import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.model.note.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
+import com.app.FO.repository.note.NoteTagRepository;
 import com.app.FO.service.note.NoteService;
+import com.app.FO.service.note.NoteTagService;
 import com.app.FO.service.note.TagService;
 import com.app.FO.service.note.TopicService;
 import com.app.FO.service.user.RoleService;
@@ -32,6 +35,9 @@ public class Runner implements CommandLineRunner {
     private NoteService noteService;
     private TopicService topicService;
     private ConverterDTO converterDTO;
+
+    @Autowired
+    private NoteTagRepository noteTagRepository;
 
     @Autowired
     public Runner(UserService userService, RoleService roleService, UserRoleService userRoleService,
@@ -117,10 +123,12 @@ public class Runner implements CommandLineRunner {
         Note note1 = new Note("Note1", savedUser1, LocalDateTime.now().minusDays(1));
         Note note2 = new Note("Note2", savedUser2, LocalDateTime.now().minusDays(2));
         Note note3 = new Note("Note3", savedUser3, LocalDateTime.now().minusDays(3));
+        Note note4 = new Note("Note4", savedUser3, LocalDateTime.now().minusDays(3));
 
         Note savedNote1 = noteService.saveNote(note1);
         Note savedNote2 = noteService.saveNote(note2);
         Note savedNote3 = noteService.saveNote(note3);
+        Note savedNote4 = noteService.saveNote(note4);
 
         NoteTag noteTag1 = new NoteTag(savedNote1, savedTag1, LocalDateTime.now().minusHours(1));
         NoteTag noteTag2 = new NoteTag(savedNote1, savedTag2, LocalDateTime.now().minusHours(1));
@@ -229,6 +237,12 @@ public class Runner implements CommandLineRunner {
 
         System.out.println(note1.getNoteTags());
         System.out.println(roleService.findRolesByUserId(1L));
+
+        NoteTag deleteNoteTag =noteTagRepository.findById(2L).orElseThrow(()->new TagNotFoundException("-"));
+//        noteTagRepository.delete(deleteNoteTag);
+//        savedNote1.getNoteTags().remove(deleteNoteTag);
+//        noteService.saveNote(savedNote1);
+        System.out.println(savedNote1);
         System.out.println("\n" + showNoteDTO);
         System.out.println("END");
     }

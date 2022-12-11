@@ -51,7 +51,7 @@ public class Note {
                 "id=" + id +
                 ", note='" + note + '\'' +
                 ", noteTags=" + noteTags +
-                ", user=" + user +
+                ", userid=" + user.getId() +
                 ", createdDate=" + createdDate +
                 ", noteHistories=" + noteHistories +
                 ", topicNotes=" + topicNotes +

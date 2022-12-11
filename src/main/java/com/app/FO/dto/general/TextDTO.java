@@ -1,4 +1,4 @@
-package com.app.FO.dto.note;
+package com.app.FO.dto.general;
 
 public class TextDTO {
     private String text;

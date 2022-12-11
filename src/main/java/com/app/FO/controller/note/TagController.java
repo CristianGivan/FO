@@ -3,7 +3,7 @@ package com.app.FO.controller.note;
 import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.TagDTO;
 import com.app.FO.dto.note.TagSDTO;
-import com.app.FO.dto.note.TextDTO;
+import com.app.FO.dto.general.TextDTO;
 import com.app.FO.service.note.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
