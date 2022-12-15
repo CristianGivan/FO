@@ -1,3 +1,64 @@
+Event
+- de exemplu organizarea unui eveniment
+- poate sa contina toate elementele adica si planer si topic
+
+Reminder
+- daca trebuie sa imi amintesc ceva
+- un string in care am concatenat (;) lista de timpi cand am dat snooze ca sa imi ramana inregistrarea
+
+Taguri
+- un element de identificare rapida a unui subiect de interes
+
+
+// Notes-------------
+
+Topic
+- o colectie de notite
+- ar putea contribui mai multi utilizatori...
+
+Notite
+- o ideie notata
+
+
+// Tasks -----------------------
+
+TaskList
+- o lista de tascuri care trebuie facute
+sa ii se adauge un tag autoat planer
+
+ Task
+- un simplu lucru de facut de catre o singura persoana dar poate sa aiba notite de la alti utilizatori,
+- taskul se poate treansfera la alt utilizator
+
+
+// Expenses-------------
+
+Bills
+
+ShoppingList
+- lista de cumparaturi
+
+Wishlist
+- o lista cu lucrurile pe care planuiesc sa le cumpar in anumite conditii
+
+Product
+- o lista de produse care vreau sa le cumpar
+
+Expenses
+
+Save for future expenses
+- suma de bani pusa pentru viitoare cheltuieli
+
+
+
+
+
+
+
+
+
+
+
 General State
     Note
     -Subject

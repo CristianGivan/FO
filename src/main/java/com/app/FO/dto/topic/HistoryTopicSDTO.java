@@ -1,4 +1,4 @@
-package com.app.FO.dto.note;
+package com.app.FO.dto.topic;
 
 import com.app.FO.dto.user.UserSDTO;
 

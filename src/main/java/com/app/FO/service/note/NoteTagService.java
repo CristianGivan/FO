@@ -1,9 +1,8 @@
 package com.app.FO.service.note;
 
 import com.app.FO.exceptions.NoteTagNotFoundException;
-import com.app.FO.model.note.Note;
 import com.app.FO.model.note.NoteTag;
-import com.app.FO.model.note.Tag;
+import com.app.FO.model.Tag;
 import com.app.FO.repository.note.NoteTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

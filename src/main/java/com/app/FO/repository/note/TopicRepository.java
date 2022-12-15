@@ -1,6 +1,6 @@
 package com.app.FO.repository.note;
 
-import com.app.FO.model.note.Topic;
+import com.app.FO.model.topic.Topic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

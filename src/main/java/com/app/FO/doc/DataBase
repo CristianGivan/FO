@@ -10,4 +10,5 @@ Relations:
     Tasks-<Subtasks
 
 
-
+drop database fo_db;
+create database fo_db

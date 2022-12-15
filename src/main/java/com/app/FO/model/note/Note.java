@@ -1,5 +1,8 @@
 package com.app.FO.model.note;
 
+import com.app.FO.model.Remainder;
+import com.app.FO.model.task.TaskNote;
+import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "note")
+@Table(name = "notes")
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_seq")
@@ -34,13 +37,18 @@ public class Note {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name = "note")
+    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+   // @JoinColumn(name = "note")
     private List<TopicNote> topicNotes;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    // @JoinColumn(name = "note")
+    private List<TaskNote> taskNotes;
+    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<NoteHistory> noteHistories;
 
+    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private List<Remainder> remainders;
 
     public Note() {
     }

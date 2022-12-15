@@ -1,4 +1,4 @@
-package com.app.FO.dto.note;
+package com.app.FO.dto.tag;
 
 public class TagSDTO {
     private Long tagId;

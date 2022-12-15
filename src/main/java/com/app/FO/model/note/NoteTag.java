@@ -1,5 +1,6 @@
 package com.app.FO.model.note;
 
+import com.app.FO.model.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

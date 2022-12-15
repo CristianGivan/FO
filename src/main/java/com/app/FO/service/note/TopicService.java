@@ -2,8 +2,8 @@ package com.app.FO.service.note;
 
 import com.app.FO.exceptions.TopicNotFoundException;
 import com.app.FO.model.note.Note;
-import com.app.FO.model.note.Tag;
-import com.app.FO.model.note.Topic;
+import com.app.FO.model.Tag;
+import com.app.FO.model.topic.Topic;
 import com.app.FO.repository.note.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

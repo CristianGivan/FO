@@ -3,16 +3,19 @@ package com.app.FO.model.user;
 
 import com.app.FO.exceptions.IdAlreadyAllocatedException;
 import com.app.FO.model.note.NoteHistory;
-import com.app.FO.model.note.TopicHistory;
+import com.app.FO.model.Remainder;
+import com.app.FO.model.task.Task;
+import com.app.FO.model.task.TaskHistory;
+import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.note.Note;
-import com.app.FO.model.note.Topic;
+import com.app.FO.model.topic.Topic;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
@@ -30,20 +33,29 @@ public class User {
     private String password;
 
 
-    @OneToMany(mappedBy = "user"/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE}*/)
+    @OneToMany(mappedBy = "user")
     private List<UserRole> userRoles;
 
-    @OneToMany(mappedBy = "user"/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE}*/)
+    @OneToMany(mappedBy = "user")
     private List<Topic> topics;
 
     @OneToMany(mappedBy = "user")
     private List<TopicHistory> topicHistories;
 
-    @OneToMany(mappedBy = "user"/*, cascade = {CascadeType.PERSIST, CascadeType.MERGE}*/)
+    @OneToMany(mappedBy = "user")
     private List<Note> notes;
 
     @OneToMany(mappedBy = "user")
     private List<NoteHistory> noteHistories;
+
+    @OneToMany(mappedBy = "user")
+    private List<Remainder> remainders;
+
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user")
+    private List<TaskHistory> taskHistories;
 
     public User() {
     }

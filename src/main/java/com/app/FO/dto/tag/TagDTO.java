@@ -1,4 +1,7 @@
-package com.app.FO.dto.note;
+package com.app.FO.dto.tag;
+
+import com.app.FO.dto.note.NoteSDTO;
+import com.app.FO.dto.topic.TopicSDTO;
 
 import java.util.List;
 

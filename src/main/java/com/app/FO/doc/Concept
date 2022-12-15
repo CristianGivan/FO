@@ -5,7 +5,6 @@ Cheltuieli lunare pentru fiecare user si pentru toata familia cheltuieli de fami
 Notificari care sa pe care sa le pui in diferite moduri si sa ai un snoz foarte fain
 Tag care sa descrie componentele
 
-
 Posibilitati:
 - un user ar putea fi default la care sa se poata atribui toate lucrurile generate de aplicatie
 gen o lista de taguri generale
@@ -18,9 +17,15 @@ Functionalitati:
 - sa fac un DTO in care sa imi pun toate informatiile care vreau sa le arat
 si un DTO in care sa pun doar ID pentru celelalte entitati pentru a nu avem situatii recurente
 - sa pot ordona notele in topic
+- la cate un topic sa pot adauga diferite lucruri note tag remainder to do check list si altele
+- la un topic pot contribui mai multi utilizatori
 
 Hotarat
 - un topic are un subiect scurt un detaliu de o propozitie/paragraf poata sa aiba mai multe taguri
 - de fiecare data cand se mai adauga o notita se mai face o nota
 - la fiecare modificare se va salva intr-un history versiunea anterioara modificari
 - oricine poate sa vada toate tagurile incluse, pe viitor pot aparea taguri private doar la utilizitorul care este logat
+
+Idei
+
+-Nu as putea sa imi structurez aplicatia mult mai simplu cum ar fi notitele un element iar celelate sa fie doar lissta, topics tasks...?

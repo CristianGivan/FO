@@ -2,11 +2,10 @@ package com.app.FO.service.note;
 
 import com.app.FO.exceptions.NoteNotFoundException;
 import com.app.FO.exceptions.TagAlreadyExistException;
-import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.note.NoteTag;
-import com.app.FO.model.note.Tag;
+import com.app.FO.model.Tag;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.service.user.UserService;

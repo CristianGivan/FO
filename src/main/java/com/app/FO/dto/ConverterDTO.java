@@ -1,8 +1,16 @@
 package com.app.FO.dto;
 
 import com.app.FO.dto.note.*;
+import com.app.FO.dto.tag.TagDTO;
+import com.app.FO.dto.tag.TagSDTO;
+import com.app.FO.dto.topic.HistoryTopicSDTO;
+import com.app.FO.dto.topic.TopicDTO;
+import com.app.FO.dto.topic.TopicSDTO;
 import com.app.FO.dto.user.UserSDTO;
+import com.app.FO.model.Tag;
 import com.app.FO.model.note.*;
+import com.app.FO.model.topic.Topic;
+import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.user.User;
 import com.app.FO.service.note.NoteService;
 import com.app.FO.service.note.TagService;
@@ -11,7 +19,6 @@ import com.app.FO.service.user.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Configuration

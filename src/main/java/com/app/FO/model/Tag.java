@@ -1,4 +1,8 @@
-package com.app.FO.model.note;
+package com.app.FO.model;
+
+import com.app.FO.model.note.NoteTag;
+import com.app.FO.model.task.TaskTag;
+import com.app.FO.model.topic.TopicTag;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +27,8 @@ public class Tag {
     @OneToMany(mappedBy = "tag")
     private List<TopicTag> topicTags;
 
+    @OneToMany(mappedBy = "tag")
+    private List<TaskTag> taskTags;
 
     public Tag() {
     }

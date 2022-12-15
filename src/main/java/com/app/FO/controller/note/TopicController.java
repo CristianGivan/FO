@@ -1,10 +1,7 @@
 package com.app.FO.controller.note;
 
 import com.app.FO.dto.ConverterDTO;
-import com.app.FO.dto.note.TagDTO;
-import com.app.FO.dto.note.TagSDTO;
-import com.app.FO.dto.note.TopicDTO;
-import com.app.FO.model.note.Tag;
+import com.app.FO.dto.topic.TopicDTO;
 import com.app.FO.service.note.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

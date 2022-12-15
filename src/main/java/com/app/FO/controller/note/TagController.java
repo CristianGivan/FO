@@ -1,8 +1,8 @@
 package com.app.FO.controller.note;
 
 import com.app.FO.dto.ConverterDTO;
-import com.app.FO.dto.note.TagDTO;
-import com.app.FO.dto.note.TagSDTO;
+import com.app.FO.dto.tag.TagDTO;
+import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.service.note.TagService;
 import org.springframework.beans.factory.annotation.Autowired;

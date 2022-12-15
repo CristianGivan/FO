@@ -1,7 +1,5 @@
 package com.app.FO.model.note;
 
-import com.app.FO.model.note.Note;
-import com.app.FO.model.note.Topic;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,7 +18,7 @@ public class NoteHistory {
     @Column(name = "note_history_id")
     private Long id;
 
-    @Column(name = "modifed_date")
+    @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
     @ManyToOne

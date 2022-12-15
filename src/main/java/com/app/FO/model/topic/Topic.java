@@ -1,5 +1,6 @@
-package com.app.FO.model.note;
+package com.app.FO.model.topic;
 
+import com.app.FO.model.Remainder;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "topic")
+@Table(name = "topics")
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_seq")
@@ -39,6 +40,8 @@ public class Topic {
 
     @OneToMany(mappedBy = "topic")
     private List<TopicHistory> topicHistory;
+    @OneToMany(mappedBy = "topic")
+    private List<Remainder> remainders;
 
 
     public Topic() {
