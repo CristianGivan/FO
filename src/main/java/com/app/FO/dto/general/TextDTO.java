@@ -1,14 +1,12 @@
 package com.app.FO.dto.general;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class TextDTO {
     private String text;
-    private String text1;
 
-    public TextDTO(String text, String text1) {
-        this.text = text;
-        this.text1 = text1;
-    }
 
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public TextDTO(String text) {
         this.text = text;
     }
@@ -16,7 +14,7 @@ public class TextDTO {
     @Override
     public String toString() {
         return "TextDTO{" +
-                "text='" + text + '\'' +
+          //      "text='" + text + '\'' +
                 '}';
     }
 

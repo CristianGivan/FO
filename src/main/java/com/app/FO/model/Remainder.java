@@ -1,6 +1,7 @@
 package com.app.FO.model;
 
 import com.app.FO.model.note.Note;
+import com.app.FO.model.task.Task;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 
@@ -32,11 +33,13 @@ public class Remainder {
     @Column(name = "snooze_time")
     private LocalDateTime snoozeTime;
 
+    //todo un test la cum sa facem cu lista de snoose poate un alt tabel dar nu cred
     @Column(name = "snoozed")
     private String snoozed;
 
+    //todo ar putea fi un tabel de legatura?
     @OneToMany
-    @JoinColumn(name = "remainder")
+    @JoinColumn(name = "remainders")
     private List<Remainder> repeatedReminders;
 
     @ManyToOne
@@ -51,6 +54,8 @@ public class Remainder {
     @JoinColumn(name = "user_id")
     private User user;
 
-
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
 
 }

@@ -40,6 +40,7 @@ public class Topic {
 
     @OneToMany(mappedBy = "topic")
     private List<TopicHistory> topicHistory;
+
     @OneToMany(mappedBy = "topic")
     private List<Remainder> remainders;
 

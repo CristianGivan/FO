@@ -6,6 +6,8 @@ import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.Remainder;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
+import com.app.FO.model.tasklist.TaskList;
+import com.app.FO.model.tasklist.TaskListHistory;
 import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.topic.Topic;
@@ -56,6 +58,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<TaskHistory> taskHistories;
+
+    @OneToMany(mappedBy = "user")
+    private List<TaskList> taskListLists;
+
+    @OneToMany(mappedBy = "user")
+    private List<TaskListHistory> taskListHistories;
 
     public User() {
     }

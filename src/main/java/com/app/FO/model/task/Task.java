@@ -1,6 +1,9 @@
 package com.app.FO.model.task;
 
+import com.app.FO.model.Remainder;
 import com.app.FO.model.note.NoteTag;
+import com.app.FO.model.tasklist.TaskListTask;
+import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,8 +40,14 @@ public class Task {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
+    @Column (name = "task_status")
+    private TaskStatus taskStatus;
+
     @Column(name = "total_working_time")
     private double totalWorkingTime;
+
+    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private List<Remainder> remainders;
 
     //todo date and time when I worked and how much
 
@@ -50,6 +59,9 @@ public class Task {
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TaskNote> taskNotes;
+
+    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private List<TaskListTask> taskListTasks;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TaskHistory> taskHistories;
