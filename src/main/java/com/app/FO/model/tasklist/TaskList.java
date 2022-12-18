@@ -21,10 +21,10 @@ public class TaskList {
     @Column(name = "task_lists_id")
     private Long id;
 
+    @Column(name = "name")
+    private String taskListName;
 
-
-
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
@@ -38,12 +38,12 @@ public class TaskList {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @Column (name = "task_status")
+    @Column(name = "task_status")
     private TaskStatus taskStatus;
 
-    @OneToMany(mappedBy = "taskList",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "taskList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskListTask> taskListTasks;
 
-    @OneToMany(mappedBy = "taskList",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "taskList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskListHistory> TaskListHistory;
 }

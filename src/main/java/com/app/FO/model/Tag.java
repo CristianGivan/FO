@@ -1,5 +1,7 @@
 package com.app.FO.model;
 
+import com.app.FO.model.expense.Expense;
+import com.app.FO.model.expense.ExpenseTag;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.topic.TopicTag;
@@ -29,6 +31,9 @@ public class Tag {
 
     @OneToMany(mappedBy = "tag")
     private List<TaskTag> taskTags;
+
+    @OneToMany(mappedBy = "expense")
+    private List<ExpenseTag> expenseTags;
 
     public Tag() {
     }

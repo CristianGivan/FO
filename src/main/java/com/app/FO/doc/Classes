@@ -33,21 +33,23 @@ sa ii se adauge un tag autoat planer
 
 // Expenses-------------
 
-Bills
-
-ShoppingList
-- lista de cumparaturi
-
-Wishlist
-- o lista cu lucrurile pe care planuiesc sa le cumpar in anumite conditii
-
-Product
-- o lista de produse care vreau sa le cumpar
-
 Expenses
+- ploduse sau facturi care le voi achizitiona
+
+ExpensesList
+- lista de cumparaturi care mai pote fi Wishlist
+
+Transaction
+- transactions that are done for expenses donations savings
+
+Account
+- account from where to where the money are transferred;
+- Expenses, Savings and Donations are external accounts and can be personal or shared accounts.
+
 
 Save for future expenses
 - suma de bani pusa pentru viitoare cheltuieli
+
 
 
 
