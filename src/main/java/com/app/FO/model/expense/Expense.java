@@ -1,6 +1,6 @@
 package com.app.FO.model.expense;
 
-import com.app.FO.model.Tag;
+import com.app.FO.model.expenseslist.ExpensesList;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "expense")
+@Table(name = "expenses")
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expense_seq")
@@ -45,16 +45,16 @@ public class Expense {
     private String market;
 
     @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "creator_id")
     @JsonIgnore
     private User creator;
 
     @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "payer_id")
     @JsonIgnore
     private User payer;
 
-    @OneToMany(mappedBy = "tag", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "expense", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTag> expenseTags;
 
     @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -62,4 +62,129 @@ public class Expense {
     @JsonIgnore
     private ExpensesList expensesList;
 
+    public Expense() {
+    }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", expanseName='" + expanseName + '\'' +
+                ", details='" + details + '\'' +
+                ", quantity=" + quantity +
+                ", unit='" + unit + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", createDate=" + createDate +
+                ", paidDate=" + paidDate +
+                ", market='" + market + '\'' +
+                ", creatorId=" + creator.getId() +
+                ", payerId=" + payer.getId() +
+                ", expenseTags=" + expenseTags +
+                ", expensesListId=" + expensesList.getId() +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getExpanseName() {
+        return expanseName;
+    }
+
+    public void setExpanseName(String expanseName) {
+        this.expanseName = expanseName;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getPaidDate() {
+        return paidDate;
+    }
+
+    public void setPaidDate(LocalDateTime paidDate) {
+        this.paidDate = paidDate;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public void setMarket(String market) {
+        this.market = market;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public User getPayer() {
+        return payer;
+    }
+
+    public void setPayer(User payer) {
+        this.payer = payer;
+    }
+
+    public List<ExpenseTag> getExpenseTags() {
+        return expenseTags;
+    }
+
+    public void setExpenseTags(List<ExpenseTag> expenseTags) {
+        this.expenseTags = expenseTags;
+    }
+
+    public ExpensesList getExpensesList() {
+        return expensesList;
+    }
+
+    public void setExpensesList(ExpensesList expensesList) {
+        this.expensesList = expensesList;
+    }
 }

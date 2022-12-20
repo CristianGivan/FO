@@ -31,4 +31,48 @@ public class TaskEffort {
     @JsonIgnore
     private Task task;
 
+    public TaskEffort() {
+    }
+
+    @Override
+    public String toString() {
+        return "TaskEffort{" +
+                "id=" + id +
+                ", workingDate=" + workingDate +
+                ", workingTime=" + workingTime +
+                ", taskId=" + task.getId() +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getWorkingDate() {
+        return workingDate;
+    }
+
+    public void setWorkingDate(LocalDate workingDate) {
+        this.workingDate = workingDate;
+    }
+
+    public Double getWorkingTime() {
+        return workingTime;
+    }
+
+    public void setWorkingTime(Double workingTime) {
+        this.workingTime = workingTime;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
 }

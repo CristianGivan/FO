@@ -32,4 +32,49 @@ public class TaskListHistory {
     @JoinColumn(name = "task_list_id")
     @JsonIgnore
     private TaskList taskList;
+
+    public TaskListHistory() {
+    }
+
+    @Override
+    public String toString() {
+        return "TaskListHistory{" +
+                "id=" + id +
+                ", modifiedDate=" + modifiedDate +
+                ", userId=" + user.getId() +
+                ", taskListId=" + taskList.getId() +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+    }
 }

@@ -1,4 +1,4 @@
-package com.app.FO.model.expense;
+package com.app.FO.model.event;
 
 import com.app.FO.model.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,21 +7,21 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expense_tag")
-public class ExpenseTag {
+@Table(name = "event_tags")
+public class EventTags {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expense_tag_seq")
-    @SequenceGenerator(name = "expense_tag_seq",
-            sequenceName = "expense_tag_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_tag_seq")
+    @SequenceGenerator(name = "event_tag_seq",
+            sequenceName = "event_tag_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "expense_tag_id")
+    @Column(name = "event_tag_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "expense_id")
+    @JoinColumn(name = "event_id")
     @JsonIgnore
-    private Expense expense;
+    private Event event;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
@@ -31,14 +31,14 @@ public class ExpenseTag {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public ExpenseTag() {
+    public EventTags() {
     }
 
     @Override
     public String toString() {
-        return "ExpenseTag{" +
+        return "EventTags{" +
                 "id=" + id +
-                ", expenseId=" + expense.getId() +
+                ", eventId=" + event.getId() +
                 ", tagId=" + tag.getId() +
                 ", linkDate=" + linkDate +
                 '}';
@@ -52,12 +52,12 @@ public class ExpenseTag {
         this.id = id;
     }
 
-    public Expense getExpense() {
-        return expense;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setExpense(Expense expense) {
-        this.expense = expense;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public Tag getTag() {

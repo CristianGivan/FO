@@ -38,6 +38,7 @@ Expenses
 
 ExpensesList
 - lista de cumparaturi care mai pote fi Wishlist
+- la o cumparatura se pot cumpara doar cateva lucruri din lista
 
 Transaction
 - transactions that are done for expenses donations savings

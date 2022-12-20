@@ -1,4 +1,4 @@
-package com.app.FO.model.expense;
+package com.app.FO.model.expenseslist;
 
 import com.app.FO.model.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,21 +7,21 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expense_tag")
-public class ExpenseTag {
+@Table(name = "expenses_list_tags")
+public class ExpensesListTags {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expense_tag_seq")
-    @SequenceGenerator(name = "expense_tag_seq",
-            sequenceName = "expense_tag_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_list_tags_seq")
+    @SequenceGenerator(name = "expenses_list_tags_seq",
+            sequenceName = "expenses_list_tags_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "expense_tag_id")
+    @Column(name = "expenses_list_tags_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "expense_id")
+    @JoinColumn(name = "expenses_list_id")
     @JsonIgnore
-    private Expense expense;
+    private ExpensesList expensesList;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
@@ -31,14 +31,14 @@ public class ExpenseTag {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public ExpenseTag() {
+    public ExpensesListTags() {
     }
 
     @Override
     public String toString() {
-        return "ExpenseTag{" +
+        return "ExpensesListTags{" +
                 "id=" + id +
-                ", expenseId=" + expense.getId() +
+                ", expensesListId=" + expensesList.getId() +
                 ", tagId=" + tag.getId() +
                 ", linkDate=" + linkDate +
                 '}';
@@ -52,12 +52,12 @@ public class ExpenseTag {
         this.id = id;
     }
 
-    public Expense getExpense() {
-        return expense;
+    public ExpensesList getExpensesList() {
+        return expensesList;
     }
 
-    public void setExpense(Expense expense) {
-        this.expense = expense;
+    public void setExpensesList(ExpensesList expensesList) {
+        this.expensesList = expensesList;
     }
 
     public Tag getTag() {

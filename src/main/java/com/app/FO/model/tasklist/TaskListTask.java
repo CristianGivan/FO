@@ -31,4 +31,17 @@ public class TaskListTask {
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
+
+    public TaskListTask() {
+    }
+
+    @Override
+    public String toString() {
+        return "TaskListTask{" +
+                "id=" + id +
+                ", taskId=" + task.getId() +
+                ", taskList=" + taskList.getId() +
+                ", linkDate=" + linkDate +
+                '}';
+    }
 }

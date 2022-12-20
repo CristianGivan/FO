@@ -32,4 +32,16 @@ public class TaskTag {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
+    public TaskTag() {
+    }
+
+    @Override
+    public String toString() {
+        return "TaskTag{" +
+                "id=" + id +
+                ", taskId=" + task.getId() +
+                ", tagId=" + tag.getId() +
+                ", linkDate=" + linkDate +
+                '}';
+    }
 }

@@ -31,4 +31,49 @@ public class TaskNote {
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
+
+    public TaskNote() {
+    }
+
+    @Override
+    public String toString() {
+        return "TaskNote{" +
+                "id=" + id +
+                ", taskId=" + task.getId() +
+                ", noteId=" + note.getId() +
+                ", linkDate=" + linkDate +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    public LocalDateTime getLinkDate() {
+        return linkDate;
+    }
+
+    public void setLinkDate(LocalDateTime linkDate) {
+        this.linkDate = linkDate;
+    }
 }

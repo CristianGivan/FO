@@ -1,9 +1,7 @@
 package com.app.FO.model.task;
 
 import com.app.FO.model.Remainder;
-import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.tasklist.TaskListTask;
-import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -65,4 +63,139 @@ public class Task {
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TaskHistory> taskHistories;
+
+    public Task() {
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", task='" + task + '\'' +
+                ", userId=" + user.getId() +
+                ", createdDate=" + createdDate +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", taskStatus=" + taskStatus +
+                ", totalWorkingTime=" + totalWorkingTime +
+                ", remainders=" + remainders +
+                ", taskEfforts=" + taskEfforts +
+                ", noteTags=" + noteTags +
+                ", taskNotes=" + taskNotes +
+                ", taskListTasks=" + taskListTasks +
+                ", taskHistories=" + taskHistories +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    public double getTotalWorkingTime() {
+        return totalWorkingTime;
+    }
+
+    public void setTotalWorkingTime(double totalWorkingTime) {
+        this.totalWorkingTime = totalWorkingTime;
+    }
+
+    public List<Remainder> getRemainders() {
+        return remainders;
+    }
+
+    public void setRemainders(List<Remainder> remainders) {
+        this.remainders = remainders;
+    }
+
+    public List<TaskEffort> getTaskEfforts() {
+        return taskEfforts;
+    }
+
+    public void setTaskEfforts(List<TaskEffort> taskEfforts) {
+        this.taskEfforts = taskEfforts;
+    }
+
+    public List<TaskTag> getNoteTags() {
+        return noteTags;
+    }
+
+    public void setNoteTags(List<TaskTag> noteTags) {
+        this.noteTags = noteTags;
+    }
+
+    public List<TaskNote> getTaskNotes() {
+        return taskNotes;
+    }
+
+    public void setTaskNotes(List<TaskNote> taskNotes) {
+        this.taskNotes = taskNotes;
+    }
+
+    public List<TaskListTask> getTaskListTasks() {
+        return taskListTasks;
+    }
+
+    public void setTaskListTasks(List<TaskListTask> taskListTasks) {
+        this.taskListTasks = taskListTasks;
+    }
+
+    public List<TaskHistory> getTaskHistories() {
+        return taskHistories;
+    }
+
+    public void setTaskHistories(List<TaskHistory> taskHistories) {
+        this.taskHistories = taskHistories;
+    }
 }

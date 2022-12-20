@@ -59,10 +59,12 @@ public class Note {
                 "id=" + id +
                 ", note='" + note + '\'' +
                 ", noteTags=" + noteTags +
-                ", userid=" + user.getId() +
+                ", userId=" + user.getId() +
                 ", createdDate=" + createdDate +
-                ", noteHistories=" + noteHistories +
                 ", topicNotes=" + topicNotes +
+                ", taskNotes=" + taskNotes +
+                ", noteHistories=" + noteHistories +
+                ", remainders=" + remainders +
                 '}';
     }
 
@@ -80,6 +82,21 @@ public class Note {
         return id;
     }
 
+    public List<TaskNote> getTaskNotes() {
+        return taskNotes;
+    }
+
+    public void setTaskNotes(List<TaskNote> taskNotes) {
+        this.taskNotes = taskNotes;
+    }
+
+    public List<Remainder> getRemainders() {
+        return remainders;
+    }
+
+    public void setRemainders(List<Remainder> remainders) {
+        this.remainders = remainders;
+    }
 
     public String getNote() {
         return note;
