@@ -1,8 +1,11 @@
 package com.app.FO.dto.note;
 
+import com.app.FO.dto.remainder.RemainderSDTO;
 import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.dto.topic.TopicSDTO;
 import com.app.FO.dto.user.UserSDTO;
+import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.task.TaskNote;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,9 +18,13 @@ public class NoteDTO {
     private UserSDTO user;
     private LocalDateTime createdDateTime;
     private List<TopicSDTO> topicsThatContainTheNote;
+    //todo adaug DTO
+    private List<TaskNote> tasksThatContainTheNote;
     private List<HistoryNoteSDTO> noteHistory;
+    private List<RemainderSDTO> remainders;
 
 
+    //todo adaug celelate elemente
     public NoteDTO(Long noteId, String note, List<TagSDTO> tags, UserSDTO user,
                    LocalDateTime createdDateTime, List<TopicSDTO> topicsThatContainTheNote,
                    List<HistoryNoteSDTO> noteHistory) {
@@ -32,7 +39,7 @@ public class NoteDTO {
 
     @Override
     public String toString() {
-        return "NoteFDTO{" +
+        return "NoteDTO{" +
                 "noteId=" + noteId +
                 ", note='" + note + '\'' +
                 ", tags=" + tags +
@@ -40,6 +47,7 @@ public class NoteDTO {
                 ", createdDateTime=" + createdDateTime +
                 ", topicsThatContainTheNote=" + topicsThatContainTheNote +
                 ", noteHistory=" + noteHistory +
+                ", remainders=" + remainders +
                 '}';
     }
 
@@ -98,4 +106,5 @@ public class NoteDTO {
     public void setNoteHistory(List<HistoryNoteSDTO> noteHistory) {
         this.noteHistory = noteHistory;
     }
+
 }

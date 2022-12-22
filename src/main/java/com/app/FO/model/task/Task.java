@@ -1,6 +1,6 @@
 package com.app.FO.model.task;
 
-import com.app.FO.model.Remainder;
+import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.tasklist.TaskListTask;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;

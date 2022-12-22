@@ -1,6 +1,5 @@
 package com.app.FO.model.task;
 
-import com.app.FO.model.Tag;
 import com.app.FO.model.note.Note;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

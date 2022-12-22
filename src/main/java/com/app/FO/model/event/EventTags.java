@@ -1,6 +1,6 @@
 package com.app.FO.model.event;
 
-import com.app.FO.model.Tag;
+import com.app.FO.model.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

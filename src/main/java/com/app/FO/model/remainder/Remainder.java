@@ -1,4 +1,4 @@
-package com.app.FO.model;
+package com.app.FO.model.remainder;
 
 import com.app.FO.model.event.Event;
 import com.app.FO.model.note.Note;
@@ -26,18 +26,15 @@ public class Remainder {
     @Column(name = "remainder")
     private String remainder;
 
-    @Column(name = "creted_date")
+    @Column(name = "created_date")
     private LocalDateTime createdDateTime;
 
     @Column(name = "data_time")
     private LocalDateTime remainderDateTime;
 
-    @Column(name = "snooze_time")
-    private LocalDateTime snoozeTime;
-
-    //todo un test la cum sa facem cu lista de snoose poate un alt tabel dar nu cred
-    @Column(name = "snoozed")
-    private String snoozed;
+    //is a table mostly for statistics
+    @OneToMany(mappedBy = "remainder", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Snooze> snoozes;
 
     //todo ar putea fi un tabel de legatura?
     @OneToMany
@@ -78,8 +75,7 @@ public class Remainder {
                 ", remainder='" + remainder + '\'' +
                 ", createdDateTime=" + createdDateTime +
                 ", remainderDateTime=" + remainderDateTime +
-                ", snoozeTime=" + snoozeTime +
-                ", snoozed='" + snoozed + '\'' +
+                ", snoozed='" + snoozes + '\'' +
                 ", repeatedReminders=" + repeatedReminders +
                 ", noteId=" + note.getId() +
                 ", taskId=" + task.getId() +
@@ -121,20 +117,12 @@ public class Remainder {
         this.remainderDateTime = remainderDateTime;
     }
 
-    public LocalDateTime getSnoozeTime() {
-        return snoozeTime;
+    public List<Snooze> getSnoozes() {
+        return snoozes;
     }
 
-    public void setSnoozeTime(LocalDateTime snoozeTime) {
-        this.snoozeTime = snoozeTime;
-    }
-
-    public String getSnoozed() {
-        return snoozed;
-    }
-
-    public void setSnoozed(String snoozed) {
-        this.snoozed = snoozed;
+    public void setSnoozes(List<Snooze> snoozes) {
+        this.snoozes = snoozes;
     }
 
     public List<Remainder> getRepeatedReminders() {

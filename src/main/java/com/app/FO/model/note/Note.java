@@ -1,6 +1,6 @@
 package com.app.FO.model.note;
 
-import com.app.FO.model.Remainder;
+import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.TaskNote;
 import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
@@ -38,11 +38,9 @@ public class Note {
     private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-   // @JoinColumn(name = "note")
     private List<TopicNote> topicNotes;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    // @JoinColumn(name = "note")
     private List<TaskNote> taskNotes;
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<NoteHistory> noteHistories;

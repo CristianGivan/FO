@@ -1,12 +1,6 @@
 package com.app.FO.model.event;
 
-import com.app.FO.model.Remainder;
-import com.app.FO.model.Tag;
-import com.app.FO.model.expense.Expense;
-import com.app.FO.model.expenseslist.ExpensesList;
-import com.app.FO.model.tasklist.TaskList;
-import com.app.FO.model.topic.Topic;
-import com.app.FO.model.user.User;
+import com.app.FO.model.remainder.Remainder;
 
 import javax.persistence.*;
 import java.util.List;

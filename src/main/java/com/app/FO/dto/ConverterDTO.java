@@ -7,7 +7,7 @@ import com.app.FO.dto.topic.HistoryTopicSDTO;
 import com.app.FO.dto.topic.TopicDTO;
 import com.app.FO.dto.topic.TopicSDTO;
 import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.Tag;
+import com.app.FO.model.tag.Tag;
 import com.app.FO.model.note.*;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicHistory;

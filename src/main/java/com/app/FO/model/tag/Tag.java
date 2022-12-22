@@ -1,4 +1,4 @@
-package com.app.FO.model;
+package com.app.FO.model.tag;
 
 import com.app.FO.model.event.EventTags;
 import com.app.FO.model.expense.Expense;

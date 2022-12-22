@@ -1,6 +1,6 @@
 package com.app.FO.model.topic;
 
-import com.app.FO.model.Remainder;
+import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.event.EventTopics;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;

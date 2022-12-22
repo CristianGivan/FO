@@ -4,7 +4,7 @@ package com.app.FO;
 import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.exceptions.TagNotFoundException;
-import com.app.FO.model.Tag;
+import com.app.FO.model.tag.Tag;
 import com.app.FO.model.note.*;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicNote;

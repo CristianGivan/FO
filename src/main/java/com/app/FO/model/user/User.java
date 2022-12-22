@@ -7,7 +7,7 @@ import com.app.FO.model.expense.Expense;
 //import com.app.FO.model.expenseslist.ExpensesList;
 import com.app.FO.model.expenseslist.ExpensesListUsers;
 import com.app.FO.model.note.NoteHistory;
-import com.app.FO.model.Remainder;
+import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
 import com.app.FO.model.tasklist.TaskList;
