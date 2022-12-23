@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class RemainderSDTO {
-    private Double remainderId;
+    private Long id;
     private String remainder;
     private LocalDateTime createdDateTime;
     private LocalDateTime remainderDateTime;

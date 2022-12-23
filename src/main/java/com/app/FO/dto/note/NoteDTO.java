@@ -4,7 +4,6 @@ import com.app.FO.dto.remainder.RemainderSDTO;
 import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.dto.topic.TopicSDTO;
 import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.TaskNote;
 
 import java.time.LocalDateTime;
@@ -20,14 +19,14 @@ public class NoteDTO {
     private List<TopicSDTO> topicsThatContainTheNote;
     //todo adaug DTO
     private List<TaskNote> tasksThatContainTheNote;
-    private List<HistoryNoteSDTO> noteHistory;
+    private List<NoteHistoryDTO> noteHistory;
     private List<RemainderSDTO> remainders;
 
 
     //todo adaug celelate elemente
     public NoteDTO(Long noteId, String note, List<TagSDTO> tags, UserSDTO user,
                    LocalDateTime createdDateTime, List<TopicSDTO> topicsThatContainTheNote,
-                   List<HistoryNoteSDTO> noteHistory) {
+                   List<NoteHistoryDTO> noteHistory) {
         this.noteId = noteId;
         this.note = note;
         this.tags = tags;
@@ -99,11 +98,11 @@ public class NoteDTO {
         this.topicsThatContainTheNote = topicsThatContainTheNote;
     }
 
-    public List<HistoryNoteSDTO> getNoteHistory() {
+    public List<NoteHistoryDTO> getNoteHistory() {
         return noteHistory;
     }
 
-    public void setNoteHistory(List<HistoryNoteSDTO> noteHistory) {
+    public void setNoteHistory(List<NoteHistoryDTO> noteHistory) {
         this.noteHistory = noteHistory;
     }
 

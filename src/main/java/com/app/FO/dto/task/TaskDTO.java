@@ -1,73 +1,38 @@
-package com.app.FO.model.task;
+package com.app.FO.dto.task;
 
+import com.app.FO.dto.note.NoteSDTO;
+import com.app.FO.dto.remainder.RemainderSDTO;
+import com.app.FO.dto.tag.TagSDTO;
+import com.app.FO.dto.tasklist.TaskListSDTO;
+import com.app.FO.dto.user.UserSDTO;
 import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.task.*;
 import com.app.FO.model.tasklist.TaskListTask;
-import com.app.FO.model.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "tasks")
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
-    @SequenceGenerator(name = "task_seq",
-            sequenceName = "task_seq",
-            initialValue = 1,
-            allocationSize = 1)
-    @Column(name = "task_id")
+public class TaskDTO {
     private Long id;
-
-    @Column(name = "task")
     private String task;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
-
-    @Column(name = "created_date")
+    private UserSDTO user;
     private LocalDateTime createdDate;
-
-    @Column(name = "start_date")
     private LocalDateTime startDate;
-
-    @Column(name = "end_date")
     private LocalDateTime endDate;
-
-    @Column (name = "task_status")
     private TaskStatus taskStatus;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Remainder> remainders;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskEffort> taskEfforts;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskTag> noteTags;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskNote> taskNotes;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskListTask> taskListTasks;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskHistory> taskHistories;
-
-    public Task() {
-    }
+    private List<RemainderSDTO> remainders;
+    private List<TaskEffortSDTO> taskEfforts;
+    private List<TagSDTO> noteTags;
+    private List<NoteSDTO> taskNotes;
+    private List<TaskListSDTO> taskListTasks;
+    private List<TaskHistoryDTO> taskHistories;
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "TaskDTO{" +
                 "id=" + id +
                 ", task='" + task + '\'' +
-                ", userId=" + user.getId() +
+                ", user=" + user +
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
@@ -79,6 +44,25 @@ public class Task {
                 ", taskListTasks=" + taskListTasks +
                 ", taskHistories=" + taskHistories +
                 '}';
+    }
+
+    public TaskDTO(Long id, String task, UserSDTO user, LocalDateTime createdDate, LocalDateTime startDate,
+                   LocalDateTime endDate, TaskStatus taskStatus, List<RemainderSDTO> remainders,
+                   List<TaskEffortSDTO> taskEfforts, List<TagSDTO> noteTags, List<NoteSDTO> taskNotes,
+                   List<TaskListSDTO> taskListTasks, List<TaskHistoryDTO> taskHistories) {
+        this.id = id;
+        this.task = task;
+        this.user = user;
+        this.createdDate = createdDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.taskStatus = taskStatus;
+        this.remainders = remainders;
+        this.taskEfforts = taskEfforts;
+        this.noteTags = noteTags;
+        this.taskNotes = taskNotes;
+        this.taskListTasks = taskListTasks;
+        this.taskHistories = taskHistories;
     }
 
     public Long getId() {
@@ -97,11 +81,11 @@ public class Task {
         this.task = task;
     }
 
-    public User getUser() {
+    public UserSDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserSDTO user) {
         this.user = user;
     }
 
@@ -137,51 +121,51 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public List<Remainder> getRemainders() {
+    public List<RemainderSDTO> getRemainders() {
         return remainders;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
+    public void setRemainders(List<RemainderSDTO> remainders) {
         this.remainders = remainders;
     }
 
-    public List<TaskEffort> getTaskEfforts() {
+    public List<TaskEffortSDTO> getTaskEfforts() {
         return taskEfforts;
     }
 
-    public void setTaskEfforts(List<TaskEffort> taskEfforts) {
+    public void setTaskEfforts(List<TaskEffortSDTO> taskEfforts) {
         this.taskEfforts = taskEfforts;
     }
 
-    public List<TaskTag> getNoteTags() {
+    public List<TagSDTO> getNoteTags() {
         return noteTags;
     }
 
-    public void setNoteTags(List<TaskTag> noteTags) {
+    public void setNoteTags(List<TagSDTO> noteTags) {
         this.noteTags = noteTags;
     }
 
-    public List<TaskNote> getTaskNotes() {
+    public List<NoteSDTO> getTaskNotes() {
         return taskNotes;
     }
 
-    public void setTaskNotes(List<TaskNote> taskNotes) {
+    public void setTaskNotes(List<NoteSDTO> taskNotes) {
         this.taskNotes = taskNotes;
     }
 
-    public List<TaskListTask> getTaskListTasks() {
+    public List<TaskListSDTO> getTaskListTasks() {
         return taskListTasks;
     }
 
-    public void setTaskListTasks(List<TaskListTask> taskListTasks) {
+    public void setTaskListTasks(List<TaskListSDTO> taskListTasks) {
         this.taskListTasks = taskListTasks;
     }
 
-    public List<TaskHistory> getTaskHistories() {
+    public List<TaskHistoryDTO> getTaskHistories() {
         return taskHistories;
     }
 
-    public void setTaskHistories(List<TaskHistory> taskHistories) {
+    public void setTaskHistories(List<TaskHistoryDTO> taskHistories) {
         this.taskHistories = taskHistories;
     }
 }

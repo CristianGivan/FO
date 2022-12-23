@@ -4,40 +4,40 @@ import com.app.FO.dto.user.UserSDTO;
 
 import java.time.LocalDateTime;
 
-public class HistoryNoteSDTO {
-    private Long historyNoteId;
+public class NoteHistoryDTO {
+    private Long id;
     private LocalDateTime modifiedDate;
     private UserSDTO user;
 
-    private Long noteId;
+    private NoteSDTO note;
 
     private String noteText;
 
 
-    public HistoryNoteSDTO(Long historyNoteId, LocalDateTime modifiedDate, UserSDTO user, Long noteId,
-                           String noteText) {
-        this.historyNoteId = historyNoteId;
+    public NoteHistoryDTO(Long id, LocalDateTime modifiedDate, UserSDTO user, NoteSDTO note,
+                          String noteText) {
+        this.id = id;
         this.modifiedDate = modifiedDate;
         this.user = user;
-        this.noteId = noteId;
+        this.note = note;
         this.noteText = noteText;
     }
 
     @Override
     public String toString() {
         return "HistoryNoteSDTO{" +
-                "historyNoteId=" + historyNoteId +
+                "historyNoteId=" + id +
                 ", modifiedDate=" + modifiedDate +
                 ", user=" + user +
                 '}';
     }
 
-    public Long getHistoryNoteId() {
-        return historyNoteId;
+    public Long getId() {
+        return id;
     }
 
-    public void setHistoryNoteId(Long historyNoteId) {
-        this.historyNoteId = historyNoteId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDateTime getModifiedDate() {
@@ -56,12 +56,12 @@ public class HistoryNoteSDTO {
         this.user = user;
     }
 
-    public Long getNoteId() {
-        return noteId;
+    public NoteSDTO getNote() {
+        return note;
     }
 
-    public void setNoteId(Long noteId) {
-        this.noteId = noteId;
+    public void setNote(NoteSDTO note) {
+        this.note = note;
     }
 
     public String getNoteText() {

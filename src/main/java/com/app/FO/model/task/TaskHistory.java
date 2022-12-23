@@ -32,6 +32,8 @@ public class TaskHistory {
     @JsonIgnore
     private Task task;
 
+    //todo o sa adaug si celelate lucri care le veau in History
+
     public TaskHistory() {
     }
 

@@ -111,14 +111,14 @@ public class ConverterDTO {
 
     //NoteHistory
 
-    private HistoryNoteSDTO convertNoteHistoryToNoteHistorySDTO(NoteHistory noteHistory) {
-        return new HistoryNoteSDTO(noteHistory.getId(), noteHistory.getModifiedDate(),
-                convertUserToUserSDTO(noteHistory.getUser()), noteHistory.getNote().getId(),
+    private NoteHistoryDTO convertNoteHistoryToNoteHistoryDTO(NoteHistory noteHistory) {
+        return new NoteHistoryDTO(noteHistory.getId(), noteHistory.getModifiedDate(),
+                convertUserToUserSDTO(noteHistory.getUser()), convertNoteToNoteSDTO(noteHistory.getNote()),
                 noteHistory.getNoteText());
     }
 
-    private List<HistoryNoteSDTO> convertListOfNoteHistoryToListOfNoteHistorySDTO(List<NoteHistory> noteHistories) {
-        return noteHistories.stream().map(this::convertNoteHistoryToNoteHistorySDTO).toList();
+    private List<NoteHistoryDTO> convertListOfNoteHistoryToListOfNoteHistorySDTO(List<NoteHistory> noteHistories) {
+        return noteHistories.stream().map(this::convertNoteHistoryToNoteHistoryDTO).toList();
     }
 
     //TopicHistory

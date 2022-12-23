@@ -1,3 +1,6 @@
+HistoryDTO
+- nu se face SDTO ci doar DTO
+
 Event
 - de exemplu organizarea unui eveniment
 - poate sa contina toate elementele adica si planer si topic
