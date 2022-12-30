@@ -2,6 +2,7 @@ package com.app.FO.dto.note;
 
 import com.app.FO.model.tag.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteTDTO {
@@ -9,10 +10,13 @@ public class NoteTDTO {
     private String note;
     private List<Tag> tags;
 
+    public NoteTDTO() {
+    }
+
     public NoteTDTO(Long noteId, String note, List<Tag> tags) {
         this.noteId = noteId;
         this.note = note;
-        this.tags = tags;
+       // this.tags = tags;
     }
 
     @Override
@@ -41,6 +45,9 @@ public class NoteTDTO {
     }
 
     public List<Tag> getTags() {
+        if (tags==null){
+            return new ArrayList<>();
+        }
         return tags;
     }
 

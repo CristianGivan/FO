@@ -3,8 +3,10 @@ package com.app.FO;
 
 import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.NoteDTO;
+import com.app.FO.dto.note.NoteTDTO;
 import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.exceptions.TagNotFoundException;
+import com.app.FO.mapper.NoteDTOMapper;
 import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.note.*;
@@ -257,11 +259,12 @@ public class Runner implements CommandLineRunner {
 //        System.out.println(tagSDTOS);
         tagsTest.forEach(tag -> System.out.println(tag));
         tags.forEach(tag -> System.out.println(tag));
-//        NoteTDTO noteTDTO=new NoteTDTO(savedNote1.getId(),savedNote1.getNote(),
-//                TagDTOMapper.INSTANCE.tagsToTagsDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
+        NoteTDTO noteTDTO= NoteDTOMapper.INSTANCE.NoteToNoteTDTO(savedNote1);//new NoteTDTO(savedNote1.getId(),savedNote1.getNote(),
+//                TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
+//                tagService.getListOfTagByNoteId(savedNote1.getId()));
 
         System.out.println(savedNote1);
-//        System.out.println(noteTDTO);
+        System.out.println(noteTDTO);
         System.out.println("END");
     }
 }
