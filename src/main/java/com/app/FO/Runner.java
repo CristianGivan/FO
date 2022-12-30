@@ -3,7 +3,9 @@ package com.app.FO;
 
 import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.NoteDTO;
+import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.exceptions.TagNotFoundException;
+import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.note.*;
 import com.app.FO.model.topic.Topic;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class Runner implements CommandLineRunner {
@@ -245,8 +248,20 @@ public class Runner implements CommandLineRunner {
 //        noteTagRepository.delete(deleteNoteTag);
 //        savedNote1.getNoteTags().remove(deleteNoteTag);
 //        noteService.saveNote(savedNote1);
+        List<Tag> tagsTest=tagService.getListOfTagByNoteId(1L);
+        List<TagSDTO> tags = TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagsTest);
         System.out.println(savedNote1);
         System.out.println("\n" + showNoteDTO);
+
+//        System.out.println(tagsTest);
+//        System.out.println(tagSDTOS);
+        tagsTest.forEach(tag -> System.out.println(tag));
+        tags.forEach(tag -> System.out.println(tag));
+//        NoteTDTO noteTDTO=new NoteTDTO(savedNote1.getId(),savedNote1.getNote(),
+//                TagDTOMapper.INSTANCE.tagsToTagsDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
+
+        System.out.println(savedNote1);
+//        System.out.println(noteTDTO);
         System.out.println("END");
     }
 }
