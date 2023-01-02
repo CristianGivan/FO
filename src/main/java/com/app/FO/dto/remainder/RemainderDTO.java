@@ -1,13 +1,11 @@
 package com.app.FO.dto.remainder;
 
 import com.app.FO.dto.event.EventSDTO;
-import com.app.FO.dto.note.NoteSDTO;
+import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.snooze.SnoozeSDTO;
-import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.dto.task.TaskSDTO;
 import com.app.FO.dto.topic.TopicSDTO;
 import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.remainder.Snooze;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,7 +17,7 @@ public class RemainderDTO {
     private LocalDateTime remainderDateTime;
     private List<SnoozeSDTO> snoozes;
     private List<RemainderSDTO> repeatedReminders;
-    private NoteSDTO note;
+    private NoteDTO note;
     private TaskSDTO task;
     private TopicSDTO topics;
     private UserSDTO user;
@@ -44,7 +42,7 @@ public class RemainderDTO {
 
     public RemainderDTO(Long id, String remainder, LocalDateTime createdDateTime,
                         LocalDateTime remainderDateTime, List<SnoozeSDTO> snoozes,
-                        List<RemainderSDTO> repeatedReminders, NoteSDTO note, TaskSDTO task,
+                        List<RemainderSDTO> repeatedReminders, NoteDTO note, TaskSDTO task,
                         TopicSDTO topics, UserSDTO user, EventSDTO event) {
         this.id = id;
         this.remainder = remainder;
@@ -107,11 +105,11 @@ public class RemainderDTO {
         this.repeatedReminders = repeatedReminders;
     }
 
-    public NoteSDTO getNote() {
+    public NoteDTO getNote() {
         return note;
     }
 
-    public void setNote(NoteSDTO note) {
+    public void setNote(NoteDTO note) {
         this.note = note;
     }
 

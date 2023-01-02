@@ -1,6 +1,6 @@
 package com.app.FO.dto.tag;
 
-import com.app.FO.dto.note.NoteSDTO;
+import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.topic.TopicSDTO;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class TagDTO {
     private Long tagId;
     private String tagName;
-    private List<NoteSDTO> notes;
+    private List<NoteDTO> notes;
     private List<TopicSDTO> topics;
 
     @Override
@@ -21,7 +21,7 @@ public class TagDTO {
                 '}';
     }
 
-    public TagDTO(Long tagId, String tagName, List<NoteSDTO> notes, List<TopicSDTO> topics) {
+    public TagDTO(Long tagId, String tagName, List<NoteDTO> notes, List<TopicSDTO> topics) {
         this.tagId = tagId;
         this.tagName = tagName;
         this.notes = notes;
@@ -44,11 +44,11 @@ public class TagDTO {
         this.tagName = tagName;
     }
 
-    public List<NoteSDTO> getNotes() {
+    public List<NoteDTO> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<NoteSDTO> notes) {
+    public void setNotes(List<NoteDTO> notes) {
         this.notes = notes;
     }
 

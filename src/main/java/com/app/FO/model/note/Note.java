@@ -26,16 +26,16 @@ public class Note {
     @Column(name = "note")
     private String note;
 
-    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<NoteTag> noteTags;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private List<NoteTag> noteTags;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TopicNote> topicNotes;

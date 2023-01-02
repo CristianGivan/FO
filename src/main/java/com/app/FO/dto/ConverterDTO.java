@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 public class ConverterDTO {
@@ -40,8 +41,8 @@ public class ConverterDTO {
 
     //Note
 
-    public NoteDTO convertNoteToNoteDTO(Note note) {
-        return new NoteDTO(note.getId(), note.getNote(),
+    public NoteFDTO convertNoteToNoteDTO(Note note) {
+        return new NoteFDTO(note.getId(), note.getNote(),
                 convertListOfTagToListOfTagSDTO(tagService.getListOfTagByNoteId(note.getId())),
                 convertUserToUserSDTO(note.getUser()), note.getCreatedDate(),
                 convertListOfTopicsToListOfTopicSDTO(topicService.getTopicsByNote(note)),
@@ -49,16 +50,16 @@ public class ConverterDTO {
         );
     }
 
-    public List<NoteDTO> convertListOfNoteToListOfNoteDTO(List<Note> notes) {
-        return notes.stream().map(this::convertNoteToNoteDTO).toList();
+    public List<NoteFDTO> convertListOfNoteToListOfNoteDTO(List<Note> notes) {
+        return notes.stream().map(this::convertNoteToNoteDTO).collect(Collectors.toList());
     }
 
-    private NoteSDTO convertNoteToNoteSDTO(Note note) {
-        return new NoteSDTO(note.getId(), note.getNote(), note.getCreatedDate());
+    private NoteDTO convertNoteToNoteSDTO(Note note) {
+        return new NoteDTO(note.getId(), note.getNote());
     }
 
-    private List<NoteSDTO> convertListOfNoteToListOfNoteSDTO(List<Note> notes) {
-        return notes.stream().map(this::convertNoteToNoteSDTO).toList();
+    private List<NoteDTO> convertListOfNoteToListOfNoteSDTO(List<Note> notes) {
+        return notes.stream().map(this::convertNoteToNoteSDTO).collect(Collectors.toList());
     }
 
     //Tag
@@ -71,7 +72,7 @@ public class ConverterDTO {
     }
 
     public List<TagDTO> convertListOfTagToListOfTagDTO(List<Tag> tags) {
-        return tags.stream().map(this::convertTagToTagDTO).toList();
+        return tags.stream().map(this::convertTagToTagDTO).collect(Collectors.toList());
     }
 
     private TagSDTO convertTagToTagSDTO(Tag tag) {
@@ -79,7 +80,7 @@ public class ConverterDTO {
     }
 
     private List<TagSDTO> convertListOfTagToListOfTagSDTO(List<Tag> tags) {
-        return tags.stream().map(this::convertTagToTagSDTO).toList();
+        return tags.stream().map(this::convertTagToTagSDTO).collect(Collectors.toList());
     }
 
     public Tag convertTagSDTOToTag(TagSDTO tagSDTO){
@@ -98,7 +99,7 @@ public class ConverterDTO {
         );
     }
     public List<TopicDTO> convertListOfTopicToListOfTopicDTO(List<Topic> topics){
-        return topics.stream().map(this::convertTopicToTopicDTO).toList();
+        return topics.stream().map(this::convertTopicToTopicDTO).collect(Collectors.toList());
     }
 
     private TopicSDTO convertTopicToTopicsSDTO(Topic topic) {
@@ -106,7 +107,7 @@ public class ConverterDTO {
     }
 
     private List<TopicSDTO> convertListOfTopicsToListOfTopicSDTO(List<Topic> topics) {
-        return topics.stream().map(this::convertTopicToTopicsSDTO).toList();
+        return topics.stream().map(this::convertTopicToTopicsSDTO).collect(Collectors.toList());
     }
 
     //NoteHistory
@@ -118,7 +119,7 @@ public class ConverterDTO {
     }
 
     private List<NoteHistoryDTO> convertListOfNoteHistoryToListOfNoteHistorySDTO(List<NoteHistory> noteHistories) {
-        return noteHistories.stream().map(this::convertNoteHistoryToNoteHistoryDTO).toList();
+        return noteHistories.stream().map(this::convertNoteHistoryToNoteHistoryDTO).collect(Collectors.toList());
     }
 
     //TopicHistory
@@ -128,7 +129,7 @@ public class ConverterDTO {
                 convertUserToUserSDTO(topicHistory.getUser()));
     }
     private List<HistoryTopicSDTO> convertListOfTopicHistoryToListOfTopicHistorySDTO(List<TopicHistory> topicHistories){
-        return topicHistories.stream().map(this::convertTopicHistoryToTopicHistorySDTO).toList();
+        return topicHistories.stream().map(this::convertTopicHistoryToTopicHistorySDTO).collect(Collectors.toList());
     }
 
     //User

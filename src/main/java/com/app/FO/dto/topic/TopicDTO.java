@@ -1,6 +1,6 @@
 package com.app.FO.dto.topic;
 
-import com.app.FO.dto.note.NoteSDTO;
+import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.dto.user.UserSDTO;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class TopicDTO {
     private Long topicId;
     private String subject;
-    private List<NoteSDTO> notes;
+    private List<NoteDTO> notes;
     private List<TagSDTO> tags;
     private UserSDTO user;
     private LocalDateTime createdDate;
@@ -32,7 +32,7 @@ public class TopicDTO {
                 '}';
     }
 
-    public TopicDTO(Long topicId, String subject, List<NoteSDTO> notes, List<TagSDTO> tags,
+    public TopicDTO(Long topicId, String subject, List<NoteDTO> notes, List<TagSDTO> tags,
                     UserSDTO user, LocalDateTime createdDate, List<HistoryTopicSDTO> topicHistory) {
         this.topicId = topicId;
         this.subject = subject;
@@ -59,11 +59,11 @@ public class TopicDTO {
         this.subject = subject;
     }
 
-    public List<NoteSDTO> getNotes() {
+    public List<NoteDTO> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<NoteSDTO> notes) {
+    public void setNotes(List<NoteDTO> notes) {
         this.notes = notes;
     }
 

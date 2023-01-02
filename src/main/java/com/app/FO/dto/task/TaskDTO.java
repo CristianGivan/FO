@@ -1,13 +1,11 @@
 package com.app.FO.dto.task;
 
-import com.app.FO.dto.note.NoteSDTO;
+import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.remainder.RemainderSDTO;
 import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.dto.tasklist.TaskListSDTO;
 import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.*;
-import com.app.FO.model.tasklist.TaskListTask;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +21,7 @@ public class TaskDTO {
     private List<RemainderSDTO> remainders;
     private List<TaskEffortSDTO> taskEfforts;
     private List<TagSDTO> noteTags;
-    private List<NoteSDTO> taskNotes;
+    private List<NoteDTO> taskNotes;
     private List<TaskListSDTO> taskListTasks;
     private List<TaskHistoryDTO> taskHistories;
 
@@ -48,7 +46,7 @@ public class TaskDTO {
 
     public TaskDTO(Long id, String task, UserSDTO user, LocalDateTime createdDate, LocalDateTime startDate,
                    LocalDateTime endDate, TaskStatus taskStatus, List<RemainderSDTO> remainders,
-                   List<TaskEffortSDTO> taskEfforts, List<TagSDTO> noteTags, List<NoteSDTO> taskNotes,
+                   List<TaskEffortSDTO> taskEfforts, List<TagSDTO> noteTags, List<NoteDTO> taskNotes,
                    List<TaskListSDTO> taskListTasks, List<TaskHistoryDTO> taskHistories) {
         this.id = id;
         this.task = task;
@@ -145,11 +143,11 @@ public class TaskDTO {
         this.noteTags = noteTags;
     }
 
-    public List<NoteSDTO> getTaskNotes() {
+    public List<NoteDTO> getTaskNotes() {
         return taskNotes;
     }
 
-    public void setTaskNotes(List<NoteSDTO> taskNotes) {
+    public void setTaskNotes(List<NoteDTO> taskNotes) {
         this.taskNotes = taskNotes;
     }
 

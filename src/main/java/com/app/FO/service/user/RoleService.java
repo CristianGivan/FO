@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleService {
@@ -32,6 +33,6 @@ public class RoleService {
     public List<String> getAllRolesByUserIdAsStrings(Long userId){
         return roleRepository.findRolesByUserId(userId).stream()
                 .map(role -> role.getRoleType().toString())
-                .toList();
+                .collect(Collectors.toList());
     }
 }

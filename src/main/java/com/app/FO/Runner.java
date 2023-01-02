@@ -2,7 +2,8 @@ package com.app.FO;
 
 
 import com.app.FO.dto.ConverterDTO;
-import com.app.FO.dto.note.NoteDTO;
+import com.app.FO.dto.note.NoteFDTO;
+import com.app.FO.dto.note.NoteT2DTO;
 import com.app.FO.dto.note.NoteTDTO;
 import com.app.FO.dto.tag.TagSDTO;
 import com.app.FO.exceptions.TagNotFoundException;
@@ -241,7 +242,7 @@ public class Runner implements CommandLineRunner {
         savedTopic3 = topicService.saveTopic(topic3);
 
 
-        NoteDTO showNoteDTO = converterDTO.convertNoteToNoteDTO(savedNote1);
+        NoteFDTO showNoteFDTO = converterDTO.convertNoteToNoteDTO(savedNote1);
 
         System.out.println(note1.getNoteTags());
         System.out.println(roleService.findRolesByUserId(1L));
@@ -253,7 +254,7 @@ public class Runner implements CommandLineRunner {
         List<Tag> tagsTest=tagService.getListOfTagByNoteId(1L);
         List<TagSDTO> tags = TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagsTest);
         System.out.println(savedNote1);
-        System.out.println("\n" + showNoteDTO);
+        System.out.println("\n" + showNoteFDTO);
 
 //        System.out.println(tagsTest);
 //        System.out.println(tagSDTOS);
@@ -262,9 +263,11 @@ public class Runner implements CommandLineRunner {
         NoteTDTO noteTDTO= NoteDTOMapper.INSTANCE.NoteToNoteTDTO(savedNote1);//new NoteTDTO(savedNote1.getId(),savedNote1.getNote(),
 //                TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
 //                tagService.getListOfTagByNoteId(savedNote1.getId()));
-
+        NoteT2DTO noteT2DTO=new NoteT2DTO(savedNote1.getId(),savedNote1.getNote(),
+                TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
         System.out.println(savedNote1);
         System.out.println(noteTDTO);
+        System.out.println(noteT2DTO);
         System.out.println("END");
     }
 }

@@ -19,6 +19,9 @@ public class TagService {
         //this.convertToDTO = convertToDTO;
     }
 
+    public TagService() {
+    }
+
     public Tag saveTag(Tag tag) {
         return tagRepository.save(tag);
     }

@@ -9,12 +9,12 @@ public class NoteHistoryDTO {
     private LocalDateTime modifiedDate;
     private UserSDTO user;
 
-    private NoteSDTO note;
+    private NoteDTO note;
 
     private String noteText;
 
 
-    public NoteHistoryDTO(Long id, LocalDateTime modifiedDate, UserSDTO user, NoteSDTO note,
+    public NoteHistoryDTO(Long id, LocalDateTime modifiedDate, UserSDTO user, NoteDTO note,
                           String noteText) {
         this.id = id;
         this.modifiedDate = modifiedDate;
@@ -56,11 +56,11 @@ public class NoteHistoryDTO {
         this.user = user;
     }
 
-    public NoteSDTO getNote() {
+    public NoteDTO getNote() {
         return note;
     }
 
-    public void setNote(NoteSDTO note) {
+    public void setNote(NoteDTO note) {
         this.note = note;
     }
 

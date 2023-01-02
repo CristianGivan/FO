@@ -1,25 +1,29 @@
 package com.app.FO.dto.note;
 
-import java.time.LocalDateTime;
+import com.app.FO.dto.tag.TagDTO;
+import com.app.FO.dto.tag.TagSDTO;
+import com.app.FO.model.tag.Tag;
 
-public class NoteSDTO {
+import java.util.List;
+
+public class NoteT2DTO {
     private Long noteId;
     private String note;
-    private LocalDateTime createdDate;
+    private List<TagSDTO> tags;
 
     @Override
     public String toString() {
-        return "NoteSDTO{" +
+        return "NoteT2DTO{" +
                 "noteId=" + noteId +
                 ", note='" + note + '\'' +
-                ", createdDate=" + createdDate +
+                ", tags=" + tags +
                 '}';
     }
 
-    public NoteSDTO(Long noteId, String note, LocalDateTime createdDate) {
+    public NoteT2DTO(Long noteId, String note, List<TagSDTO> tags) {
         this.noteId = noteId;
         this.note = note;
-        this.createdDate = createdDate;
+        this.tags = tags;
     }
 
     public Long getNoteId() {
@@ -38,11 +42,11 @@ public class NoteSDTO {
         this.note = note;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public List<TagSDTO> getTags() {
+        return tags;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setTags(List<TagSDTO> tags) {
+        this.tags = tags;
     }
 }

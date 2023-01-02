@@ -19,6 +19,11 @@ public class NoteTDTO {
        // this.tags = tags;
     }
 
+    public NoteTDTO(Long noteId, String note) {
+        this.noteId = noteId;
+        this.note = note;
+    }
+
     @Override
     public String toString() {
         return "NoteTDTO{" +
