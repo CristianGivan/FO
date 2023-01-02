@@ -2,9 +2,9 @@ package com.app.FO.dto.task;
 
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.remainder.RemainderSDTO;
-import com.app.FO.dto.tag.TagSDTO;
+import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tasklist.TaskListSDTO;
-import com.app.FO.dto.user.UserSDTO;
+import com.app.FO.dto.user.UserDTO;
 import com.app.FO.model.task.*;
 
 import java.time.LocalDateTime;
@@ -13,14 +13,14 @@ import java.util.List;
 public class TaskDTO {
     private Long id;
     private String task;
-    private UserSDTO user;
+    private UserDTO user;
     private LocalDateTime createdDate;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private TaskStatus taskStatus;
     private List<RemainderSDTO> remainders;
     private List<TaskEffortSDTO> taskEfforts;
-    private List<TagSDTO> noteTags;
+    private List<TagDTO> noteTags;
     private List<NoteDTO> taskNotes;
     private List<TaskListSDTO> taskListTasks;
     private List<TaskHistoryDTO> taskHistories;
@@ -44,9 +44,9 @@ public class TaskDTO {
                 '}';
     }
 
-    public TaskDTO(Long id, String task, UserSDTO user, LocalDateTime createdDate, LocalDateTime startDate,
+    public TaskDTO(Long id, String task, UserDTO user, LocalDateTime createdDate, LocalDateTime startDate,
                    LocalDateTime endDate, TaskStatus taskStatus, List<RemainderSDTO> remainders,
-                   List<TaskEffortSDTO> taskEfforts, List<TagSDTO> noteTags, List<NoteDTO> taskNotes,
+                   List<TaskEffortSDTO> taskEfforts, List<TagDTO> noteTags, List<NoteDTO> taskNotes,
                    List<TaskListSDTO> taskListTasks, List<TaskHistoryDTO> taskHistories) {
         this.id = id;
         this.task = task;
@@ -79,11 +79,11 @@ public class TaskDTO {
         this.task = task;
     }
 
-    public UserSDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserSDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
@@ -135,11 +135,11 @@ public class TaskDTO {
         this.taskEfforts = taskEfforts;
     }
 
-    public List<TagSDTO> getNoteTags() {
+    public List<TagDTO> getNoteTags() {
         return noteTags;
     }
 
-    public void setNoteTags(List<TagSDTO> noteTags) {
+    public void setNoteTags(List<TagDTO> noteTags) {
         this.noteTags = noteTags;
     }
 

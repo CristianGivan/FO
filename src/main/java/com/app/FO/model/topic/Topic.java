@@ -25,6 +25,9 @@ public class Topic {
     @Column(name = "subject")
     private String subject;
 
+    @Column(name = "create_date")
+    private LocalDateTime createdDate;
+
     @OneToMany(mappedBy = "topic",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TopicNote> topicNotes;
 
@@ -35,9 +38,6 @@ public class Topic {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
-
-    @Column(name = "create_date")
-    private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "topic")
     private List<TopicHistory> topicHistory;

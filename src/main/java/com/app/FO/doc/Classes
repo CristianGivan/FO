@@ -1,3 +1,9 @@
+DTO
+- o sa fie doua tipuri DTO si FDTO dar cred ca intr-un final o sa fie doar unu DTO fata FDTO
+- DTO o sa contina doar ce este specific la aceasta metoda se va elimina tot ce ce se poate apela din alte entitati.
+- FDTO o sa contina toate campurtile care la are entitatea.
+
+
 HistoryDTO
 - nu se face SDTO ci doar DTO
 

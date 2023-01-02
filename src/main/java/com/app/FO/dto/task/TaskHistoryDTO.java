@@ -1,15 +1,13 @@
 package com.app.FO.dto.task;
 
-import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.task.Task;
-import com.app.FO.model.user.User;
+import com.app.FO.dto.user.UserDTO;
 
 import java.time.LocalDateTime;
 
 public class TaskHistoryDTO {
     private Long id;
     private LocalDateTime modifiedDate;
-    private UserSDTO user;
+    private UserDTO user;
     private TaskSDTO task;
 
     @Override
@@ -22,7 +20,7 @@ public class TaskHistoryDTO {
                 '}';
     }
 
-    public TaskHistoryDTO(Long id, LocalDateTime modifiedDate, UserSDTO user, TaskSDTO task) {
+    public TaskHistoryDTO(Long id, LocalDateTime modifiedDate, UserDTO user, TaskSDTO task) {
         this.id = id;
         this.modifiedDate = modifiedDate;
         this.user = user;
@@ -45,11 +43,11 @@ public class TaskHistoryDTO {
         this.modifiedDate = modifiedDate;
     }
 
-    public UserSDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserSDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 

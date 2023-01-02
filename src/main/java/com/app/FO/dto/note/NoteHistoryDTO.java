@@ -1,20 +1,20 @@
 package com.app.FO.dto.note;
 
-import com.app.FO.dto.user.UserSDTO;
+import com.app.FO.dto.user.UserDTO;
 
 import java.time.LocalDateTime;
 
 public class NoteHistoryDTO {
     private Long id;
     private LocalDateTime modifiedDate;
-    private UserSDTO user;
+    private UserDTO user;
 
     private NoteDTO note;
 
     private String noteText;
 
 
-    public NoteHistoryDTO(Long id, LocalDateTime modifiedDate, UserSDTO user, NoteDTO note,
+    public NoteHistoryDTO(Long id, LocalDateTime modifiedDate, UserDTO user, NoteDTO note,
                           String noteText) {
         this.id = id;
         this.modifiedDate = modifiedDate;
@@ -48,11 +48,11 @@ public class NoteHistoryDTO {
         this.modifiedDate = modifiedDate;
     }
 
-    public UserSDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserSDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 

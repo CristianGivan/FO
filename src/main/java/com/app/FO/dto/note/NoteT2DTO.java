@@ -1,15 +1,13 @@
 package com.app.FO.dto.note;
 
 import com.app.FO.dto.tag.TagDTO;
-import com.app.FO.dto.tag.TagSDTO;
-import com.app.FO.model.tag.Tag;
 
 import java.util.List;
 
 public class NoteT2DTO {
     private Long noteId;
     private String note;
-    private List<TagSDTO> tags;
+    private List<TagDTO> tags;
 
     @Override
     public String toString() {
@@ -20,7 +18,7 @@ public class NoteT2DTO {
                 '}';
     }
 
-    public NoteT2DTO(Long noteId, String note, List<TagSDTO> tags) {
+    public NoteT2DTO(Long noteId, String note, List<TagDTO> tags) {
         this.noteId = noteId;
         this.note = note;
         this.tags = tags;
@@ -42,11 +40,11 @@ public class NoteT2DTO {
         this.note = note;
     }
 
-    public List<TagSDTO> getTags() {
+    public List<TagDTO> getTags() {
         return tags;
     }
 
-    public void setTags(List<TagSDTO> tags) {
+    public void setTags(List<TagDTO> tags) {
         this.tags = tags;
     }
 }

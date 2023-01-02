@@ -1,46 +1,25 @@
 package com.app.FO.dto.topic;
 
-import com.app.FO.dto.note.NoteDTO;
-import com.app.FO.dto.tag.TagSDTO;
-import com.app.FO.dto.user.UserSDTO;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class TopicDTO {
     private Long topicId;
     private String subject;
-    private List<NoteDTO> notes;
-    private List<TagSDTO> tags;
-    private UserSDTO user;
     private LocalDateTime createdDate;
-    private List<HistoryTopicSDTO> topicHistory;
-
-    public TopicDTO() {
-    }
 
     @Override
     public String toString() {
         return "TopicDTO{" +
                 "topicId=" + topicId +
                 ", subject='" + subject + '\'' +
-                ", notes=" + notes +
-                ", tags=" + tags +
-                ", user=" + user +
                 ", createdDate=" + createdDate +
-                ", topicHistory=" + topicHistory +
                 '}';
     }
 
-    public TopicDTO(Long topicId, String subject, List<NoteDTO> notes, List<TagSDTO> tags,
-                    UserSDTO user, LocalDateTime createdDate, List<HistoryTopicSDTO> topicHistory) {
+    public TopicDTO(Long topicId, String subject, LocalDateTime createdDate) {
         this.topicId = topicId;
         this.subject = subject;
-        this.notes = notes;
-        this.tags = tags;
-        this.user = user;
         this.createdDate = createdDate;
-        this.topicHistory = topicHistory;
     }
 
     public Long getTopicId() {
@@ -59,43 +38,11 @@ public class TopicDTO {
         this.subject = subject;
     }
 
-    public List<NoteDTO> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<NoteDTO> notes) {
-        this.notes = notes;
-    }
-
-    public List<TagSDTO> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<TagSDTO> tags) {
-        this.tags = tags;
-    }
-
-    public UserSDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserSDTO user) {
-        this.user = user;
-    }
-
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public List<HistoryTopicSDTO> getTopicHistory() {
-        return topicHistory;
-    }
-
-    public void setTopicHistory(List<HistoryTopicSDTO> topicHistory) {
-        this.topicHistory = topicHistory;
     }
 }

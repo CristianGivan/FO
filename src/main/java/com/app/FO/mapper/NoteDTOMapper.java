@@ -9,6 +9,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public abstract class NoteDTOMapper {
     @Autowired
@@ -17,11 +19,17 @@ public abstract class NoteDTOMapper {
     //todo de ce doar daca am facut public static nu am primit err?
     public static NoteDTOMapper INSTANCE = Mappers.getMapper(NoteDTOMapper.class);
     @Mapping(target="noteId", source="id")
-//    @Mapping(target = "tags", expression = "java("+
-//            "tagService.getListOfTagByNoteId(note.getId()))")
-//    @Mapping(target="tags", qualifiedByName = "noteTags")
-//    public abstract NoteTDTO NoteToNoteTDTO(Note note);
-   public abstract NoteDTO NoteToNoteSDTO(Note note);
+    public abstract NoteDTO NoteToNoteDTO(Note note);
+    public abstract List<NoteDTO> NotesToNotesDTO(List<Note> note);
+
+
+
+//    @Mapping(target="noteId", source="id")
+////    @Mapping(target = "tags", expression = "java("+
+////            "tagService.getListOfTagByNoteId(note.getId()))")
+////    @Mapping(target="tags", qualifiedByName = "noteTags")
+////    public abstract NoteTDTO NoteToNoteTDTO(Note note);
+//   public abstract NoteDTO NoteToNoteSDTO(Note note);
 
     public NoteTDTO NoteToNoteTDTO(Note note){
      return new NoteTDTO(note.getId(),note.getNote());

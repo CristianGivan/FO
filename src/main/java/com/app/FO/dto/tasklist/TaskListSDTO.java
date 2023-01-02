@@ -1,8 +1,6 @@
 package com.app.FO.dto.tasklist;
 
-import com.app.FO.dto.user.UserSDTO;
 import com.app.FO.model.task.TaskStatus;
-import com.app.FO.model.user.User;
 
 import java.time.LocalDateTime;
 

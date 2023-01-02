@@ -1,6 +1,7 @@
 package com.app.FO.mapper;
 
-import com.app.FO.dto.tag.TagSDTO;
+import com.app.FO.dto.tag.TagFDTO;
+import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.model.tag.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface TagDTOMapper {
     TagDTOMapper INSTANCE = Mappers.getMapper(TagDTOMapper.class);
     @Mapping(target="tagId", source="id")
-    TagSDTO tagToTagSDTO(Tag tags);
+    TagDTO tagToTagDTO(Tag tags);
 
-    List<TagSDTO> tagsToTagsSDTO(List<Tag> tags);
+    List<TagDTO> tagsToTagsDTO(List<Tag> tags);
 }

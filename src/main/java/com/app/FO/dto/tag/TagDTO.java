@@ -1,31 +1,21 @@
 package com.app.FO.dto.tag;
 
-import com.app.FO.dto.note.NoteDTO;
-import com.app.FO.dto.topic.TopicSDTO;
-
-import java.util.List;
-
 public class TagDTO {
     private Long tagId;
-    private String tagName;
-    private List<NoteDTO> notes;
-    private List<TopicSDTO> topics;
+    private String tag;
 
     @Override
     public String toString() {
         return "TagDTO{" +
                 "tagId=" + tagId +
-                ", tagName='" + tagName + '\'' +
-                ", notes=" + notes +
-                ", topics=" + topics +
+                ", tag='" + tag + '\'' +
                 '}';
     }
 
-    public TagDTO(Long tagId, String tagName, List<NoteDTO> notes, List<TopicSDTO> topics) {
+    public TagDTO(Long tagId, String tagName) {
         this.tagId = tagId;
-        this.tagName = tagName;
-        this.notes = notes;
-        this.topics = topics;
+        this.tag = tagName;
+
     }
 
     public Long getTagId() {
@@ -36,27 +26,11 @@ public class TagDTO {
         this.tagId = tagId;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getTag() {
+        return tag;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
-
-    public List<NoteDTO> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<NoteDTO> notes) {
-        this.notes = notes;
-    }
-
-    public List<TopicSDTO> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<TopicSDTO> topics) {
-        this.topics = topics;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

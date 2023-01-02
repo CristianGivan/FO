@@ -4,8 +4,8 @@ import com.app.FO.dto.event.EventSDTO;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.snooze.SnoozeSDTO;
 import com.app.FO.dto.task.TaskSDTO;
-import com.app.FO.dto.topic.TopicSDTO;
-import com.app.FO.dto.user.UserSDTO;
+import com.app.FO.dto.topic.TopicDTO;
+import com.app.FO.dto.user.UserDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,8 +19,8 @@ public class RemainderDTO {
     private List<RemainderSDTO> repeatedReminders;
     private NoteDTO note;
     private TaskSDTO task;
-    private TopicSDTO topics;
-    private UserSDTO user;
+    private TopicDTO topics;
+    private UserDTO user;
     private EventSDTO event;
 
     @Override
@@ -43,7 +43,7 @@ public class RemainderDTO {
     public RemainderDTO(Long id, String remainder, LocalDateTime createdDateTime,
                         LocalDateTime remainderDateTime, List<SnoozeSDTO> snoozes,
                         List<RemainderSDTO> repeatedReminders, NoteDTO note, TaskSDTO task,
-                        TopicSDTO topics, UserSDTO user, EventSDTO event) {
+                        TopicDTO topics, UserDTO user, EventSDTO event) {
         this.id = id;
         this.remainder = remainder;
         this.createdDateTime = createdDateTime;
@@ -121,19 +121,19 @@ public class RemainderDTO {
         this.task = task;
     }
 
-    public TopicSDTO getTopics() {
+    public TopicDTO getTopics() {
         return topics;
     }
 
-    public void setTopics(TopicSDTO topics) {
+    public void setTopics(TopicDTO topics) {
         this.topics = topics;
     }
 
-    public UserSDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserSDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 

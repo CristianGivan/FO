@@ -1,11 +1,10 @@
 package com.app.FO;
 
 
-import com.app.FO.dto.ConverterDTO;
 import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.dto.note.NoteT2DTO;
 import com.app.FO.dto.note.NoteTDTO;
-import com.app.FO.dto.tag.TagSDTO;
+import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.mapper.NoteDTOMapper;
 import com.app.FO.mapper.TagDTOMapper;
@@ -43,22 +42,20 @@ public class Runner implements CommandLineRunner {
     private TagService tagService;
     private NoteService noteService;
     private TopicService topicService;
-    private ConverterDTO converterDTO;
+
 
     @Autowired
     private NoteTagRepository noteTagRepository;
 
     @Autowired
     public Runner(UserService userService, RoleService roleService, UserRoleService userRoleService,
-                  TagService tagService, NoteService noteService, TopicService topicService,
-                  ConverterDTO converterDTO) {
+                  TagService tagService, NoteService noteService, TopicService topicService) {
         this.userService = userService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
         this.tagService = tagService;
         this.noteService = noteService;
         this.topicService = topicService;
-        this.converterDTO = converterDTO;
     }
 
     @Override
@@ -242,7 +239,7 @@ public class Runner implements CommandLineRunner {
         savedTopic3 = topicService.saveTopic(topic3);
 
 
-        NoteFDTO showNoteFDTO = converterDTO.convertNoteToNoteDTO(savedNote1);
+//        NoteFDTO showNoteFDTO = converterDTO.convertNoteToNoteDTO(savedNote1);
 
         System.out.println(note1.getNoteTags());
         System.out.println(roleService.findRolesByUserId(1L));
@@ -251,23 +248,23 @@ public class Runner implements CommandLineRunner {
 //        noteTagRepository.delete(deleteNoteTag);
 //        savedNote1.getNoteTags().remove(deleteNoteTag);
 //        noteService.saveNote(savedNote1);
-        List<Tag> tagsTest=tagService.getListOfTagByNoteId(1L);
-        List<TagSDTO> tags = TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagsTest);
-        System.out.println(savedNote1);
-        System.out.println("\n" + showNoteFDTO);
+//        List<Tag> tagsTest=tagService.getListOfTagByNoteId(1L);
+//        List<TagDTO> tags = TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagsTest);
+//        System.out.println(savedNote1);
+//        System.out.println("\n" + showNoteFDTO);
 
 //        System.out.println(tagsTest);
 //        System.out.println(tagSDTOS);
-        tagsTest.forEach(tag -> System.out.println(tag));
-        tags.forEach(tag -> System.out.println(tag));
+//        tagsTest.forEach(tag -> System.out.println(tag));
+//        tags.forEach(tag -> System.out.println(tag));
         NoteTDTO noteTDTO= NoteDTOMapper.INSTANCE.NoteToNoteTDTO(savedNote1);//new NoteTDTO(savedNote1.getId(),savedNote1.getNote(),
 //                TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
 //                tagService.getListOfTagByNoteId(savedNote1.getId()));
-        NoteT2DTO noteT2DTO=new NoteT2DTO(savedNote1.getId(),savedNote1.getNote(),
-                TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
-        System.out.println(savedNote1);
+//        NoteT2DTO noteT2DTO=new NoteT2DTO(savedNote1.getId(),savedNote1.getNote(),
+//                TagDTOMapper.INSTANCE.tagsToTagsSDTO(tagService.getListOfTagByNoteId(savedNote1.getId())));
+//        System.out.println(savedNote1);
         System.out.println(noteTDTO);
-        System.out.println(noteT2DTO);
+//        System.out.println(noteT2DTO);
         System.out.println("END");
     }
 }

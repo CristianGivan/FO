@@ -1,10 +1,8 @@
 package com.app.FO.dto.note;
 
-import com.app.FO.dto.remainder.RemainderSDTO;
-import com.app.FO.dto.tag.TagSDTO;
-import com.app.FO.dto.topic.TopicSDTO;
-import com.app.FO.dto.user.UserSDTO;
-import com.app.FO.model.task.TaskNote;
+import com.app.FO.dto.tag.TagDTO;
+import com.app.FO.dto.tag.TagFDTO;
+import com.app.FO.dto.user.UserDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,27 +11,27 @@ public class NoteFDTO {
 
     private Long noteId;
     private String note;
-    private List<TagSDTO> tags;
-    private UserSDTO user;
     private LocalDateTime createdDateTime;
-    private List<TopicSDTO> topicsThatContainTheNote;
-    //todo adaug DTO
-    private List<TaskNote> tasksThatContainTheNote;
-    private List<NoteHistoryDTO> noteHistory;
-    private List<RemainderSDTO> remainders;
+    private UserDTO user;
+    private List<TagDTO> tags;
+//    private List<TopicDTO> topicsThatContainTheNote;
+//    //todo adaug DTO
+//    private List<TaskNote> tasksThatContainTheNote;
+//    private List<NoteHistoryDTO> noteHistory;
+//    private List<RemainderSDTO> remainders;
 
 
     //todo adaug celelate elemente
-    public NoteFDTO(Long noteId, String note, List<TagSDTO> tags, UserSDTO user,
-                    LocalDateTime createdDateTime, List<TopicSDTO> topicsThatContainTheNote,
-                    List<NoteHistoryDTO> noteHistory) {
+    public NoteFDTO(Long noteId, String note, LocalDateTime createdDateTime, UserDTO user, List<TagDTO> tags
+//                      ,List<TopicDTO> topicsThatContainTheNote, List<NoteHistoryDTO> noteHistory
+                    ) {
         this.noteId = noteId;
         this.note = note;
-        this.tags = tags;
-        this.user = user;
         this.createdDateTime = createdDateTime;
-        this.topicsThatContainTheNote = topicsThatContainTheNote;
-        this.noteHistory = noteHistory;
+        this.user = user;
+        this.tags = tags;
+//        this.topicsThatContainTheNote = topicsThatContainTheNote;
+//        this.noteHistory = noteHistory;
     }
 
     @Override
@@ -44,9 +42,9 @@ public class NoteFDTO {
                 ", tags=" + tags +
                 ", user=" + user +
                 ", createdDateTime=" + createdDateTime +
-                ", topicsThatContainTheNote=" + topicsThatContainTheNote +
-                ", noteHistory=" + noteHistory +
-                ", remainders=" + remainders +
+//                ", topicsThatContainTheNote=" + topicsThatContainTheNote +
+//                ", noteHistory=" + noteHistory +
+//                ", remainders=" + remainders +
                 '}';
     }
 
@@ -66,19 +64,19 @@ public class NoteFDTO {
         this.note = note;
     }
 
-    public List<TagSDTO> getTags() {
+    public List<TagDTO> getTags() {
         return tags;
     }
 
-    public void setTags(List<TagSDTO> tags) {
+    public void setTags(List<TagDTO> tags) {
         this.tags = tags;
     }
 
-    public UserSDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserSDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
@@ -90,20 +88,20 @@ public class NoteFDTO {
         this.createdDateTime = createdDateTime;
     }
 
-    public List<TopicSDTO> getTopicsThatContainTheNote() {
-        return topicsThatContainTheNote;
-    }
-
-    public void setTopicsThatContainTheNote(List<TopicSDTO> topicsThatContainTheNote) {
-        this.topicsThatContainTheNote = topicsThatContainTheNote;
-    }
-
-    public List<NoteHistoryDTO> getNoteHistory() {
-        return noteHistory;
-    }
-
-    public void setNoteHistory(List<NoteHistoryDTO> noteHistory) {
-        this.noteHistory = noteHistory;
-    }
+//    public List<TopicDTO> getTopicsThatContainTheNote() {
+//        return topicsThatContainTheNote;
+//    }
+//
+//    public void setTopicsThatContainTheNote(List<TopicDTO> topicsThatContainTheNote) {
+//        this.topicsThatContainTheNote = topicsThatContainTheNote;
+//    }
+//
+//    public List<NoteHistoryDTO> getNoteHistory() {
+//        return noteHistory;
+//    }
+//
+//    public void setNoteHistory(List<NoteHistoryDTO> noteHistory) {
+//        this.noteHistory = noteHistory;
+//    }
 
 }
