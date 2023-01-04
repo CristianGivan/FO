@@ -1,7 +1,7 @@
 package com.app.FO.service.note;
 
-import com.app.FO.config.AllServices;
 import com.app.FO.dto.note.NoteDTO;
+import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.exceptions.NoteNotFoundException;
 import com.app.FO.exceptions.TagAlreadyExistException;
 import com.app.FO.mapper.NoteDTOMapper;
@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,33 +24,59 @@ import java.util.List;
 @Service
 public class NoteService {
     private NoteRepository noteRepository;
+
     private UserService userService;
 
-    @Autowired
     private TagService tagService;
-    @Autowired
+
     private NoteTagService noteTagService;
 
-    @Autowired
-    public NoteService(NoteRepository noteRepository,UserService userService) {
-        this.noteRepository = noteRepository;
-        this.userService=userService;
-    }
+    private NoteDTOMapper noteDTOMapper;
 
+    public NoteService(NoteRepository noteRepository, UserService userService, TagService tagService,
+                       NoteTagService noteTagService, NoteDTOMapper noteDTOMapper) {
+        this.noteRepository = noteRepository;
+        this.userService = userService;
+        this.tagService = tagService;
+        this.noteTagService = noteTagService;
+        this.noteDTOMapper = noteDTOMapper;
+    }
     //-- GET
 
+    public Note getNoteByNoteId(Long noteId) {
+        return noteRepository.findById(noteId).orElseThrow(
+                () -> new NoteNotFoundException("Note not found"));}
+    public NoteDTO getNoteDTOByNoteId(Long noteId) {
+        return noteDTOMapper.NoteToNoteDTO(getNoteByNoteId(noteId));
+    }
 
+    public NoteFDTO getNoteFDTOByNoteId(Long noteId) {
+        return noteDTOMapper.NoteToNoteFDTO(getNoteByNoteId(noteId));
+    }
     public List<Note> getAllNotes() {
         return noteRepository.findAll();
     }
-    public List<Note> getNotesByTopicId(Long topicId) {
-        return noteRepository.getNotesByTopicId(topicId);
+    public List<NoteDTO> getAllNotesDTO() {
+        return noteDTOMapper.NotesToNotesDTO(getAllNotes());
     }
 
     public List<Note> getNotesByTagId(Long tagId) {
         return noteRepository.getNotesByTagId(tagId);
+        //todo trebuie sa gasesc o metoda mai buna
+        //return noteRepository.getNoteByNoteTagsContainingTagAndId(tagId);
     }
 
+    public List<NoteDTO> getNotesDTOByTagId(Long tagId) {
+        return noteDTOMapper.NotesToNotesDTO(getNotesByTagId(tagId));
+    }
+
+    public List<Note> getNotesByTopicId(Long topicId) {
+        return noteRepository.getNotesByTopicId(topicId);
+    }
+
+    public List<NoteDTO> getNotesDTOByTopicId(Long topicId) {
+        return noteDTOMapper.NotesToNotesDTO(getNotesByTopicId(topicId));
+    }
 
     public User getActualUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
@@ -57,45 +84,24 @@ public class NoteService {
         return userService.getUserByUsername(userDetails.getUsername());
     }
 
-    //-- GetDTO
-    public List<NoteDTO> getAllNotesDTO() {
-        return NoteDTOMapper.INSTANCE.NotesToNotesDTO(getAllNotes());
-    }
 
-    public List<NoteDTO> getNotesDTOByTopicId(Long topicId) {
-        return NoteDTOMapper.INSTANCE.NotesToNotesDTO(getNotesByTopicId(topicId));
-    }
-//todo
-    public List<NoteDTO> getNotesDTOByTagId(Long tagId) {
-        return NoteDTOMapper.INSTANCE.NotesToNotesDTO(getNotesByTagId(tagId));
-    }
-
-    //-- Other
-
+    //-- Set
 
     public Note saveNote(Note note) {
         return noteRepository.save(note);
     }
 
+
     public Note saveNote(String note) {
         return noteRepository.save(new Note(note, getActualUser(), LocalDateTime.now()));
     }
 
-
-
-    public Note getNoteById(Long noteId) {
-        return noteRepository.findById(noteId)
-                .orElseThrow(() -> new NoteNotFoundException(" Note not found"));
+    public NoteDTO saveNoteDTO(String note) {
+        return noteDTOMapper.NoteToNoteDTO(saveNote(note));
     }
-
-
-    public NoteHistory createNoteHistory(Note note) {
-        return new NoteHistory(LocalDateTime.now(), note.getUser(), note, note.getNote());
-    }
-
 
     public Note modifiesNoteText(Long noteId, String noteText) {
-        Note updatedNote = getNoteById(noteId);
+        Note updatedNote = getNoteByNoteId(noteId);
         NoteHistory noteHistory = createNoteHistory(updatedNote);
         updatedNote.setUser(getActualUser());
         updatedNote.setNote(noteText);
@@ -103,8 +109,12 @@ public class NoteService {
         return noteRepository.save(updatedNote);
     }
 
+    public NoteFDTO modifiesNoteFDTOText(Long noteId, String noteText){
+        return noteDTOMapper.NoteToNoteFDTO(modifiesNoteText(noteId, noteText));
+    }
+
     public Note addTagToNote(Long noteId, Long tagId) {
-        Note updatedNote = getNoteById(noteId);
+        Note updatedNote = getNoteByNoteId(noteId);
         Tag addTag = tagService.getTagById(tagId);
         boolean tagIsPresent = tagService.getListOfTagByNoteId(noteId).
                 stream().map(tag -> tag.getId()).
@@ -116,9 +126,14 @@ public class NoteService {
         updatedNote.getNoteTags().add(noteTag);
         return noteRepository.save(updatedNote);
     }
+    public NoteFDTO addTagToNoteFDTO(Long noteId, Long tagId) {
+        return noteDTOMapper.NoteToNoteFDTO(addTagToNote(noteId, tagId));
+    }
+
+    //--Delete
 
     public Note deleteTagFromNote(Long noteId, Long tagId) {
-        Note updatedNote = getNoteById(noteId);
+        Note updatedNote = getNoteByNoteId(noteId);
 /* Nice first try without noteTagService :D
         boolean tagIsPresent = tagService.getListOfTagByNoteId(noteId).
                 stream().map(tag -> tag.getId()).
@@ -133,10 +148,27 @@ public class NoteService {
         }
         System.out.println(updatedNote.getNoteTags());
 */
-        NoteTag foundNoteTag=noteTagService.findNoteTagOfANoteIdByTagId(noteId,tagId);
+        NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
         updatedNote.getNoteTags().remove(foundNoteTag);
-       noteTagService.deleteNoteTagById(foundNoteTag.getId());
+        noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }
+    public NoteFDTO deleteTagFromNoteFDTO(Long noteId, Long tagId) {
+        return noteDTOMapper.NoteToNoteFDTO(deleteTagFromNote(noteId, tagId));
+    }
+
+
+    //-- Other
+
+    public NoteHistory createNoteHistory(Note note) {
+        return new NoteHistory(LocalDateTime.now(), note.getUser(), note, note.getNote());
+    }
+
+
+
+
+
+
+
 
 }

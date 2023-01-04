@@ -14,6 +14,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "where nt.tag.id=?1")
     List<Note> getNotesByTagId(Long tegId);
 
+    //Todo cum ar trebui sa fac sa imi iasa ca mai sus?
+    //List<Note> getNotesByNoteTagsContainsTag(Long tegId);
+
     @Query("select n from Note as n inner join TopicNote tn on n.id=tn.note.id " +
             "where tn.topic.id=?1")
     List<Note> getNotesByTopicId(Long topicId);

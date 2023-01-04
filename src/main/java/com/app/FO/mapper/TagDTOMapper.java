@@ -1,19 +1,20 @@
 package com.app.FO.mapper;
 
-import com.app.FO.dto.tag.TagFDTO;
+import com.app.FO.config.AllServices;
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.model.tag.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface TagDTOMapper {
-    TagDTOMapper INSTANCE = Mappers.getMapper(TagDTOMapper.class);
-    @Mapping(target="tagId", source="id")
-    TagDTO tagToTagDTO(Tag tags);
+public abstract class TagDTOMapper {
 
-    List<TagDTO> tagsToTagsDTO(List<Tag> tags);
+
+    @Mapping(target="tagId", source="id")
+    public abstract TagDTO tagToTagDTO(Tag tags);
+
+    public abstract List<TagDTO> tagsToTagsDTO(List<Tag> tags);
 }

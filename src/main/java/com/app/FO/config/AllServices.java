@@ -45,4 +45,5 @@ public class AllServices {
     public NoteTagService getNoteTagService() {
         return noteTagService;
     }
+
 }

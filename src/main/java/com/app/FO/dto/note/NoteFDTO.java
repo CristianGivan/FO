@@ -1,7 +1,6 @@
 package com.app.FO.dto.note;
 
 import com.app.FO.dto.tag.TagDTO;
-import com.app.FO.dto.tag.TagFDTO;
 import com.app.FO.dto.user.UserDTO;
 
 import java.time.LocalDateTime;
