@@ -8,6 +8,7 @@ import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenseslist.ExpensesListUsers;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
 import com.app.FO.model.tasklist.TaskList;
@@ -45,6 +46,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserRole> userRoles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Tag> tags;
 
     @OneToMany(mappedBy = "user")
     private List<Topic> topics;
@@ -103,6 +107,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", userRoles=" + userRoles +
+                ", tags=" + tags +
                 ", topics=" + topics +
                 ", topicHistories=" + topicHistories +
                 ", notes=" + notes +
@@ -294,5 +299,13 @@ public class User {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

@@ -41,11 +41,13 @@ public class NoteService {
         this.noteTagService = noteTagService;
         this.noteDTOMapper = noteDTOMapper;
     }
+
     //-- GET
 
     public Note getNoteByNoteId(Long noteId) {
         return noteRepository.findById(noteId).orElseThrow(
                 () -> new NoteNotFoundException("Note not found"));}
+
     public NoteDTO getNoteDTOByNoteId(Long noteId) {
         return noteDTOMapper.NoteToNoteDTO(getNoteByNoteId(noteId));
     }
@@ -53,9 +55,11 @@ public class NoteService {
     public NoteFDTO getNoteFDTOByNoteId(Long noteId) {
         return noteDTOMapper.NoteToNoteFDTO(getNoteByNoteId(noteId));
     }
+
     public List<Note> getAllNotes() {
         return noteRepository.findAll();
     }
+
     public List<NoteDTO> getAllNotesDTO() {
         return noteDTOMapper.NotesToNotesDTO(getAllNotes());
     }

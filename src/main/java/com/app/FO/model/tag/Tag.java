@@ -7,8 +7,12 @@ import com.app.FO.model.expenseslist.ExpensesListTags;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.topic.TopicTag;
+import com.app.FO.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,6 +29,14 @@ public class Tag {
 
     @Column(name = "tag")
     private String tagName;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
     @OneToMany(mappedBy = "tag")
     private List<NoteTag> noteTags;
@@ -43,14 +55,13 @@ public class Tag {
     @OneToMany(mappedBy = "tag")
     private List<EventTags> eventTags;
 
-    public Tag() {
-    }
-
     @Override
     public String toString() {
         return "Tag{" +
                 "id=" + id +
                 ", tagName='" + tagName + '\'' +
+                ", createdDate=" + createdDate +
+                ", useriD=" + user.getId() +
                 ", noteTags=" + noteTags +
                 ", topicTags=" + topicTags +
                 ", taskTags=" + taskTags +
@@ -60,8 +71,14 @@ public class Tag {
                 '}';
     }
 
+    public Tag() {
+    }
     public Tag(String tagName) {
         this.tagName = tagName;
+    }
+    public Tag(String tagName, User user) {
+        this.tagName = tagName;
+        this.user=user;
     }
 
     public Long getId() {
@@ -126,5 +143,21 @@ public class Tag {
 
     public void setEventTags(List<EventTags> eventTags) {
         this.eventTags = eventTags;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

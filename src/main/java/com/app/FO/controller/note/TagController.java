@@ -2,6 +2,7 @@ package com.app.FO.controller.note;
 
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.dto.tag.TagDTO;
+import com.app.FO.dto.tag.TagFDTO;
 import com.app.FO.service.note.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,12 +51,15 @@ public class TagController {
     //-- PostMapping
 
     @PostMapping("/addNewTag")
-    public TagDTO addNewTag(@RequestBody TextDTO tagText) {
-        return tagService.saveTagDTOFromText(tagText.getText());
+    public TagFDTO addNewTag(@RequestBody TextDTO tagText) {
+        return tagService.saveTagFDTOFromText(tagText.getText());
     }
 
 
     //-- PutMapping
+
+
+
     //-- DeleteMapping
     //-- Converter
 

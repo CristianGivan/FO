@@ -32,6 +32,7 @@ public class Role {
     public Role(RoleType roleType, List<UserRole> userRoles) {
         this.roleType = roleType;
         this.userRoles = userRoles;
+
     }
 
     @Override

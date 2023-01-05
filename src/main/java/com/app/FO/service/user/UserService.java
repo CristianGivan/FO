@@ -2,7 +2,9 @@ package com.app.FO.service.user;
 
 
 import com.app.FO.dto.user.RegisterDTO;
+import com.app.FO.dto.user.UserDTO;
 import com.app.FO.exceptions.UserNotFoundException;
+import com.app.FO.mapper.UserDTOMapper;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
@@ -25,13 +27,17 @@ import java.util.List;
 @Service
 public class UserService {
 
-    //ToDo ii corect ce am facut aici ca a mai facut un repository static?
-    @Autowired
-    private static UserRepository userRepositoryStatic;
+    //ToDo ii corect ce am facut aici ca a mai facut un repository static? Ca sa pot sa creez o metoda statica
+    // pentru a putea accesa peste tot unde am nevoie doar metoda statica pe clasa fara a mai fi nevoie de a injecta peste totot clasa UserService
+    // @Autowired
+    // private static UserRepository userRepositoryStatic;
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private RoleService roleService;
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserDTOMapper userDTOMapper;
 
     @Autowired
     public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository,
@@ -56,15 +62,25 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<UserDTO> findAllUsersDTO(){
+        return userDTOMapper.UsersToUsersDTO(findAllUsers());
+    }
+
+
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
     //todo nu merge inmi da err de nullpoint exception
-    static public User getActualUser() {
+     public User getActualUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-        User foundUser=userRepositoryStatic.findByUsername(userDetails.getUsername());
+        User foundUser=userRepository.findByUsername(userDetails.getUsername());
         return foundUser;
+    }
+
+    public UserDTO getLogInUserDTO(){
+        return userDTOMapper.UserToUserDTO(getActualUser());
     }
 
     public User registerStandardUser(RegisterDTO newUser) throws ResponseStatusException {
@@ -82,4 +98,5 @@ public class UserService {
         userRoleRepository.save(userRole);
         return user;
     }
+
 }

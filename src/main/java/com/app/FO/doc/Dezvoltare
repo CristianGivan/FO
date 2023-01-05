@@ -1,0 +1,8 @@
+230105
+- sa gasesc o metoda de a filtra doar elementele care sunt de la userul logat
+- si tagul ar trebui sa aiga un user si un created date
+- todo tag si user va fi many to many si se va cauta daca exista daca mai exista acest tag deja
+- todo verific de ce imi apare numele dar nu rolurile
+- todo updatez userDTO  cu rolurile- nu imi mai aduce campurile chiar daca le-a adus
+    - daca dau role la Role imi merge daca nu nu imi merge
+

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class UserDTOMapper {
-    public static UserDTOMapper INSTANCE = Mappers.getMapper(UserDTOMapper.class);
+
     @Mapping(target="userId", source="id")
     public abstract UserDTO UserToUserDTO(User user);
     public abstract List<UserDTO> UsersToUsersDTO(List<User> user);

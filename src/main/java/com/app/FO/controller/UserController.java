@@ -1,6 +1,7 @@
 package com.app.FO.controller;
 
 
+import com.app.FO.dto.user.UserDTO;
 import com.app.FO.model.user.User;
 import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,12 @@ public class UserController {
     }
 
     @GetMapping("/findAll")
-    public List<User> findAllUsers(){
-        return userService.findAllUsers();
+    public List<UserDTO> findAllUsers(){
+        return userService.findAllUsersDTO();
     }
+    @GetMapping("/getLogInUser")
+    public UserDTO getLogInUser(){
+        return userService.getLogInUserDTO();
+    }
+
 }

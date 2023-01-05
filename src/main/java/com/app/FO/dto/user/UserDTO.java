@@ -5,12 +5,12 @@ import java.util.List;
 public class UserDTO {
     private Long userId;
     private String username;
-    private List<String> roles;
+    private List<UserRoleDTO> userRoles;
 
-    public UserDTO(Long id, String username, List<String> role) {
+    public UserDTO(Long id, String username, List<UserRoleDTO> role) {
         this.userId = id;
         this.username = username;
-        this.roles = role;
+        this.userRoles = role;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class UserDTO {
         return "UserDTO{" +
                 "id=" + userId +
                 ", username='" + username + '\'' +
-                ", roles=" + roles +
+                ", roles=" + userRoles +
                 '}';
     }
 
@@ -40,11 +40,11 @@ public class UserDTO {
         this.username = username;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public List<UserRoleDTO> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setUserRoles(List<UserRoleDTO> userRoles) {
+        this.userRoles = userRoles;
     }
 }

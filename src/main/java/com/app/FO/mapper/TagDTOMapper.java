@@ -2,6 +2,7 @@ package com.app.FO.mapper;
 
 import com.app.FO.config.AllServices;
 import com.app.FO.dto.tag.TagDTO;
+import com.app.FO.dto.tag.TagFDTO;
 import com.app.FO.model.tag.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,4 +18,9 @@ public abstract class TagDTOMapper {
     public abstract TagDTO tagToTagDTO(Tag tags);
 
     public abstract List<TagDTO> tagsToTagsDTO(List<Tag> tags);
+    @Mapping(target="tagId", source="id")
+    public abstract TagFDTO tagToTagFDTO(Tag tags);
+    public abstract List<TagFDTO> tagsToTagsFDTO(List<Tag> tags);
+
+
 }

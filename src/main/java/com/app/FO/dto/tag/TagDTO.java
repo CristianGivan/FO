@@ -1,21 +1,25 @@
 package com.app.FO.dto.tag;
 
+import java.time.LocalDateTime;
+
 public class TagDTO {
     private Long tagId;
     private String tag;
+    private LocalDateTime createdDate;
 
     @Override
     public String toString() {
         return "TagDTO{" +
                 "tagId=" + tagId +
                 ", tag='" + tag + '\'' +
+                ", createdDate=" + createdDate +
                 '}';
     }
 
-    public TagDTO(Long tagId, String tagName) {
+    public TagDTO(Long tagId, String tag, LocalDateTime createdDate) {
         this.tagId = tagId;
-        this.tag = tagName;
-
+        this.tag = tag;
+        this.createdDate = createdDate;
     }
 
     public Long getTagId() {
@@ -32,5 +36,13 @@ public class TagDTO {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 }

@@ -1,10 +1,12 @@
 package com.app.FO.service.note;
 
 import com.app.FO.dto.tag.TagDTO;
+import com.app.FO.dto.tag.TagFDTO;
 import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.repository.note.TagRepository;
+import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.List;
 public class TagService {
     private TagRepository tagRepository;
     private TagDTOMapper tagDTOMapper;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public TagService(TagRepository tagRepository, TagDTOMapper tagDTOMapper) {
@@ -74,10 +78,13 @@ public class TagService {
         return tagRepository.save(tag);
     }
     public Tag saveTagFromText(String tagText){
-        return tagRepository.save(new  Tag(tagText));
+        return tagRepository.save(new  Tag(tagText,userService.getActualUser()));
     }
     public TagDTO saveTagDTOFromText(String tagText){
         return tagDTOMapper.tagToTagDTO( saveTagFromText(tagText));
+    }
+    public TagFDTO saveTagFDTOFromText(String tagText){
+        return tagDTOMapper.tagToTagFDTO(saveTagFromText(tagText));
     }
 
     //-- Other

@@ -42,6 +42,7 @@ public class JwtSecurityConfig {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/tags/**").permitAll()
+                .antMatchers("/users/getLogInUser").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/notes/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
