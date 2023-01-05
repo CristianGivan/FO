@@ -58,6 +58,13 @@ public class Runner implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         //dbInit();
+        //test();
+
+    }
+
+    public void test(){
+        User user=userService.findUserById(1L);
+        System.out.println(user);
     }
 
     public void dbInit() {

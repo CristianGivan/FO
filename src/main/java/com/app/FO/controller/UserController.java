@@ -2,7 +2,11 @@ package com.app.FO.controller;
 
 
 import com.app.FO.dto.user.UserDTO;
+import com.app.FO.dto.user.UserRoleDTO;
+import com.app.FO.mapper.UserDTOMapper;
+import com.app.FO.mapper.UserRoleDTOMapper;
 import com.app.FO.model.user.User;
+import com.app.FO.model.user.UserRole;
 import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +20,11 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
-
+//only for test mappr ur
+    @Autowired
+    UserRoleDTOMapper userRoleDTOMapper;
+    @Autowired
+    UserDTOMapper userDTOMapper;
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -29,6 +37,25 @@ public class UserController {
     @GetMapping("/getLogInUser")
     public UserDTO getLogInUser(){
         return userService.getLogInUserDTO();
+    }
+
+    @GetMapping("/test1")
+    public List<UserRoleDTO> getLogInUserTest1(){
+        User user =userService.findUserById(3l);
+        List<UserRole> userRoles =user.getUserRoles();
+        List<UserRoleDTO> userRoleDTO =userRoleDTOMapper.UserRolesToUserRolesDTO(userRoles);
+        System.out.println(userRoles);
+        System.out.println(userRoleDTO);
+//        return userService.getLogInUserDTO();
+        return userRoleDTO;
+    }  @GetMapping("/test2")
+    public UserDTO getLogInUserTest2(){
+        User user =userService.findUserById(3l);
+        List<UserRole> userRoles =user.getUserRoles();
+        List<UserRoleDTO> userRoleDTO =userRoleDTOMapper.UserRolesToUserRolesDTO(userRoles);
+        System.out.println(userRoles);
+        System.out.println(userRoleDTO);
+        return userDTOMapper.UserToUserDTO(user);
     }
 
 }

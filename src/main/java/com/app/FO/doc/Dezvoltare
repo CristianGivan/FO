@@ -5,4 +5,6 @@
 - todo verific de ce imi apare numele dar nu rolurile
 - todo updatez userDTO  cu rolurile- nu imi mai aduce campurile chiar daca le-a adus
     - daca dau role la Role imi merge daca nu nu imi merge
+    - todo nu inteelg de ce nu se copiaza din userRoledDTOmaper in userDTOmapp tre sa studiez cum fac
+- sdsa
 
