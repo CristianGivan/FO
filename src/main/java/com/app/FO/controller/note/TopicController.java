@@ -14,9 +14,11 @@ import java.util.List;
 public class TopicController {
     private TopicService topicService;
 
-
+    @Autowired
+    private TopicDTOMapper topicDTOMapper;
 
     @Autowired
+
     public TopicController(TopicService topicService) {
         this.topicService = topicService;
     }
@@ -26,7 +28,7 @@ public class TopicController {
 
     @GetMapping("/getTopicById/{topicId}")
     public TopicDTO getTopicById(@PathVariable Long topicId) {
-        return TopicDTOMapper.INSTANCE.TopicToTopicDTO(topicService.getTopicById(topicId));
+        return topicDTOMapper.TopicToTopicDTO(topicService.getTopicById(topicId));
     }
 //
 //    @GetMapping("/getTopicFById/{topicId}")

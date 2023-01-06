@@ -20,9 +20,9 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
-//only for test mappr ur
+/*//only for test mappr ur
     @Autowired
-    UserRoleDTOMapper userRoleDTOMapper;
+    UserRoleDTOMapper userRoleDTOMapper;*/
     @Autowired
     UserDTOMapper userDTOMapper;
     @Autowired
@@ -38,6 +38,8 @@ public class UserController {
     public UserDTO getLogInUser(){
         return userService.getLogInUserDTO();
     }
+
+/*// am folosit sa rezolv problema cu rolul userilor
 
     @GetMapping("/test1")
     public List<UserRoleDTO> getLogInUserTest1(){
@@ -57,5 +59,8 @@ public class UserController {
         System.out.println(userRoleDTO);
         return userDTOMapper.UserToUserDTO(user);
     }
+*/
+
+
 
 }

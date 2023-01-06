@@ -1,10 +1,17 @@
 230105
-- sa gasesc o metoda de a filtra doar elementele care sunt de la userul logat
-- si tagul ar trebui sa aiga un user si un created date
++ sa gasesc o metoda de a filtra doar elementele care sunt de la userul logat
++ si tagul ar trebui sa aiga un user si un created date
 - todo tag si user va fi many to many si se va cauta daca exista daca mai exista acest tag deja
-- todo verific de ce imi apare numele dar nu rolurile
-- todo updatez userDTO  cu rolurile- nu imi mai aduce campurile chiar daca le-a adus
-    - daca dau role la Role imi merge daca nu nu imi merge
-    - todo nu inteelg de ce nu se copiaza din userRoledDTOmaper in userDTOmapp tre sa studiez cum fac
-- sdsa
+
+230106
++ verific de ce imi apare numele dar nu rolurile
+    +vezi mai jos
++ updatez userDTO  cu rolurile- nu imi mai aduce campurile chiar daca le-a adus
+    + daca dau role la Role imi merge daca nu nu imi merge
+        + am reusit sa fac daca am pus userRole.getRole().getRoleType().toString())
+    + nu inteelg de ce nu se copiaza din userRoledDTOmaper in userDTOmapp tre sa studiez cum fac
+        + am rezolvat trebuia sa pun si uses = {UserRoleDTOMapper.class} la @Mapper(componentModel = "spring", uses = {UserRoleDTOMapper.class})
+        + https://www.youtube.com/watch?v=GxfzHCtQtzQ&ab_channel=Easy2Excel imi mai spune sa pun si@Mapping(target ="userRoles", source = "userRoles") dar a mers si fara
+- sa adaug un nou user
+
 

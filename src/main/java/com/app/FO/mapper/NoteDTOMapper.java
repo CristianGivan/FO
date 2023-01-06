@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class NoteDTOMapper {
     @Autowired
-    public TagService tagService;
+    protected TagService tagService;
 
 
     //todo de ce doar daca am facut public static nu am primit err?

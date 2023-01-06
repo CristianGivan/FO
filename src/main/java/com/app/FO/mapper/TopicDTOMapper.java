@@ -13,9 +13,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class TopicDTOMapper {
 
-    public static TopicDTOMapper INSTANCE = Mappers.getMapper(TopicDTOMapper.class);
-    @Mapping(target="topicId", source="id")
+    @Mapping(target = "topicId", source = "id")
     public abstract TopicDTO TopicToTopicDTO(Topic topic);
+
     public abstract List<TopicDTO> TopicsToTopicsDTO(List<Topic> topic);
 
 }

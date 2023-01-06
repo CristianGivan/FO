@@ -2,8 +2,18 @@
 -@enbedebal sa aincepem entitati fara legatura
 
 pt Oli particular
-- este bine cum mi-am structurat DTO-urile?
+
 
 pt Oli general
+
+
+
+
+----------------------------------------------------------------------------
+Rezolvat
+----------------------------------------------------------------------------
+
+- este bine cum mi-am structurat DTO-urile?
 - cum facem sa dam acces doar la userul care ii logat acces la ce a facut el
+    - nu prin filtre prin metode
 - cum faci u JSON o singura linie?

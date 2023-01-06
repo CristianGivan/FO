@@ -10,10 +10,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class UserRoleDTOMapper {
 
-    @Mapping(target="userRoleId", source="id")
+    @Mapping(target = "userRoleId", source = "id")
 //    @Mapping(target="roleType", source="role")
-//    @Mapping(target = "roleType", expression = "java("+
-//            "role.getRoleType())")
+    @Mapping(target = "roleType", expression = "java(" +
+            "userRole.getRole().getRoleType().toString())")
+
     public abstract UserRoleDTO UserRoleToUserRoleDTO(UserRole userRole);
 
     public abstract List<UserRoleDTO> UserRolesToUserRolesDTO(List<UserRole> userRole);

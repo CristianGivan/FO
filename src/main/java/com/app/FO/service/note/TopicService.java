@@ -17,6 +17,8 @@ import java.util.List;
 public class TopicService {
     private TopicRepository topicRepository;
 
+    @Autowired
+    private TopicDTOMapper topicDTOMapper;
 
     @Autowired
      public TopicService(TopicRepository topicRepository) {
@@ -30,7 +32,7 @@ public class TopicService {
 
     //-- GetDTO
     public List<TopicDTO> getTopicsDTOByTagId(Long tagId){
-        return TopicDTOMapper.INSTANCE.TopicsToTopicsDTO(getTopicsByTagId(tagId));
+        return topicDTOMapper.TopicsToTopicsDTO(getTopicsByTagId(tagId));
     }
 
     //-- Other

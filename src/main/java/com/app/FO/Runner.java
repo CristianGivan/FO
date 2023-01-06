@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class Runner implements CommandLineRunner {
@@ -58,12 +59,16 @@ public class Runner implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         //dbInit();
-        //test();
+        test();
 
     }
 
     public void test(){
-        User user=userService.findUserById(1L);
+        User user=userService.findUserById(3L);
+        List<String> types=user.getUserRoles().stream().
+                map(ur->ur.getRole().getRoleType().toString()).
+                toList();
+        System.out.println(types);
         System.out.println(user);
     }
 

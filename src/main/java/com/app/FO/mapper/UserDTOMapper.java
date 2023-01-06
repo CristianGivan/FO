@@ -8,10 +8,11 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {UserRoleDTOMapper.class})
 public abstract class UserDTOMapper {
 
     @Mapping(target="userId", source="id")
+    //@Mapping(target ="userRoles", source = "userRoles")
     public abstract UserDTO UserToUserDTO(User user);
     public abstract List<UserDTO> UsersToUsersDTO(List<User> user);
 
