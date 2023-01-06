@@ -78,7 +78,7 @@ public class TagService {
         return tagRepository.save(tag);
     }
     public Tag saveTagFromText(String tagText){
-        return tagRepository.save(new  Tag(tagText,userService.getActualUser()));
+        return tagRepository.save(new  Tag(tagText,userService.getLogInUser()));
     }
     public TagDTO saveTagDTOFromText(String tagText){
         return tagDTOMapper.tagToTagDTO( saveTagFromText(tagText));

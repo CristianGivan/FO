@@ -12,6 +12,7 @@
     + nu inteelg de ce nu se copiaza din userRoledDTOmaper in userDTOmapp tre sa studiez cum fac
         + am rezolvat trebuia sa pun si uses = {UserRoleDTOMapper.class} la @Mapper(componentModel = "spring", uses = {UserRoleDTOMapper.class})
         + https://www.youtube.com/watch?v=GxfzHCtQtzQ&ab_channel=Easy2Excel imi mai spune sa pun si@Mapping(target ="userRoles", source = "userRoles") dar a mers si fara
-- sa adaug un nou user
++ sa adaug un nou user
++ update to see the date in UserDTO
 
 

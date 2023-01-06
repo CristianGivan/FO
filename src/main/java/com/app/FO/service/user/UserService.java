@@ -3,6 +3,7 @@ package com.app.FO.service.user;
 
 import com.app.FO.dto.user.RegisterDTO;
 import com.app.FO.dto.user.UserDTO;
+import com.app.FO.dto.user.UserFDTO;
 import com.app.FO.exceptions.UserNotFoundException;
 import com.app.FO.mapper.UserDTOMapper;
 import com.app.FO.model.user.Role;
@@ -11,7 +12,6 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
-import com.app.FO.service.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,13 +48,11 @@ public class UserService {
     }
 
 
+    //-- GET
+
     public User findUserById(Long userId) {
         return userRepository.findById(userId).orElseThrow(() ->
                 new UserNotFoundException("User not found"));
-    }
-
-    public User saveUser(User user) {
-        return userRepository.save(user);
     }
 
     public List<User> findAllUsers() {
@@ -65,14 +62,15 @@ public class UserService {
     public List<UserDTO> findAllUsersDTO(){
         return userDTOMapper.UsersToUsersDTO(findAllUsers());
     }
-
-
+    public List<UserFDTO> findAllUsersFDTO(){
+        return userDTOMapper.UsersToUsersFDTO(findAllUsers());
+    }
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-    //todo nu merge inmi da err de nullpoint exception
-     public User getActualUser() {
+
+    public User getLogInUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         User foundUser=userRepository.findByUsername(userDetails.getUsername());
@@ -80,14 +78,25 @@ public class UserService {
     }
 
     public UserDTO getLogInUserDTO(){
-        return userDTOMapper.UserToUserDTO(getActualUser());
+        return userDTOMapper.UserToUserDTO(getLogInUser());
+    }
+    public UserFDTO getLogInUserFDTO(){
+        return userDTOMapper.UserToUserFDTO(getLogInUser());
+    }
+
+
+    //-- Set
+
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     public User registerStandardUser(RegisterDTO newUser) throws ResponseStatusException {
         User user = userRepository.findByUsername(newUser.getUsername());
-        if (user != null) {
-            throw new ResponseStatusException(HttpStatus.CREATED, "already exist");
-        }
+//        if (user != null) {
+//            throw new ResponseStatusException(HttpStatus.CREATED, "already exist");
+//        }
         user = new User();
         user.setUsername(newUser.getUsername());
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
@@ -98,5 +107,20 @@ public class UserService {
         userRoleRepository.save(userRole);
         return user;
     }
+    public UserFDTO registerStandardUserFDTO(RegisterDTO newUser){
+        return userDTOMapper.UserToUserFDTO(registerStandardUser(newUser));
+    }
+
+    //--Delete
+
+
+
+
+    //-- Other
+
+
+
+
+
 
 }

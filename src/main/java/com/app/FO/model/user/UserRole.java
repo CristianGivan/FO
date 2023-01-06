@@ -59,14 +59,6 @@ public class UserRole {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Role getRole() {
         return role;
     }
@@ -75,11 +67,19 @@ public class UserRole {
         this.role = role;
     }
 
-    public LocalDateTime getDateTime() {
+    public LocalDateTime getAllocatedDay() {
         return allocatedDay;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.allocatedDay = dateTime;
+    public void setAllocatedDay(LocalDateTime allocatedDay) {
+        this.allocatedDay = allocatedDay;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

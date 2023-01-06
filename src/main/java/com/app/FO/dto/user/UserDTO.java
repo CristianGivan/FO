@@ -5,6 +5,8 @@ import java.util.List;
 public class UserDTO {
     private Long userId;
     private String username;
+
+    //shall I keep in UserDTO UserRoles?
     private List<UserRoleDTO> userRoles;
 
     public UserDTO(Long id, String username, List<UserRoleDTO> role) {

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class UserRoleDTO {
     private Long userRoleId;
     private String roleType;
-    private LocalDateTime allocatedDate;
+    private String allocatedDate;
 
     @Override
     public String toString() {
@@ -18,7 +18,7 @@ public class UserRoleDTO {
                 '}';
     }
 
-    public UserRoleDTO(Long userRoleId, String roleType, LocalDateTime allocatedDate) {
+    public UserRoleDTO(Long userRoleId, String roleType, String allocatedDate) {
         this.userRoleId = userRoleId;
         this.roleType = roleType;
         this.allocatedDate = allocatedDate;
@@ -40,11 +40,11 @@ public class UserRoleDTO {
         this.roleType = roleType;
     }
 
-    public LocalDateTime getAllocatedDate() {
+    public String getAllocatedDate() {
         return allocatedDate;
     }
 
-    public void setAllocatedDate(LocalDateTime allocatedDate) {
+    public void setAllocatedDate(String allocatedDate) {
         this.allocatedDate = allocatedDate;
     }
 }
