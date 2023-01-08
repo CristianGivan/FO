@@ -19,7 +19,15 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
     List<Tag> getTagsByNoteId(Long noteId);
     @Query("select t from Tag as t inner join TopicTag tt on t.id=tt.tag.id " +
             "where tt.topic.id=?1")
-    List<Tag> getTagsByTopicId(Long noteId);
+    List<Tag> getTagsByTopicId(Long topicId);
+
+    //@Query("select t from Tag as t inner join UserTag ut on t.id=ut.tag.id where ut.user.id=?1")
+    @Query(value = "SELECT * FROM tags as t inner join user_tag ut on t.tag_id = ut.tag_id where user_id=?1"
+            ,nativeQuery = true)
+    List<Tag> getTagsByUserId(Long UserId);
+    @Query(value = "SELECT * FROM tags as t inner join user_tag ut on t.tag_id = ut.tag_id where user_id=?1 and t.tag=?2"
+            ,nativeQuery = true)
+    Tag getTagsByUserIdAndTagName(Long UserId,String tagName);
 
     Tag findTagByTagName(String tagName);
 }

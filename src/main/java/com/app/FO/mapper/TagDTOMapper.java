@@ -15,6 +15,7 @@ public abstract class TagDTOMapper {
 
 
     @Mapping(target="tagId", source="id")
+    @Mapping(target="tag", source="tagName")
     public abstract TagDTO tagToTagDTO(Tag tags);
 
     public abstract List<TagDTO> tagsToTagsDTO(List<Tag> tags);

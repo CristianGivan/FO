@@ -47,7 +47,16 @@ public class TagController {
         return tagService.getTagsDTOByTopicId(topicId);
     }
 
+    @GetMapping("/getTagOfLogInUser")
+    public List<TagDTO> getTagOfLogInUser() {
+        List<TagDTO> tagDTOs=tagService.getTagsDTOOfLogInUser();
+        return tagDTOs;
+    }
 
+    @GetMapping("/getTagOfLogInUserByTagName")
+    public TagDTO getTagOfLogInUserByTagName(@RequestBody TextDTO tagText) {
+        return tagService.getTagDTOOfLogInUserByTagName(tagText.getText());
+    }
     //-- PostMapping
 
     @PostMapping("/addNewTag")

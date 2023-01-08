@@ -80,6 +80,38 @@ public class TagService {
         return tagDTOMapper.tagsToTagsDTO(getTagsByTopicId(topicId));
     }
 
+    public List<Tag> getTagsByUserId(Long userId) {
+        return tagRepository.getTagsByUserId(userId);
+    }
+
+    public List<TagDTO> getTagsDTOByUserId(Long userId) {
+        return tagDTOMapper.tagsToTagsDTO(getTagsByUserId(userId));
+    }
+
+    public List<Tag> getTagsOfLogInUser() {
+        return getTagsByUserId(userService.getLogInUser().getId());
+    }
+
+    public List<TagDTO> getTagsDTOOfLogInUser() {
+        return tagDTOMapper.tagsToTagsDTO(getTagsOfLogInUser());
+    }
+
+    public Tag getTagByUserIdAndTagName(Long id, String tagName) {
+        return tagRepository.getTagsByUserIdAndTagName(id, tagName);
+    }
+
+    public TagDTO getTagDTOByUserIdAndTagName(Long id, String tagName) {
+        return tagDTOMapper.tagToTagDTO(getTagByUserIdAndTagName(id, tagName));
+    }
+
+    public Tag getTagOfLogInUserByTagName(String tagName) {
+        return tagRepository.getTagsByUserIdAndTagName(userService.getLogInUser().getId(), tagName);
+    }
+
+    public TagDTO getTagDTOOfLogInUserByTagName(String tagName) {
+        return tagDTOMapper.tagToTagDTO(getTagOfLogInUserByTagName(tagName));
+    }
+
 
     //-- Set
 
@@ -90,7 +122,7 @@ public class TagService {
 
     public Tag saveTagFromText(String tagText) {
         User logInUser = userService.getLogInUser();
-        Tag newTag = tagRepository.findTagByTagName(tagText);
+        Tag newTag = getTagOfLogInUserByTagName(tagText);
         if (newTag != null) {
             throw new TagAlreadyExistException("Tag already exist");
         }
@@ -99,10 +131,8 @@ public class TagService {
         newTag = tagRepository.save(new Tag(tagText));
         UserTag userTag = userTagService.saveUserTag(new UserTag(logInUser, newTag));
         logInUser.getUserTags().add(userTag);
-
         newTag.getUserTags().add(userTag);
-        Tag savedTag = tagRepository.save(newTag);
-        return savedTag;
+        return tagRepository.save(newTag);
     }
 
     public TagDTO saveTagDTOFromText(String tagText) {

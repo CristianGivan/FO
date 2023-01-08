@@ -3,3 +3,7 @@ Mapstruct:
 https://www.baeldung.com/mapstruct
 - cum sa fac DTO in DTO
 https://www.youtube.com/watch?v=GxfzHCtQtzQ&ab_channel=Easy2Excel
+
+Query
+- cum se definesc native
+https://www.baeldung.com/spring-data-jpa-query
