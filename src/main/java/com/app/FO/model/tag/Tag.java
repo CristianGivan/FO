@@ -8,11 +8,13 @@ import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.user.User;
+import com.app.FO.model.user.UserTag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,13 +32,8 @@ public class Tag {
     @Column(name = "tag")
     private String tagName;
 
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
+    @OneToMany(mappedBy = "tag",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private List<UserTag> userTags;
 
     @OneToMany(mappedBy = "tag")
     private List<NoteTag> noteTags;
@@ -60,8 +57,7 @@ public class Tag {
         return "Tag{" +
                 "id=" + id +
                 ", tagName='" + tagName + '\'' +
-                ", createdDate=" + createdDate +
-                ", useriD=" + user.getId() +
+                ", userTags=" + userTags +
                 ", noteTags=" + noteTags +
                 ", topicTags=" + topicTags +
                 ", taskTags=" + taskTags +
@@ -76,10 +72,7 @@ public class Tag {
     public Tag(String tagName) {
         this.tagName = tagName;
     }
-    public Tag(String tagName, User user) {
-        this.tagName = tagName;
-        this.user=user;
-    }
+
 
     public Long getId() {
         return id;
@@ -145,19 +138,16 @@ public class Tag {
         this.eventTags = eventTags;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+
+    public List<UserTag> getUserTags() {
+        if (userTags==null){
+            userTags= new ArrayList<>();
+        }
+        return userTags;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setUserTags(List<UserTag> userTags) {
+        this.userTags = userTags;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

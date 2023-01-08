@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UserRoleDTOMapper.class})
+@Mapper(componentModel = "spring", uses = {UserRoleDTOMapper.class,UserTagDTOMapper.class})
 public abstract class UserDTOMapper {
 
     @Mapping(target="userId", source="id")

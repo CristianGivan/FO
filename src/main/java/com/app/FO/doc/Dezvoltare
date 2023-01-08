@@ -1,7 +1,6 @@
 230105
 + sa gasesc o metoda de a filtra doar elementele care sunt de la userul logat
 + si tagul ar trebui sa aiga un user si un created date
-- todo tag si user va fi many to many si se va cauta daca exista daca mai exista acest tag deja
 
 230106
 + verific de ce imi apare numele dar nu rolurile
@@ -15,4 +14,14 @@
 + sa adaug un nou user
 + update to see the date in UserDTO
 
+230107
+- am incercat sa vad de ce nu merge
+- UserTag entity DTOMapper
 
+230108
++ am descperit ca Postmen nu este foarte bun am avut ceva chesti schimbate in posturi si am cerzut ca codul ii baiu
++ am create  UserTag Repository si Service si sa il foltez sa il salvez ca vad ca nu mi se salveaza fara
++ tag si user va fi many to many
++ trebuie sa fac UserTag entity DTOMapper
++ afisez usertaturile si in user
+- todo inainte sa introduc un tag verific daca exista daca mai exista acest tag deja

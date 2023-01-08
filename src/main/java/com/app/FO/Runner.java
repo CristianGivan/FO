@@ -58,8 +58,8 @@ public class Runner implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        //dbInit();
-        test();
+        dbInit();
+        //test();
 
     }
 
@@ -112,16 +112,16 @@ public class Runner implements CommandLineRunner {
         userRoleService.saveUserRole(userRole4);
 
 
-        Tag tag1 = new Tag("Tag1",savedUser1);
-        Tag tag2 = new Tag("Tag2",savedUser1);
-        Tag tag3 = new Tag("Tag3",savedUser1);
-        Tag tag4 = new Tag("Tag4",savedUser2);
-        Tag tag5 = new Tag("Tag5",savedUser2);
-        Tag tag6 = new Tag("Tag6",savedUser2);
-        Tag tag7 = new Tag("Tag7",savedUser3);
-        Tag tag8 = new Tag("Tag8",savedUser3);
-        Tag tag9 = new Tag("Tag9",savedUser3);
-        Tag tag10 = new Tag("Tag10",savedUser3);
+        Tag tag1 = new Tag("Tag1");
+        Tag tag2 = new Tag("Tag2");
+        Tag tag3 = new Tag("Tag3");
+        Tag tag4 = new Tag("Tag4");
+        Tag tag5 = new Tag("Tag5");
+        Tag tag6 = new Tag("Tag6");
+        Tag tag7 = new Tag("Tag7");
+        Tag tag8 = new Tag("Tag8");
+        Tag tag9 = new Tag("Tag9");
+        Tag tag10 = new Tag("Tag10");
 
         Tag savedTag1 = tagService.saveTag(tag1);
         Tag savedTag2 = tagService.saveTag(tag2);
@@ -247,7 +247,7 @@ public class Runner implements CommandLineRunner {
         savedTopic3 = topicService.saveTopic(topic3);
 
 
-      NoteFDTO showNoteFDTO = noteDTOMapper.NoteToNoteFDTO(savedNote1);
+     // NoteFDTO showNoteFDTO = noteDTOMapper.NoteToNoteFDTO(savedNote1);
 
 //        System.out.println(showNoteFDTO);
         System.out.println(savedUser1);

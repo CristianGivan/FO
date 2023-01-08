@@ -36,6 +36,10 @@ public class UserController {
     public UserDTO getLogInUser(){
         return userService.getLogInUserDTO();
     }
+    @GetMapping("/getLogInUserF")
+    public UserFDTO getLogInUserF(){
+        return userService.getLogInUserFDTO();
+    }
 
     @GetMapping("/findAll")
     public List<UserDTO> findAllUsers(){

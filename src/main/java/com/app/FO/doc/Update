@@ -1,0 +1,5 @@
+Mapper
+- cand adaug un DTO intr-un alt DTO
+    - Cand adaug un nou DTO intr-un alt DTO sa nu uit sa adaug si clasa la uses
+        - un User @Mapper(componentModel = "spring", uses = {UserRoleDTOMapper.class,UserTagDTOMapper.class})
+    - daca nu nu mi afiseaza datele din DTO corect

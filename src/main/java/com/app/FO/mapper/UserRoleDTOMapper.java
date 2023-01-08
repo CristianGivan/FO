@@ -9,16 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",uses = {DateTime.class})
+@Mapper(componentModel = "spring")
 public abstract class UserRoleDTOMapper {
-    @Autowired
-    protected DateTime dateTime;
+
 
     @Mapping(target = "userRoleId", source = "id")
     @Mapping(target = "roleType", expression = "java(" +
             "userRole.getRole().getRoleType().toString())")
     @Mapping(target = "allocatedDate", expression = "java(" +
-            " dateTime.dataTimeToString(userRole.getAllocatedDay()))")
+            " userRole.getAllocatedDay().toString())")
     public abstract UserRoleDTO UserRoleToUserRoleDTO(UserRole userRole);
 
     public abstract List<UserRoleDTO> UserRolesToUserRolesDTO(List<UserRole> userRole);

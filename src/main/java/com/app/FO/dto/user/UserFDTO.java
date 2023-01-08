@@ -6,23 +6,24 @@ public class UserFDTO {
     private Long userId;
     private String username;
     private List<UserRoleDTO> userRoles;
-
-    public UserFDTO(Long id, String username, List<UserRoleDTO> role) {
-        this.userId = id;
-        this.username = username;
-        this.userRoles = role;
-    }
+    private List<UserTagDTO> userTags;
 
     @Override
     public String toString() {
-        return "UserDTO{" +
-                "id=" + userId +
+        return "UserFDTO{" +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", roles=" + userRoles +
+                ", userRoles=" + userRoles +
+                ", userTags=" + userTags +
                 '}';
     }
 
-
+    public UserFDTO(Long userId, String username, List<UserRoleDTO> userRoles, List<UserTagDTO> userTags) {
+        this.userId = userId;
+        this.username = username;
+        this.userRoles = userRoles;
+        this.userTags = userTags;
+    }
 
     public Long getUserId() {
         return userId;
@@ -46,5 +47,13 @@ public class UserFDTO {
 
     public void setUserRoles(List<UserRoleDTO> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public List<UserTagDTO> getUserTags() {
+        return userTags;
+    }
+
+    public void setUserTags(List<UserTagDTO> userTags) {
+        this.userTags = userTags;
     }
 }

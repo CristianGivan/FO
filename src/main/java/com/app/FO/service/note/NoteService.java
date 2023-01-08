@@ -119,6 +119,7 @@ public class NoteService {
 
     public Note addTagToNote(Long noteId, Long tagId) {
         Note updatedNote = getNoteByNoteId(noteId);
+        //todo cred ca nu am facut cum trebuia
         Tag addTag = tagService.getTagById(tagId);
         boolean tagIsPresent = tagService.getListOfTagByNoteId(noteId).
                 stream().map(tag -> tag.getId()).

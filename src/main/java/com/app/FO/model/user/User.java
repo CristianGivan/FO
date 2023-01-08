@@ -48,7 +48,7 @@ public class User {
     private List<UserRole> userRoles;
 
     @OneToMany(mappedBy = "user")
-    private List<Tag> tags;
+    private List<UserTag> userTags;
 
     @OneToMany(mappedBy = "user")
     private List<Topic> topics;
@@ -107,7 +107,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", userRoles=" + userRoles +
-                ", tags=" + tags +
+                ", userTags=" + userTags +
                 ", topics=" + topics +
                 ", topicHistories=" + topicHistories +
                 ", notes=" + notes +
@@ -301,11 +301,14 @@ public class User {
         this.transactions = transactions;
     }
 
-    public List<Tag> getTags() {
-        return tags;
+    public List<UserTag> getUserTags() {
+        if (userTags==null){
+            userTags= new ArrayList<>();
+        }
+        return userTags;
     }
 
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
+    public void setUserTags(List<UserTag> userTags) {
+        this.userTags = userTags;
     }
 }
