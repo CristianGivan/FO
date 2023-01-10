@@ -7,6 +7,8 @@ import com.app.FO.model.user.User;
 import com.app.FO.service.security.JwtTokenService;
 import com.app.FO.service.security.UserDetailsServiceImpl;
 import com.app.FO.service.user.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Api( tags = "Autentificare")
 public class AuthController {
     private JwtTokenService jwtTokenService;
     private AuthenticationManager authenticationManager;
@@ -34,6 +37,7 @@ public class AuthController {
 //Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4MTI2Mjk1N30.36c1ov50JQ2fC_PFs2owD_r34F9zVSuG685-_SFhpRFMtuLKIz_pGfIJ2hu_bWKADBanGoPBDsA9C_EGHrfokQ
 
     @PostMapping("/authenticate")
+    @ApiOperation(value = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4MTA4OTA1MX0.p2e29XIuwXxRlYvFJZy84B20diA5nM3jmuty22MO6W9jUyOez7084mpGDFpz_ICY4V-p2piWIrr9OLCwxvC9JQ")
     public String authenticate(@RequestBody AuthDTO user) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 user.getUsername(), user.getPassword()
