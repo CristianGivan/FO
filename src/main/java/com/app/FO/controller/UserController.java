@@ -36,9 +36,15 @@ public class UserController {
     public UserDTO getLogInUser(){
         return userService.getLogInUserDTO();
     }
+
     @GetMapping("/getLogInUserF")
     public UserFDTO getLogInUserF(){
         return userService.getLogInUserFDTO();
+    }
+
+    @GetMapping("/getUserFDTOByUsername/{username}")
+    public UserFDTO getUserFDTOByUsername(@PathVariable String username){
+        return userService.getUserFDTOByUsername(username);
     }
 
     @GetMapping("/findAll")
@@ -60,6 +66,17 @@ public class UserController {
 
     //-- DeleteMapping
 
+    @DeleteMapping("/deleteUserDTOByUserId/{userId}")
+    public List<UserDTO> deleteUserDTOByUserId(@PathVariable Long userId) {
+        userService.deleteUserByUserId(userId);
+        return userService.findAllUsersDTO();
+    }
+    @DeleteMapping("/deleteUserFDTOByUserId/{username}")
+    public List<UserFDTO> deleteUserFDTOByUsername(@PathVariable String username) {
+        userService.deleteUserDTOByUsername(username);
+//        return userService.findAllUsersDTO();
+        return userService.findAllUsersFDTO();
+    }
 
     //--- Other
 

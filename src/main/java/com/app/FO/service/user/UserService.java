@@ -83,7 +83,9 @@ public class UserService {
     public UserFDTO getLogInUserFDTO(){
         return userDTOMapper.UserToUserFDTO(getLogInUser());
     }
-
+    public UserFDTO getUserFDTOByUsername(String username){
+        return userDTOMapper.UserToUserFDTO(getUserByUsername(username));
+    }
 
     //-- Set
 
@@ -112,7 +114,14 @@ public class UserService {
     }
 
     //--Delete
-
+    public List<User> deleteUserByUserId (Long userId){
+        userRepository.delete(findUserById(userId));
+        return findAllUsers();
+    }
+    public List<User> deleteUserDTOByUsername (String username){
+        userRepository.delete(getUserByUsername(username));
+        return findAllUsers();
+    }
 
 
 
