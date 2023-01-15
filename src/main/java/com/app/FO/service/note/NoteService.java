@@ -12,11 +12,9 @@ import com.app.FO.model.tag.Tag;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,6 +58,7 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
+
     public List<NoteDTO> getAllNotesDTO() {
         return noteDTOMapper.NotesToNotesDTO(getAllNotes());
     }
@@ -82,11 +81,29 @@ public class NoteService {
         return noteDTOMapper.NotesToNotesDTO(getNotesByTopicId(topicId));
     }
 
+    // actual user
     public User getActualUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         return userService.getUserByUsername(userDetails.getUsername());
     }
+
+    public List<Note> getAllNotesFromLogInUser(){
+        return noteRepository.getNotesByUser(getActualUser());
+    }
+
+    public List<NoteDTO> getAllNotesDTOFromLogInUser(){
+        return noteDTOMapper.NotesToNotesDTO(getAllNotesFromLogInUser());
+    }
+
+    public NoteFDTO getNoteFDTOFromLogInUserById(Long noteId){
+        Note foundNote=noteRepository.getNoteByUserAndId(getActualUser(),noteId);
+        if (foundNote==null){
+            throw new NoteNotFoundException("The note was not found");
+        }
+        return noteDTOMapper.NoteToNoteFDTO(foundNote);
+    }
+
 
 
     //-- Set

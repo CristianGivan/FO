@@ -71,7 +71,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticateUser4")
-    @ApiOperation(value = "Bearer ")
+    @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyNCIsImV4cCI6MTY4NDUyODQ4M30.8LSwT7hVr2uMLXn6NMiBoJTjVFOTD52thu1SdmdD36_Yxj9HE9MEgwJJBfaIU8icwZ5Kfa7_RAeMSBcrvZeVuA")
     public String authenticateUser4(@RequestBody String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));

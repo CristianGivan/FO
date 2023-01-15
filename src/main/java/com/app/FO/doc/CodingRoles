@@ -1,3 +1,11 @@
+Methods
+Converting DTO
+    1 find what to covert (prima lime de cod find note)
+    2. if is null throw exception
+    3. convert (return convert note to noteDTO)
+
+
+Updating
 Mapper
 - cand adaug un DTO intr-un alt DTO
     - Cand adaug un nou DTO intr-un alt DTO sa nu uit sa adaug si clasa la uses

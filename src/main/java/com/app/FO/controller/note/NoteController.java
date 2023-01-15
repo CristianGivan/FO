@@ -3,7 +3,6 @@ package com.app.FO.controller.note;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.dto.general.TextDTO;
-import com.app.FO.mapper.NoteDTOMapper;
 import com.app.FO.service.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +21,22 @@ public class NoteController {
 
     //-- GetMapping
 
+    //
     @GetMapping("/getNoteById/{noteId}")
     public NoteDTO getNote(@PathVariable Long noteId) {
         return noteService.getNoteDTOByNoteId(noteId);
+    }
+
+    @GetMapping("/getNoteFById/{noteId}")
+    public NoteFDTO getNoteFull(@PathVariable Long noteId) {
+        return noteService.getNoteFDTOByNoteId(noteId);
     }
 
     @GetMapping("/getAllNotes")
     public List<NoteDTO> getAllNotes() {
         return noteService.getAllNotesDTO();
     }
+
 
     @GetMapping("/getNotesByTagId/{tagId}")
     public List<NoteDTO> getNotesByTagId(@PathVariable Long tagId) {
@@ -42,12 +48,20 @@ public class NoteController {
         return noteService.getNotesDTOByTopicId(topicId);
     }
 
-    //-- GetMapping Full
 
-    @GetMapping("/getNoteFById/{noteId}")
-    public NoteFDTO getNoteFull(@PathVariable Long noteId) {
-        return noteService.getNoteFDTOByNoteId(noteId);
+
+    //-- GetMapping From User
+    @GetMapping("/getAllNotesFromUser")
+    public List<NoteDTO> getAllNotesFromUser() {
+        return noteService.getAllNotesDTOFromLogInUser();
     }
+
+    @GetMapping("/getNoteFDTOFromLogInUserById/{noteId}")
+    public NoteFDTO getNoteFDTOFromLogInUserById(@PathVariable Long noteId) {
+        return noteService.getNoteFDTOFromLogInUserById(noteId);
+    }
+
+
 
     //-- PostMapping
 

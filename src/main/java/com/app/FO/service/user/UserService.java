@@ -96,9 +96,9 @@ public class UserService {
 
     public User registerStandardUser(RegisterDTO newUser) throws ResponseStatusException {
         User user = userRepository.findByUsername(newUser.getUsername());
-//        if (user != null) {
-//            throw new ResponseStatusException(HttpStatus.CREATED, "already exist");
-//        }
+        if (user != null) {
+            throw new ResponseStatusException(HttpStatus.CREATED, "User already exist");
+        }
         user = new User();
         user.setUsername(newUser.getUsername());
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));

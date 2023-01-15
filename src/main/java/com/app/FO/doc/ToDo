@@ -7,5 +7,30 @@ High
 - o sa caut de microservice
 - salvez lucrurlile importante in History
 
+Note
+- Creez nou
+- Modific text
+- Sterg
+- Adaug Tag
+- Sterg Tag
+- Adaug Remainder
+- Sterg Remainder
+- Adaug Topic
+- Sterg Topic
+- Gasesc toate de la user
+- Caut dupa ID
+- Caut dupa nume
+- Caut dupa tag
+- Caut dupa topic
+- Creez
+
+
+
 User
 - sa punt tot ce trebuie sa mai sterg cand dau delete alte legaturi cu alte entitati
+
+JwtSecurityConfig
+- configurez mai bine filtrele
+
+Review
+- toate metodele care cauta ceva si nu gasesc (null) atunci sa arunce o excceptie;
