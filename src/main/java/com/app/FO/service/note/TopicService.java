@@ -2,6 +2,7 @@ package com.app.FO.service.note;
 
 import com.app.FO.config.AllServices;
 import com.app.FO.dto.topic.TopicDTO;
+import com.app.FO.exceptions.NoteNotFoundException;
 import com.app.FO.exceptions.TopicNotFoundException;
 import com.app.FO.mapper.TopicDTOMapper;
 import com.app.FO.model.note.Note;
@@ -34,6 +35,11 @@ public class TopicService {
     public List<TopicDTO> getTopicsDTOByTagId(Long tagId){
         return topicDTOMapper.TopicsToTopicsDTO(getTopicsByTagId(tagId));
     }
+    public List<TopicDTO> getTopicsDTOByNoteId(Long noteId){
+        List<Topic> foundTopics=topicRepository.getTopicsByNoteId(noteId);
+        return topicDTOMapper.TopicsToTopicsDTO(foundTopics);
+    }
+
 
     //-- Other
 

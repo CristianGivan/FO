@@ -6,6 +6,7 @@ import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.dto.note.NoteTDTO;
 import com.app.FO.model.note.Note;
 import com.app.FO.service.note.TagService;
+import com.app.FO.service.note.TopicService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -17,6 +18,10 @@ import java.util.List;
 public abstract class NoteDTOMapper {
     @Autowired
     protected TagService tagService;
+    @Autowired
+    protected TopicService topicService;
+//    @Autowired
+//    protected Remai
 
 
     //todo de ce doar daca am facut public static nu am primit err?
@@ -27,6 +32,8 @@ public abstract class NoteDTOMapper {
     @Mapping(target="noteId", source="id")
     @Mapping(target = "tags", expression = "java("+
             "tagService.getListOfTagsDTOByNoteId(note.getId()))")
+    @Mapping(target = "topicsThatContainTheNote", expression = "java("+
+            "topicService.getTopicsDTOByNoteId(note.getId()))")
    public abstract NoteFDTO NoteToNoteFDTO(Note note);
     public abstract List<NoteFDTO> NotesToNotesFDTO(List<Note> note);
 

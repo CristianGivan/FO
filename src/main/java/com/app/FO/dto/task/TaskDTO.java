@@ -1,7 +1,7 @@
 package com.app.FO.dto.task;
 
 import com.app.FO.dto.note.NoteDTO;
-import com.app.FO.dto.remainder.RemainderSDTO;
+import com.app.FO.dto.remainder.RemainderDTO;
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tasklist.TaskListSDTO;
 import com.app.FO.dto.user.UserDTO;
@@ -18,7 +18,7 @@ public class TaskDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private TaskStatus taskStatus;
-    private List<RemainderSDTO> remainders;
+    private List<RemainderDTO> remainders;
     private List<TaskEffortSDTO> taskEfforts;
     private List<TagDTO> noteTags;
     private List<NoteDTO> taskNotes;
@@ -45,7 +45,7 @@ public class TaskDTO {
     }
 
     public TaskDTO(Long id, String task, UserDTO user, LocalDateTime createdDate, LocalDateTime startDate,
-                   LocalDateTime endDate, TaskStatus taskStatus, List<RemainderSDTO> remainders,
+                   LocalDateTime endDate, TaskStatus taskStatus, List<RemainderDTO> remainders,
                    List<TaskEffortSDTO> taskEfforts, List<TagDTO> noteTags, List<NoteDTO> taskNotes,
                    List<TaskListSDTO> taskListTasks, List<TaskHistoryDTO> taskHistories) {
         this.id = id;
@@ -119,11 +119,11 @@ public class TaskDTO {
         this.taskStatus = taskStatus;
     }
 
-    public List<RemainderSDTO> getRemainders() {
+    public List<RemainderDTO> getRemainders() {
         return remainders;
     }
 
-    public void setRemainders(List<RemainderSDTO> remainders) {
+    public void setRemainders(List<RemainderDTO> remainders) {
         this.remainders = remainders;
     }
 

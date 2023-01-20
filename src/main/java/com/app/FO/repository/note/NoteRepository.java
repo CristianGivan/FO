@@ -22,10 +22,20 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "where tn.topic.id=?1")
     List<Note> getNotesByTopicId(Long topicId);
 
-    //-- get from user
-    List<Note> getNotesByUser(User user);
-    Note getNoteByUserAndId(User user, Long noteId);
+    List<Note> getNotesByNoteContains(String containText);
 
+    //-- get from user
+    List<Note> getNotesByUserId(Long userId);
+    Note getNoteByUserIdAndId(Long userId, Long noteId);
+    List<Note> getNotesByUserIdAndNoteContains(Long userId,String containText);
+
+    @Query(value = "SELECT * FROM notes as n inner join not_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"
+            ,nativeQuery = true)
+    List<Note> getNotesFromUserIdByTagId(Long userId, Long tagId);
+
+    @Query(value = "SELECT * FROM notes as n inner join topic_note as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.topic_id=?2"
+            ,nativeQuery = true)
+    List<Note> getNotesFromUserIdByTopicId(Long userId, Long tagId);
 
 
 

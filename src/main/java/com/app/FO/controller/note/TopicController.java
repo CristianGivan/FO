@@ -18,7 +18,6 @@ public class TopicController {
     private TopicDTOMapper topicDTOMapper;
 
     @Autowired
-
     public TopicController(TopicService topicService) {
         this.topicService = topicService;
     }

@@ -81,7 +81,12 @@ public class NoteService {
         return noteDTOMapper.NotesToNotesDTO(getNotesByTopicId(topicId));
     }
 
-    // actual user
+    public List<NoteDTO> getNotesDTOByNoteContainsText(String containsText){
+        List<Note> foundNotes =noteRepository.getNotesByNoteContains(containsText);
+        return noteDTOMapper.NotesToNotesDTO(foundNotes);
+    }
+
+    //-- actual user
     public User getActualUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -89,21 +94,32 @@ public class NoteService {
     }
 
     public List<Note> getAllNotesFromLogInUser(){
-        return noteRepository.getNotesByUser(getActualUser());
+        return noteRepository.getNotesByUserId(getActualUser().getId());
     }
 
     public List<NoteDTO> getAllNotesDTOFromLogInUser(){
         return noteDTOMapper.NotesToNotesDTO(getAllNotesFromLogInUser());
     }
 
-    public NoteFDTO getNoteFDTOFromLogInUserById(Long noteId){
-        Note foundNote=noteRepository.getNoteByUserAndId(getActualUser(),noteId);
-        if (foundNote==null){
-            throw new NoteNotFoundException("The note was not found");
-        }
+    public NoteFDTO getNoteFDTOFromLogInUserByNoteId(Long noteId){
+        Note foundNote=noteRepository.getNoteByUserIdAndId(getActualUser().getId(),noteId);
         return noteDTOMapper.NoteToNoteFDTO(foundNote);
     }
 
+    public List<NoteFDTO> getNotesFDTOFromLogInUserByTagId(Long tagId){
+        List<Note> foundNotes=noteRepository.getNotesFromUserIdByTagId(getActualUser().getId(),tagId);
+        return noteDTOMapper.NotesToNotesFDTO(foundNotes);
+    }
+
+    public List<NoteFDTO> getNotesFDTOFromLogInUserByTopicId(Long topicId){
+        List<Note> foundNotes=noteRepository.getNotesFromUserIdByTopicId(getActualUser().getId(),topicId);
+        return noteDTOMapper.NotesToNotesFDTO(foundNotes);
+    }
+    public List<NoteDTO> getNotesDTOFromLogInUserIdByNoteContainsText(String containsText){
+        List<Note> foundNotes =noteRepository.getNotesByUserIdAndNoteContains(
+                getActualUser().getId(),containsText);
+        return noteDTOMapper.NotesToNotesDTO(foundNotes);
+    }
 
 
     //-- Set

@@ -1,5 +1,5 @@
 Methods
-Converting DTO
+Getting DTO in Controle (in service nu se va face verificare pentru ca am putea sa returnam null )
     1 find what to covert (prima lime de cod find note)
     2. if is null throw exception
     3. convert (return convert note to noteDTO)

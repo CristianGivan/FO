@@ -1,10 +1,20 @@
+230123
+2
++ Caut dupa nume
++ Caut daca contine in notita anumit text
++ am modificat repository sa imi caute dupa Id nu user
+
+230117
+4
++ Caut dupa topic
++ Adaug Remainder mapper
+
+
 230115
-3
+5
++ Caut dupa tag
 + Caut dupa ID
-- Caut dupa tag
-- Caut dupa topic
 + Gasesc toate notitele de la user
-- Caut dupa nume
 
 230112
 4
