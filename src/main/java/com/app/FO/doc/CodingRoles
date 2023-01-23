@@ -1,4 +1,12 @@
 Methods
+Naming:
+From sau For
+By
+
+Service se va returna doar elementele de baza exemplu Note
+In Controller se va returna Ce DTO se doreste
+
+
 Getting DTO in Controle (in service nu se va face verificare pentru ca am putea sa returnam null )
     1 find what to covert (prima lime de cod find note)
     2. if is null throw exception

@@ -4,6 +4,8 @@ import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.exceptions.NoteNotFoundException;
+import com.app.FO.mapper.NoteDTOMapper;
+import com.app.FO.model.note.Note;
 import com.app.FO.service.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,15 @@ import java.util.List;
 @RequestMapping("/notes")
 public class NoteController {
     private NoteService noteService;
+    private NoteDTOMapper noteDTOMapper;
+
 
     @Autowired
-    public NoteController(NoteService noteService) {
+    public NoteController(NoteService noteService, NoteDTOMapper noteDTOMapper) {
         this.noteService = noteService;
+        this.noteDTOMapper = noteDTOMapper;
     }
+
 
     //-- GetMapping
 
@@ -51,8 +57,8 @@ public class NoteController {
 
     @GetMapping("/getNotesDTOByNoteContainsText/{containsText}")
     public List<NoteDTO> getNotesDTOByNoteContainsText(@PathVariable String containsText) {
-        List<NoteDTO> foundNotes =noteService.getNotesDTOByNoteContainsText(containsText);
-        if (foundNotes==null){
+        List<NoteDTO> foundNotes = noteService.getNotesDTOByNoteContainsText(containsText);
+        if (foundNotes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
         return foundNotes;
@@ -64,10 +70,10 @@ public class NoteController {
         return noteService.getAllNotesDTOFromLogInUser();
     }
 
-    @GetMapping("/getNoteFDTOFromLogInUserById/{noteId} ")
-    public NoteFDTO getNoteFDTOFromLogInUserById(@PathVariable Long noteId) {
-        NoteFDTO foundNote =noteService.getNoteFDTOFromLogInUserByNoteId(noteId);
-        if (foundNote==null){
+    @GetMapping("/getNoteFromLogInUserByNoteIdReturnNoteFDTO/{noteId} ")
+    public NoteFDTO getNoteFromLogInUserByNoteIdReturnNoteFDTO(@PathVariable Long noteId) {
+        NoteFDTO foundNote = noteService.getNoteFromLogInUserByNoteIdAndReturnNoteFDTO(noteId);
+        if (foundNote == null) {
             throw new NoteNotFoundException("The note was not found");
         }
         return foundNote;
@@ -76,23 +82,26 @@ public class NoteController {
     @GetMapping("/getNotesFDTOFromLogInUserByTagId/{tagId}")
     public List<NoteFDTO> getNotesFDTOFromLogInUserByTagId(@PathVariable Long tagId) {
         List<NoteFDTO> foundNotes = noteService.getNotesFDTOFromLogInUserByTagId(tagId);
-        if (foundNotes==null){
+        if (foundNotes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
         return foundNotes;
     }
+
     @GetMapping("/getNotesFDTOFromLogInUserByTopicId/{tagId}")
     public List<NoteFDTO> getNotesFDTOFromLogInUserByTopicId(@PathVariable Long tagId) {
-        List<NoteFDTO> foundNotes =  noteService.getNotesFDTOFromLogInUserByTopicId(tagId);;
-        if (foundNotes==null){
+        List<NoteFDTO> foundNotes = noteService.getNotesFDTOFromLogInUserByTopicId(tagId);
+        ;
+        if (foundNotes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
-       return foundNotes;
+        return foundNotes;
     }
+
     @GetMapping("/getNotesDTOFromLogInUserByNoteContainsText/{containsText}")
     public List<NoteDTO> getNotesDTOFromLogInUserIdByNoteContainsText(@PathVariable String containsText) {
-        List<NoteDTO> foundNotes =noteService.getNotesDTOFromLogInUserIdByNoteContainsText(containsText);
-        if (foundNotes==null){
+        List<NoteDTO> foundNotes = noteService.getNotesDTOFromLogInUserIdByNoteContainsText(containsText);
+        if (foundNotes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
         return foundNotes;
@@ -116,6 +125,15 @@ public class NoteController {
     public NoteFDTO addTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
         return noteService.addTagToNoteFDTO(noteId, tagId);
     }
+
+    //-- GetMapping From User
+
+//    @PutMapping("/addTagToNote")
+//    public NoteFDTO addTagToNoteForLogInUser(@RequestParam Long noteId, @RequestParam Long tagId) {
+//        Note note = noteService.addTagToNoteForLogInUser(noteId, tagId);
+//        return noteDTOMapper.NoteToNoteFDTO(note);
+//    }
+
 
     //-- DeleteMapping
 

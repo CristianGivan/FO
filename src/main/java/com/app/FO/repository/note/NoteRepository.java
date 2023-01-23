@@ -37,6 +37,10 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             ,nativeQuery = true)
     List<Note> getNotesFromUserIdByTopicId(Long userId, Long tagId);
 
+    @Query(value = "SELECT IF(EXISTS(SELECT * FROM note_tag as nt where nt.note_id = ?1 and nt.tag_id = ?2), 'True', 'False')"
+            ,nativeQuery = true)
+    Boolean noteHasTag(Long userId, Long tagId);
+
 
 
 }

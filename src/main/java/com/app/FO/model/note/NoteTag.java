@@ -45,10 +45,10 @@ public class NoteTag {
                 '}';
     }
 
-    public NoteTag(Note note, Tag tag, LocalDateTime linkDate) {
+    public NoteTag(Note note, Tag tag) {
         this.note = note;
         this.tag = tag;
-        this.linkDate = linkDate;
+        this.linkDate = LocalDateTime.now();
     }
 
     public Long getId() {

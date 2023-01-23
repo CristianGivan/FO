@@ -1,5 +1,13 @@
 230123
 2
+- Service se va returna doar elementele de baza exemplu Note
+- In Controller se va returna Ce DTO se doreste
+- Sterg notita dar doar de la userul logat
+- Adaug Tag dar doar de la userul logat
+- Sterg Tag dar doar de la userul logat
+
+230120
+2
 + Caut dupa nume
 + Caut daca contine in notita anumit text
 + am modificat repository sa imi caute dupa Id nu user

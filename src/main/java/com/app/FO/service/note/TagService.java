@@ -80,12 +80,18 @@ public class TagService {
         return tagDTOMapper.tagsToTagsDTO(getTagsByTopicId(topicId));
     }
 
+    //-- actual user
+
     public List<Tag> getTagsByUserId(Long userId) {
         return tagRepository.getTagsByUserId(userId);
     }
 
     public List<TagDTO> getTagsDTOByUserId(Long userId) {
         return tagDTOMapper.tagsToTagsDTO(getTagsByUserId(userId));
+    }
+
+    public Tag getTagOfLogInUserIdAndTagId(Long tagId) {
+        return tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(),tagId);
     }
 
     public List<Tag> getTagsOfLogInUser() {
@@ -100,8 +106,8 @@ public class TagService {
         return tagRepository.getTagsByUserIdAndTagName(id, tagName);
     }
 
-    public TagDTO getTagDTOByUserIdAndTagName(Long id, String tagName) {
-        return tagDTOMapper.tagToTagDTO(getTagByUserIdAndTagName(id, tagName));
+    public TagDTO getTagDTOByUserIdAndTagName(Long userId, String tagName) {
+        return tagDTOMapper.tagToTagDTO(getTagByUserIdAndTagName(userId, tagName));
     }
 
     public Tag getTagOfLogInUserByTagName(String tagName) {
