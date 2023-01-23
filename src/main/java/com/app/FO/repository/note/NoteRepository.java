@@ -1,7 +1,6 @@
 package com.app.FO.repository.note;
 
 import com.app.FO.model.note.Note;
-import com.app.FO.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,6 +26,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     //-- get from user
     List<Note> getNotesByUserId(Long userId);
     Note getNoteByUserIdAndId(Long userId, Long noteId);
+
     List<Note> getNotesByUserIdAndNoteContains(Long userId,String containText);
 
     @Query(value = "SELECT * FROM notes as n inner join not_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"

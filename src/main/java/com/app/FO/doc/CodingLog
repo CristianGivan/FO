@@ -1,10 +1,11 @@
 230123
-2
-- Service se va returna doar elementele de baza exemplu Note
-- In Controller se va returna Ce DTO se doreste
+6
+- Service se va returna doar elementele de baza exemplu Note (note)
+- In Controller se va returna Ce DTO se doreste (note)
 - Sterg notita dar doar de la userul logat
-- Adaug Tag dar doar de la userul logat
 - Sterg Tag dar doar de la userul logat
++ Adaug Tag dar doar de la userul logat
+
 
 230120
 2

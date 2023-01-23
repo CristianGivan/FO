@@ -30,116 +30,121 @@ public class NoteController {
 
     //
     @GetMapping("/getNoteById/{noteId}")
-    public NoteDTO getNote(@PathVariable Long noteId) {
-        return noteService.getNoteDTOByNoteId(noteId);
+    public NoteFDTO getNote(@PathVariable Long noteId) {
+        Note note = noteService.getNoteByNoteId(noteId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
-    @GetMapping("/getNoteFById/{noteId}")
-    public NoteFDTO getNoteFull(@PathVariable Long noteId) {
-        return noteService.getNoteFDTOByNoteId(noteId);
-    }
 
     @GetMapping("/getAllNotes")
     public List<NoteDTO> getAllNotes() {
-        return noteService.getAllNotesDTO();
+        List<Note> notes = noteService.getAllNotes();
+        return noteDTOMapper.NotesToNotesDTO(notes);
     }
 
 
     @GetMapping("/getNotesByTagId/{tagId}")
-    public List<NoteDTO> getNotesByTagId(@PathVariable Long tagId) {
-        return noteService.getNotesDTOByTagId(tagId);
+    public List<NoteFDTO> getNotesByTagId(@PathVariable Long tagId) {
+        List<Note> notes = noteService.getNotesByTagId(tagId);
+        return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
     @GetMapping("/getNotesByTopicId/{topicId}")
-    public List<NoteDTO> getNotesByTopicId(@PathVariable Long topicId) {
-        return noteService.getNotesDTOByTopicId(topicId);
+    public List<NoteFDTO> getNotesByTopicId(@PathVariable Long topicId) {
+        List<Note> notes = noteService.getNotesByTopicId(topicId);
+        return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
-    @GetMapping("/getNotesDTOByNoteContainsText/{containsText}")
-    public List<NoteDTO> getNotesDTOByNoteContainsText(@PathVariable String containsText) {
-        List<NoteDTO> foundNotes = noteService.getNotesDTOByNoteContainsText(containsText);
-        if (foundNotes == null) {
+    @GetMapping("/getNotesByNoteContainsText/{containsText}")
+    public List<NoteFDTO> getNotesDTOByNoteContainsText(@PathVariable String containsText) {
+        List<Note> notes = noteService.getNotesByNoteContainsText(containsText);
+        if (notes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
-        return foundNotes;
+        return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
     //-- GetMapping From User
     @GetMapping("/getAllNotesFromLogInUser")
-    public List<NoteDTO> getAllNotesFromLogInUser() {
-        return noteService.getAllNotesDTOFromLogInUser();
+    public List<NoteFDTO> getAllNotesFromLogInUser() {
+        List<Note> notes = noteService.getAllNotesFromLogInUser();
+        return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
-    @GetMapping("/getNoteFromLogInUserByNoteIdReturnNoteFDTO/{noteId} ")
-    public NoteFDTO getNoteFromLogInUserByNoteIdReturnNoteFDTO(@PathVariable Long noteId) {
-        NoteFDTO foundNote = noteService.getNoteFromLogInUserByNoteIdAndReturnNoteFDTO(noteId);
-        if (foundNote == null) {
+    @GetMapping("/getNoteFromLogInUserByNoteId/{noteId} ")
+    public NoteFDTO getNoteFromLogInUserByNoteId(@PathVariable Long noteId) {
+        Note note = noteService.getNoteFromLogInUserByNoteId(noteId);
+        if (note == null) {
             throw new NoteNotFoundException("The note was not found");
         }
-        return foundNote;
+        return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
-    @GetMapping("/getNotesFDTOFromLogInUserByTagId/{tagId}")
-    public List<NoteFDTO> getNotesFDTOFromLogInUserByTagId(@PathVariable Long tagId) {
-        List<NoteFDTO> foundNotes = noteService.getNotesFDTOFromLogInUserByTagId(tagId);
-        if (foundNotes == null) {
+    @GetMapping("/getNotesFromLogInUserByTagId/{tagId}")
+    public List<NoteFDTO> getNotesFromLogInUserByTagId(@PathVariable Long tagId) {
+        List<Note> notes = noteService.getNotesFromLogInUserByTagId(tagId);
+        if (notes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
-        return foundNotes;
+        return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
-    @GetMapping("/getNotesFDTOFromLogInUserByTopicId/{tagId}")
-    public List<NoteFDTO> getNotesFDTOFromLogInUserByTopicId(@PathVariable Long tagId) {
-        List<NoteFDTO> foundNotes = noteService.getNotesFDTOFromLogInUserByTopicId(tagId);
-        ;
-        if (foundNotes == null) {
+    @GetMapping("/getNotesFromLogInUserByTopicId/{tagId}")
+    public List<NoteFDTO> getNotesFromLogInUserByTopicId(@PathVariable Long tagId) {
+        List<Note> notes = noteService.getNotesFromLogInUserByTopicId(tagId);
+        if (notes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
-        return foundNotes;
+        return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
-    @GetMapping("/getNotesDTOFromLogInUserByNoteContainsText/{containsText}")
-    public List<NoteDTO> getNotesDTOFromLogInUserIdByNoteContainsText(@PathVariable String containsText) {
-        List<NoteDTO> foundNotes = noteService.getNotesDTOFromLogInUserIdByNoteContainsText(containsText);
-        if (foundNotes == null) {
+    @GetMapping("/fromLogInUserGetNotesByNoteContainsText/{containsText}")
+    public List<NoteFDTO> getNotesFromLogInUserByNoteContainsText(@PathVariable String containsText) {
+        List<Note> notes = noteService.getNotesFromLogInUserByNoteContainsText(containsText);
+        if (notes == null) {
             throw new NoteNotFoundException("The note was not found");
         }
-        return foundNotes;
+        return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
     //-- PostMapping
 
     @PostMapping("/addNewNote")
-    public NoteDTO addNewNote(@RequestBody TextDTO note) {
-        return noteService.saveNoteDTO(note.getText());
+    public NoteFDTO addNewNote(@RequestBody TextDTO noteText) {
+        Note note = noteService.addNote(noteText.getText());
+        return noteDTOMapper.NoteToNoteFDTO(note);
     }
+
 
     //-- PutMapping
 
-    @PutMapping("/modifiesNoteText/{noteId}")
-    public NoteFDTO modifiesNoteText(@PathVariable Long noteId, @RequestBody TextDTO textNote) {
-        return noteService.modifiesNoteFDTOText(noteId, textNote.getText());
+    @PutMapping("/modifyNoteText/{noteId}")
+    public NoteFDTO modifyNoteText(@PathVariable Long noteId, @RequestBody TextDTO textNote) {
+        Note note = noteService.modifyNoteText(noteId, textNote.getText());
+        return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
     @PutMapping("/addTagToNote")
     public NoteFDTO addTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
-        return noteService.addTagToNoteFDTO(noteId, tagId);
+        Note note =noteService.addTagToNote(noteId, tagId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
     //-- GetMapping From User
 
-//    @PutMapping("/addTagToNote")
-//    public NoteFDTO addTagToNoteForLogInUser(@RequestParam Long noteId, @RequestParam Long tagId) {
-//        Note note = noteService.addTagToNoteForLogInUser(noteId, tagId);
-//        return noteDTOMapper.NoteToNoteFDTO(note);
-//    }
+    @PutMapping("/forLogInUserAddTagToNote")
+    public NoteFDTO forLogInUserAddTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
+        Note note = noteService.forLogInUserAddTagToNote(noteId, tagId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
 
 
     //-- DeleteMapping
 
     @DeleteMapping("/deleteTagFromNote")
     public NoteFDTO deleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
-        return noteService.deleteTagFromNoteFDTO(noteId, tagId);
+        Note note =noteService.deleteTagFromNote(noteId, tagId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
     //--- Other
