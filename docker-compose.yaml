@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  springboot:
+    image: givanc/fo-app:latest
+
+    container_name: fo-app
+    restart: always
+
+    networks:
+      - FO_Network
+    ports:
+      - ${PORT_APP}:8080
+
+networks:
+  TestCICD:
+    external: true
