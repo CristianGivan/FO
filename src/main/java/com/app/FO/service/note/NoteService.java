@@ -65,30 +65,30 @@ public class NoteService {
     }
 
     //-- actual user
-    public User getActualUser() {
+    public User getLogInUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         return userService.getUserByUsername(userDetails.getUsername());
     }
 
     public List<Note> fromLogInUserGetAllNotes() {
-        return noteRepository.getNotesByUserId(getActualUser().getId());
+        return noteRepository.getNotesByUserId(getLogInUser().getId());
     }
 
     public Note fromLogInUserGetNoteByNoteId(Long noteId) {
-        return noteRepository.getNoteByUserIdAndId(getActualUser().getId(), noteId);
+        return noteRepository.getNoteByUserIdAndId(getLogInUser().getId(), noteId);
     }
 
     public List<Note> fromLogInUserGetNotesByTagId(Long tagId) {
-        return noteRepository.getNotesFromUserIdByTagId(getActualUser().getId(), tagId);
+        return noteRepository.getNotesFromUserIdByTagId(getLogInUser().getId(), tagId);
     }
 
     public List<Note> fromLogInUserGetNotesByTopicId(Long topicId) {
-        return noteRepository.getNotesFromUserIdByTopicId(getActualUser().getId(), topicId);
+        return noteRepository.getNotesFromUserIdByTopicId(getLogInUser().getId(), topicId);
     }
 
     public List<Note> fromLogInUserGetNotesByNoteThatContainsText(String containsText) {
-        return noteRepository.getNotesByUserIdAndNoteContains(getActualUser().getId(), containsText);
+        return noteRepository.getNotesByUserIdAndNoteContains(getLogInUser().getId(), containsText);
     }
 
 
@@ -100,12 +100,12 @@ public class NoteService {
 
 
     public Note forAnyUserPostNewNote(String note) {
-        return noteRepository.save(new Note(note, getActualUser(), LocalDateTime.now()));
+        return noteRepository.save(new Note(note, getLogInUser(), LocalDateTime.now()));
     }
     public Note forAnyUserPutNoteText(Long noteId, String noteText) {
         Note updatedNote = fromAnyUserGetNoteById(noteId);
         NoteHistory noteHistory = createNoteHistory(updatedNote);
-        updatedNote.setUser(getActualUser());
+        updatedNote.setUser(getLogInUser());
         updatedNote.setNote(noteText);
         updatedNote.getNoteHistories().add(noteHistory);
         return noteRepository.save(updatedNote);

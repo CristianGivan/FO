@@ -21,6 +21,9 @@ si un DTO in care sa pun doar ID pentru celelalte entitati pentru a nu avem situ
 - la un topic pot contribui mai multi utilizatori
 
 Hotarat
+- in controller o s fac pund tipul care vreau sa il returnez DTO
+- in Service returnez doar tipul de baza ex., Note nu noteDTO
+
 - un topic are un subiect scurt un detaliu de o propozitie/paragraf poata sa aiba mai multe taguri
 - de fiecare data cand se mai adauga o notita se mai face o nota
 - la fiecare modificare se va salva intr-un history versiunea anterioara modificari
