@@ -1,4 +1,4 @@
-package com.app.FO.controller.note;
+package com.app.FO.controller;
 
 import com.app.FO.dto.tag.TagDTO;
 import org.springframework.web.bind.annotation.GetMapping;
