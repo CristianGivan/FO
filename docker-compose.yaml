@@ -13,5 +13,5 @@ services:
       - ${PORT_APP}:8080
 
 networks:
-  TestCICD:
+  FO_Network:
     external: true
