@@ -27,7 +27,10 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                    sh 'docker compose ps'
+                    withCredentials([string(credentialsId: 'DockerHubPWD', variable: 'DockerHubPWD')]) {
+                    sh 'docker login -u givanc -p ${DockerHubPWD}'
+                    sh 'docker push givanc/fo-app'
+                    }
                 }
             }
         }
