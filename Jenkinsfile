@@ -6,22 +6,31 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/CristianGivan/testCICD.git']])
+                checkout scmGit(branches: [[name: '*/release']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/CristianGivan/FO.git']])
                 sh 'mvn clean install'
             }
         }
-         stage('Start container'){
+        stage('Start container'){
             steps{
                 script{
                     sh 'docker build -t givanc/fo-app:latest .'
                 }
             }
         }
-               stage('Docker compose up'){
+        stage('Run in docker'){
             steps{
                 script{
                     sh 'docker compose up -d --wait'
-                    sh 'docker compose ps'
+                }
+            }
+        }
+        stage('Push image to Hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'DockerHubPWD', variable: 'DockerHubPWD')]) {
+                    sh 'docker login -u givanc -p ${DockerHubPWD}'
+                    sh 'docker push givanc/fo-app'
+                    }
                 }
             }
         }
