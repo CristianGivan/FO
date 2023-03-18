@@ -40,27 +40,27 @@ public class NoteService {
 
     //-- GET
 
-    public Note fromAnyUserGetNoteById(Long noteId) {
+    public Note adminGetNoteById(Long noteId) {
         return noteRepository.findById(noteId).orElseThrow(
                 () -> new NoteNotFoundException("Note not found"));
     }
 
 
-    public List<Note> fromAnyUserGetAllNotes() {
+    public List<Note> adminGetAllNotes() {
         return noteRepository.findAll();
     }
 
 
-    public List<Note> fromAnyUserGetNotesByTagId(Long tagId) {
+    public List<Note> adminGetNotesByTagId(Long tagId) {
         return noteRepository.getNotesByTagId(tagId);
     }
 
 
-    public List<Note> fromAnyUserGetNotesByTopicId(Long topicId) {
+    public List<Note> adminGetNotesByTopicId(Long topicId) {
         return noteRepository.getNotesByTopicId(topicId);
     }
 
-    public List<Note> fromAnyUserGetNotesByNoteThatContainsText(String containsText) {
+    public List<Note> adminGetNotesByNoteThatContainsText(String containsText) {
         return noteRepository.getNotesByNoteContains(containsText);
     }
 
@@ -71,23 +71,23 @@ public class NoteService {
         return userService.getUserByUsername(userDetails.getUsername());
     }
 
-    public List<Note> fromLogInUserGetAllNotes() {
+    public List<Note> getAllNotes() {
         return noteRepository.getNotesByUserId(getLogInUser().getId());
     }
 
-    public Note fromLogInUserGetNoteByNoteId(Long noteId) {
+    public Note getNoteByNoteId(Long noteId) {
         return noteRepository.getNoteByUserIdAndId(getLogInUser().getId(), noteId);
     }
 
-    public List<Note> fromLogInUserGetNotesByTagId(Long tagId) {
+    public List<Note> getNotesByTagId(Long tagId) {
         return noteRepository.getNotesFromUserIdByTagId(getLogInUser().getId(), tagId);
     }
 
-    public List<Note> fromLogInUserGetNotesByTopicId(Long topicId) {
+    public List<Note> getNotesByTopicId(Long topicId) {
         return noteRepository.getNotesFromUserIdByTopicId(getLogInUser().getId(), topicId);
     }
 
-    public List<Note> fromLogInUserGetNotesByNoteThatContainsText(String containsText) {
+    public List<Note> getNotesByNoteThatContainsText(String containsText) {
         return noteRepository.getNotesByUserIdAndNoteContains(getLogInUser().getId(), containsText);
     }
 
@@ -99,11 +99,11 @@ public class NoteService {
     }
 
 
-    public Note forAnyUserPostNewNote(String note) {
+    public Note adminPostNewNote(String note) {
         return noteRepository.save(new Note(note, getLogInUser(), LocalDateTime.now()));
     }
-    public Note forAnyUserPutNoteText(Long noteId, String noteText) {
-        Note updatedNote = fromAnyUserGetNoteById(noteId);
+    public Note adminPutNoteText(Long noteId, String noteText) {
+        Note updatedNote = adminGetNoteById(noteId);
         NoteHistory noteHistory = createNoteHistory(updatedNote);
         updatedNote.setUser(getLogInUser());
         updatedNote.setNote(noteText);
@@ -111,8 +111,8 @@ public class NoteService {
         return noteRepository.save(updatedNote);
     }
 
-    public Note forAnyUserPutTagToNote(Long noteId, Long tagId) {
-        Note updatedNote = fromAnyUserGetNoteById(noteId);
+    public Note adminPutTagToNote(Long noteId, Long tagId) {
+        Note updatedNote = adminGetNoteById(noteId);
         Tag addTag = tagService.getTagById(tagId);
         if (noteRepository.noteHasTag(noteId, tagId)) {
             throw new TagAlreadyExistException("Tag already exist");
@@ -123,7 +123,7 @@ public class NoteService {
     }
 
     public Note forLogInUserPutTagToNote(Long noteId, Long tagId) {
-        Note updatedNote = fromLogInUserGetNoteByNoteId(noteId);
+        Note updatedNote = getNoteByNoteId(noteId);
         if (updatedNote == null) {
             throw new NoteNotFoundException("Note not found!");
         }
@@ -141,8 +141,8 @@ public class NoteService {
 
     //--Delete
 
-    public Note forAnyUserDeleteTagFromNote(Long noteId, Long tagId) {
-        Note updatedNote = fromAnyUserGetNoteById(noteId);
+    public Note adminDeleteTagFromNote(Long noteId, Long tagId) {
+        Note updatedNote = adminGetNoteById(noteId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
         updatedNote.getNoteTags().remove(foundNoteTag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());

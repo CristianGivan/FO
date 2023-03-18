@@ -2,14 +2,18 @@ package com.app.FO.dto.tag;
 
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.topic.TopicDTO;
-import com.app.FO.dto.user.UserTagDTO;
+import com.app.FO.dto.user.UserDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TagFDTO {
     private Long tagId;
     private String tagName;
-    private List<UserTagDTO> userTags;
+
+    private UserDTO user;
+
+    private LocalDateTime createdDate;
     private List<NoteDTO> notes;
     private List<TopicDTO> topics;
 
@@ -18,19 +22,23 @@ public class TagFDTO {
         return "TagFDTO{" +
                 "tagId=" + tagId +
                 ", tagName='" + tagName + '\'' +
-                ", usersTag=" + userTags +
+                ", user=" + user +
+                ", createdDate=" + createdDate +
                 ", notes=" + notes +
                 ", topics=" + topics +
                 '}';
     }
 
-    public TagFDTO(String tagName, List<UserTagDTO> usersTag, List<NoteDTO> notes,
-                   List<TopicDTO> topics) {
+    public TagFDTO(Long tagId, String tagName, UserDTO user, LocalDateTime createdDate,
+                   List<NoteDTO> notes, List<TopicDTO> topics) {
+        this.tagId = tagId;
         this.tagName = tagName;
-        this.userTags = usersTag;
+        this.user = user;
+        this.createdDate = createdDate;
         this.notes = notes;
         this.topics = topics;
     }
+
 
     public Long getTagId() {
         return tagId;
@@ -48,15 +56,6 @@ public class TagFDTO {
         this.tagName = tagName;
     }
 
-    public List<UserTagDTO> getUserTags() {
-        return userTags;
-    }
-
-    public void setUserTags(List<UserTagDTO> userTags) {
-        this.userTags = userTags;
-    }
-
-
     public List<NoteDTO> getNotes() {
         return notes;
     }
@@ -71,5 +70,21 @@ public class TagFDTO {
 
     public void setTopics(List<TopicDTO> topics) {
         this.topics = topics;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 }
