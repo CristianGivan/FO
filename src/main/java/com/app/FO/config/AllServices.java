@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AllServices {
+
+//    to be deleted
+
 //    private UserService userService;
 //    private TagService tagService;
 //    private NoteService noteService;

@@ -5,21 +5,19 @@ import java.time.LocalDateTime;
 public class TagDTO {
     private Long tagId;
     private String tag;
-    private LocalDateTime createdDate;
+
 
     @Override
     public String toString() {
         return "TagDTO{" +
                 "tagId=" + tagId +
                 ", tag='" + tag + '\'' +
-                ", createdDate=" + createdDate +
                 '}';
     }
 
-    public TagDTO(Long tagId, String tag, LocalDateTime createdDate) {
+    public TagDTO(Long tagId, String tag) {
         this.tagId = tagId;
         this.tag = tag;
-        this.createdDate = createdDate;
     }
 
     public Long getTagId() {
@@ -38,11 +36,4 @@ public class TagDTO {
         this.tag = tag;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
 }

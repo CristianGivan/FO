@@ -12,6 +12,9 @@ Getting DTO in Controle (in service nu se va face verificare pentru ca am putea 
     2. if is null throw exception
     3. convert (return convert note to noteDTO)
 
+Join table will be place in the parent package
+
+
 
 Updating
 Mapper

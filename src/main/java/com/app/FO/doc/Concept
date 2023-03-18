@@ -8,7 +8,7 @@ Tag care sa descrie componentele
 Posibilitati:
 - un user ar putea fi default la care sa se poata atribui toate lucrurile generate de aplicatie
 gen o lista de taguri generale
-- ar putea fi un user guies care sa nu trebuiasca sa se inregistreze doar sa testeze aplicatia
+- ar putea fi un user guest care sa nu trebuiasca sa se inregistreze doar sa testeze aplicatia
 
 Functionalitati:
 - cand incep sa scriu in subiect sau la taguri sa imi arate ce este deja folosti
