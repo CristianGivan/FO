@@ -122,7 +122,7 @@ public class NoteService {
         return noteRepository.save(updatedNote);
     }
 
-    public Note forLogInUserPutTagToNote(Long noteId, Long tagId) {
+    public Note userPutTagToNote(Long noteId, Long tagId) {
         Note updatedNote = getNoteByNoteId(noteId);
         if (updatedNote == null) {
             throw new NoteNotFoundException("Note not found!");

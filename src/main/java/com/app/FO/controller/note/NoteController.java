@@ -107,7 +107,7 @@ public class NoteController {
         return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
-    //-- PostMapping
+    //-- PostMapping admin
 
     @PostMapping("/adminPostNewNote")
     public NoteFDTO adminPostNewNote(@RequestBody TextDTO noteText) {
@@ -116,7 +116,7 @@ public class NoteController {
     }
 
 
-    //-- PutMapping
+    //-- PutMapping admin
 
     @PutMapping("/adminPutNoteText/{noteId}")
     public NoteFDTO adminPutNoteText(@PathVariable Long noteId, @RequestBody TextDTO textNote) {
@@ -130,16 +130,16 @@ public class NoteController {
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
-    //-- PutMapping From User
+    //-- PutMapping
 
     @PutMapping("/putTagToNote")
     public NoteFDTO UserPutTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
-        Note note = noteService.forLogInUserPutTagToNote(noteId, tagId);
+        Note note = noteService.userPutTagToNote(noteId, tagId);
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
 
-    //-- DeleteMapping
+    //-- DeleteMapping admin
 
     @DeleteMapping("/adminDeleteTagFromNote")
     public NoteFDTO adminDeleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {

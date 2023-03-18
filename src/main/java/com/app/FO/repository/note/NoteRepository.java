@@ -29,7 +29,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     List<Note> getNotesByUserIdAndNoteContains(Long userId,String containText);
 
-    @Query(value = "SELECT * FROM notes as n inner join not_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"
+    @Query(value = "SELECT * FROM notes as n inner join note_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"
             ,nativeQuery = true)
     List<Note> getNotesFromUserIdByTagId(Long userId, Long tagId);
 
