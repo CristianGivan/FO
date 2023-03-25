@@ -11,6 +11,7 @@ import com.app.FO.model.tag.Tag;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class NoteService {
     private NoteTagService noteTagService;
 
 //    private NoteDTOMapper noteDTOMapper;
-
+    @Autowired
     public NoteService(NoteRepository noteRepository, UserService userService, TagService tagService,
                        NoteTagService noteTagService/*, NoteDTOMapper noteDTOMapper*/) {
         this.noteRepository = noteRepository;
@@ -93,7 +94,7 @@ public class NoteService {
     }
 
 
-    //-- Set
+    //-- Post
 
     public Note saveNote(Note note) {
         return noteRepository.save(note);
@@ -103,6 +104,10 @@ public class NoteService {
     public Note adminPostNewNote(String note) {
         return noteRepository.save(new Note(note, getLogInUser(), LocalDateTime.now()));
     }
+
+    //-- Put
+
+
     public Note adminPutNoteText(Long noteId, String noteText) {
         Note updatedNote = adminGetNoteById(noteId);
         NoteHistory noteHistory = createNoteHistory(updatedNote);
@@ -155,7 +160,7 @@ public class NoteService {
         Note updatedNote = getNoteByNoteId(noteId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
         checkIfNoteAndNoteTagExists(updatedNote,foundNoteTag);
-        updatedNote.getNoteTags().remove(foundNoteTag);
+        //updatedNote.getNoteTags().remove(foundNoteTag);//no needed we have persist
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }

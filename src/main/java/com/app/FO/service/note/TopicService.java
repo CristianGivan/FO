@@ -8,8 +8,12 @@ import com.app.FO.mapper.TopicDTOMapper;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.user.User;
 import com.app.FO.repository.note.TopicRepository;
+import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +23,7 @@ public class TopicService {
     private TopicRepository topicRepository;
 
     @Autowired
-    private TopicDTOMapper topicDTOMapper;
+    private UserService userService;
 
     @Autowired
      public TopicService(TopicRepository topicRepository) {
@@ -27,25 +31,45 @@ public class TopicService {
     }
 
     //-- GET
+    public User getLogInUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        return userService.getUserByUsername(userDetails.getUsername());
+    }
+
     public List<Topic> getTopicsByTagId(Long tagId){
         return topicRepository.getTopicsByTagId(tagId);
     }
 
-    //-- GetDTO
-    public List<TopicDTO> getTopicsDTOByTagId(Long tagId){
-        return topicDTOMapper.TopicsToTopicsDTO(getTopicsByTagId(tagId));
+
+    //-- Post
+
+    public Topic postTopic(String topicName){
+        return topicRepository.save(new Topic(topicName,getLogInUser()));
     }
-    public List<TopicDTO> getTopicsDTOByNoteId(Long noteId){
-        List<Topic> foundTopics=topicRepository.getTopicsByNoteId(noteId);
-        return topicDTOMapper.TopicsToTopicsDTO(foundTopics);
-    }
+
+    //-- Put
+
+
+
+    //--Delete
 
 
     //-- Other
 
+
+
+    //-- Checks
+
+
+
+    //-- Redefine
+
+    //todo tbdel
     public Topic saveTopic(Topic topic){
         return topicRepository.save(topic);
     }
+
     public List<Topic> getAllTopics(){
         return topicRepository.findAll();
     }
@@ -58,8 +82,6 @@ public class TopicService {
     public List<Topic> getTopicsByNote(Note note) {
         return topicRepository.getTopicsByNoteId(note.getId());
     }
-
-
 
 
 

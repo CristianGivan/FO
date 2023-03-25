@@ -70,10 +70,16 @@ public class Note {
         this.note = note;
     }
 
+    //todo tbdel
     public Note(String note, User user, LocalDateTime createdDate) {
         this.note = note;
         this.user = user;
         this.createdDate = createdDate;
+    }
+    public Note(String note, User user) {
+        this.note = note;
+        this.user = user;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Long getId() {

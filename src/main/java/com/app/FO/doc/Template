@@ -21,7 +21,10 @@ Service
 
 
 
-    //-- Set
+    //-- Post
+
+
+    //-- Put
 
 
 
@@ -29,8 +32,10 @@ Service
 
 
 
-
     //-- Other
 
 
+
     //-- Checks
+
+

@@ -66,10 +66,16 @@ public class Topic {
                 '}';
     }
 
+    //todo tnu
     public Topic(String subject, User user, LocalDateTime createdDate) {
         this.subject = subject;
         this.user = user;
         this.createdDate = createdDate;
+    }
+    public Topic(String subject, User user) {
+        this.subject = subject;
+        this.user = user;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Long getId() {
