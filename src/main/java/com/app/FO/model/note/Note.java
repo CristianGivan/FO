@@ -34,7 +34,7 @@ public class Note {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<NoteTag> noteTags;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})

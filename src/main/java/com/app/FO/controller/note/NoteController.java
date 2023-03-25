@@ -71,7 +71,7 @@ public class NoteController {
         return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
-    @GetMapping("/getNoteByNoteId/{noteId} ")
+    @GetMapping("/getNoteByNoteId/{noteId}")
     public NoteFDTO getNoteByNoteId(@PathVariable Long noteId) {
         Note note = noteService.getNoteByNoteId(noteId);
         if (note == null) {
@@ -144,6 +144,12 @@ public class NoteController {
     @DeleteMapping("/adminDeleteTagFromNote")
     public NoteFDTO adminDeleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
         Note note =noteService.adminDeleteTagFromNote(noteId, tagId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
+
+    @DeleteMapping("/deleteTagFromNote")
+    public NoteFDTO deleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
+        Note note =noteService.deleteTagFromNote(noteId, tagId);
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
 

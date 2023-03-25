@@ -1,6 +1,7 @@
 package com.app.FO.service.note;
 
 import com.app.FO.exceptions.NoteNotFoundException;
+import com.app.FO.exceptions.NoteTagNotFoundException;
 import com.app.FO.exceptions.TagAlreadyExistException;
 import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.model.note.Note;
@@ -38,7 +39,7 @@ public class NoteService {
 //        this.noteDTOMapper = noteDTOMapper;
     }
 
-    //-- GET
+    //-- Get admin
 
     public Note adminGetNoteById(Long noteId) {
         return noteRepository.findById(noteId).orElseThrow(
@@ -64,7 +65,7 @@ public class NoteService {
         return noteRepository.getNotesByNoteContains(containsText);
     }
 
-    //-- actual user
+    //-- Get
     public User getLogInUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -124,13 +125,9 @@ public class NoteService {
 
     public Note userPutTagToNote(Long noteId, Long tagId) {
         Note updatedNote = getNoteByNoteId(noteId);
-        if (updatedNote == null) {
-            throw new NoteNotFoundException("Note not found!");
-        }
         Tag addTag = tagService.getTagOfLogInUserIdAndTagId(tagId);
-        if (addTag == null) {
-            throw new TagNotFoundException("Tag not found!");
-        }
+        checkIfNoteAndTagExists(updatedNote,addTag);
+
         if (noteRepository.noteHasTag(noteId, tagId)) {
             throw new TagAlreadyExistException("Tag already exist");
         }
@@ -144,17 +141,61 @@ public class NoteService {
     public Note adminDeleteTagFromNote(Long noteId, Long tagId) {
         Note updatedNote = adminGetNoteById(noteId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
+        checkIfNoteAndNoteTagExists(updatedNote,foundNoteTag);
+        updatedNote.getNoteTags().remove(foundNoteTag);
+        noteTagService.deleteNoteTagById(foundNoteTag.getId());
+        return noteRepository.save(updatedNote);
+    }
+
+    /*
+    * If a note is found by user it can be edited by him
+    * */
+    //todo tbt
+    public Note deleteTagFromNote(Long noteId, Long tagId) {
+        Note updatedNote = getNoteByNoteId(noteId);
+        NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
+        checkIfNoteAndNoteTagExists(updatedNote,foundNoteTag);
         updatedNote.getNoteTags().remove(foundNoteTag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }
 
 
-
     //-- Other
 
     public NoteHistory createNoteHistory(Note note) {
         return new NoteHistory(LocalDateTime.now(), note.getUser(), note, note.getNote());
+    }
+
+    //-- Checks
+
+    //todo TBT
+    private void checkIfNoteAndTagExists(Note note, Tag tag){
+        checkIfNoteExist(note);
+        checkItTagExist(tag);
+    }
+    private void checkIfNoteAndNoteTagExists(Note note, NoteTag noteTag){
+        checkIfNoteExist(note);
+        checkItNoteTagIsAtNote(noteTag);
+    }
+
+    //todo TBT
+    private void checkIfNoteExist(Note note){
+        if (note == null) {
+            throw new NoteNotFoundException("Note not found!");
+        }
+    }
+    //todo TBT
+    private void checkItTagExist(Tag tag){
+        if (tag == null) {
+            throw new TagNotFoundException("Tag not found!");
+        }
+    }
+    //todo TBT
+    private void checkItNoteTagIsAtNote(NoteTag noteTag){
+        if (noteTag == null) {
+            throw new NoteTagNotFoundException("Tag not linked to note!");
+        }
     }
 
 

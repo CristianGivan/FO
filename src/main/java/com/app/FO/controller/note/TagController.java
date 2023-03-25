@@ -3,6 +3,8 @@ package com.app.FO.controller.note;
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tag.TagFDTO;
+import com.app.FO.mapper.TagDTOMapper;
+import com.app.FO.model.tag.Tag;
 import com.app.FO.service.note.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +15,20 @@ import java.util.List;
 @RequestMapping("/tags")
 public class TagController {
     private TagService tagService;
+    private TagDTOMapper tagDTOMapper;
 
     @Autowired
-    public TagController(TagService tagService) {
+    public TagController(TagService tagService, TagDTOMapper tagDTOMapper) {
         this.tagService = tagService;
+        this.tagDTOMapper=tagDTOMapper;
     }
 
     //-- GetMapping
 
     @GetMapping("/getTagById/{tagId}")
-    public TagDTO getTagById(@PathVariable Long tagId) {
-        return tagService.getTagDTOById(tagId);
+    public TagFDTO getTagById(@PathVariable Long tagId) {
+        Tag tag = tagService.getTagById(tagId);
+        return tagDTOMapper.tagToTagFDTO(tag);
     }
 
     @GetMapping("/getTagByName/{tagName}")
