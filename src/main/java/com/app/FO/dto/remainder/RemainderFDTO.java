@@ -1,6 +1,6 @@
 package com.app.FO.dto.remainder;
 
-import com.app.FO.dto.event.EventSDTO;
+import com.app.FO.dto.event.EventDTO;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.snooze.SnoozeDTO;
 import com.app.FO.dto.task.TaskDTO;
@@ -21,7 +21,7 @@ public class RemainderFDTO {
     private TaskDTO task;
     private TopicDTO topic;
     private UserDTO user;
-    private EventSDTO event;
+    private EventDTO event;
 
     @Override
     public String toString() {
@@ -43,7 +43,7 @@ public class RemainderFDTO {
     public RemainderFDTO(Long id, String remainder, LocalDateTime createdDateTime,
                          LocalDateTime remainderDateTime, List<SnoozeDTO> snoozeDTOList,
                          List<RemainderDTO> remainderDTOList, NoteDTO note, TaskDTO task,
-                         TopicDTO topic, UserDTO user, EventSDTO event) {
+                         TopicDTO topic, UserDTO user, EventDTO event) {
         this.id = id;
         this.remainder = remainder;
         this.createdDateTime = createdDateTime;
@@ -137,11 +137,11 @@ public class RemainderFDTO {
         this.user = user;
     }
 
-    public EventSDTO getEvent() {
+    public EventDTO getEvent() {
         return event;
     }
 
-    public void setEvent(EventSDTO event) {
+    public void setEvent(EventDTO event) {
         this.event = event;
     }
 }

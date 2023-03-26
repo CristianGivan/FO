@@ -1,18 +1,18 @@
 package com.app.FO.dto.event;
 
-public class EventSDTO {
+public class EventDTO {
     private Long id;
     private String name;
 
     @Override
     public String toString() {
-        return "EventSDTO{" +
+        return "EventDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
 
-    public EventSDTO(Long id, String name) {
+    public EventDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
