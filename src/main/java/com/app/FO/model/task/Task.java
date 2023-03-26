@@ -1,7 +1,7 @@
 package com.app.FO.model.task;
 
 import com.app.FO.model.remainder.Remainder;
-import com.app.FO.model.tasklist.TaskListTask;
+import com.app.FO.model.tasks.TasksTask;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
@@ -54,7 +54,7 @@ public class Task {
     private List<TaskNote> taskNotes;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskListTask> taskListTasks;
+    private List<TasksTask> tasksTasks;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TaskHistory> taskHistories;
@@ -76,7 +76,7 @@ public class Task {
                 ", taskEfforts=" + taskEfforts +
                 ", noteTags=" + noteTags +
                 ", taskNotes=" + taskNotes +
-                ", taskListTasks=" + taskListTasks +
+                ", tasksTasks=" + tasksTasks +
                 ", taskHistories=" + taskHistories +
                 '}';
     }
@@ -169,12 +169,12 @@ public class Task {
         this.taskNotes = taskNotes;
     }
 
-    public List<TaskListTask> getTaskListTasks() {
-        return taskListTasks;
+    public List<TasksTask> getTaskListTasks() {
+        return tasksTasks;
     }
 
-    public void setTaskListTasks(List<TaskListTask> taskListTasks) {
-        this.taskListTasks = taskListTasks;
+    public void setTaskListTasks(List<TasksTask> tasksTasks) {
+        this.tasksTasks = tasksTasks;
     }
 
     public List<TaskHistory> getTaskHistories() {

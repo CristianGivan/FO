@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "event_tags")
-public class EventTags {
+@Table(name = "event_tag")
+public class EventTag {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_tag_seq")
     @SequenceGenerator(name = "event_tag_seq",
@@ -31,12 +31,12 @@ public class EventTags {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public EventTags() {
+    public EventTag() {
     }
 
     @Override
     public String toString() {
-        return "EventTags{" +
+        return "EventTag{" +
                 "id=" + id +
                 ", eventId=" + event.getId() +
                 ", tagId=" + tag.getId() +

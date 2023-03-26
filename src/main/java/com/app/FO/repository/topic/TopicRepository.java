@@ -1,4 +1,4 @@
-package com.app.FO.repository.note;
+package com.app.FO.repository.topic;
 
 import com.app.FO.model.topic.Topic;
 import org.springframework.data.jpa.repository.JpaRepository;

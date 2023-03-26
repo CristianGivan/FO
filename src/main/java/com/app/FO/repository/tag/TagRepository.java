@@ -1,4 +1,4 @@
-package com.app.FO.repository.note;
+package com.app.FO.repository.tag;
 
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.tag.Tag;

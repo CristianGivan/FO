@@ -1,6 +1,6 @@
-package com.app.FO.model.expenseslist;
+package com.app.FO.model.expenses;
 
-import com.app.FO.model.event.EventExpenseLists;
+import com.app.FO.model.event.EventExpense;
 import com.app.FO.model.expense.Expense;
 import com.app.FO.model.transaction.Transaction;
 import com.app.FO.model.user.User;
@@ -10,15 +10,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "expenses_list")
-public class ExpensesList {
+@Table(name = "expenses")
+public class Expenses {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expense_list_seq")
-    @SequenceGenerator(name = "expense_list_seq",
-            sequenceName = "expense_list_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expense_seq")
+    @SequenceGenerator(name = "expense_seq",
+            sequenceName = "expense_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "expense_list_id")
+    @Column(name = "expenses_id")
     private Long id;
 
     @Column(name = "name")
@@ -29,35 +29,35 @@ public class ExpensesList {
     @JsonIgnore
     private User creator;
 
-    @OneToMany(mappedBy = "expensesList")
-    private List<ExpensesListUsers> ExpensesListUsers;
+    @OneToMany(mappedBy = "expenses")
+    private List<ExpensesUsers> ExpensesUsers;
 
-    @OneToMany(mappedBy = "expensesList")
+    @OneToMany(mappedBy = "expenses")
     private List<Expense> expenses;
 
-    @OneToMany(mappedBy = "expensesList")
-    private List<ExpensesListTags> expensesListTags;
+    @OneToMany(mappedBy = "expenses")
+    private List<ExpensesTag> expensesTags;
 
-    @OneToOne(mappedBy = "expensesList",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "expenses",cascade = CascadeType.ALL)
     private Transaction transaction;
 
-    @OneToMany(mappedBy = "expensesList")
-    private List<EventExpenseLists> eventExpenseLists;
+    @OneToMany(mappedBy = "expenses")
+    private List<EventExpense> eventExpens;
 
-    public ExpensesList() {
+    public Expenses() {
     }
 
     @Override
     public String toString() {
-        return "ExpensesList{" +
+        return "Expenses{" +
                 "id=" + id +
                 ", taskListName='" + taskListName + '\'' +
                 ", creatorId=" + creator.getId() +
-                ", ExpensesListUsers=" + ExpensesListUsers +
+                ", ExpensesUsers=" + ExpensesUsers +
                 ", expenses=" + expenses +
-                ", expensesListTags=" + expensesListTags +
+                ", expensesTags=" + expensesTags +
                 ", transactionId=" + transaction.getId() +
-                ", eventExpenseLists=" + eventExpenseLists +
+                ", eventExpens=" + eventExpens +
                 '}';
     }
 
@@ -85,12 +85,12 @@ public class ExpensesList {
         this.creator = creator;
     }
 
-    public List<com.app.FO.model.expenseslist.ExpensesListUsers> getExpensesListUsers() {
-        return ExpensesListUsers;
+    public List<ExpensesUsers> getExpensesListUsers() {
+        return ExpensesUsers;
     }
 
-    public void setExpensesListUsers(List<com.app.FO.model.expenseslist.ExpensesListUsers> expensesListUsers) {
-        ExpensesListUsers = expensesListUsers;
+    public void setExpensesListUsers(List<ExpensesUsers> expensesUsers) {
+        ExpensesUsers = expensesUsers;
     }
 
     public List<Expense> getExpenses() {
@@ -101,12 +101,12 @@ public class ExpensesList {
         this.expenses = expenses;
     }
 
-    public List<ExpensesListTags> getExpensesListTags() {
-        return expensesListTags;
+    public List<ExpensesTag> getExpensesListTags() {
+        return expensesTags;
     }
 
-    public void setExpensesListTags(List<ExpensesListTags> expensesListTags) {
-        this.expensesListTags = expensesListTags;
+    public void setExpensesListTags(List<ExpensesTag> expensesTags) {
+        this.expensesTags = expensesTags;
     }
 
     public Transaction getTransaction() {
@@ -117,11 +117,11 @@ public class ExpensesList {
         this.transaction = transaction;
     }
 
-    public List<EventExpenseLists> getEventExpenseLists() {
-        return eventExpenseLists;
+    public List<EventExpense> getEventExpenseLists() {
+        return eventExpens;
     }
 
-    public void setEventExpenseLists(List<EventExpenseLists> eventExpenseLists) {
-        this.eventExpenseLists = eventExpenseLists;
+    public void setEventExpenseLists(List<EventExpense> eventExpenseLists) {
+        this.eventExpens = eventExpenseLists;
     }
 }

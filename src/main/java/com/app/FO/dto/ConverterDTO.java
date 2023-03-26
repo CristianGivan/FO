@@ -13,8 +13,8 @@
 //import com.app.FO.model.topic.TopicHistory;
 //import com.app.FO.model.user.User;
 //import com.app.FO.service.note.NoteService;
-//import com.app.FO.service.note.TagService;
-//import com.app.FO.service.note.TopicService;
+//import com.app.FO.service.tag.TagService;
+//import com.app.FO.service.topic.TopicService;
 //import com.app.FO.service.user.RoleService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Configuration;

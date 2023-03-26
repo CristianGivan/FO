@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "notes")
+@Table(name = "note")
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_seq")
@@ -35,18 +35,18 @@ public class Note {
     private User user;
 
     @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<NoteTag> noteTags;
+    private List<NoteTag> noteTagList;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TopicNote> topicNotes;
+    private List<TopicNote> topicNoteList;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskNote> taskNotes;
+    private List<TaskNote> taskNoteList;
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<NoteHistory> noteHistories;
+    private List<NoteHistory> noteHistoryList;
 
     @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Remainder> remainders;
+    private List<Remainder> remainderList;
 
     public Note() {
     }
@@ -56,13 +56,13 @@ public class Note {
         return "Note{" +
                 "id=" + id +
                 ", note='" + note + '\'' +
-                ", noteTags=" + noteTags +
+                ", noteTags=" + noteTagList +
                 ", userId=" + user.getId() +
                 ", createdDate=" + createdDate +
-                ", topicNotes=" + topicNotes +
-                ", taskNotes=" + taskNotes +
-                ", noteHistories=" + noteHistories +
-                ", remainders=" + remainders +
+                ", topicNotes=" + topicNoteList +
+                ", taskNotes=" + taskNoteList +
+                ", noteHistories=" + noteHistoryList +
+                ", remainders=" + remainderList +
                 '}';
     }
 
@@ -86,20 +86,20 @@ public class Note {
         return id;
     }
 
-    public List<TaskNote> getTaskNotes() {
-        return taskNotes;
+    public List<TaskNote> getTaskNoteList() {
+        return taskNoteList;
     }
 
-    public void setTaskNotes(List<TaskNote> taskNotes) {
-        this.taskNotes = taskNotes;
+    public void setTaskNoteList(List<TaskNote> taskNotes) {
+        this.taskNoteList = taskNotes;
     }
 
-    public List<Remainder> getRemainders() {
-        return remainders;
+    public List<Remainder> getRemainderList() {
+        return remainderList;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
-        this.remainders = remainders;
+    public void setRemainderList(List<Remainder> remainders) {
+        this.remainderList = remainders;
     }
 
     public String getNote() {
@@ -110,15 +110,15 @@ public class Note {
         this.note = note;
     }
 
-    public List<NoteTag> getNoteTags() {
-        if(noteTags==null){
-            noteTags=new ArrayList<>();
+    public List<NoteTag> getNoteTagList() {
+        if(noteTagList ==null){
+            noteTagList =new ArrayList<>();
         }
-        return noteTags;
+        return noteTagList;
     }
 
-    public void setNoteTags(List<NoteTag> noteTags) {
-        this.noteTags = noteTags;
+    public void setNoteTagList(List<NoteTag> noteTags) {
+        this.noteTagList = noteTags;
     }
 
     public User getUser() {
@@ -137,25 +137,25 @@ public class Note {
         this.createdDate = createdDate;
     }
 
-    public List<NoteHistory> getNoteHistories() {
-        if (noteHistories==null){
-            noteHistories=new ArrayList<>();
+    public List<NoteHistory> getNoteHistoryList() {
+        if (noteHistoryList ==null){
+            noteHistoryList =new ArrayList<>();
         }
-        return noteHistories;
+        return noteHistoryList;
     }
 
-    public void setNoteHistories(List<NoteHistory> noteHistories) {
-        this.noteHistories = noteHistories;
+    public void setNoteHistoryList(List<NoteHistory> noteHistories) {
+        this.noteHistoryList = noteHistories;
     }
 
-    public List<TopicNote> getTopicNotes() {
-        if (topicNotes==null){
-            topicNotes=new ArrayList<>();
+    public List<TopicNote> getTopicNoteList() {
+        if (topicNoteList ==null){
+            topicNoteList =new ArrayList<>();
         }
-        return topicNotes;
+        return topicNoteList;
     }
 
-    public void setTopicNotes(List<TopicNote> topicNotes) {
-        this.topicNotes = topicNotes;
+    public void setTopicNoteList(List<TopicNote> topicNotes) {
+        this.topicNoteList = topicNotes;
     }
 }

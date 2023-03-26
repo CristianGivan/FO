@@ -1,7 +1,7 @@
 package com.app.FO.model.topic;
 
+import com.app.FO.model.event.EventTopic;
 import com.app.FO.model.remainder.Remainder;
-import com.app.FO.model.event.EventTopics;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UsersTopics;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -50,7 +50,7 @@ public class Topic {
     private List<Remainder> remainders;
 
     @OneToMany(mappedBy = "topic")
-    private List<EventTopics> eventTopics;
+    private List<EventTopic> eventTopics;
 
     public Topic() {
     }
@@ -163,11 +163,11 @@ public class Topic {
         this.remainders = remainders;
     }
 
-    public List<EventTopics> getEventTopics() {
+    public List<EventTopic> getEventTopics() {
         return eventTopics;
     }
 
-    public void setEventTopics(List<EventTopics> eventTopics) {
+    public void setEventTopics(List<EventTopic> eventTopics) {
         this.eventTopics = eventTopics;
     }
 }

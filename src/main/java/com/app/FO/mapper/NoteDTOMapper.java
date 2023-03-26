@@ -1,15 +1,12 @@
 package com.app.FO.mapper;
 
-import com.app.FO.config.AllServices;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.note.NoteFDTO;
-import com.app.FO.dto.note.NoteTDTO;
 import com.app.FO.model.note.Note;
-import com.app.FO.service.note.TagService;
-import com.app.FO.service.note.TopicService;
+import com.app.FO.service.tag.TagService;
+import com.app.FO.service.topic.TopicService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

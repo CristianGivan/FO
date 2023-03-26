@@ -1,22 +1,21 @@
 package com.app.FO.model.account;
 
 import com.app.FO.model.transaction.Transaction;
-import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_transactions")
-public class AccountTransactions {
+@Table(name = "account_transaction")
+public class AccountTransaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_transactions_seq")
-    @SequenceGenerator(name = "account_transactions_seq",
-            sequenceName = "account_transactions_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_transaction_seq")
+    @SequenceGenerator(name = "account_transaction_seq",
+            sequenceName = "account_transaction_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_transactions_id")
+    @Column(name = "account_transaction_id")
     private Long id;
 
     // todo trebuie sa vad cum modelez asta o fac cu un singur acount sau o fac cu form to
@@ -33,12 +32,12 @@ public class AccountTransactions {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public AccountTransactions() {
+    public AccountTransaction() {
     }
 
     @Override
     public String toString() {
-        return "AccountTransactions{" +
+        return "AccountTransaction{" +
                 "id=" + id +
                 ", transactionId=" + transaction.getId() +
                 ", accountId=" + account.getId() +

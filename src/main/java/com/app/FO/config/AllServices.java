@@ -1,11 +1,5 @@
 package com.app.FO.config;
 
-import com.app.FO.service.note.NoteService;
-import com.app.FO.service.note.NoteTagService;
-import com.app.FO.service.note.TagService;
-import com.app.FO.service.note.TopicService;
-import com.app.FO.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

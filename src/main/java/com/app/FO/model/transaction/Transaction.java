@@ -1,7 +1,7 @@
 package com.app.FO.model.transaction;
 
-import com.app.FO.model.account.AccountTransactions;
-import com.app.FO.model.expenseslist.ExpensesList;
+import com.app.FO.model.account.AccountTransaction;
+import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,14 +30,14 @@ public class Transaction {
 
     private LocalDateTime dateTime;
     @OneToMany(mappedBy = "account",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountTransactions> fromAccount;
+    private List<AccountTransaction> fromAccount;
 
     @OneToMany(mappedBy = "account",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountTransactions> toAccount;
+    private List<AccountTransaction> toAccount;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "expenses_list_id", referencedColumnName = "expense_list_id")
-    private ExpensesList expensesList;
+    @JoinColumn(name = "expenses_id", referencedColumnName = "expenses_id")
+    private Expenses expenses;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
@@ -56,7 +56,7 @@ public class Transaction {
                 ", dateTime=" + dateTime +
                 ", fromAccount=" + fromAccount +
                 ", toAccount=" + toAccount +
-                ", expensesListId=" + expensesList.getId() +
+                ", expensesId=" + expenses.getId() +
                 ", userId=" + user.getId() +
                 '}';
     }
@@ -93,28 +93,28 @@ public class Transaction {
         this.dateTime = dateTime;
     }
 
-    public List<AccountTransactions> getFromAccount() {
+    public List<AccountTransaction> getFromAccount() {
         return fromAccount;
     }
 
-    public void setFromAccount(List<AccountTransactions> fromAccount) {
+    public void setFromAccount(List<AccountTransaction> fromAccount) {
         this.fromAccount = fromAccount;
     }
 
-    public List<AccountTransactions> getToAccount() {
+    public List<AccountTransaction> getToAccount() {
         return toAccount;
     }
 
-    public void setToAccount(List<AccountTransactions> toAccount) {
+    public void setToAccount(List<AccountTransaction> toAccount) {
         this.toAccount = toAccount;
     }
 
-    public ExpensesList getExpensesList() {
-        return expensesList;
+    public Expenses getExpensesList() {
+        return expenses;
     }
 
-    public void setExpensesList(ExpensesList expensesList) {
-        this.expensesList = expensesList;
+    public void setExpensesList(Expenses expenses) {
+        this.expenses = expenses;
     }
 
     public User getUser() {

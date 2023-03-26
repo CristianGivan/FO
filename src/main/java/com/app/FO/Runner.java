@@ -1,8 +1,6 @@
 package com.app.FO;
 
 
-import com.app.FO.dto.note.NoteFDTO;
-import com.app.FO.mapper.NoteDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.note.*;
 import com.app.FO.model.topic.Topic;
@@ -14,8 +12,8 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.note.NoteTagRepository;
 import com.app.FO.service.note.NoteService;
-import com.app.FO.service.note.TagService;
-import com.app.FO.service.note.TopicService;
+import com.app.FO.service.tag.TagService;
+import com.app.FO.service.topic.TopicService;
 import com.app.FO.service.user.RoleService;
 import com.app.FO.service.user.UserRoleService;
 import com.app.FO.service.user.UserService;
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Component
 public class Runner implements CommandLineRunner {
@@ -58,18 +55,11 @@ public class Runner implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 //        dbInit();
-        //test();
+
 
     }
 
-    public void test(){
-//        User user=userService.findUserById(3L);
-//        List<String> types=user.getUserRoles().stream().
-//                map(ur->ur.getRole().getRoleType().toString()).
-//                toList();
-//        System.out.println(types);
-//        System.out.println(user);
-    }
+
 
     public void dbInit() {
 
@@ -163,25 +153,25 @@ public class Runner implements CommandLineRunner {
         NoteTag noteTag18 = new NoteTag(savedNote3, savedTag8);
         NoteTag noteTag19 = new NoteTag(savedNote3, savedTag9);
 
-        savedNote1.getNoteTags().add(noteTag1);
-        savedNote1.getNoteTags().add(noteTag2);
-        savedNote1.getNoteTags().add(noteTag3);
-        savedNote1.getNoteTags().add(noteTag4);
-        savedNote1.getNoteTags().add(noteTag5);
-        savedNote2.getNoteTags().add(noteTag6);
-        savedNote2.getNoteTags().add(noteTag7);
-        savedNote2.getNoteTags().add(noteTag8);
-        savedNote2.getNoteTags().add(noteTag9);
-        savedNote2.getNoteTags().add(noteTag10);
-        savedNote3.getNoteTags().add(noteTag11);
-        savedNote3.getNoteTags().add(noteTag12);
-        savedNote3.getNoteTags().add(noteTag13);
-        savedNote3.getNoteTags().add(noteTag14);
-        savedNote3.getNoteTags().add(noteTag15);
-        savedNote3.getNoteTags().add(noteTag16);
-        savedNote3.getNoteTags().add(noteTag17);
-        savedNote3.getNoteTags().add(noteTag18);
-        savedNote3.getNoteTags().add(noteTag19);
+        savedNote1.getNoteTagList().add(noteTag1);
+        savedNote1.getNoteTagList().add(noteTag2);
+        savedNote1.getNoteTagList().add(noteTag3);
+        savedNote1.getNoteTagList().add(noteTag4);
+        savedNote1.getNoteTagList().add(noteTag5);
+        savedNote2.getNoteTagList().add(noteTag6);
+        savedNote2.getNoteTagList().add(noteTag7);
+        savedNote2.getNoteTagList().add(noteTag8);
+        savedNote2.getNoteTagList().add(noteTag9);
+        savedNote2.getNoteTagList().add(noteTag10);
+        savedNote3.getNoteTagList().add(noteTag11);
+        savedNote3.getNoteTagList().add(noteTag12);
+        savedNote3.getNoteTagList().add(noteTag13);
+        savedNote3.getNoteTagList().add(noteTag14);
+        savedNote3.getNoteTagList().add(noteTag15);
+        savedNote3.getNoteTagList().add(noteTag16);
+        savedNote3.getNoteTagList().add(noteTag17);
+        savedNote3.getNoteTagList().add(noteTag18);
+        savedNote3.getNoteTagList().add(noteTag19);
 
         savedNote1 = noteService.saveNote(note1);
         savedNote2 = noteService.saveNote(note2);
@@ -245,12 +235,5 @@ public class Runner implements CommandLineRunner {
         savedTopic2 = topicService.saveTopic(topic2);
         savedTopic3 = topicService.saveTopic(topic3);
 
-//
-//     // NoteFDTO showNoteFDTO = noteDTOMapper.NoteToNoteFDTO(savedNote1);
-//
-////        System.out.println(showNoteFDTO);
-//        System.out.println(savedUser1);
-//        System.out.println(savedTag1);
-//        System.out.println("END");
   }
 }

@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "event_topics")
-public class EventTopics {
+@Table(name = "event_topic")
+public class EventTopic {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_topic_seq")
     @SequenceGenerator(name = "event_topic_seq",
@@ -31,12 +31,12 @@ public class EventTopics {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public EventTopics() {
+    public EventTopic() {
     }
 
     @Override
     public String toString() {
-        return "EventTopics{" +
+        return "EventTopic{" +
                 "id=" + id +
                 ", eventId=" + event.getId() +
                 ", topicId=" + topic.getId() +

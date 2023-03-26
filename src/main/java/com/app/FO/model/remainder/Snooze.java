@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table (name = "snoozes")
+@Table (name = "snooze")
 public class Snooze {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "snooze_seq")

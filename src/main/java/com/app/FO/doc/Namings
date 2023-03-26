@@ -10,6 +10,9 @@ Namings
     user = log in user or current user
     anyUser = admin can access data of any user
 
+    It shouldn't be use 'S as plural but use instead List ex: taskList not tasks (tasks different entity then task)
+
 
 Repository
     getTopicFromUserByTopicId
+

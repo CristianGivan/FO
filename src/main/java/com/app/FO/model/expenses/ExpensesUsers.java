@@ -1,4 +1,4 @@
-package com.app.FO.model.expenseslist;
+package com.app.FO.model.expenses;
 
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,15 +7,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expenses_list_users")
-public class ExpensesListUsers {
+@Table(name = "expenses_users")
+public class ExpensesUsers {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_list_users_seq")
-    @SequenceGenerator(name = "expenses_list_users_seq",
-            sequenceName = "expenses_list_users_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_users_seq")
+    @SequenceGenerator(name = "expenses_users_seq",
+            sequenceName = "expenses_users_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "expenses_list_users_id")
+    @Column(name = "expenses_users_id")
     private Long id;
 
     @ManyToOne
@@ -24,22 +24,22 @@ public class ExpensesListUsers {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "expences_list_id")
+    @JoinColumn(name = "expenses_id")
     @JsonIgnore
-    private ExpensesList expensesList;
+    private Expenses expenses;
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public ExpensesListUsers() {
+    public ExpensesUsers() {
     }
 
     @Override
     public String toString() {
-        return "ExpensesListUsers{" +
+        return "ExpensesUsers{" +
                 "id=" + id +
                 ", userId=" + user.getId() +
-                ", expensesListId=" + expensesList.getId() +
+                ", expensesId=" + expenses.getId() +
                 ", linkDate=" + linkDate +
                 '}';
     }
@@ -60,12 +60,12 @@ public class ExpensesListUsers {
         this.user = user;
     }
 
-    public ExpensesList getExpensesList() {
-        return expensesList;
+    public Expenses getExpensesList() {
+        return expenses;
     }
 
-    public void setExpensesList(ExpensesList expensesList) {
-        this.expensesList = expensesList;
+    public void setExpensesList(Expenses expenses) {
+        this.expenses = expenses;
     }
 
     public LocalDateTime getLinkDate() {

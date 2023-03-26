@@ -1,10 +1,10 @@
-package com.app.FO.dto.tasklist;
+package com.app.FO.dto.tasks;
 
 import com.app.FO.model.task.TaskStatus;
 
 import java.time.LocalDateTime;
 
-public class TaskListSDTO {
+public class TasksSDTO {
     private Long id;
     private String taskListName;
     private LocalDateTime createdDate;
@@ -14,7 +14,7 @@ public class TaskListSDTO {
 
     @Override
     public String toString() {
-        return "TaskListSDTO{" +
+        return "TasksSDTO{" +
                 "id=" + id +
                 ", taskListName='" + taskListName + '\'' +
                 ", createdDate=" + createdDate +
@@ -24,8 +24,8 @@ public class TaskListSDTO {
                 '}';
     }
 
-    public TaskListSDTO(Long id, String taskListName, LocalDateTime createdDate, LocalDateTime startDate,
-                        LocalDateTime endDate, TaskStatus taskStatus) {
+    public TasksSDTO(Long id, String taskListName, LocalDateTime createdDate, LocalDateTime startDate,
+                     LocalDateTime endDate, TaskStatus taskStatus) {
         this.id = id;
         this.taskListName = taskListName;
         this.createdDate = createdDate;

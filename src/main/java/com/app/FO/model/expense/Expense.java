@@ -1,6 +1,6 @@
 package com.app.FO.model.expense;
 
-import com.app.FO.model.expenseslist.ExpensesList;
+import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "expenses")
+@Table(name = "expense")
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expense_seq")
@@ -58,9 +58,9 @@ public class Expense {
     private List<ExpenseTag> expenseTags;
 
     @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "expense_list_id")
+    @JoinColumn(name = "expenses_id")
     @JsonIgnore
-    private ExpensesList expensesList;
+    private Expenses expenses;
 
     public Expense() {
     }
@@ -80,7 +80,7 @@ public class Expense {
                 ", creatorId=" + creator.getId() +
                 ", payerId=" + payer.getId() +
                 ", expenseTags=" + expenseTags +
-                ", expensesListId=" + expensesList.getId() +
+                ", expensesId=" + expenses.getId() +
                 '}';
     }
 
@@ -180,11 +180,11 @@ public class Expense {
         this.expenseTags = expenseTags;
     }
 
-    public ExpensesList getExpensesList() {
-        return expensesList;
+    public Expenses getExpensesList() {
+        return expenses;
     }
 
-    public void setExpensesList(ExpensesList expensesList) {
-        this.expensesList = expensesList;
+    public void setExpensesList(Expenses expenses) {
+        this.expenses = expenses;
     }
 }

@@ -1,6 +1,6 @@
 package com.app.FO.model.account;
 
-//import com.app.FO.model.expenseslist.ExpensesList;
+//import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -5,7 +5,7 @@ import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tag.TagFDTO;
 import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
-import com.app.FO.service.note.TagService;
+import com.app.FO.service.tag.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

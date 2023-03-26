@@ -4,14 +4,14 @@ package com.app.FO.model.user;
 import com.app.FO.exceptions.IdAlreadyAllocatedException;
 import com.app.FO.model.account.AccountUsers;
 import com.app.FO.model.expense.Expense;
-//import com.app.FO.model.expenseslist.ExpensesList;
-import com.app.FO.model.expenseslist.ExpensesListUsers;
+//import com.app.FO.model.expenseslist.Expenses;
+import com.app.FO.model.expenses.ExpensesUsers;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
-import com.app.FO.model.tasklist.TaskList;
-import com.app.FO.model.tasklist.TaskListHistory;
+import com.app.FO.model.tasks.Tasks;
+import com.app.FO.model.tasks.TasksHistory;
 import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.topic.Topic;
@@ -64,16 +64,16 @@ public class User {
     private List<Remainder> remainders;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Task> tasks;
+    private List<Task> task;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<TaskHistory> taskHistories;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<TaskList> taskListLists;
+    private List<Tasks> tasks;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<TaskListHistory> taskListHistories;
+    private List<TasksHistory> taskListHistories;
 
     @OneToMany(mappedBy = "creator")
     private List<Expense> expensesCreated;
@@ -83,7 +83,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
-    private List<ExpensesListUsers> expensesListUsers;
+    private List<ExpensesUsers> expensesUsers;
 
     @OneToMany(mappedBy = "creator")
     private List<Account> accounts;
@@ -119,11 +119,11 @@ public class User {
                 ", remainders=" + remainders +
                 ", tasks=" + tasks +
                 ", taskHistories=" + taskHistories +
-                ", taskListLists=" + taskListLists +
+                ", tasks=" + tasks +
                 ", taskListHistories=" + taskListHistories +
                 ", expensesCreated=" + expensesCreated +
                 ", expensesPayed=" + expensesPayed +
-                ", expensesListUsers=" + expensesListUsers +
+                ", expensesUsers=" + expensesUsers +
                 ", accounts=" + accounts +
                 ", accountUsers=" + accountUsers +
                 ", transactions=" + transactions +
@@ -228,12 +228,12 @@ public class User {
         this.remainders = remainders;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Task> getTask() {
+        return task;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setTask(List<Task> tasks) {
+        this.task = tasks;
     }
 
     public List<TaskHistory> getTaskHistories() {
@@ -244,19 +244,19 @@ public class User {
         this.taskHistories = taskHistories;
     }
 
-    public List<TaskList> getTaskListLists() {
-        return taskListLists;
+    public List<Tasks> getTaskListLists() {
+        return tasks;
     }
 
-    public void setTaskListLists(List<TaskList> taskListLists) {
-        this.taskListLists = taskListLists;
+    public void setTaskListLists(List<Tasks> tasks) {
+        this.tasks = tasks;
     }
 
-    public List<TaskListHistory> getTaskListHistories() {
+    public List<TasksHistory> getTaskListHistories() {
         return taskListHistories;
     }
 
-    public void setTaskListHistories(List<TaskListHistory> taskListHistories) {
+    public void setTaskListHistories(List<TasksHistory> taskListHistories) {
         this.taskListHistories = taskListHistories;
     }
 
@@ -276,12 +276,12 @@ public class User {
         this.expensesPayed = expensesPayed;
     }
 
-    public List<ExpensesListUsers> getExpensesListUsers() {
-        return expensesListUsers;
+    public List<ExpensesUsers> getExpensesListUsers() {
+        return expensesUsers;
     }
 
-    public void setExpensesListUsers(List<ExpensesListUsers> expensesListUsers) {
-        this.expensesListUsers = expensesListUsers;
+    public void setExpensesListUsers(List<ExpensesUsers> expensesUsers) {
+        this.expensesUsers = expensesUsers;
     }
 
     public List<Account> getAccounts() {

@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "events")
+@Table(name = "event")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq")
@@ -22,22 +22,22 @@ public class Event {
     private String name;
 
     @OneToMany(mappedBy = "event")
-    private List<EventTags> tags;
+    private List<EventTag> tags;
 
     @OneToMany(mappedBy = "event")
     private List<EventUsers> users;
 
     @OneToMany(mappedBy = "event")
-    private List<EventTopics> topics;
+    private List<EventTopic> topic;
 
     @OneToMany(mappedBy = "event")
-    private List<EventTaskLists> taskLists;
+    private List<EventTasks> tasks;
 
     @OneToMany(mappedBy = "event")
-    private List<EventExpenseLists> expenses;
+    private List<EventExpense> expenses;
 
     @OneToMany(mappedBy = "event")
-    private List<Remainder> remainders;
+    private List<Remainder> remainder;
 
     public Event() {
     }
@@ -49,10 +49,10 @@ public class Event {
                 ", name='" + name + '\'' +
                 ", tags=" + tags +
                 ", users=" + users +
-                ", topics=" + topics +
-                ", taskLists=" + taskLists +
+                ", topics=" + topic +
+                ", taskLists=" + tasks +
                 ", expenses=" + expenses +
-                ", remainders=" + remainders +
+                ", remainders=" + remainder +
                 '}';
     }
 
@@ -72,11 +72,11 @@ public class Event {
         this.name = name;
     }
 
-    public List<EventTags> getTags() {
+    public List<EventTag> getTags() {
         return tags;
     }
 
-    public void setTags(List<EventTags> tags) {
+    public void setTags(List<EventTag> tags) {
         this.tags = tags;
     }
 
@@ -88,35 +88,35 @@ public class Event {
         this.users = users;
     }
 
-    public List<EventTopics> getTopics() {
-        return topics;
+    public List<EventTopic> getTopic() {
+        return topic;
     }
 
-    public void setTopics(List<EventTopics> topics) {
-        this.topics = topics;
+    public void setTopic(List<EventTopic> topics) {
+        this.topic = topics;
     }
 
-    public List<EventTaskLists> getTaskLists() {
-        return taskLists;
+    public List<EventTasks> getTasks() {
+        return tasks;
     }
 
-    public void setTaskLists(List<EventTaskLists> taskLists) {
-        this.taskLists = taskLists;
+    public void setTasks(List<EventTasks> taskLists) {
+        this.tasks = taskLists;
     }
 
-    public List<EventExpenseLists> getExpenses() {
+    public List<EventExpense> getExpenses() {
         return expenses;
     }
 
-    public void setExpenses(List<EventExpenseLists> expenses) {
+    public void setExpenses(List<EventExpense> expenses) {
         this.expenses = expenses;
     }
 
-    public List<Remainder> getRemainders() {
-        return remainders;
+    public List<Remainder> getRemainder() {
+        return remainder;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
-        this.remainders = remainders;
+    public void setRemainder(List<Remainder> remainders) {
+        this.remainder = remainders;
     }
 }

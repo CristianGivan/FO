@@ -1,7 +1,6 @@
-package com.app.FO.model.tasklist;
+package com.app.FO.model.tasks;
 
-import com.app.FO.model.event.EventTaskLists;
-import com.app.FO.model.task.Task;
+import com.app.FO.model.event.EventTasks;
 import com.app.FO.model.task.TaskStatus;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,15 +10,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "task_lists")
-public class TaskList {
+@Table(name = "tasks")
+public class Tasks {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_lists_seq")
-    @SequenceGenerator(name = "task_lists_seq",
-            sequenceName = "task_lists_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_seq")
+    @SequenceGenerator(name = "tasks_seq",
+            sequenceName = "tasks_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "task_lists_id")
+    @Column(name = "tasks_id")
     private Long id;
 
     @Column(name = "name")
@@ -42,21 +41,21 @@ public class TaskList {
     @Column(name = "task_status")
     private TaskStatus taskStatus;
 
-    @OneToMany(mappedBy = "taskList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskListTask> taskListTasks;
+    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksTask> tasksTasks;
 
-    @OneToMany(mappedBy = "taskList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskListHistory> TaskListHistory;
+    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksHistory> TasksHistory;
 
-    @OneToMany(mappedBy = "taskList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<EventTaskLists> eventTaskLists;
+    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventTasks> eventTasks;
 
-    public TaskList() {
+    public Tasks() {
     }
 
     @Override
     public String toString() {
-        return "TaskList{" +
+        return "Tasks{" +
                 "id=" + id +
                 ", taskListName='" + taskListName + '\'' +
                 ", user=" + user +
@@ -64,9 +63,9 @@ public class TaskList {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", taskListTasks=" + taskListTasks +
-                ", TaskListHistory=" + TaskListHistory +
-                ", eventTaskLists=" + eventTaskLists +
+                ", tasksTasks=" + tasksTasks +
+                ", TasksHistory=" + TasksHistory +
+                ", eventTaskLists=" + eventTasks +
                 '}';
     }
 
@@ -126,27 +125,27 @@ public class TaskList {
         this.taskStatus = taskStatus;
     }
 
-    public List<TaskListTask> getTaskListTasks() {
-        return taskListTasks;
+    public List<TasksTask> getTaskListTasks() {
+        return tasksTasks;
     }
 
-    public void setTaskListTasks(List<TaskListTask> taskListTasks) {
-        this.taskListTasks = taskListTasks;
+    public void setTaskListTasks(List<TasksTask> tasksTasks) {
+        this.tasksTasks = tasksTasks;
     }
 
-    public List<com.app.FO.model.tasklist.TaskListHistory> getTaskListHistory() {
-        return TaskListHistory;
+    public List<TasksHistory> getTaskListHistory() {
+        return TasksHistory;
     }
 
-    public void setTaskListHistory(List<com.app.FO.model.tasklist.TaskListHistory> taskListHistory) {
-        TaskListHistory = taskListHistory;
+    public void setTaskListHistory(List<TasksHistory> tasksHistory) {
+        TasksHistory = tasksHistory;
     }
 
-    public List<EventTaskLists> getEventTaskLists() {
-        return eventTaskLists;
+    public List<EventTasks> getEventTasks() {
+        return eventTasks;
     }
 
-    public void setEventTaskLists(List<EventTaskLists> eventTaskLists) {
-        this.eventTaskLists = eventTaskLists;
+    public void setEventTasks(List<EventTasks> eventTaskLists) {
+        this.eventTasks = eventTaskLists;
     }
 }

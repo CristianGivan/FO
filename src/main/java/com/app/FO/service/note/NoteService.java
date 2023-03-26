@@ -9,6 +9,9 @@ import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
+import com.app.FO.service.tag.TagService;
+import com.app.FO.service.topic.TopicNoteService;
+import com.app.FO.service.topic.TopicService;
 import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -117,7 +120,7 @@ public class NoteService {
         NoteHistory noteHistory = createNoteHistory(updatedNote);
         updatedNote.setUser(getLogInUser());
         updatedNote.setNote(noteText);
-        updatedNote.getNoteHistories().add(noteHistory);
+        updatedNote.getNoteHistoryList().add(noteHistory);
         return noteRepository.save(updatedNote);
     }
 
@@ -128,7 +131,7 @@ public class NoteService {
             throw new TagAlreadyExistException("Tag already exist");
         }
         NoteTag newNoteTag = new NoteTag(updatedNote, addTag);
-        updatedNote.getNoteTags().add(newNoteTag);
+        updatedNote.getNoteTagList().add(newNoteTag);
         return noteRepository.save(updatedNote);
     }
 
@@ -143,7 +146,7 @@ public class NoteService {
             throw new TagAlreadyExistException("Tag already exist");
         }
         NoteTag newNoteTag = new NoteTag(updatedNote, addTag);
-        updatedNote.getNoteTags().add(newNoteTag);
+        updatedNote.getNoteTagList().add(newNoteTag);
         return noteRepository.save(updatedNote);
     }
 
@@ -157,7 +160,7 @@ public class NoteService {
             throw new TopicAlreadyExistException("Topic already exist");
         }
         TopicNote newTopicNote= new TopicNote(addTopic, updatedNote);
-        updatedNote.getTopicNotes().add(newTopicNote);
+        updatedNote.getTopicNoteList().add(newTopicNote);
         return noteRepository.save(updatedNote);
     }
 
@@ -167,7 +170,7 @@ public class NoteService {
         Note updatedNote = adminGetNoteById(noteId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
         checkIfNoteAndNoteTagExists(updatedNote, foundNoteTag);
-        updatedNote.getNoteTags().remove(foundNoteTag);
+        updatedNote.getNoteTagList().remove(foundNoteTag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }

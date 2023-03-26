@@ -34,12 +34,12 @@ public class Remainder {
 
     //is a table mostly for statistics
     @OneToMany(mappedBy = "remainder", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Snooze> snoozes;
+    private List<Snooze> snoozeList;
 
     //todo ar putea fi un tabel de legatura?
     @OneToMany
-    @JoinColumn(name = "remainders")
-    private List<Remainder> repeatedReminders;
+    @JoinColumn(name = "remainder")
+    private List<Remainder> repeatedReminderList;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "note_id")
@@ -75,8 +75,8 @@ public class Remainder {
                 ", remainder='" + remainder + '\'' +
                 ", createdDateTime=" + createdDateTime +
                 ", remainderDateTime=" + remainderDateTime +
-                ", snoozed='" + snoozes + '\'' +
-                ", repeatedReminders=" + repeatedReminders +
+                ", snoozed='" + snoozeList + '\'' +
+                ", repeatedReminders=" + repeatedReminderList +
                 ", noteId=" + note.getId() +
                 ", taskId=" + task.getId() +
                 ", topicId=" + topic.getId() +
@@ -117,20 +117,20 @@ public class Remainder {
         this.remainderDateTime = remainderDateTime;
     }
 
-    public List<Snooze> getSnoozes() {
-        return snoozes;
+    public List<Snooze> getSnoozeList() {
+        return snoozeList;
     }
 
-    public void setSnoozes(List<Snooze> snoozes) {
-        this.snoozes = snoozes;
+    public void setSnoozeList(List<Snooze> snoozes) {
+        this.snoozeList = snoozes;
     }
 
-    public List<Remainder> getRepeatedReminders() {
-        return repeatedReminders;
+    public List<Remainder> getRepeatedReminderList() {
+        return repeatedReminderList;
     }
 
-    public void setRepeatedReminders(List<Remainder> repeatedReminders) {
-        this.repeatedReminders = repeatedReminders;
+    public void setRepeatedReminderList(List<Remainder> repeatedReminders) {
+        this.repeatedReminderList = repeatedReminders;
     }
 
     public Note getNote() {

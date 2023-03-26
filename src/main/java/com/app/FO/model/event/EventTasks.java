@@ -1,21 +1,21 @@
 package com.app.FO.model.event;
 
-import com.app.FO.model.tasklist.TaskList;
+import com.app.FO.model.tasks.Tasks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "event_task_lists")
-public class EventTaskLists {
+@Table(name = "event_tasks")
+public class EventTasks {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_task_list_seq")
-    @SequenceGenerator(name = "event_task_list_seq",
-            sequenceName = "event_task_list_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_tasks_seq")
+    @SequenceGenerator(name = "event_tasks_seq",
+            sequenceName = "event_tasks_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "event_task_list_id")
+    @Column(name = "event_tasks_id")
     private Long id;
 
     @ManyToOne
@@ -24,22 +24,22 @@ public class EventTaskLists {
     private Event event;
 
     @ManyToOne
-    @JoinColumn(name = "task_list_id")
+    @JoinColumn(name = "tasks_id")
     @JsonIgnore
-    private TaskList taskList;
+    private Tasks tasks;
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public EventTaskLists() {
+    public EventTasks() {
     }
 
     @Override
     public String toString() {
-        return "EventTaskLists{" +
+        return "EventTasks{" +
                 "id=" + id +
                 ", eventId=" + event.getId() +
-                ", taskListId=" + taskList.getId() +
+                ", tasksId=" + tasks.getId() +
                 ", linkDate=" + linkDate +
                 '}';
     }
@@ -60,12 +60,12 @@ public class EventTaskLists {
         this.event = event;
     }
 
-    public TaskList getTaskList() {
-        return taskList;
+    public Tasks getTaskList() {
+        return tasks;
     }
 
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
+    public void setTaskList(Tasks tasks) {
+        this.tasks = tasks;
     }
 
     public LocalDateTime getLinkDate() {

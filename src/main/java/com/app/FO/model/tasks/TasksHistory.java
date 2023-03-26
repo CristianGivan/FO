@@ -1,6 +1,5 @@
-package com.app.FO.model.tasklist;
+package com.app.FO.model.tasks;
 
-import com.app.FO.model.task.Task;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,16 +7,16 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_list_histories" +
+@Table(name = "task_histories" +
         "")
-public class TaskListHistory {
+public class TasksHistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_lis_history_seq")
-    @SequenceGenerator(name = "task_lis_history_seq",
-            sequenceName = "task_lis_history_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_history_seq")
+    @SequenceGenerator(name = "tasks_history_seq",
+            sequenceName = "tasks_history_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "task_lis_history_id")
+    @Column(name = "tasks_history_id")
     private Long id;
 
     @Column(name = "modified_date")
@@ -29,20 +28,20 @@ public class TaskListHistory {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "task_list_id")
+    @JoinColumn(name = "tasks_id")
     @JsonIgnore
-    private TaskList taskList;
+    private Tasks tasks;
 
-    public TaskListHistory() {
+    public TasksHistory() {
     }
 
     @Override
     public String toString() {
-        return "TaskListHistory{" +
+        return "TasksHistory{" +
                 "id=" + id +
                 ", modifiedDate=" + modifiedDate +
                 ", userId=" + user.getId() +
-                ", taskListId=" + taskList.getId() +
+                ", taskListId=" + tasks.getId() +
                 '}';
     }
 
@@ -70,11 +69,11 @@ public class TaskListHistory {
         this.user = user;
     }
 
-    public TaskList getTaskList() {
-        return taskList;
+    public Tasks getTaskList() {
+        return tasks;
     }
 
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
+    public void setTaskList(Tasks tasks) {
+        this.tasks = tasks;
     }
 }

@@ -1,6 +1,5 @@
 package com.app.FO.model.account;
 
-import com.app.FO.model.transaction.Transaction;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,7 +33,7 @@ public class Account {
     private List<AccountUsers> accountUsers;
 
     @OneToMany(mappedBy = "account")
-    private List<AccountTransactions> accountTransactions;
+    private List<AccountTransaction> accountTransactions;
 
     public Account() {
     }
@@ -91,11 +90,11 @@ public class Account {
         this.accountUsers = accountUsers;
     }
 
-    public List<AccountTransactions> getAccountTransactions() {
+    public List<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }
 
-    public void setAccountTransactions(List<AccountTransactions> accountTransactions) {
+    public void setAccountTransactions(List<AccountTransaction> accountTransactions) {
         this.accountTransactions = accountTransactions;
     }
 }

@@ -1,13 +1,11 @@
-package com.app.FO.service.note;
+package com.app.FO.service.topic;
 
 import com.app.FO.exceptions.TopicNotFoundException;
 import com.app.FO.model.note.Note;
-import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.topic.Topic;
-import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UsersTopics;
-import com.app.FO.repository.note.TopicRepository;
+import com.app.FO.repository.topic.TopicRepository;
 import com.app.FO.service.user.UserService;
 import com.app.FO.service.user.UsersTopicsService;
 import org.springframework.beans.factory.annotation.Autowired;

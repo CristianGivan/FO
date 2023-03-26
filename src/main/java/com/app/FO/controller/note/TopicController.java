@@ -2,10 +2,9 @@ package com.app.FO.controller.note;
 
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.dto.topic.TopicDTO;
-import com.app.FO.dto.topic.TopicFDTO;
 import com.app.FO.mapper.TopicDTOMapper;
 import com.app.FO.model.topic.Topic;
-import com.app.FO.service.note.TopicService;
+import com.app.FO.service.topic.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

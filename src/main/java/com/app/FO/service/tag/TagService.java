@@ -1,4 +1,4 @@
-package com.app.FO.service.note;
+package com.app.FO.service.tag;
 
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tag.TagFDTO;
@@ -8,7 +8,7 @@ import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserTag;
-import com.app.FO.repository.note.TagRepository;
+import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.service.user.UserService;
 import com.app.FO.service.user.UserTagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,7 +138,7 @@ public class TagService {
         newTag = tagRepository.save(new Tag(tagText));
         UserTag userTag = userTagService.saveUserTag(new UserTag(logInUser, newTag));
         logInUser.getUserTags().add(userTag);
-        newTag.getUserTags().add(userTag);
+        newTag.getUserTagList().add(userTag);
         return tagRepository.save(newTag);
     }
 
