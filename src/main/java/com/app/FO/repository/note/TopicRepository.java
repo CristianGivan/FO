@@ -17,4 +17,8 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
             "where tt.topic.id=?1")
     List<Topic> getTopicsByTagId(Long topicId);
 
+    @Query(value = "SELECT * FROM topics as t inner join users_topics ut on t.topic_id = ut.topic_id where ut.user_id=?1 and ut.topic_id=?2"
+            ,nativeQuery = true)
+    Topic getTopicFromUserByTopicId(Long userId, Long topicId);
+
 }

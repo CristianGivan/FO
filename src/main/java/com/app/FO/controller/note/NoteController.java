@@ -133,10 +133,18 @@ public class NoteController {
     //-- PutMapping
 
     @PutMapping("/putTagToNote")
-    public NoteFDTO UserPutTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
-        Note note = noteService.userPutTagToNote(noteId, tagId);
+    public NoteFDTO putTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
+        Note note = noteService.putTagToNote(noteId, tagId);
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
+
+
+    @PutMapping("/putTopicToNote")
+    public NoteFDTO putTopicToNote(@RequestParam Long noteId, @RequestParam Long topicId){
+        Note note = noteService.putTopicToNote(noteId, topicId);//todo c
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
+
 
 
     //-- DeleteMapping admin
@@ -147,9 +155,19 @@ public class NoteController {
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
+
+    //-- DeleteMapping
+
+
     @DeleteMapping("/deleteTagFromNote")
     public NoteFDTO deleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
         Note note =noteService.deleteTagFromNote(noteId, tagId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
+
+    @DeleteMapping("/deleteTopicFromNote")
+    public NoteFDTO deleteTopicFromNote(@RequestParam Long noteId, @RequestParam Long topicId) {
+        Note note =noteService.deleteTopicFromNote(noteId, topicId);
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
 

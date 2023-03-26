@@ -39,8 +39,10 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     @Query(value = "SELECT IF(EXISTS(SELECT * FROM note_tag as nt where nt.note_id = ?1 and nt.tag_id = ?2), 'True', 'False')"
             ,nativeQuery = true)
-    Boolean noteHasTag(Long userId, Long tagId);
-
+    Boolean noteHasTag(Long noteId, Long tagId);
+    @Query(value = "SELECT IF(EXISTS(SELECT * FROM topic_note as tn where tn.note_id = ?1 and tn.topic_id = ?2), 'True', 'False')"
+            ,nativeQuery = true)
+    Boolean noteHasTopic(Long noteId, Long topicId);
 
 
 }

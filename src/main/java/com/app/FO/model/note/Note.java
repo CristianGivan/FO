@@ -149,6 +149,9 @@ public class Note {
     }
 
     public List<TopicNote> getTopicNotes() {
+        if (topicNotes==null){
+            topicNotes=new ArrayList<>();
+        }
         return topicNotes;
     }
 

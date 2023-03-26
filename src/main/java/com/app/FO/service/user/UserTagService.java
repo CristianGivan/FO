@@ -25,18 +25,25 @@ public class UserTagService {
 
 
 
-    //-- Set
+    //-- Post
 
     public UserTag saveUserTag(UserTag userTag){
         return userTagRepository.save(userTag);
     }
 
 
+    //-- Put
+
+
+
     //--Delete
 
 
 
-
     //-- Other
+
+
+
+    //-- Checks
 
 }

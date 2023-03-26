@@ -1,13 +1,12 @@
 package com.app.FO.service.note;
 
-import com.app.FO.exceptions.NoteNotFoundException;
-import com.app.FO.exceptions.NoteTagNotFoundException;
-import com.app.FO.exceptions.TagAlreadyExistException;
-import com.app.FO.exceptions.TagNotFoundException;
+import com.app.FO.exceptions.*;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.tag.Tag;
+import com.app.FO.model.topic.Topic;
+import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.service.user.UserService;
@@ -29,7 +28,12 @@ public class NoteService {
 
     private NoteTagService noteTagService;
 
-//    private NoteDTOMapper noteDTOMapper;
+    @Autowired
+    private TopicService topicService;
+    @Autowired
+    private TopicNoteService topicNoteService;
+
+    //    private NoteDTOMapper noteDTOMapper;
     @Autowired
     public NoteService(NoteRepository noteRepository, UserService userService, TagService tagService,
                        NoteTagService noteTagService/*, NoteDTOMapper noteDTOMapper*/) {
@@ -105,7 +109,7 @@ public class NoteService {
         return noteRepository.save(new Note(note, getLogInUser(), LocalDateTime.now()));
     }
 
-    //-- Put
+    //-- Put admin
 
 
     public Note adminPutNoteText(Long noteId, String noteText) {
@@ -128,10 +132,12 @@ public class NoteService {
         return noteRepository.save(updatedNote);
     }
 
-    public Note userPutTagToNote(Long noteId, Long tagId) {
+    //-- Put
+
+    public Note putTagToNote(Long noteId, Long tagId) {
         Note updatedNote = getNoteByNoteId(noteId);
-        Tag addTag = tagService.getTagOfLogInUserIdAndTagId(tagId);
-        checkIfNoteAndTagExists(updatedNote,addTag);
+        Tag addTag = tagService.getTagByTagIdFromUser(tagId);// to make sure that the tag is accessible form current user
+        checkIfNoteAndTagExists(updatedNote, addTag);
 
         if (noteRepository.noteHasTag(noteId, tagId)) {
             throw new TagAlreadyExistException("Tag already exist");
@@ -141,30 +147,51 @@ public class NoteService {
         return noteRepository.save(updatedNote);
     }
 
+
+    public Note putTopicToNote(Long noteId, Long topicId) {
+        Note updatedNote = getNoteByNoteId(noteId);
+        Topic addTopic = topicService.getTopicByTopicIdFromUser(topicId);
+        checkIfNoteAndTopicExist(updatedNote, addTopic);
+
+        if (noteRepository.noteHasTopic(noteId, topicId)) {
+            throw new TopicAlreadyExistException("Topic already exist");
+        }
+        TopicNote newTopicNote= new TopicNote(addTopic, updatedNote);
+        updatedNote.getTopicNotes().add(newTopicNote);
+        return noteRepository.save(updatedNote);
+    }
+
     //--Delete
 
     public Note adminDeleteTagFromNote(Long noteId, Long tagId) {
         Note updatedNote = adminGetNoteById(noteId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
-        checkIfNoteAndNoteTagExists(updatedNote,foundNoteTag);
+        checkIfNoteAndNoteTagExists(updatedNote, foundNoteTag);
         updatedNote.getNoteTags().remove(foundNoteTag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }
 
     /*
-    * If a note is found by user it can be edited by him
-    * */
+     * If a note is found by user it can be edited by him
+     * */
     //todo tbt
     public Note deleteTagFromNote(Long noteId, Long tagId) {
         Note updatedNote = getNoteByNoteId(noteId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
-        checkIfNoteAndNoteTagExists(updatedNote,foundNoteTag);
+        checkIfNoteAndNoteTagExists(updatedNote, foundNoteTag);
         //updatedNote.getNoteTags().remove(foundNoteTag);//no needed we have persist
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }
 
+    public Note deleteTopicFromNote(Long noteId, Long topicId) {
+        Note updatedNote = getNoteByNoteId(noteId);
+        TopicNote foundNTopicNote = topicNoteService.getTopicNoteOfANoteIdByTopicId(noteId,topicId);
+        checkIfNoteAndTopicNoteExists(updatedNote, foundNTopicNote);
+        topicNoteService.deleteTopicNoteById(foundNTopicNote.getId());
+        return noteRepository.save(updatedNote);
+    }
 
     //-- Other
 
@@ -175,33 +202,57 @@ public class NoteService {
     //-- Checks
 
     //todo TBT
-    private void checkIfNoteAndTagExists(Note note, Tag tag){
+    private void checkIfNoteAndTagExists(Note note, Tag tag) {
         checkIfNoteExist(note);
-        checkItTagExist(tag);
+        checkIfTagExist(tag);
     }
-    private void checkIfNoteAndNoteTagExists(Note note, NoteTag noteTag){
+
+    private void checkIfNoteAndNoteTagExists(Note note, NoteTag noteTag) {
         checkIfNoteExist(note);
-        checkItNoteTagIsAtNote(noteTag);
+        checkIfNoteTagIsAtNote(noteTag);
+    }
+
+    private void checkIfNoteAndTopicNoteExists(Note note, TopicNote topicNote) {
+        checkIfNoteExist(note);
+        checkIfTopicNoteIsAtNote(topicNote);
+    }
+
+    private void checkIfNoteAndTopicExist(Note note, Topic topic) {
+        checkIfNoteExist(note);
+        checkIfTopicExist(topic);
     }
 
     //todo TBT
-    private void checkIfNoteExist(Note note){
+    private void checkIfNoteExist(Note note) {
         if (note == null) {
             throw new NoteNotFoundException("Note not found!");
         }
     }
+
     //todo TBT
-    private void checkItTagExist(Tag tag){
+    private void checkIfTagExist(Tag tag) {
         if (tag == null) {
             throw new TagNotFoundException("Tag not found!");
         }
     }
+
     //todo TBT
-    private void checkItNoteTagIsAtNote(NoteTag noteTag){
+    private void checkIfTopicExist(Topic topic) {
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found!");
+        }
+    }
+
+    //todo TBT
+    private void checkIfNoteTagIsAtNote(NoteTag noteTag) {
         if (noteTag == null) {
             throw new NoteTagNotFoundException("Tag not linked to note!");
         }
     }
-
+    private void checkIfTopicNoteIsAtNote(TopicNote topicNote) {
+        if (topicNote == null) {
+            throw new TopicNoteNotFoundException("Topic not linked to note!");
+        }
+    }
 
 }

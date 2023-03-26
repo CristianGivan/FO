@@ -1,16 +1,15 @@
 package com.app.FO.service.note;
 
-import com.app.FO.config.AllServices;
-import com.app.FO.dto.topic.TopicDTO;
-import com.app.FO.exceptions.NoteNotFoundException;
 import com.app.FO.exceptions.TopicNotFoundException;
-import com.app.FO.mapper.TopicDTOMapper;
 import com.app.FO.model.note.Note;
-import com.app.FO.model.tag.Tag;
+import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
+import com.app.FO.model.user.UsersTopics;
 import com.app.FO.repository.note.TopicRepository;
 import com.app.FO.service.user.UserService;
+import com.app.FO.service.user.UsersTopicsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,11 +25,15 @@ public class TopicService {
     private UserService userService;
 
     @Autowired
+    private UsersTopicsService usersTopicsService;
+
+    @Autowired
      public TopicService(TopicRepository topicRepository) {
         this.topicRepository = topicRepository;
     }
 
     //-- GET
+    //todo tnu can be used usertService.getLogInUser
     public User getLogInUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -41,11 +44,22 @@ public class TopicService {
         return topicRepository.getTopicsByTagId(tagId);
     }
 
+    public Topic getTopicByTopicIdFromUser(Long topicId){
+       return topicRepository.getTopicFromUserByTopicId(userService.getLogInUser().getId(),topicId);
+    }
+
+    public List<Topic> getTopicsByNote(Note note) {
+        return topicRepository.getTopicsByNoteId(note.getId());
+    }
+
+
 
     //-- Post
 
     public Topic postTopic(String topicName){
-        return topicRepository.save(new Topic(topicName,getLogInUser()));
+        Topic topic =topicRepository.save(new Topic(topicName,userService.getLogInUser()));
+        UsersTopics usersTopics =usersTopicsService.postUsersTopics(new UsersTopics(userService.getLogInUser(),topic));
+        return topic;
     }
 
     //-- Put
@@ -79,9 +93,7 @@ public class TopicService {
                 ()->new TopicNotFoundException("Topic not found"));
     }
 
-    public List<Topic> getTopicsByNote(Note note) {
-        return topicRepository.getTopicsByNoteId(note.getId());
-    }
+
 
 
 

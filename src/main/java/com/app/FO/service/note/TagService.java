@@ -90,9 +90,10 @@ public class TagService {
         return tagDTOMapper.tagsToTagsDTO(getTagsByUserId(userId));
     }
 
-    public Tag getTagOfLogInUserIdAndTagId(Long tagId) {
+    public Tag getTagByTagIdFromUser(Long tagId) {
         return tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(),tagId);
     }
+
 
     public List<Tag> getTagsOfLogInUser() {
         return getTagsByUserId(userService.getLogInUser().getId());

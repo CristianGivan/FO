@@ -3,6 +3,7 @@ package com.app.FO.model.topic;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.event.EventTopics;
 import com.app.FO.model.user.User;
+import com.app.FO.model.user.UsersTopics;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -37,7 +38,10 @@ public class Topic {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private User creator;
+
+    @OneToMany(mappedBy = "topic")
+    private List<UsersTopics> usersTopics;
 
     @OneToMany(mappedBy = "topic")
     private List<TopicHistory> topicHistory;
@@ -58,7 +62,7 @@ public class Topic {
                 ", subject='" + subject + '\'' +
                 ", topicNotes=" + topicNotes +
                 ", topicTags=" + topicTags +
-                ", userId=" + user.getId() +
+                ", userId=" + creator.getId() +
                 ", createdDate=" + createdDate +
                 ", topicHistory=" + topicHistory +
                 ", remainders=" + remainders +
@@ -69,12 +73,12 @@ public class Topic {
     //todo tnu
     public Topic(String subject, User user, LocalDateTime createdDate) {
         this.subject = subject;
-        this.user = user;
+        this.creator = user;
         this.createdDate = createdDate;
     }
     public Topic(String subject, User user) {
         this.subject = subject;
-        this.user = user;
+        this.creator = user;
         this.createdDate = LocalDateTime.now();
     }
 
@@ -108,16 +112,27 @@ public class Topic {
         return topicTags;
     }
 
+    public List<UsersTopics> getUsersTopics() {
+        if (usersTopics==null){
+            usersTopics=new ArrayList<>();
+        }
+        return usersTopics;
+    }
+
+    public void setUsersTopics(List<UsersTopics> usersTopics) {
+        this.usersTopics = usersTopics;
+    }
+
     public void setTopicTags(List<TopicTag> topicTags) {
         this.topicTags = topicTags;
     }
 
     public User getUser() {
-        return user;
+        return creator;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.creator = user;
     }
 
     public LocalDateTime getCreatedDate() {

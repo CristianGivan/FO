@@ -8,7 +8,6 @@ import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenseslist.ExpensesListUsers;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.remainder.Remainder;
-import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
 import com.app.FO.model.tasklist.TaskList;
@@ -47,10 +46,9 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<UserRole> userRoles;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<UserTag> userTags;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
     private List<Topic> topics;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -95,6 +93,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<UserTag> userTags;
+
+    @OneToMany(mappedBy = "user")
+    private List<UsersTopics> usersTopics;
 
     public User() {
     }

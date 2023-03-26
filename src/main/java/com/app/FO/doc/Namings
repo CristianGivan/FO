@@ -6,3 +6,10 @@ Abbreviates
 
 
 Namings
+
+    user = log in user or current user
+    anyUser = admin can access data of any user
+
+
+Repository
+    getTopicFromUserByTopicId

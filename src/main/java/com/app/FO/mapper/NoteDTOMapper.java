@@ -14,12 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {TopicDTOMapper.class,TagDTOMapper.class})
 public abstract class NoteDTOMapper {
     @Autowired
     protected TagService tagService;
     @Autowired
     protected TopicService topicService;
+
+    @Autowired
+    protected TopicDTOMapper topicDTOMapper;
+
+
 //    @Autowired
 //    protected Remai
 
@@ -33,7 +38,7 @@ public abstract class NoteDTOMapper {
     @Mapping(target = "tags", expression = "java("+
             "tagService.getListOfTagsDTOByNoteId(note.getId()))")
     @Mapping(target = "topicsThatContainTheNote", expression = "java("+
-            "topicService.getTopicsDTOByNoteId(note.getId()))")
+            "topicDTOMapper.TopicsToTopicsDTO(topicService.getTopicsByNote(note)))")
    public abstract NoteFDTO NoteToNoteFDTO(Note note);
     public abstract List<NoteFDTO> NotesToNotesFDTO(List<Note> note);
 
