@@ -1,52 +1,53 @@
-package com.app.FO.model.user;
+package com.app.FO.model.note;
 
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users_topics")
-public class UsersTopics {
+@Table(name = "note_user")
+public class NoteUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_topics_seq")
-    @SequenceGenerator(name = "users_topics_seq",
-            sequenceName = "users_topics_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_user_seq")
+    @SequenceGenerator(name = "note_user_seq",
+            sequenceName = "note_user_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "users_topics_id")
+    @Column(name = "note_user_id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "note_id")
+    @JsonIgnore
+    private Note note;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "topic_id")
-    @JsonIgnore
-    private Topic topic;
-
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    public UsersTopics() {
+    public NoteUser() {
     }
-    public UsersTopics(User user, Topic topic){
+    public NoteUser(User user, Note note){
         this.user=user;
-        this.topic=topic;
+        this.note=note;
         this.createdDate=LocalDateTime.now();
     }
 
 
     @Override
     public String toString() {
-        return "UsersTopics{" +
+        return "TopicUser{" +
                 "id=" + id +
                 ", userId=" + user.getId() +
-                ", topicId=" + topic.getId() +
+                ", noteId=" + note.getId() +
                 ", createdDate=" + createdDate +
                 '}';
     }
@@ -67,12 +68,12 @@ public class UsersTopics {
         this.user = user;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Note getNote() {
+        return note;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setNote(Note note) {
+        this.note = note;
     }
 
     public LocalDateTime getCreatedDate() {

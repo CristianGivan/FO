@@ -7,8 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_histories" +
-        "")
+@Table(name = "task_history")
 public class TasksHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_history_seq")

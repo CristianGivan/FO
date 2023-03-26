@@ -3,7 +3,7 @@ package com.app.FO.dto.remainder;
 import com.app.FO.dto.event.EventSDTO;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.snooze.SnoozeDTO;
-import com.app.FO.dto.task.TaskSDTO;
+import com.app.FO.dto.task.TaskDTO;
 import com.app.FO.dto.topic.TopicDTO;
 import com.app.FO.dto.user.UserDTO;
 
@@ -15,11 +15,11 @@ public class RemainderFDTO {
     private String remainder;
     private LocalDateTime createdDateTime;
     private LocalDateTime remainderDateTime;
-    private List<SnoozeDTO> snoozes;
-    private List<RemainderDTO> repeatedReminders;
+    private List<SnoozeDTO> snoozeDTOList;
+    private List<RemainderDTO> remainderDTOList;
     private NoteDTO note;
-    private TaskSDTO task;
-    private TopicDTO topics;
+    private TaskDTO task;
+    private TopicDTO topic;
     private UserDTO user;
     private EventSDTO event;
 
@@ -30,29 +30,29 @@ public class RemainderFDTO {
                 ", remainder='" + remainder + '\'' +
                 ", createdDateTime=" + createdDateTime +
                 ", remainderDateTime=" + remainderDateTime +
-                ", snoozes=" + snoozes +
-                ", repeatedReminders=" + repeatedReminders +
+                ", snoozes=" + snoozeDTOList +
+                ", repeatedReminders=" + remainderDTOList +
                 ", note=" + note +
                 ", task=" + task +
-                ", topics=" + topics +
+                ", topics=" + topic +
                 ", user=" + user +
                 ", event=" + event +
                 '}';
     }
 
     public RemainderFDTO(Long id, String remainder, LocalDateTime createdDateTime,
-                         LocalDateTime remainderDateTime, List<SnoozeDTO> snoozes,
-                         List<RemainderDTO> repeatedReminders, NoteDTO note, TaskSDTO task,
-                         TopicDTO topics, UserDTO user, EventSDTO event) {
+                         LocalDateTime remainderDateTime, List<SnoozeDTO> snoozeDTOList,
+                         List<RemainderDTO> remainderDTOList, NoteDTO note, TaskDTO task,
+                         TopicDTO topic, UserDTO user, EventSDTO event) {
         this.id = id;
         this.remainder = remainder;
         this.createdDateTime = createdDateTime;
         this.remainderDateTime = remainderDateTime;
-        this.snoozes = snoozes;
-        this.repeatedReminders = repeatedReminders;
+        this.snoozeDTOList = snoozeDTOList;
+        this.remainderDTOList = remainderDTOList;
         this.note = note;
         this.task = task;
-        this.topics = topics;
+        this.topic = topic;
         this.user = user;
         this.event = event;
     }
@@ -89,20 +89,20 @@ public class RemainderFDTO {
         this.remainderDateTime = remainderDateTime;
     }
 
-    public List<SnoozeDTO> getSnoozes() {
-        return snoozes;
+    public List<SnoozeDTO> getSnoozeDTOList() {
+        return snoozeDTOList;
     }
 
-    public void setSnoozes(List<SnoozeDTO> snoozes) {
-        this.snoozes = snoozes;
+    public void setSnoozeDTOList(List<SnoozeDTO> snoozeDTOList) {
+        this.snoozeDTOList = snoozeDTOList;
     }
 
-    public List<RemainderDTO> getRepeatedReminders() {
-        return repeatedReminders;
+    public List<RemainderDTO> getRemainderDTOList() {
+        return remainderDTOList;
     }
 
-    public void setRepeatedReminders(List<RemainderDTO> repeatedReminders) {
-        this.repeatedReminders = repeatedReminders;
+    public void setRemainderDTOList(List<RemainderDTO> remainderDTOList) {
+        this.remainderDTOList = remainderDTOList;
     }
 
     public NoteDTO getNote() {
@@ -113,20 +113,20 @@ public class RemainderFDTO {
         this.note = note;
     }
 
-    public TaskSDTO getTask() {
+    public TaskDTO getTask() {
         return task;
     }
 
-    public void setTask(TaskSDTO task) {
+    public void setTask(TaskDTO task) {
         this.task = task;
     }
 
-    public TopicDTO getTopics() {
-        return topics;
+    public TopicDTO getTopic() {
+        return topic;
     }
 
-    public void setTopics(TopicDTO topics) {
-        this.topics = topics;
+    public void setTopic(TopicDTO topic) {
+        this.topic = topic;
     }
 
     public UserDTO getUser() {

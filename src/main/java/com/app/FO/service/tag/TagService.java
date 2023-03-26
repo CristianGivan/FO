@@ -137,7 +137,7 @@ public class TagService {
         // todo chiar trebuie sa fortez salvarea tagului si dupa aia salvarea usertagului sau se poate face si alt fel,decamdata merge.
         newTag = tagRepository.save(new Tag(tagText));
         UserTag userTag = userTagService.saveUserTag(new UserTag(logInUser, newTag));
-        logInUser.getUserTags().add(userTag);
+        logInUser.getUserTagList().add(userTag);
         newTag.getUserTagList().add(userTag);
         return tagRepository.save(newTag);
     }

@@ -4,24 +4,24 @@ import com.app.FO.dto.user.UserDTO;
 
 import java.time.LocalDateTime;
 
-public class HistoryTopicSDTO {
+public class HistoryTopicDTO {
     private Long historyTopicId;
     private LocalDateTime modifiedDate;
     private UserDTO user;
 
-    public HistoryTopicSDTO() {
+    public HistoryTopicDTO() {
     }
 
     @Override
     public String toString() {
-        return "HistoryTopicSDTO{" +
+        return "HistoryTopicDTO{" +
                 "historyTopicId=" + historyTopicId +
                 ", modifiedDate=" + modifiedDate +
                 ", user=" + user +
                 '}';
     }
 
-    public HistoryTopicSDTO(Long historyTopicId, LocalDateTime modifiedDate, UserDTO user) {
+    public HistoryTopicDTO(Long historyTopicId, LocalDateTime modifiedDate, UserDTO user) {
         this.historyTopicId = historyTopicId;
         this.modifiedDate = modifiedDate;
         this.user = user;

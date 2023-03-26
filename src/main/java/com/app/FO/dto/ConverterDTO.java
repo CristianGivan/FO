@@ -3,7 +3,7 @@
 //import com.app.FO.dto.note.*;
 //import com.app.FO.dto.tag.TagDTO;
 //import com.app.FO.dto.tag.TagFDTO;
-//import com.app.FO.dto.topic.HistoryTopicSDTO;
+//import com.app.FO.dto.topic.HistoryTopicDTO;
 //import com.app.FO.dto.topic.TopicFDTO;
 //import com.app.FO.dto.topic.TopicDTO;
 //import com.app.FO.dto.user.UserDTO;
@@ -123,11 +123,11 @@
 //
 //    //TopicHistory
 //
-//    private HistoryTopicSDTO convertTopicHistoryToTopicHistorySDTO(TopicHistory topicHistory) {
-//        return new HistoryTopicSDTO(topicHistory.getId(), topicHistory.getModifiedDate(),
+//    private HistoryTopicDTO convertTopicHistoryToTopicHistorySDTO(TopicHistory topicHistory) {
+//        return new HistoryTopicDTO(topicHistory.getId(), topicHistory.getModifiedDate(),
 //                convertUserToUserSDTO(topicHistory.getUser()));
 //    }
-//    private List<HistoryTopicSDTO> convertListOfTopicHistoryToListOfTopicHistorySDTO(List<TopicHistory> topicHistories){
+//    private List<HistoryTopicDTO> convertListOfTopicHistoryToListOfTopicHistorySDTO(List<TopicHistory> topicHistories){
 //        return topicHistories.stream().map(this::convertTopicHistoryToTopicHistorySDTO).collect(Collectors.toList());
 //    }
 //

@@ -1,66 +1,37 @@
 package com.app.FO.dto.task;
 
-import com.app.FO.dto.note.NoteDTO;
-import com.app.FO.dto.remainder.RemainderDTO;
-import com.app.FO.dto.tag.TagDTO;
-import com.app.FO.dto.tasks.TasksSDTO;
-import com.app.FO.dto.user.UserDTO;
-import com.app.FO.model.task.*;
+import com.app.FO.model.task.TaskStatus;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class TaskDTO {
+public class TaskSDTO {
     private Long id;
     private String task;
-    private UserDTO user;
     private LocalDateTime createdDate;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private TaskStatus taskStatus;
-    private List<RemainderDTO> remainders;
-    private List<TaskEffortSDTO> taskEfforts;
-    private List<TagDTO> noteTags;
-    private List<NoteDTO> taskNotes;
-    private List<TasksSDTO> taskListTasks;
-    private List<TaskHistoryDTO> taskHistories;
 
     @Override
     public String toString() {
-        return "TaskDTO{" +
+        return "TaskSDTO{" +
                 "id=" + id +
                 ", task='" + task + '\'' +
-                ", user=" + user +
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", remainders=" + remainders +
-                ", taskEfforts=" + taskEfforts +
-                ", noteTags=" + noteTags +
-                ", taskNotes=" + taskNotes +
-                ", taskListTasks=" + taskListTasks +
-                ", taskHistories=" + taskHistories +
                 '}';
     }
 
-    public TaskDTO(Long id, String task, UserDTO user, LocalDateTime createdDate, LocalDateTime startDate,
-                   LocalDateTime endDate, TaskStatus taskStatus, List<RemainderDTO> remainders,
-                   List<TaskEffortSDTO> taskEfforts, List<TagDTO> noteTags, List<NoteDTO> taskNotes,
-                   List<TasksSDTO> taskListTasks, List<TaskHistoryDTO> taskHistories) {
+    public TaskSDTO(Long id, String task, LocalDateTime createdDate, LocalDateTime startDate,
+                   LocalDateTime endDate, TaskStatus taskStatus) {
         this.id = id;
         this.task = task;
-        this.user = user;
         this.createdDate = createdDate;
         this.startDate = startDate;
         this.endDate = endDate;
         this.taskStatus = taskStatus;
-        this.remainders = remainders;
-        this.taskEfforts = taskEfforts;
-        this.noteTags = noteTags;
-        this.taskNotes = taskNotes;
-        this.taskListTasks = taskListTasks;
-        this.taskHistories = taskHistories;
     }
 
     public Long getId() {
@@ -77,14 +48,6 @@ public class TaskDTO {
 
     public void setTask(String task) {
         this.task = task;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -117,53 +80,5 @@ public class TaskDTO {
 
     public void setTaskStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
-    }
-
-    public List<RemainderDTO> getRemainders() {
-        return remainders;
-    }
-
-    public void setRemainders(List<RemainderDTO> remainders) {
-        this.remainders = remainders;
-    }
-
-    public List<TaskEffortSDTO> getTaskEfforts() {
-        return taskEfforts;
-    }
-
-    public void setTaskEfforts(List<TaskEffortSDTO> taskEfforts) {
-        this.taskEfforts = taskEfforts;
-    }
-
-    public List<TagDTO> getNoteTags() {
-        return noteTags;
-    }
-
-    public void setNoteTags(List<TagDTO> noteTags) {
-        this.noteTags = noteTags;
-    }
-
-    public List<NoteDTO> getTaskNotes() {
-        return taskNotes;
-    }
-
-    public void setTaskNotes(List<NoteDTO> taskNotes) {
-        this.taskNotes = taskNotes;
-    }
-
-    public List<TasksSDTO> getTaskListTasks() {
-        return taskListTasks;
-    }
-
-    public void setTaskListTasks(List<TasksSDTO> taskListTasks) {
-        this.taskListTasks = taskListTasks;
-    }
-
-    public List<TaskHistoryDTO> getTaskHistories() {
-        return taskHistories;
-    }
-
-    public void setTaskHistories(List<TaskHistoryDTO> taskHistories) {
-        this.taskHistories = taskHistories;
     }
 }

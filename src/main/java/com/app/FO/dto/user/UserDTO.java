@@ -7,12 +7,12 @@ public class UserDTO {
     private String username;
 
     //shall I keep in UserDTO UserRoles?
-    private List<UserRoleDTO> userRoles;
+    private List<UserRoleDTO> userRoleDTOList;
 
     public UserDTO(Long id, String username, List<UserRoleDTO> role) {
         this.userId = id;
         this.username = username;
-        this.userRoles = role;
+        this.userRoleDTOList = role;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class UserDTO {
         return "UserDTO{" +
                 "id=" + userId +
                 ", username='" + username + '\'' +
-                ", roles=" + userRoles +
+                ", roles=" + userRoleDTOList +
                 '}';
     }
 
@@ -42,11 +42,11 @@ public class UserDTO {
         this.username = username;
     }
 
-    public List<UserRoleDTO> getUserRoles() {
-        return userRoles;
+    public List<UserRoleDTO> getUserRoleDTOList() {
+        return userRoleDTOList;
     }
 
-    public void setUserRoles(List<UserRoleDTO> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRoleDTOList(List<UserRoleDTO> userRoleDTOList) {
+        this.userRoleDTOList = userRoleDTOList;
     }
 }

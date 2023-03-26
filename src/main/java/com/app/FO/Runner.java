@@ -85,15 +85,15 @@ public class Runner implements CommandLineRunner {
         UserRole userRole3 = new UserRole(savedUser3, savedClient, LocalDateTime.now());
         UserRole userRole4 = new UserRole(savedUser3, savedAdmin, LocalDateTime.now());
 
-        savedUser1.getUserRoles().add(userRole1);
-        savedUser2.getUserRoles().add(userRole2);
-        savedUser3.getUserRoles().add(userRole3);
-        savedUser3.getUserRoles().add(userRole4);
+        savedUser1.getUserRoleList().add(userRole1);
+        savedUser2.getUserRoleList().add(userRole2);
+        savedUser3.getUserRoleList().add(userRole3);
+        savedUser3.getUserRoleList().add(userRole4);
 
-        savedAdmin.getUserRoles().add(userRole1);
-        savedAdmin.getUserRoles().add(userRole3);
-        savedClient.getUserRoles().add(userRole2);
-        savedClient.getUserRoles().add(userRole3);
+        savedAdmin.getUserRoleList().add(userRole1);
+        savedAdmin.getUserRoleList().add(userRole3);
+        savedClient.getUserRoleList().add(userRole2);
+        savedClient.getUserRoleList().add(userRole3);
 
         userRoleService.saveUserRole(userRole1);
         userRoleService.saveUserRole(userRole2);
@@ -199,16 +199,16 @@ public class Runner implements CommandLineRunner {
         TopicTag topicTag10 = new TopicTag(savedTopic3, savedTag10, LocalDateTime.now().minusHours(1));
 
 
-        savedTopic1.getTopicTags().add(topicTag1);
-        savedTopic1.getTopicTags().add(topicTag2);
-        savedTopic1.getTopicTags().add(topicTag3);
-        savedTopic2.getTopicTags().add(topicTag4);
-        savedTopic2.getTopicTags().add(topicTag5);
-        savedTopic2.getTopicTags().add(topicTag6);
-        savedTopic3.getTopicTags().add(topicTag7);
-        savedTopic3.getTopicTags().add(topicTag8);
-        savedTopic3.getTopicTags().add(topicTag9);
-        savedTopic3.getTopicTags().add(topicTag10);
+        savedTopic1.getTopicTagList().add(topicTag1);
+        savedTopic1.getTopicTagList().add(topicTag2);
+        savedTopic1.getTopicTagList().add(topicTag3);
+        savedTopic2.getTopicTagList().add(topicTag4);
+        savedTopic2.getTopicTagList().add(topicTag5);
+        savedTopic2.getTopicTagList().add(topicTag6);
+        savedTopic3.getTopicTagList().add(topicTag7);
+        savedTopic3.getTopicTagList().add(topicTag8);
+        savedTopic3.getTopicTagList().add(topicTag9);
+        savedTopic3.getTopicTagList().add(topicTag10);
 
         TopicNote topicNote1 = new TopicNote(savedTopic1, savedNote1, LocalDateTime.now());
         TopicNote topicNote2 = new TopicNote(savedTopic1, savedNote2, LocalDateTime.now());
@@ -220,15 +220,15 @@ public class Runner implements CommandLineRunner {
         TopicNote topicNote8 = new TopicNote(savedTopic3, savedNote2, LocalDateTime.now());
         TopicNote topicNote9 = new TopicNote(savedTopic3, savedNote3, LocalDateTime.now());
 
-        savedTopic1.getTopicNotes().add(topicNote1);
-        savedTopic1.getTopicNotes().add(topicNote2);
-        savedTopic1.getTopicNotes().add(topicNote3);
-        savedTopic2.getTopicNotes().add(topicNote4);
-        savedTopic2.getTopicNotes().add(topicNote5);
-        savedTopic2.getTopicNotes().add(topicNote6);
-        savedTopic3.getTopicNotes().add(topicNote7);
-        savedTopic3.getTopicNotes().add(topicNote8);
-        savedTopic3.getTopicNotes().add(topicNote9);
+        savedTopic1.getTopicNoteList().add(topicNote1);
+        savedTopic1.getTopicNoteList().add(topicNote2);
+        savedTopic1.getTopicNoteList().add(topicNote3);
+        savedTopic2.getTopicNoteList().add(topicNote4);
+        savedTopic2.getTopicNoteList().add(topicNote5);
+        savedTopic2.getTopicNoteList().add(topicNote6);
+        savedTopic3.getTopicNoteList().add(topicNote7);
+        savedTopic3.getTopicNoteList().add(topicNote8);
+        savedTopic3.getTopicNoteList().add(topicNote9);
 
 
         savedTopic1 = topicService.saveTopic(topic1);

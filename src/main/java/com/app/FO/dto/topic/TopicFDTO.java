@@ -14,7 +14,7 @@ public class TopicFDTO {
     private List<TagDTO> tags;
     private UserDTO user;
     private LocalDateTime createdDate;
-    private List<HistoryTopicSDTO> topicHistory;
+    private List<HistoryTopicDTO> historyTopicDTOList;
 
     public TopicFDTO() {
     }
@@ -28,19 +28,19 @@ public class TopicFDTO {
                 ", tags=" + tags +
                 ", user=" + user +
                 ", createdDate=" + createdDate +
-                ", topicHistory=" + topicHistory +
+                ", topicHistory=" + historyTopicDTOList +
                 '}';
     }
 
     public TopicFDTO(Long topicId, String subject, List<NoteDTO> notes, List<TagDTO> tags,
-                     UserDTO user, LocalDateTime createdDate, List<HistoryTopicSDTO> topicHistory) {
+                     UserDTO user, LocalDateTime createdDate, List<HistoryTopicDTO> historyTopicDTOList) {
         this.topicId = topicId;
         this.subject = subject;
         this.notes = notes;
         this.tags = tags;
         this.user = user;
         this.createdDate = createdDate;
-        this.topicHistory = topicHistory;
+        this.historyTopicDTOList = historyTopicDTOList;
     }
 
     public Long getTopicId() {
@@ -91,11 +91,11 @@ public class TopicFDTO {
         this.createdDate = createdDate;
     }
 
-    public List<HistoryTopicSDTO> getTopicHistory() {
-        return topicHistory;
+    public List<HistoryTopicDTO> getHistoryTopicDTOList() {
+        return historyTopicDTOList;
     }
 
-    public void setTopicHistory(List<HistoryTopicSDTO> topicHistory) {
-        this.topicHistory = topicHistory;
+    public void setHistoryTopicDTOList(List<HistoryTopicDTO> historyTopicDTOList) {
+        this.historyTopicDTOList = historyTopicDTOList;
     }
 }

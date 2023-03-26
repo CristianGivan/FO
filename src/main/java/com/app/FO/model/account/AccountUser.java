@@ -1,5 +1,6 @@
-package com.app.FO.model.expenses;
+package com.app.FO.model.account;
 
+//import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -7,15 +8,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expenses_users")
-public class ExpensesUsers {
+@Table(name = "account_users")
+public class AccountUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_users_seq")
-    @SequenceGenerator(name = "expenses_users_seq",
-            sequenceName = "expenses_users_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_users_seq")
+    @SequenceGenerator(name = "account_users_seq",
+            sequenceName = "account_users_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "expenses_users_id")
+    @Column(name = "account_users_id")
     private Long id;
 
     @ManyToOne
@@ -24,22 +25,22 @@ public class ExpensesUsers {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "expenses_id")
+    @JoinColumn(name = "account_id")
     @JsonIgnore
-    private Expenses expenses;
+    private Account account;
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public ExpensesUsers() {
+    public AccountUser() {
     }
 
     @Override
     public String toString() {
-        return "ExpensesUsers{" +
+        return "AccountUser{" +
                 "id=" + id +
                 ", userId=" + user.getId() +
-                ", expensesId=" + expenses.getId() +
+                ", accountId=" + account.getId() +
                 ", linkDate=" + linkDate +
                 '}';
     }
@@ -60,12 +61,12 @@ public class ExpensesUsers {
         this.user = user;
     }
 
-    public Expenses getExpensesList() {
-        return expenses;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setExpensesList(Expenses expenses) {
-        this.expenses = expenses;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public LocalDateTime getLinkDate() {

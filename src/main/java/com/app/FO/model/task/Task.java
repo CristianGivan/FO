@@ -42,22 +42,22 @@ public class Task {
     private TaskStatus taskStatus;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Remainder> remainders;
+    private List<Remainder> remainderList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskEffort> taskEfforts;
+    private List<TaskEffort> taskEffortList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskTag> noteTags;
+    private List<TaskTag> taskTagList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskNote> taskNotes;
+    private List<TaskNote> taskNoteList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TasksTask> tasksTasks;
+    private List<TasksTask> tasksTaskList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskHistory> taskHistories;
+    private List<TaskHistory> taskHistoryList;
 
     public Task() {
     }
@@ -72,12 +72,12 @@ public class Task {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", remainders=" + remainders +
-                ", taskEfforts=" + taskEfforts +
-                ", noteTags=" + noteTags +
-                ", taskNotes=" + taskNotes +
-                ", tasksTasks=" + tasksTasks +
-                ", taskHistories=" + taskHistories +
+                ", remainders=" + remainderList +
+                ", taskEfforts=" + taskEffortList +
+                ", noteTags=" + taskTagList +
+                ", taskNotes=" + taskNoteList +
+                ", tasksTasks=" + tasksTaskList +
+                ", taskHistories=" + taskHistoryList +
                 '}';
     }
 
@@ -137,51 +137,51 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public List<Remainder> getRemainders() {
-        return remainders;
+    public List<Remainder> getRemainderList() {
+        return remainderList;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
-        this.remainders = remainders;
+    public void setRemainderList(List<Remainder> remainders) {
+        this.remainderList = remainders;
     }
 
-    public List<TaskEffort> getTaskEfforts() {
-        return taskEfforts;
+    public List<TaskEffort> getTaskEffortList() {
+        return taskEffortList;
     }
 
-    public void setTaskEfforts(List<TaskEffort> taskEfforts) {
-        this.taskEfforts = taskEfforts;
+    public void setTaskEffortList(List<TaskEffort> taskEfforts) {
+        this.taskEffortList = taskEfforts;
     }
 
-    public List<TaskTag> getNoteTags() {
-        return noteTags;
+    public List<TaskTag> getTaskTagList() {
+        return taskTagList;
     }
 
-    public void setNoteTags(List<TaskTag> noteTags) {
-        this.noteTags = noteTags;
+    public void setTaskTagList(List<TaskTag> noteTags) {
+        this.taskTagList = noteTags;
     }
 
-    public List<TaskNote> getTaskNotes() {
-        return taskNotes;
+    public List<TaskNote> getTaskNoteList() {
+        return taskNoteList;
     }
 
-    public void setTaskNotes(List<TaskNote> taskNotes) {
-        this.taskNotes = taskNotes;
+    public void setTaskNoteList(List<TaskNote> taskNotes) {
+        this.taskNoteList = taskNotes;
     }
 
     public List<TasksTask> getTaskListTasks() {
-        return tasksTasks;
+        return tasksTaskList;
     }
 
     public void setTaskListTasks(List<TasksTask> tasksTasks) {
-        this.tasksTasks = tasksTasks;
+        this.tasksTaskList = tasksTasks;
     }
 
-    public List<TaskHistory> getTaskHistories() {
-        return taskHistories;
+    public List<TaskHistory> getTaskHistoryList() {
+        return taskHistoryList;
     }
 
-    public void setTaskHistories(List<TaskHistory> taskHistories) {
-        this.taskHistories = taskHistories;
+    public void setTaskHistoryList(List<TaskHistory> taskHistories) {
+        this.taskHistoryList = taskHistories;
     }
 }

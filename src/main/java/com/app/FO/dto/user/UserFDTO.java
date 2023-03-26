@@ -5,24 +5,24 @@ import java.util.List;
 public class UserFDTO {
     private Long userId;
     private String username;
-    private List<UserRoleDTO> userRoles;
-    private List<UserTagDTO> userTags;
+    private List<UserRoleDTO> userRoleDTOList;
+    private List<UserTagDTO> userTagDTOList;
 
     @Override
     public String toString() {
         return "UserFDTO{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", userRoles=" + userRoles +
-                ", userTags=" + userTags +
+                ", userRoles=" + userRoleDTOList +
+                ", userTags=" + userTagDTOList +
                 '}';
     }
 
-    public UserFDTO(Long userId, String username, List<UserRoleDTO> userRoles, List<UserTagDTO> userTags) {
+    public UserFDTO(Long userId, String username, List<UserRoleDTO> userRoleDTOList, List<UserTagDTO> userTagDTOList) {
         this.userId = userId;
         this.username = username;
-        this.userRoles = userRoles;
-        this.userTags = userTags;
+        this.userRoleDTOList = userRoleDTOList;
+        this.userTagDTOList = userTagDTOList;
     }
 
     public Long getUserId() {
@@ -41,19 +41,19 @@ public class UserFDTO {
         this.username = username;
     }
 
-    public List<UserRoleDTO> getUserRoles() {
-        return userRoles;
+    public List<UserRoleDTO> getUserRoleDTOList() {
+        return userRoleDTOList;
     }
 
-    public void setUserRoles(List<UserRoleDTO> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRoleDTOList(List<UserRoleDTO> userRoleDTOList) {
+        this.userRoleDTOList = userRoleDTOList;
     }
 
-    public List<UserTagDTO> getUserTags() {
-        return userTags;
+    public List<UserTagDTO> getUserTagDTOList() {
+        return userTagDTOList;
     }
 
-    public void setUserTags(List<UserTagDTO> userTags) {
-        this.userTags = userTags;
+    public void setUserTagDTOList(List<UserTagDTO> userTagDTOList) {
+        this.userTagDTOList = userTagDTOList;
     }
 }

@@ -1,6 +1,5 @@
-package com.app.FO.model.account;
+package com.app.FO.model.event;
 
-//import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,39 +7,39 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_users")
-public class AccountUsers {
+@Table(name = "event_user")
+public class EventUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_users_seq")
-    @SequenceGenerator(name = "account_users_seq",
-            sequenceName = "account_users_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_user_seq")
+    @SequenceGenerator(name = "event_user_seq",
+            sequenceName = "event_user_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_users_id")
+    @Column(name = "event_user_id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    @JsonIgnore
+    private Event event;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    @JsonIgnore
-    private Account account;
-
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public AccountUsers() {
+    public EventUser() {
     }
 
     @Override
     public String toString() {
-        return "AccountUsers{" +
+        return "EventUser{" +
                 "id=" + id +
+                ", eventId=" + event.getId() +
                 ", userId=" + user.getId() +
-                ", accountId=" + account.getId() +
                 ", linkDate=" + linkDate +
                 '}';
     }
@@ -53,20 +52,20 @@ public class AccountUsers {
         this.id = id;
     }
 
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public LocalDateTime getLinkDate() {

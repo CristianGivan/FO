@@ -8,7 +8,7 @@ public class TaskHistoryDTO {
     private Long id;
     private LocalDateTime modifiedDate;
     private UserDTO user;
-    private TaskSDTO task;
+    private TaskDTO task;
 
     @Override
     public String toString() {
@@ -20,7 +20,7 @@ public class TaskHistoryDTO {
                 '}';
     }
 
-    public TaskHistoryDTO(Long id, LocalDateTime modifiedDate, UserDTO user, TaskSDTO task) {
+    public TaskHistoryDTO(Long id, LocalDateTime modifiedDate, UserDTO user, TaskDTO task) {
         this.id = id;
         this.modifiedDate = modifiedDate;
         this.user = user;
@@ -51,11 +51,11 @@ public class TaskHistoryDTO {
         this.user = user;
     }
 
-    public TaskSDTO getTask() {
+    public TaskDTO getTask() {
         return task;
     }
 
-    public void setTask(TaskSDTO task) {
+    public void setTask(TaskDTO task) {
         this.task = task;
     }
 }

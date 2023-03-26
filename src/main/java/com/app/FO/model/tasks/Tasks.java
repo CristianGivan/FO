@@ -39,16 +39,16 @@ public class Tasks {
     private LocalDateTime endDate;
 
     @Column(name = "task_status")
-    private TaskStatus taskStatus;
+    private TaskStatus tasksStatuList;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TasksTask> tasksTasks;
+    private List<TasksTask> tasksTaskList;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TasksHistory> TasksHistory;
+    private List<TasksHistory> tasksHistoryList;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<EventTasks> eventTasks;
+    private List<EventTasks> eventTasksList;
 
     public Tasks() {
     }
@@ -62,10 +62,10 @@ public class Tasks {
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", taskStatus=" + taskStatus +
-                ", tasksTasks=" + tasksTasks +
-                ", TasksHistory=" + TasksHistory +
-                ", eventTaskLists=" + eventTasks +
+                ", taskStatus=" + tasksStatuList +
+                ", tasksTasks=" + tasksTaskList +
+                ", TasksHistory=" + tasksHistoryList +
+                ", eventTaskLists=" + eventTasksList +
                 '}';
     }
 
@@ -117,35 +117,35 @@ public class Tasks {
         this.endDate = endDate;
     }
 
-    public TaskStatus getTaskStatus() {
-        return taskStatus;
+    public TaskStatus getTasksStatuList() {
+        return tasksStatuList;
     }
 
-    public void setTaskStatus(TaskStatus taskStatus) {
-        this.taskStatus = taskStatus;
+    public void setTasksStatuList(TaskStatus taskStatus) {
+        this.tasksStatuList = taskStatus;
     }
 
     public List<TasksTask> getTaskListTasks() {
-        return tasksTasks;
+        return tasksTaskList;
     }
 
     public void setTaskListTasks(List<TasksTask> tasksTasks) {
-        this.tasksTasks = tasksTasks;
+        this.tasksTaskList = tasksTasks;
     }
 
     public List<TasksHistory> getTaskListHistory() {
-        return TasksHistory;
+        return tasksHistoryList;
     }
 
     public void setTaskListHistory(List<TasksHistory> tasksHistory) {
-        TasksHistory = tasksHistory;
+        tasksHistoryList = tasksHistory;
     }
 
-    public List<EventTasks> getEventTasks() {
-        return eventTasks;
+    public List<EventTasks> getEventTasksList() {
+        return eventTasksList;
     }
 
-    public void setEventTasks(List<EventTasks> eventTaskLists) {
-        this.eventTasks = eventTaskLists;
+    public void setEventTasksList(List<EventTasks> eventTaskLists) {
+        this.eventTasksList = eventTaskLists;
     }
 }

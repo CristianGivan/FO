@@ -4,7 +4,7 @@ import com.app.FO.exceptions.TopicNotFoundException;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
-import com.app.FO.model.user.UsersTopics;
+import com.app.FO.model.topic.TopicUser;
 import com.app.FO.repository.topic.TopicRepository;
 import com.app.FO.service.user.UserService;
 import com.app.FO.service.user.UsersTopicsService;
@@ -56,7 +56,7 @@ public class TopicService {
 
     public Topic postTopic(String topicName){
         Topic topic =topicRepository.save(new Topic(topicName,userService.getLogInUser()));
-        UsersTopics usersTopics =usersTopicsService.postUsersTopics(new UsersTopics(userService.getLogInUser(),topic));
+        TopicUser topicUser =usersTopicsService.postUsersTopics(new TopicUser(userService.getLogInUser(),topic));
         return topic;
     }
 

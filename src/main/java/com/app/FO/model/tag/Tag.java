@@ -45,7 +45,7 @@ public class Tag {
     private List<ExpensesTag> expensesTagList;
 
     @OneToMany(mappedBy = "tag")
-    private List<EventTag> eventTags;
+    private List<EventTag> eventTagList;
 
     @Override
     public String toString() {
@@ -58,7 +58,7 @@ public class Tag {
                 ", taskTags=" + taskTagList +
                 ", expenseTags=" + expenseTagList +
                 ", expensesTags=" + expensesTagList +
-                ", eventTags=" + eventTags +
+                ", eventTags=" + eventTagList +
                 '}';
     }
 
@@ -125,12 +125,12 @@ public class Tag {
         this.expensesTagList = expensesTags;
     }
 
-    public List<EventTag> getEventTags() {
-        return eventTags;
+    public List<EventTag> getEventTagList() {
+        return eventTagList;
     }
 
-    public void setEventTags(List<EventTag> eventTags) {
-        this.eventTags = eventTags;
+    public void setEventTagList(List<EventTag> eventTags) {
+        this.eventTagList = eventTags;
     }
 
 

@@ -1,14 +1,12 @@
 package com.app.FO.dto.task;
 
-import com.app.FO.model.task.Task;
-
 import java.time.LocalDate;
 
 public class TaskEffortSDTO {
     private Long id;
     private LocalDate workingDate;
     private Double workingTime;
-    private TaskSDTO task;
+    private TaskDTO task;
 
     @Override
     public String toString() {
@@ -20,7 +18,7 @@ public class TaskEffortSDTO {
                 '}';
     }
 
-    public TaskEffortSDTO(Long id, LocalDate workingDate, Double workingTime, TaskSDTO task) {
+    public TaskEffortSDTO(Long id, LocalDate workingDate, Double workingTime, TaskDTO task) {
         this.id = id;
         this.workingDate = workingDate;
         this.workingTime = workingTime;
@@ -51,11 +49,11 @@ public class TaskEffortSDTO {
         this.workingTime = workingTime;
     }
 
-    public TaskSDTO getTask() {
+    public TaskDTO getTask() {
         return task;
     }
 
-    public void setTask(TaskSDTO task) {
+    public void setTask(TaskDTO task) {
         this.task = task;
     }
 }

@@ -2,10 +2,10 @@ package com.app.FO.model.user;
 
 
 import com.app.FO.exceptions.IdAlreadyAllocatedException;
-import com.app.FO.model.account.AccountUsers;
+import com.app.FO.model.account.AccountUser;
 import com.app.FO.model.expense.Expense;
 //import com.app.FO.model.expenseslist.Expenses;
-import com.app.FO.model.expenses.ExpensesUsers;
+import com.app.FO.model.expenses.ExpensesUser;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.Task;
@@ -16,6 +16,7 @@ import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.account.Account;
+import com.app.FO.model.topic.TopicUser;
 import com.app.FO.model.transaction.Transaction;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
@@ -44,61 +45,60 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<UserRole> userRoles;
-
+    private List<UserRole> userRoleList;
 
 
     @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
-    private List<Topic> topics;
+    private List<Topic> topicList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<TopicHistory> topicHistories;
+    private List<TopicHistory> topicHistoryList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Note> notes;
+    private List<Note> noteList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<NoteHistory> noteHistories;
+    private List<NoteHistory> noteHistoryList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Remainder> remainders;
+    private List<Remainder> remainderList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Task> task;
+    private List<Task> taskList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<TaskHistory> taskHistories;
+    private List<TaskHistory> taskHistoryList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Tasks> tasks;
+    private List<Tasks> tasksList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<TasksHistory> taskListHistories;
+    private List<TasksHistory> tasksHistoryList;
 
     @OneToMany(mappedBy = "creator")
-    private List<Expense> expensesCreated;
+    private List<Expense> expensesCreatedList;
 
     @OneToMany(mappedBy = "payer")
-    private List<Expense> expensesPayed;
+    private List<Expense> expensesPayedList;
 
 
     @OneToMany(mappedBy = "user")
-    private List<ExpensesUsers> expensesUsers;
+    private List<ExpensesUser> expensesUserList;
 
     @OneToMany(mappedBy = "creator")
-    private List<Account> accounts;
+    private List<Account> accountList;
 
     @OneToMany(mappedBy = "user")
-    private List<AccountUsers> accountUsers;
+    private List<AccountUser> accountUserList;
 
     @OneToMany(mappedBy = "user")
-    private List<Transaction> transactions;
+    private List<Transaction> transactionList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<UserTag> userTags;
+    private List<UserTag> userTagList;
 
     @OneToMany(mappedBy = "user")
-    private List<UsersTopics> usersTopics;
+    private List<TopicUser> topicUserList;
 
     public User() {
     }
@@ -110,23 +110,23 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", userRoles=" + userRoles +
-                ", userTags=" + userTags +
-                ", topics=" + topics +
-                ", topicHistories=" + topicHistories +
-                ", notes=" + notes +
-                ", noteHistories=" + noteHistories +
-                ", remainders=" + remainders +
-                ", tasks=" + tasks +
-                ", taskHistories=" + taskHistories +
-                ", tasks=" + tasks +
-                ", taskListHistories=" + taskListHistories +
-                ", expensesCreated=" + expensesCreated +
-                ", expensesPayed=" + expensesPayed +
-                ", expensesUsers=" + expensesUsers +
-                ", accounts=" + accounts +
-                ", accountUsers=" + accountUsers +
-                ", transactions=" + transactions +
+                ", userRoles=" + userRoleList +
+                ", userTags=" + userTagList +
+                ", topics=" + topicList +
+                ", topicHistories=" + topicHistoryList +
+                ", notes=" + noteList +
+                ", noteHistories=" + noteHistoryList +
+                ", remainders=" + remainderList +
+                ", tasks=" + tasksList +
+                ", taskHistories=" + taskHistoryList +
+                ", tasks=" + tasksList +
+                ", taskListHistories=" + tasksHistoryList +
+                ", expensesCreated=" + expensesCreatedList +
+                ", expensesPayed=" + expensesPayedList +
+                ", expensesUsers=" + expensesUserList +
+                ", accounts=" + accountList +
+                ", accountUsers=" + accountUserList +
+                ", transactions=" + transactionList +
                 '}';
     }
 
@@ -166,50 +166,50 @@ public class User {
         this.password = password;
     }
 
-    public List<UserRole> getUserRoles() {
-        if (userRoles==null){
-            userRoles=new ArrayList<>();
+    public List<UserRole> getUserRoleList() {
+        if (userRoleList ==null){
+            userRoleList =new ArrayList<>();
         }
-        return userRoles;
+        return userRoleList;
     }
 
 
 
 
-    public void setUserRoles(List<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRoleList(List<UserRole> userRoles) {
+        this.userRoleList = userRoles;
     }
 
-    public List<Topic> getTopics() {
-        return topics;
+    public List<Topic> getTopicList() {
+        return topicList;
     }
 
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
+    public void setTopicList(List<Topic> topics) {
+        this.topicList = topics;
     }
 
-    public List<TopicHistory> getTopicHistories() {
-        return topicHistories;
+    public List<TopicHistory> getTopicHistoryList() {
+        return topicHistoryList;
     }
 
-    public void setTopicHistories(List<TopicHistory> topicHistories) {
-        this.topicHistories = topicHistories;
+    public void setTopicHistoryList(List<TopicHistory> topicHistories) {
+        this.topicHistoryList = topicHistories;
     }
 
-    public List<Note> getNotes() {
-        return notes;
+    public List<Note> getNoteList() {
+        return noteList;
     }
 
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
+    public void setNoteList(List<Note> notes) {
+        this.noteList = notes;
     }
 
-    public List<NoteHistory> getNoteHistories() {
-        return noteHistories;
+    public List<NoteHistory> getNoteHistoryList() {
+        return noteHistoryList;
     }
 
-    public void setNoteHistories(List<NoteHistory> noteHistories) {
-        this.noteHistories = noteHistories;
+    public void setNoteHistoryList(List<NoteHistory> noteHistories) {
+        this.noteHistoryList = noteHistories;
     }
 
     public String getEmail() {
@@ -220,102 +220,102 @@ public class User {
         this.email = email;
     }
 
-    public List<Remainder> getRemainders() {
-        return remainders;
+    public List<Remainder> getRemainderList() {
+        return remainderList;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
-        this.remainders = remainders;
+    public void setRemainderList(List<Remainder> remainders) {
+        this.remainderList = remainders;
     }
 
-    public List<Task> getTask() {
-        return task;
+    public List<Task> getTaskList() {
+        return taskList;
     }
 
-    public void setTask(List<Task> tasks) {
-        this.task = tasks;
+    public void setTaskList(List<Task> tasks) {
+        this.taskList = tasks;
     }
 
-    public List<TaskHistory> getTaskHistories() {
-        return taskHistories;
+    public List<TaskHistory> getTaskHistoryList() {
+        return taskHistoryList;
     }
 
-    public void setTaskHistories(List<TaskHistory> taskHistories) {
-        this.taskHistories = taskHistories;
+    public void setTaskHistoryList(List<TaskHistory> taskHistories) {
+        this.taskHistoryList = taskHistories;
     }
 
     public List<Tasks> getTaskListLists() {
-        return tasks;
+        return tasksList;
     }
 
     public void setTaskListLists(List<Tasks> tasks) {
-        this.tasks = tasks;
+        this.tasksList = tasks;
     }
 
-    public List<TasksHistory> getTaskListHistories() {
-        return taskListHistories;
+    public List<TasksHistory> getTasksHistoryList() {
+        return tasksHistoryList;
     }
 
-    public void setTaskListHistories(List<TasksHistory> taskListHistories) {
-        this.taskListHistories = taskListHistories;
+    public void setTasksHistoryList(List<TasksHistory> taskListHistories) {
+        this.tasksHistoryList = taskListHistories;
     }
 
-    public List<Expense> getExpensesCreated() {
-        return expensesCreated;
+    public List<Expense> getExpensesCreatedList() {
+        return expensesCreatedList;
     }
 
-    public void setExpensesCreated(List<Expense> expensesCreated) {
-        this.expensesCreated = expensesCreated;
+    public void setExpensesCreatedList(List<Expense> expensesCreated) {
+        this.expensesCreatedList = expensesCreated;
     }
 
-    public List<Expense> getExpensesPayed() {
-        return expensesPayed;
+    public List<Expense> getExpensesPayedList() {
+        return expensesPayedList;
     }
 
-    public void setExpensesPayed(List<Expense> expensesPayed) {
-        this.expensesPayed = expensesPayed;
+    public void setExpensesPayedList(List<Expense> expensesPayed) {
+        this.expensesPayedList = expensesPayed;
     }
 
-    public List<ExpensesUsers> getExpensesListUsers() {
-        return expensesUsers;
+    public List<ExpensesUser> getExpensesListUsers() {
+        return expensesUserList;
     }
 
-    public void setExpensesListUsers(List<ExpensesUsers> expensesUsers) {
-        this.expensesUsers = expensesUsers;
+    public void setExpensesListUsers(List<ExpensesUser> expensesUsers) {
+        this.expensesUserList = expensesUsers;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void setAccountList(List<Account> accounts) {
+        this.accountList = accounts;
     }
 
-    public List<AccountUsers> getAccountUsers() {
-        return accountUsers;
+    public List<AccountUser> getAccountUserList() {
+        return accountUserList;
     }
 
-    public void setAccountUsers(List<AccountUsers> accountUsers) {
-        this.accountUsers = accountUsers;
+    public void setAccountUserList(List<AccountUser> accountUsers) {
+        this.accountUserList = accountUsers;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<Transaction> getTransactionList() {
+        return transactionList;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setTransactionList(List<Transaction> transactions) {
+        this.transactionList = transactions;
     }
 
-    public List<UserTag> getUserTags() {
-        if (userTags==null){
-            userTags= new ArrayList<>();
+    public List<UserTag> getUserTagList() {
+        if (userTagList ==null){
+            userTagList = new ArrayList<>();
         }
-        return userTags;
+        return userTagList;
     }
 
-    public void setUserTags(List<UserTag> userTags) {
-        this.userTags = userTags;
+    public void setUserTagList(List<UserTag> userTags) {
+        this.userTagList = userTags;
     }
 }

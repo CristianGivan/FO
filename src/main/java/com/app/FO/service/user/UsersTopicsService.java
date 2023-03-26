@@ -1,9 +1,6 @@
 package com.app.FO.service.user;
 
-import com.app.FO.exceptions.UserTagNotFoundException;
-import com.app.FO.model.user.UserTag;
-import com.app.FO.model.user.UsersTopics;
-import com.app.FO.repository.user.UserTagRepository;
+import com.app.FO.model.topic.TopicUser;
 import com.app.FO.repository.user.UsersTopicsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +24,8 @@ public class UsersTopicsService {
 
     //-- Post
 
-    public UsersTopics postUsersTopics(UsersTopics usersTopics){
-        return usersTopicsRepository.save(usersTopics);
+    public TopicUser postUsersTopics(TopicUser topicUser){
+        return usersTopicsRepository.save(topicUser);
     }
 
     //-- Put

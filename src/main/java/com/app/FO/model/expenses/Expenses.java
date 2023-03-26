@@ -30,19 +30,19 @@ public class Expenses {
     private User creator;
 
     @OneToMany(mappedBy = "expenses")
-    private List<ExpensesUsers> ExpensesUsers;
+    private List<ExpensesUser> ExpensesUsers;
 
     @OneToMany(mappedBy = "expenses")
-    private List<Expense> expenses;
+    private List<Expense> expenseList;
 
     @OneToMany(mappedBy = "expenses")
-    private List<ExpensesTag> expensesTags;
+    private List<ExpensesTag> expensesTagList;
 
     @OneToOne(mappedBy = "expenses",cascade = CascadeType.ALL)
     private Transaction transaction;
 
     @OneToMany(mappedBy = "expenses")
-    private List<EventExpense> eventExpens;
+    private List<EventExpense> eventExpensesList;
 
     public Expenses() {
     }
@@ -53,11 +53,11 @@ public class Expenses {
                 "id=" + id +
                 ", taskListName='" + taskListName + '\'' +
                 ", creatorId=" + creator.getId() +
-                ", ExpensesUsers=" + ExpensesUsers +
-                ", expenses=" + expenses +
-                ", expensesTags=" + expensesTags +
+                ", ExpensesUser=" + ExpensesUsers +
+                ", expenses=" + expenseList +
+                ", expensesTags=" + expensesTagList +
                 ", transactionId=" + transaction.getId() +
-                ", eventExpens=" + eventExpens +
+                ", eventExpens=" + eventExpensesList +
                 '}';
     }
 
@@ -85,28 +85,28 @@ public class Expenses {
         this.creator = creator;
     }
 
-    public List<ExpensesUsers> getExpensesListUsers() {
+    public List<ExpensesUser> getExpensesListUsers() {
         return ExpensesUsers;
     }
 
-    public void setExpensesListUsers(List<ExpensesUsers> expensesUsers) {
+    public void setExpensesListUsers(List<ExpensesUser> expensesUsers) {
         ExpensesUsers = expensesUsers;
     }
 
-    public List<Expense> getExpenses() {
-        return expenses;
+    public List<Expense> getExpenseList() {
+        return expenseList;
     }
 
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
+    public void setExpenseList(List<Expense> expenses) {
+        this.expenseList = expenses;
     }
 
     public List<ExpensesTag> getExpensesListTags() {
-        return expensesTags;
+        return expensesTagList;
     }
 
     public void setExpensesListTags(List<ExpensesTag> expensesTags) {
-        this.expensesTags = expensesTags;
+        this.expensesTagList = expensesTags;
     }
 
     public Transaction getTransaction() {
@@ -118,10 +118,10 @@ public class Expenses {
     }
 
     public List<EventExpense> getEventExpenseLists() {
-        return eventExpens;
+        return eventExpensesList;
     }
 
     public void setEventExpenseLists(List<EventExpense> eventExpenseLists) {
-        this.eventExpens = eventExpenseLists;
+        this.eventExpensesList = eventExpenseLists;
     }
 }

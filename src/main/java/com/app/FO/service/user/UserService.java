@@ -104,8 +104,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         Role role = roleService.findRoleByType(RoleType.ROLE_CLIENT);
         UserRole userRole = new UserRole(user, role, LocalDateTime.now());
-        role.getUserRoles().add(userRole);
-        user.getUserRoles().add(userRole);
+        role.getUserRoleList().add(userRole);
+        user.getUserRoleList().add(userRole);
         userRoleRepository.save(userRole);
         return user;
     }

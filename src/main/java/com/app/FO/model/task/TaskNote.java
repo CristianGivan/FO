@@ -7,15 +7,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_notes")
+@Table(name = "task_note")
 public class TaskNote {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_notes_seq")
-    @SequenceGenerator(name = "task_notes_seq",
-            sequenceName = "task_notes_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_note_seq")
+    @SequenceGenerator(name = "task_note_seq",
+            sequenceName = "task_note_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "task_notes_id")
+    @Column(name = "task_note_id")
     private Long id;
 
     @ManyToOne
