@@ -2,12 +2,19 @@ package com.app.FO.model.account;
 
 import com.app.FO.model.transaction.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "account_transaction")
+@Getter
+@Setter
+@NoArgsConstructor
 public class AccountTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_transaction_seq")
@@ -16,6 +23,7 @@ public class AccountTransaction {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "account_transaction_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     // todo trebuie sa vad cum modelez asta o fac cu un singur acount sau o fac cu form to
@@ -43,37 +51,5 @@ public class AccountTransaction {
                 ", accountId=" + account.getId() +
                 ", linkDate=" + linkDate +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Transaction getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public LocalDateTime getLinkDate() {
-        return linkDate;
-    }
-
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
     }
 }

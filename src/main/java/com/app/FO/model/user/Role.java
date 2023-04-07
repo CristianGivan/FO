@@ -1,11 +1,19 @@
 package com.app.FO.model.user;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "role")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
@@ -14,16 +22,14 @@ public class Role {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "role_id")
+    @Setter(AccessLevel.NONE)
     public Long id;
 
     @Column(name = "role_type")
     private RoleType roleType;
-
+    @Getter(AccessLevel.NONE)
     @OneToMany(mappedBy = "role")
     private List<UserRole> userRoleList;
-
-    public Role() {
-    }
 
     public Role(RoleType roleType) {
         this.roleType = roleType;
@@ -44,30 +50,10 @@ public class Role {
                 '}';
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public RoleType getRoleType() {
-        return roleType;
-    }
-
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
-    }
-
     public List<UserRole> getUserRoleList() {
         if (userRoleList ==null){
             userRoleList =new ArrayList<>();
         }
         return userRoleList;
-    }
-
-    public void setUserRoleList(List<UserRole> userRoles) {
-        this.userRoleList = userRoles;
     }
 }

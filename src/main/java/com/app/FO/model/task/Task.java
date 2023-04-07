@@ -4,6 +4,10 @@ import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.tasks.TasksTask;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +15,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "task")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
@@ -19,6 +26,7 @@ public class Task {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "task_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "task")
@@ -59,9 +67,6 @@ public class Task {
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TaskHistory> taskHistoryList;
 
-    public Task() {
-    }
-
     @Override
     public String toString() {
         return "Task{" +
@@ -79,109 +84,5 @@ public class Task {
                 ", tasksTasks=" + tasksTaskList +
                 ", taskHistories=" + taskHistoryList +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTask() {
-        return task;
-    }
-
-    public void setTask(String task) {
-        this.task = task;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public TaskStatus getTaskStatus() {
-        return taskStatus;
-    }
-
-    public void setTaskStatus(TaskStatus taskStatus) {
-        this.taskStatus = taskStatus;
-    }
-
-    public List<Remainder> getRemainderList() {
-        return remainderList;
-    }
-
-    public void setRemainderList(List<Remainder> remainders) {
-        this.remainderList = remainders;
-    }
-
-    public List<TaskEffort> getTaskEffortList() {
-        return taskEffortList;
-    }
-
-    public void setTaskEffortList(List<TaskEffort> taskEfforts) {
-        this.taskEffortList = taskEfforts;
-    }
-
-    public List<TaskTag> getTaskTagList() {
-        return taskTagList;
-    }
-
-    public void setTaskTagList(List<TaskTag> noteTags) {
-        this.taskTagList = noteTags;
-    }
-
-    public List<TaskNote> getTaskNoteList() {
-        return taskNoteList;
-    }
-
-    public void setTaskNoteList(List<TaskNote> taskNotes) {
-        this.taskNoteList = taskNotes;
-    }
-
-    public List<TasksTask> getTaskListTasks() {
-        return tasksTaskList;
-    }
-
-    public void setTaskListTasks(List<TasksTask> tasksTasks) {
-        this.tasksTaskList = tasksTasks;
-    }
-
-    public List<TaskHistory> getTaskHistoryList() {
-        return taskHistoryList;
-    }
-
-    public void setTaskHistoryList(List<TaskHistory> taskHistories) {
-        this.taskHistoryList = taskHistories;
     }
 }

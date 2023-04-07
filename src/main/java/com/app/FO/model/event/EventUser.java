@@ -2,12 +2,19 @@ package com.app.FO.model.event;
 
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "event_user")
+@Getter
+@Setter
+@NoArgsConstructor
 public class EventUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_user_seq")
@@ -16,6 +23,7 @@ public class EventUser {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "event_user_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -31,9 +39,6 @@ public class EventUser {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public EventUser() {
-    }
-
     @Override
     public String toString() {
         return "EventUser{" +
@@ -42,37 +47,5 @@ public class EventUser {
                 ", userId=" + user.getId() +
                 ", linkDate=" + linkDate +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getLinkDate() {
-        return linkDate;
-    }
-
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
     }
 }

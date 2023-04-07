@@ -2,12 +2,19 @@ package com.app.FO.model.topic;
 
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "topic_user")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TopicUser {
 
     @Id
@@ -17,6 +24,7 @@ public class TopicUser {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "topic_user_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -32,8 +40,6 @@ public class TopicUser {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    public TopicUser() {
-    }
     public TopicUser(User user, Topic topic){
         this.user=user;
         this.topic=topic;
@@ -49,37 +55,5 @@ public class TopicUser {
                 ", topicId=" + topic.getId() +
                 ", createdDate=" + createdDate +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
     }
 }

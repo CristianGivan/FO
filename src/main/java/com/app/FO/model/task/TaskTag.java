@@ -2,12 +2,19 @@ package com.app.FO.model.task;
 
 import com.app.FO.model.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "task_tag")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TaskTag {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_tag_seq")
@@ -16,6 +23,7 @@ public class TaskTag {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "task_tag_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -30,9 +38,6 @@ public class TaskTag {
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
-
-    public TaskTag() {
-    }
 
     @Override
     public String toString() {

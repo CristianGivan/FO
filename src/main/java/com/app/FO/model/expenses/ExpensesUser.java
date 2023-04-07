@@ -2,12 +2,19 @@ package com.app.FO.model.expenses;
 
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "expenses_user")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ExpensesUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_users_seq")
@@ -16,6 +23,7 @@ public class ExpensesUser {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "expenses_users_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -31,9 +39,6 @@ public class ExpensesUser {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public ExpensesUser() {
-    }
-
     @Override
     public String toString() {
         return "ExpensesUser{" +
@@ -42,37 +47,5 @@ public class ExpensesUser {
                 ", expensesId=" + expenses.getId() +
                 ", linkDate=" + linkDate +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Expenses getExpensesList() {
-        return expenses;
-    }
-
-    public void setExpensesList(Expenses expenses) {
-        this.expenses = expenses;
-    }
-
-    public LocalDateTime getLinkDate() {
-        return linkDate;
-    }
-
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
     }
 }

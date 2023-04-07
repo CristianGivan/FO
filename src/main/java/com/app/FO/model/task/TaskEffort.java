@@ -2,6 +2,10 @@ package com.app.FO.model.task;
 
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +13,9 @@ import java.time.LocalDate;
 //effort
 @Entity
 @Table(name = "task_effort")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TaskEffort {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_effort_seq")
@@ -17,6 +24,7 @@ public class TaskEffort {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "task_effort_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "working_date_time")
@@ -31,9 +39,6 @@ public class TaskEffort {
     @JsonIgnore
     private Task task;
 
-    public TaskEffort() {
-    }
-
     @Override
     public String toString() {
         return "TaskEffort{" +
@@ -42,37 +47,5 @@ public class TaskEffort {
                 ", workingTime=" + workingTime +
                 ", taskId=" + task.getId() +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getWorkingDate() {
-        return workingDate;
-    }
-
-    public void setWorkingDate(LocalDate workingDate) {
-        this.workingDate = workingDate;
-    }
-
-    public Double getWorkingTime() {
-        return workingTime;
-    }
-
-    public void setWorkingTime(Double workingTime) {
-        this.workingTime = workingTime;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 }

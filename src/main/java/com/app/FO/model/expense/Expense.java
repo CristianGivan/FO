@@ -3,6 +3,10 @@ package com.app.FO.model.expense;
 import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +14,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "expense")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expense_seq")
@@ -18,6 +25,7 @@ public class Expense {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "expense_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "name")
@@ -62,9 +70,6 @@ public class Expense {
     @JsonIgnore
     private Expenses expenses;
 
-    public Expense() {
-    }
-
     @Override
     public String toString() {
         return "Expense{" +
@@ -82,109 +87,5 @@ public class Expense {
                 ", expenseTags=" + expenseTags +
                 ", expensesId=" + expenses.getId() +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getExpanseName() {
-        return expanseName;
-    }
-
-    public void setExpanseName(String expanseName) {
-        this.expanseName = expanseName;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getPaidDate() {
-        return paidDate;
-    }
-
-    public void setPaidDate(LocalDateTime paidDate) {
-        this.paidDate = paidDate;
-    }
-
-    public String getMarket() {
-        return market;
-    }
-
-    public void setMarket(String market) {
-        this.market = market;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public User getPayer() {
-        return payer;
-    }
-
-    public void setPayer(User payer) {
-        this.payer = payer;
-    }
-
-    public List<ExpenseTag> getExpenseTags() {
-        return expenseTags;
-    }
-
-    public void setExpenseTags(List<ExpenseTag> expenseTags) {
-        this.expenseTags = expenseTags;
-    }
-
-    public Expenses getExpensesList() {
-        return expenses;
-    }
-
-    public void setExpensesList(Expenses expenses) {
-        this.expenses = expenses;
     }
 }

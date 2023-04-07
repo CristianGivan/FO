@@ -18,6 +18,10 @@ import com.app.FO.model.topic.Topic;
 import com.app.FO.model.account.Account;
 import com.app.FO.model.topic.TopicUser;
 import com.app.FO.model.transaction.Transaction;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,6 +29,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
@@ -33,6 +40,7 @@ public class User {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "user_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "username")
@@ -44,6 +52,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Getter(AccessLevel.NONE)
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<UserRole> userRoleList;
 
@@ -94,14 +103,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactionList;
 
+    @Getter(AccessLevel.NONE)
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<UserTag> userTagList;
 
     @OneToMany(mappedBy = "user")
     private List<TopicUser> topicUserList;
-
-    public User() {
-    }
 
     @Override
     public String toString() {
@@ -136,10 +143,6 @@ public class User {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         if (this.id == null || this.id.equals(id)) {
             this.id = id;
@@ -148,24 +151,6 @@ public class User {
                     "Id is already allocated cannot be changed");
         }
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String name) {
-        this.username = name;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public List<UserRole> getUserRoleList() {
         if (userRoleList ==null){
             userRoleList =new ArrayList<>();
@@ -173,149 +158,10 @@ public class User {
         return userRoleList;
     }
 
-
-
-
-    public void setUserRoleList(List<UserRole> userRoles) {
-        this.userRoleList = userRoles;
-    }
-
-    public List<Topic> getTopicList() {
-        return topicList;
-    }
-
-    public void setTopicList(List<Topic> topics) {
-        this.topicList = topics;
-    }
-
-    public List<TopicHistory> getTopicHistoryList() {
-        return topicHistoryList;
-    }
-
-    public void setTopicHistoryList(List<TopicHistory> topicHistories) {
-        this.topicHistoryList = topicHistories;
-    }
-
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> notes) {
-        this.noteList = notes;
-    }
-
-    public List<NoteHistory> getNoteHistoryList() {
-        return noteHistoryList;
-    }
-
-    public void setNoteHistoryList(List<NoteHistory> noteHistories) {
-        this.noteHistoryList = noteHistories;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<Remainder> getRemainderList() {
-        return remainderList;
-    }
-
-    public void setRemainderList(List<Remainder> remainders) {
-        this.remainderList = remainders;
-    }
-
-    public List<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(List<Task> tasks) {
-        this.taskList = tasks;
-    }
-
-    public List<TaskHistory> getTaskHistoryList() {
-        return taskHistoryList;
-    }
-
-    public void setTaskHistoryList(List<TaskHistory> taskHistories) {
-        this.taskHistoryList = taskHistories;
-    }
-
-    public List<Tasks> getTaskListLists() {
-        return tasksList;
-    }
-
-    public void setTaskListLists(List<Tasks> tasks) {
-        this.tasksList = tasks;
-    }
-
-    public List<TasksHistory> getTasksHistoryList() {
-        return tasksHistoryList;
-    }
-
-    public void setTasksHistoryList(List<TasksHistory> taskListHistories) {
-        this.tasksHistoryList = taskListHistories;
-    }
-
-    public List<Expense> getExpensesCreatedList() {
-        return expensesCreatedList;
-    }
-
-    public void setExpensesCreatedList(List<Expense> expensesCreated) {
-        this.expensesCreatedList = expensesCreated;
-    }
-
-    public List<Expense> getExpensesPayedList() {
-        return expensesPayedList;
-    }
-
-    public void setExpensesPayedList(List<Expense> expensesPayed) {
-        this.expensesPayedList = expensesPayed;
-    }
-
-    public List<ExpensesUser> getExpensesListUsers() {
-        return expensesUserList;
-    }
-
-    public void setExpensesListUsers(List<ExpensesUser> expensesUsers) {
-        this.expensesUserList = expensesUsers;
-    }
-
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accounts) {
-        this.accountList = accounts;
-    }
-
-    public List<AccountUser> getAccountUserList() {
-        return accountUserList;
-    }
-
-    public void setAccountUserList(List<AccountUser> accountUsers) {
-        this.accountUserList = accountUsers;
-    }
-
-    public List<Transaction> getTransactionList() {
-        return transactionList;
-    }
-
-    public void setTransactionList(List<Transaction> transactions) {
-        this.transactionList = transactions;
-    }
-
     public List<UserTag> getUserTagList() {
         if (userTagList ==null){
             userTagList = new ArrayList<>();
         }
         return userTagList;
-    }
-
-    public void setUserTagList(List<UserTag> userTags) {
-        this.userTagList = userTags;
     }
 }
