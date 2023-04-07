@@ -2,12 +2,19 @@ package com.app.FO.model.task;
 
 import com.app.FO.model.note.Note;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "task_note")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TaskNote {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_note_seq")
@@ -16,6 +23,7 @@ public class TaskNote {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "task_note_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -31,9 +39,6 @@ public class TaskNote {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public TaskNote() {
-    }
-
     @Override
     public String toString() {
         return "TaskNote{" +
@@ -42,37 +47,5 @@ public class TaskNote {
                 ", noteId=" + note.getId() +
                 ", linkDate=" + linkDate +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
-    public Note getNote() {
-        return note;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
-    }
-
-    public LocalDateTime getLinkDate() {
-        return linkDate;
-    }
-
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
     }
 }

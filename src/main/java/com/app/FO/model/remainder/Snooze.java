@@ -1,11 +1,19 @@
 package com.app.FO.model.remainder;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Table (name = "snooze")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Snooze {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "snooze_seq")
@@ -14,6 +22,7 @@ public class Snooze {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "snooze_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -26,9 +35,6 @@ public class Snooze {
     @Column(name = "snooze_count")
     private Integer snoozeCount;
 
-    public Snooze() {
-    }
-
     @Override
     public String toString() {
         return "Snooze{" +
@@ -37,37 +43,5 @@ public class Snooze {
                 ", snoozeTime=" + snoozeTime +
                 ", snoozeCount=" + snoozeCount +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Remainder getRemainder() {
-        return remainder;
-    }
-
-    public void setRemainder(Remainder remainder) {
-        this.remainder = remainder;
-    }
-
-    public LocalTime getSnoozeTime() {
-        return snoozeTime;
-    }
-
-    public void setSnoozeTime(LocalTime snoozeTime) {
-        this.snoozeTime = snoozeTime;
-    }
-
-    public Integer getSnoozeCount() {
-        return snoozeCount;
-    }
-
-    public void setSnoozeCount(Integer snoozeCount) {
-        this.snoozeCount = snoozeCount;
     }
 }

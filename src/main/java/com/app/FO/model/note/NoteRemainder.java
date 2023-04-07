@@ -3,12 +3,19 @@ package com.app.FO.model.note;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "note_remainder")
+@Getter
+@Setter
+@NoArgsConstructor
 public class NoteRemainder {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_remainder_seq")
@@ -17,6 +24,7 @@ public class NoteRemainder {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "note_remainder_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -31,10 +39,6 @@ public class NoteRemainder {
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
-
-
-    public NoteRemainder() {
-    }
 
     @Override
     public String toString() {

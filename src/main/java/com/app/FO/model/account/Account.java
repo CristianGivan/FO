@@ -2,12 +2,19 @@ package com.app.FO.model.account;
 
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "account")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
@@ -16,6 +23,7 @@ public class Account {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "account_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "name")
@@ -35,9 +43,6 @@ public class Account {
     @OneToMany(mappedBy = "account")
     private List<AccountTransaction> accountTransactionList;
 
-    public Account() {
-    }
-
     @Override
     public String toString() {
         return "Account{" +
@@ -48,53 +53,5 @@ public class Account {
                 ", accountUsers=" + accountUsers +
                 ", accountTransactions=" + accountTransactionList +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public List<AccountUser> getAccountUsers() {
-        return accountUsers;
-    }
-
-    public void setAccountUsers(List<AccountUser> accountUsers) {
-        this.accountUsers = accountUsers;
-    }
-
-    public List<AccountTransaction> getAccountTransactionList() {
-        return accountTransactionList;
-    }
-
-    public void setAccountTransactionList(List<AccountTransaction> accountTransactions) {
-        this.accountTransactionList = accountTransactions;
     }
 }

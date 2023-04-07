@@ -7,6 +7,10 @@ import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.user.UserTag;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +18,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "tag")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_seq")
@@ -22,11 +29,13 @@ public class Tag {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "tag_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "tag")
     private String tagName;
 
+    @Getter(AccessLevel.NONE)
     @OneToMany(mappedBy = "tag",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<UserTag> userTagList;
 
@@ -62,87 +71,11 @@ public class Tag {
                 '}';
     }
 
-    public Tag() {
-    }
-    public Tag(String tagName) {
-        this.tagName = tagName;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public List<NoteTag> getNoteTagList() {
-        return noteTagList;
-    }
-
-    public void setNoteTagList(List<NoteTag> noteTags) {
-        this.noteTagList = noteTags;
-    }
-
-    public List<TopicTag> getTopicTagList() {
-        return topicTagList;
-    }
-
-    public void setTopicTagList(List<TopicTag> topicTags) {
-        this.topicTagList = topicTags;
-    }
-
-    public String getTagName() {
-        return tagName;
-    }
-
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<TaskTag> getTaskTagList() {
-        return taskTagList;
-    }
-
-    public void setTaskTagList(List<TaskTag> taskTags) {
-        this.taskTagList = taskTags;
-    }
-
-    public List<ExpenseTag> getExpenseTagList() {
-        return expenseTagList;
-    }
-
-    public void setExpenseTagList(List<ExpenseTag> expenseTags) {
-        this.expenseTagList = expenseTags;
-    }
-
-    public List<ExpensesTag> getExpensesListTags() {
-        return expensesTagList;
-    }
-
-    public void setExpensesListTags(List<ExpensesTag> expensesTags) {
-        this.expensesTagList = expensesTags;
-    }
-
-    public List<EventTag> getEventTagList() {
-        return eventTagList;
-    }
-
-    public void setEventTagList(List<EventTag> eventTags) {
-        this.eventTagList = eventTags;
-    }
-
-
     public List<UserTag> getUserTagList() {
         if (userTagList ==null){
             userTagList = new ArrayList<>();
         }
         return userTagList;
-    }
-
-    public void setUserTagList(List<UserTag> userTags) {
-        this.userTagList = userTags;
     }
 
 }

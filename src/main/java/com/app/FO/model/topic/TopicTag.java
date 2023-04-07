@@ -2,12 +2,19 @@ package com.app.FO.model.topic;
 
 import com.app.FO.model.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "topic_tag")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TopicTag {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_tag_seq")
@@ -16,6 +23,7 @@ public class TopicTag {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "topic_tag_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -31,10 +39,6 @@ public class TopicTag {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-
-    public TopicTag() {
-    }
-
     @Override
     public String toString() {
         return "NoteTag{" +
@@ -48,34 +52,6 @@ public class TopicTag {
     public TopicTag(Topic topic, Tag tag, LocalDateTime createdDate) {
         this.topic = topic;
         this.tag = tag;
-        this.createdDate = createdDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Topic getNote() {
-        return topic;
-    }
-
-    public void setNote(Topic topic) {
-        this.topic = topic;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
-        this.tag = tag;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 }

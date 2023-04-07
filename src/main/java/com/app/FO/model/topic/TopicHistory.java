@@ -2,12 +2,19 @@ package com.app.FO.model.topic;
 
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "topic_history")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TopicHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_history_seq")
@@ -16,6 +23,7 @@ public class TopicHistory {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "topic_history_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "modifed_date")
@@ -34,8 +42,6 @@ public class TopicHistory {
 //    @Column(name = "note")
 //    private NoteDTO noteOldVersion;
 
-    public TopicHistory(){}
-
     @Override
     public String toString() {
         return "TopicHistory{" +
@@ -44,37 +50,5 @@ public class TopicHistory {
                 ", userId=" + user.getId() +
                 ", topicId=" + topic.getId() +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(LocalDateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
     }
 }

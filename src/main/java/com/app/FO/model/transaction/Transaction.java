@@ -4,6 +4,10 @@ import com.app.FO.model.account.AccountTransaction;
 import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +16,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "transaction")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
@@ -20,6 +27,7 @@ public class Transaction {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "transaction_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "details")
@@ -44,9 +52,6 @@ public class Transaction {
     @JsonIgnore
     private User user;
 
-    public Transaction() {
-    }
-
     @Override
     public String toString() {
         return "Transaction{" +
@@ -59,69 +64,5 @@ public class Transaction {
                 ", expensesId=" + expenses.getId() +
                 ", userId=" + user.getId() +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public List<AccountTransaction> getFromAccount() {
-        return fromAccount;
-    }
-
-    public void setFromAccount(List<AccountTransaction> fromAccount) {
-        this.fromAccount = fromAccount;
-    }
-
-    public List<AccountTransaction> getToAccount() {
-        return toAccount;
-    }
-
-    public void setToAccount(List<AccountTransaction> toAccount) {
-        this.toAccount = toAccount;
-    }
-
-    public Expenses getExpensesList() {
-        return expenses;
-    }
-
-    public void setExpensesList(Expenses expenses) {
-        this.expenses = expenses;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

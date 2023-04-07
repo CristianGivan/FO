@@ -3,12 +3,19 @@ package com.app.FO.model.note;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "note_user")
+@Getter
+@Setter
+@NoArgsConstructor
 public class NoteUser {
 
     @Id
@@ -18,6 +25,7 @@ public class NoteUser {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "note_user_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne
@@ -33,14 +41,11 @@ public class NoteUser {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    public NoteUser() {
-    }
     public NoteUser(User user, Note note){
         this.user=user;
         this.note=note;
         this.createdDate=LocalDateTime.now();
     }
-
 
     @Override
     public String toString() {
@@ -50,37 +55,5 @@ public class NoteUser {
                 ", noteId=" + note.getId() +
                 ", createdDate=" + createdDate +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Note getNote() {
-        return note;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
     }
 }

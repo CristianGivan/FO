@@ -3,12 +3,19 @@ package com.app.FO.model.task;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "task_history")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TaskHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_history_seq")
@@ -17,6 +24,7 @@ public class TaskHistory {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "task_history_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "modified_date")
@@ -45,37 +53,5 @@ public class TaskHistory {
                 ", userId=" + user.getId() +
                 ", taskId=" + task.getId() +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(LocalDateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 }
