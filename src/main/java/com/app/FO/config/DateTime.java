@@ -35,7 +35,6 @@ public class DateTime {
     }
 
     public static ZonedDateTime convertCenturyMillsToZoneDateTimeZoneID(long centuryMills, String zoneID) {
-        //todo sa verifi ca intrarile sunt bune
         ZonedDateTime zonedDateTime;
         Instant instant = Instant.ofEpochMilli(centuryMills);
         ZoneId zoneId = ZoneId.of(ZONE_ID);
@@ -44,7 +43,6 @@ public class DateTime {
     }
 
     public static ZonedDateTime convertCenturyMillsToZoneDateTimeZoneRO(long centuryMills) {
-        //todo sa verifi ca intrarile sunt bune
         ZonedDateTime zonedDateTime;
         Instant instant = Instant.ofEpochMilli(centuryMills);
         ZoneId zoneId = ZoneId.of("Europe/Bucharest");
@@ -53,7 +51,6 @@ public class DateTime {
     }
 
     public static ZonedDateTime convertCenturyMillsToZoneDateTimeZoneGMT(long centuryMills) {
-        //todo sa verifi ca intrarile sunt bune
         ZonedDateTime zonedDateTime;
         Instant instant = Instant.ofEpochMilli(centuryMills);
         ZoneId zoneId = ZoneId.of("GMT");

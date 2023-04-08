@@ -95,6 +95,9 @@ public class Note {
     }
 
     public List<Remainder> getRemainderList() {
+        if(remainderList ==null){
+            remainderList =new ArrayList<>();
+        }
         return remainderList;
     }
 

@@ -60,7 +60,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<NoteHistory> noteHistoryList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
     private List<Remainder> remainderList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -110,23 +110,24 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", userRoles=" + userRoleList +
-                ", userTags=" + userTagList +
-                ", topics=" + topicList +
-                ", topicHistories=" + topicHistoryList +
-                ", notes=" + noteList +
-                ", noteHistories=" + noteHistoryList +
-                ", remainders=" + remainderList +
-                ", tasks=" + tasksList +
-                ", taskHistories=" + taskHistoryList +
-                ", tasks=" + tasksList +
-                ", taskListHistories=" + tasksHistoryList +
-                ", expensesCreated=" + expensesCreatedList +
-                ", expensesPayed=" + expensesPayedList +
-                ", expensesUsers=" + expensesUserList +
-                ", accounts=" + accountList +
-                ", accountUsers=" + accountUserList +
-                ", transactions=" + transactionList +
+                ", userRoleList=" + userRoleList +
+                ", topicList=" + topicList +
+                ", topicHistoryList=" + topicHistoryList +
+                ", noteList=" + noteList +
+                ", noteHistoryList=" + noteHistoryList +
+                ", remainderList=" + remainderList +
+                ", taskList=" + taskList +
+                ", taskHistoryList=" + taskHistoryList +
+                ", tasksList=" + tasksList +
+                ", tasksHistoryList=" + tasksHistoryList +
+                ", expensesCreatedList=" + expensesCreatedList +
+                ", expensesPayedList=" + expensesPayedList +
+                ", expensesUserList=" + expensesUserList +
+                ", accountList=" + accountList +
+                ", accountUserList=" + accountUserList +
+                ", transactionList=" + transactionList +
+                ", userTagList=" + userTagList +
+                ", topicUserList=" + topicUserList +
                 '}';
     }
 

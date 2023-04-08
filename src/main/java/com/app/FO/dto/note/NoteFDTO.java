@@ -21,8 +21,6 @@ public class NoteFDTO {
 //    //todo adaug DTO
 //    private List<TaskNote> tasksThatContainTheNote;
 
-
-    //todo adaug celelate elemente
     public NoteFDTO(Long noteId, String note, LocalDateTime createdDateTime, UserDTO user, List<TagDTO> tags
             , List<TopicDTO> topicsThatContainTheNote, List<RemainderDTO> remainderDTOList, List<NoteHistoryDTO> noteHistoryDTOList
     ) {

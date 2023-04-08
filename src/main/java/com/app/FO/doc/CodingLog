@@ -1,3 +1,13 @@
+230408
+View all
+Creez
+Find by Id
+Adaug Remainder
+
+230407
+I tried to use lombok but I couldn't because is hard to integrate lombok with mapstruct and the Id shall be ignored.
+I managed to rebase but I lost all modifications
+
 230306
 4
 Note:

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tags")
+@RequestMapping("/tag")
 public class TagController {
     private TagService tagService;
     private TagDTOMapper tagDTOMapper;
@@ -21,6 +21,13 @@ public class TagController {
     public TagController(TagService tagService, TagDTOMapper tagDTOMapper) {
         this.tagService = tagService;
         this.tagDTOMapper=tagDTOMapper;
+    }
+
+    //-- PostMapping
+
+    @PostMapping("/addNewTag")
+    public TagFDTO addNewTag(@RequestBody TextDTO tagText) {
+        return tagService.saveTagFDTOFromText(tagText.getText());
     }
 
     //-- GetMapping
@@ -62,12 +69,7 @@ public class TagController {
     public TagDTO getTagOfLogInUserByTagName(@RequestBody TextDTO tagText) {
         return tagService.getTagDTOOfLogInUserByTagName(tagText.getText());
     }
-    //-- PostMapping
 
-    @PostMapping("/addNewTag")
-    public TagFDTO addNewTag(@RequestBody TextDTO tagText) {
-        return tagService.saveTagFDTOFromText(tagText.getText());
-    }
 
 
     //-- PutMapping

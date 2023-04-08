@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notes")
+@RequestMapping("/note")
 public class NoteController {
     private NoteService noteService;
     private NoteDTOMapper noteDTOMapper;
@@ -24,7 +24,13 @@ public class NoteController {
         this.noteService = noteService;
         this.noteDTOMapper = noteDTOMapper;
     }
+    //-- PostMapping admin
 
+    @PostMapping("/adminPostNewNote")
+    public NoteFDTO adminPostNewNote(@RequestBody TextDTO noteText) {
+        Note note = noteService.adminPostNewNote(noteText.getText());
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
 
     //-- GetMapping admin
 
@@ -107,13 +113,7 @@ public class NoteController {
         return noteDTOMapper.NotesToNotesFDTO(notes);
     }
 
-    //-- PostMapping admin
 
-    @PostMapping("/adminPostNewNote")
-    public NoteFDTO adminPostNewNote(@RequestBody TextDTO noteText) {
-        Note note = noteService.adminPostNewNote(noteText.getText());
-        return noteDTOMapper.NoteToNoteFDTO(note);
-    }
 
 
     //-- PutMapping admin
@@ -141,10 +141,14 @@ public class NoteController {
 
     @PutMapping("/putTopicToNote")
     public NoteFDTO putTopicToNote(@RequestParam Long noteId, @RequestParam Long topicId){
-        Note note = noteService.putTopicToNote(noteId, topicId);//todo c
+        Note note = noteService.putTopicToNote(noteId, topicId);
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
-
+    @PutMapping("/putRemainderToNote")
+    public NoteFDTO putRemainderToNote(@RequestParam Long noteId, @RequestParam Long remainderId){
+        Note note = noteService.putRemainderToNote(noteId, remainderId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
 
 
     //-- DeleteMapping admin

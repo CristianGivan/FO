@@ -10,5 +10,5 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class ReminderDTOMapper {
     public abstract RemainderDTO RemainderTORemainderDTO (Remainder remainder);
-    public abstract List<RemainderDTO> RemainderTORemainderDTO (List<Remainder> remainder);
+    public abstract List<RemainderDTO> RemainderListTORemainderDTOList (List<Remainder> remainder);
 }

@@ -5,6 +5,8 @@ import com.app.FO.model.note.Note;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
+import com.app.FO.repository.user.UserRepository;
+import com.app.FO.service.user.UserService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "remainders")
+@Table(name = "remainder")
 public class Remainder {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "remainder_seq")
@@ -42,6 +44,11 @@ public class Remainder {
     private List<Remainder> repeatedReminders;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "note_id")
     @JsonIgnore
     private Note note;
@@ -55,10 +62,7 @@ public class Remainder {
     @JsonIgnore
     private Topic topic;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
+
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "event_id")
@@ -75,14 +79,20 @@ public class Remainder {
                 ", remainder='" + remainder + '\'' +
                 ", createdDateTime=" + createdDateTime +
                 ", remainderDateTime=" + remainderDateTime +
-                ", snoozed='" + snoozes + '\'' +
+                ", snoozes=" + snoozes +
                 ", repeatedReminders=" + repeatedReminders +
+                ", creatorId=" + creator.getId() +
                 ", noteId=" + note.getId() +
                 ", taskId=" + task.getId() +
                 ", topicId=" + topic.getId() +
-                ", userId=" + user.getId() +
                 ", eventId=" + event.getId() +
                 '}';
+    }
+
+    public Remainder(String remainder, User creator) {
+        this.remainder = remainder;
+        this.createdDateTime = LocalDateTime.now();
+        this.creator=creator;
     }
 
     public Long getId() {
@@ -158,11 +168,11 @@ public class Remainder {
     }
 
     public User getUser() {
-        return user;
+        return creator;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.creator = user;
     }
 
     public Event getEvent() {

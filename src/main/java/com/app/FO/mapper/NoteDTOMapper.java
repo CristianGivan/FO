@@ -32,7 +32,7 @@ public abstract class NoteDTOMapper {
     public abstract NoteDTO NoteToNoteDTO(Note note);
     public abstract List<NoteDTO> NotesToNotesDTO(List<Note> note);
     @Mapping(target="noteId", source="id")
-    @Mapping(target = "tags", expression = "java("+
+    @Mapping(target = "tagDTOList", expression = "java("+
             "tagService.getListOfTagsDTOByNoteId(note.getId()))")
     @Mapping(target = "topicsThatContainTheNote", expression = "java("+
             "topicDTOMapper.TopicsToTopicsDTO(topicService.getTopicsByNote(note)))")

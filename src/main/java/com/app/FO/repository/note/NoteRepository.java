@@ -14,9 +14,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "where nt.tag.id=?1")
     List<Note> getNotesByTagId(Long tegId);
 
-    //Todo cum ar trebui sa fac sa imi iasa ca mai sus?
-    //List<Note> getNotesByNoteTagsContainsTag(Long tegId);
-
     @Query("select n from Note as n inner join TopicNote tn on n.id=tn.note.id " +
             "where tn.topic.id=?1")
     List<Note> getNotesByTopicId(Long topicId);
@@ -29,20 +26,21 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     List<Note> getNotesByUserIdAndNoteContains(Long userId,String containText);
 
-    @Query(value = "SELECT * FROM notes as n inner join note_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"
+    @Query(value = "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"//todo aici ceva nu ii bine trebuie sa fie user_note table
             ,nativeQuery = true)
-    List<Note> getNotesFromUserIdByTagId(Long userId, Long tagId);
+    List<Note> getNotesFromUserIdByTagId(Long noteId, Long userId);
 
-    @Query(value = "SELECT * FROM notes as n inner join topic_note as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.topic_id=?2"
+    @Query(value = "SELECT * FROM note as n inner join topic_note as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.topic_id=?2"
             ,nativeQuery = true)
-    List<Note> getNotesFromUserIdByTopicId(Long userId, Long tagId);
+    List<Note> getNotesFromUserIdByTopicId(Long noteId, Long topicId);
 
     @Query(value = "SELECT IF(EXISTS(SELECT * FROM note_tag as nt where nt.note_id = ?1 and nt.tag_id = ?2), 'True', 'False')"
             ,nativeQuery = true)
     Boolean noteHasTag(Long noteId, Long tagId);
-    @Query(value = "SELECT IF(EXISTS(SELECT * FROM topic_note as tn where tn.note_id = ?1 and tn.topic_id = ?2), 'True', 'False')"
-            ,nativeQuery = true)
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM topic_note as tn where tn.note_id = ?1 and tn.topic_id = ?2), 'True', 'False')")
     Boolean noteHasTopic(Long noteId, Long topicId);
-
-
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM note_remainder as nr where nr.note_id = 3 and nr.remainder_id = 3), 'True', 'False')")
+    Boolean noteHasRemainder(Long noteId, Long topicId);
 }
