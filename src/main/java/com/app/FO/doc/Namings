@@ -15,5 +15,7 @@ Namings
 
 
 Repository
-    getTopicFromUserByTopicId
+    getTopicFromUserIdByTopicId
+
+    isRemainderAtNoteAndUser
 

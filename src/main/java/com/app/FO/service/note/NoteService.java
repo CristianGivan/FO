@@ -145,8 +145,8 @@ public class NoteService {
     public Note putTagToNote(Long noteId, Long tagId) {
         Note updatedNote = getNoteByNoteId(noteId);
         Tag addTag = tagService.getTagByTagIdFromUser(tagId);// to make sure that the tag is accessible form current user
-        checkIfNoteAndTagExist(updatedNote, addTag);
-
+        isNoteAndTag(updatedNote, addTag);
+        //todo -c
         if (noteRepository.noteHasTag(noteId, tagId)) {
             throw new TagAlreadyExistException("Tag already exist");
         }
@@ -159,9 +159,9 @@ public class NoteService {
     public Note putTopicToNote(Long noteId, Long topicId) {
         Note updatedNote = getNoteByNoteId(noteId);
         Topic addTopic = topicService.getTopicByTopicIdFromUser(topicId);
-        checkIfNoteAndTopicExist(updatedNote, addTopic);
-
-        if (noteRepository.noteHasTopic(noteId, topicId)) {
+        isNoteAndTopic(updatedNote, addTopic);
+        //todo -c
+        if (noteRepository.isTopicAtNote(noteId, topicId)) {
             throw new TopicAlreadyExistException("Topic already exist");
         }
         TopicNote newTopicNote = new TopicNote(addTopic, updatedNote);
@@ -179,25 +179,22 @@ public class NoteService {
          * 5. Add parameter2 in parameter1 list
          * 6. Save parameter1 */
 
-        Note updatedNote = getNoteByNoteId(noteId);
-        Remainder addRemainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
-
-        checkIfNoteAndRemainderExist(updatedNote, addRemainder);
-
-        if (noteRepository.noteHasRemainder(noteId, remainderId)) {
-            throw new RemainderAlreadyExistException("Remainder already exist");
-        }
-        updatedNote.getRemainderList().add(addRemainder);
-        addRemainder.setNote(updatedNote);
-        return noteRepository.save(updatedNote);
+        Note note = getNoteByNoteId(noteId);
+        Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
+        isNoteAndNoteHasNotRemainder(note, remainder);
+        isNoOtherNoteAtRemainder(remainder); // one remainder hase only one note shall throw exception to don't overwrite.
+        note.getRemainderList().add(remainder);
+        remainder.setNote(note);
+        return noteRepository.save(note);
     }
 
     //--Delete
 
     public Note adminDeleteTagFromNote(Long noteId, Long tagId) {
         Note updatedNote = adminGetNoteById(noteId);
+        Tag tag = tagService.getTagByTagIdFromUser(tagId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
-        checkIfNoteAndNoteTagExist(updatedNote, foundNoteTag);
+        isNoteAndTagAndLinked(updatedNote, tag, foundNoteTag);
         updatedNote.getNoteTagList().remove(foundNoteTag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
@@ -209,27 +206,36 @@ public class NoteService {
     //todo tbt
     public Note deleteTagFromNote(Long noteId, Long tagId) {
         Note updatedNote = getNoteByNoteId(noteId);
+        Tag tag = tagService.getTagByTagIdFromUser(tagId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
-        checkIfNoteAndNoteTagExist(updatedNote, foundNoteTag);
-        //updatedNote.getNoteTags().remove(foundNoteTag);//no needed we have persist
+        isNoteAndTagAndLinked(updatedNote, tag, foundNoteTag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }
 
     public Note deleteTopicFromNote(Long noteId, Long topicId) {
         Note updatedNote = getNoteByNoteId(noteId);
-        TopicNote foundNTopicNote = topicNoteService.getTopicNoteOfANoteIdByTopicId(noteId, topicId);
-        checkIfNoteAndTopicNoteExist(updatedNote, foundNTopicNote);
-        topicNoteService.deleteTopicNoteById(foundNTopicNote.getId());
+        Topic topic = topicService.getTopicByTopicIdFromUser(topicId);
+        TopicNote topicNote = topicNoteService.getTopicNoteOfANoteIdByTopicId(noteId, topicId);
+        isNoteAndTopicAndLink(updatedNote, topic, topicNote);
+        topicNoteService.deleteTopicNoteById(topicNote.getId());
         return noteRepository.save(updatedNote);
     }
 
     public Note deleteRemainderFromNote(Long noteId, Long remainderId) {
-        Note updatedNote = getNoteByNoteId(noteId);
-        Remainder remainder =remainderService.getRemainderByRemainderIdFromUser(remainderId);//todo -c get from note
-        checkIfNoteAndRemainderExist(updatedNote,remainder);
-        //remainderService.deleteTopicNoteById(foundNTopicNote.getId());//todo -c create delete methode
-        return noteRepository.save(updatedNote);
+        /*
+         * 1. Find param1 and param2
+         * 2. Check if
+         *   a. param1 exist
+         *   b. param2 exist
+         *   c. param2 is at param1
+         * 3. Delete param2 from param1
+         * 4. Save param1, no needed to save param2 because there is persist*/
+        Note note = getNoteByNoteId(noteId);
+        Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
+        isNoteAndRemainderAndLiked(note, remainder);
+        remainder.setNote(null);
+        return noteRepository.save(note);
     }
 
     //-- Other
@@ -240,76 +246,117 @@ public class NoteService {
 
     //-- Checks
 
+    public Boolean isNoteAndNoteHasNotTopic(Note note, Topic topic) {
+        //todo
+        return true;
+    }
+
+    public Boolean isNoteAndNoteHasNotRemainder(Note note, Remainder remainder) {
+        isNote(note);
+        isNotRemainderAtNote(note, remainder);
+        return true;
+    }
+
+    private Boolean isNoteAndTagAndLinked(Note note, Tag tag, NoteTag noteTag) {
+        isNoteAndTag(note, tag);
+        isNotTagAtNote(noteTag);
+        return true;
+    }
+
+    private Boolean isNoteAndTopicAndLink(Note note, Topic topic, TopicNote topicNote) {
+        isNoteAndTopic(note, topic);
+        isNotTopicAtNote(topicNote);
+        return true;
+    }
+
+    private Boolean isNoteAndRemainderAndLiked(Note note, Remainder remainder) {
+        isNoteAndRemainder(note, remainder);
+        isRemainderAtNote(note, remainder);
+        return true;
+    }
+
+    private Boolean isNoteAndTag(Note note, Tag tag) {
+        isNote(note);
+        isTag(tag);
+        return true;
+    }
+
+    private Boolean isNoteAndTopic(Note note, Topic topic) {
+        isNote(note);
+        isTopic(topic);
+        return true;
+    }
+
+    private Boolean isNoteAndRemainder(Note note, Remainder remainder) {
+        isNote(note);
+        isRemainder(remainder);
+        return true;
+    }
+
     //todo TBT
-    private void checkIfNoteAndTagExist(Note note, Tag tag) {
-        checkIfNoteExist(note);
-        checkIfTagExist(tag);
-    }
-
-    private void checkIfNoteAndNoteTagExist(Note note, NoteTag noteTag) {
-        checkIfNoteExist(note);
-        checkIfNoteTagIsAtNote(noteTag);
-    }
-
-    private void checkIfNoteAndTopicNoteExist(Note note, TopicNote topicNote) {
-        checkIfNoteExist(note);
-        checkIfTopicNoteIsAtNote(topicNote);
-    }
-
-    private void checkIfNoteAndTopicExist(Note note, Topic topic) {
-        checkIfNoteExist(note);
-        checkIfTopicExist(topic);
-    }
-
-    private void checkIfNoteAndRemainderExist(Note note, Remainder remainder) {
-        checkIfNoteExist(note);
-        checkIfRemainderExist(remainder);
-    }
-
-    //todo TBT
-    private void checkIfNoteExist(Note note) {
+    private Boolean isNote(Note note) {
         if (note == null) {
             throw new NoteNotFoundException("Note not found!");
         }
+        return true;
     }
 
     //todo TBT
-    private void checkIfTagExist(Tag tag) {
+    private Boolean isTag(Tag tag) {
         if (tag == null) {
             throw new TagNotFoundException("Tag not found!");
         }
+        return true;
     }
 
     //todo TBT
-    private void checkIfTopicExist(Topic topic) {
+    private Boolean isTopic(Topic topic) {
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found!");
         }
+        return true;
     }
 
-    private void checkIfRemainderExist(Remainder remainder) {
+    private Boolean isRemainder(Remainder remainder) {
         if (remainder == null) {
             throw new RemainderNotFoundException("Remainder not found!");
         }
+        return true;
     }
 
     //todo TBT
-    private void checkIfNoteTagIsAtNote(NoteTag noteTag) {
+    private Boolean isNotTagAtNote(NoteTag noteTag) {
         if (noteTag == null) {
             throw new NoteTagNotFoundException("Tag not linked to note!");
         }
+        return true;
     }
 
-    private void checkIfTopicNoteIsAtNote(TopicNote topicNote) {
+    private Boolean isNotTopicAtNote(TopicNote topicNote) {
         if (topicNote == null) {
             throw new TopicNoteNotFoundException("Topic not linked to note!");
         }
+        return true;
     }
 
-    private void checkIfRemainderIsAtNote(Remainder remainder) {
-        if (remainder == null) {
+    private Boolean isRemainderAtNote(Note note, Remainder remainder) {
+
+        if (!remainderService.isRemainderIdAtNoteId(note.getId(), remainder.getId())) {
             throw new RemainderNotFoundException("Remainder not linked to note!");
         }
+        return true;
     }
 
+    private boolean isNotRemainderAtNote(Note note, Remainder remainder) {
+        if (noteRepository.isRemainderAtNote(note.getId(), remainder.getId())) {
+            throw new RemainderAlreadyExistException("Remainder already exist");
+        }
+        return true;
+    }
+    private boolean isNoOtherNoteAtRemainder(Remainder remainder) {
+        if (remainder.getNote()!=null) {
+            throw new RemainderAlreadyExistException("Another note already exist, do you want to replace it?");
+        }
+        return true;
+    }
 }

@@ -48,8 +48,18 @@ Service
 
 
 repository
-    //-- GET
+    //-- Create
+
+
+    //-- Read
+
+
+    //-- Update
 
 
 
-    //-- Set
+    //-- Delete
+
+
+
+    //-- Checks

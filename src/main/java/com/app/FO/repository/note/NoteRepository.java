@@ -39,8 +39,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Boolean noteHasTag(Long noteId, Long tagId);
     @Query(nativeQuery = true, value =
             "SELECT IF(EXISTS(SELECT * FROM topic_note as tn where tn.note_id = ?1 and tn.topic_id = ?2), 'True', 'False')")
-    Boolean noteHasTopic(Long noteId, Long topicId);
+    Boolean isTopicAtNote(Long noteId, Long topicId);
     @Query(nativeQuery = true, value =
-            "SELECT IF(EXISTS(SELECT * FROM note_remainder as nr where nr.note_id = 3 and nr.remainder_id = 3), 'True', 'False')")
-    Boolean noteHasRemainder(Long noteId, Long topicId);
+            "SELECT IF(EXISTS(SELECT * FROM note_remainder as nr where nr.note_id = ?1 and nr.remainder_id = ?2), 'True', 'False')")
+    Boolean isRemainderAtNote(Long noteId, Long topicId);
 }

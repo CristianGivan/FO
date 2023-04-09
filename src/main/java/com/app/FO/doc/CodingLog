@@ -1,3 +1,20 @@
+230409
+7
+
++ Creez delete endpoint remainder
++ Check why the remainder in not in note
++ Delete note form remainder
++ Save note and remander
++ get all remainders by noteId
++ rename check if note with return
++ when no element was found throw exception
+
+Note	Find by remainder
+Note	Sterg Remainder
+Remainder	Sterg
+Remainder	Get remainder by note
+
+
 230408
 View all
 Creez

@@ -32,10 +32,17 @@ public class RemainderService {
       return remainderRepository.getRemainderListByUserId(userService.getLogInUser().getId());
    }
 
-   public Remainder getRemainderByRemainderIdFromUser(Long remainderId){
-      return remainderRepository.getRemainderByRemainderIdFromUser(remainderId,userService.getLogInUser().getId());
+   public Remainder getRemainderById(Long remainderId){
+      return remainderRepository.getReferenceById(remainderId);
    }
 
+   public Remainder getRemainderByRemainderIdFromUser(Long remainderId){
+      return remainderRepository.getRemainderFromUserByRemainderId(remainderId,userService.getLogInUser().getId());
+   }
+
+   public List<Remainder> getRemainderListByNoteId(Long noteId){
+      return remainderRepository.getRemainderListByNoteId(noteId);
+   }
 
 
    //-- Put
@@ -44,11 +51,19 @@ public class RemainderService {
 
    //--Delete
 
+   public void deleteRemainder (Remainder remainder){
+      remainderRepository.delete(remainder);
+   }
+   public void deleteRemainderById (Long remainderId){
+      remainderRepository.delete(getRemainderById(remainderId));
+   }
 
 
    //-- Checks
 
-
+   public boolean isRemainderIdAtNoteId(Long noteId, Long remainderId){
+      return remainderRepository.isRemainderAtNote(noteId,remainderId);
+   }
 
 
    //-- Other

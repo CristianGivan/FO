@@ -1,9 +1,11 @@
 package com.app.FO.controller.note;
 
 import com.app.FO.dto.general.TextDTO;
+import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.dto.remainder.RemainderDTO;
 import com.app.FO.exceptions.RemainderNotFoundException;
 import com.app.FO.mapper.ReminderDTOMapper;
+import com.app.FO.model.note.Note;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.service.remainder.RemainderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,18 +46,23 @@ public class RemainderController {
     @GetMapping("/getRemainderByRemainderId/{remainderId}")
     public RemainderDTO getRemainderByRemainderIdFromUser(@PathVariable Long remainderId) {
         Remainder remainder =remainderService.getRemainderByRemainderIdFromUser(remainderId);
-
-        if (remainder == null) {
-            throw new RemainderNotFoundException("The remainder was not found");
-        }
         return reminderDTOMapper.RemainderTORemainderDTO(remainder);
+    }
+
+    @GetMapping("/getRemainderListByNoteId/{noteId}")
+    public List<RemainderDTO> getRemainderListByNoteId(@PathVariable Long noteId) {
+        List<Remainder> remainderList=remainderService.getRemainderListByNoteId(noteId);
+        return reminderDTOMapper.RemainderListTORemainderDTOList(remainderList);
     }
 
     //-- PostMapping
 
 
     //-- DeleteMapping
-
+    @DeleteMapping("/deleteRemainderById")
+    public void deleteRemainderById( @RequestParam Long remainderId) {
+        remainderService.deleteRemainderById(remainderId);
+    }
 
     //--- Other
 

@@ -24,7 +24,6 @@ public class TopicNoteService {
     }
 
     public TopicNote getTopicNoteOfANoteIdByTopicId(Long noteId, Long topicId){
-
         return topicNoteRepository.findTopicNoteByNote_IdAndTopic_Id(noteId, topicId);
     }
 

@@ -175,6 +175,11 @@ public class NoteController {
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
+    @DeleteMapping("/deleteRemainderFromNote")
+    public NoteFDTO deleteRemainderFromNote(@RequestParam Long noteId, @RequestParam Long remainderId) {
+        Note note =noteService.deleteRemainderFromNote(noteId, remainderId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
     //--- Other
 
 

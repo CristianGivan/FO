@@ -3,6 +3,7 @@ package com.app.FO.mapper;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.model.note.Note;
+import com.app.FO.service.remainder.RemainderService;
 import com.app.FO.service.tag.TagService;
 import com.app.FO.service.topic.TopicService;
 import org.mapstruct.Mapper;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",uses = {TopicDTOMapper.class,TagDTOMapper.class})
+@Mapper(componentModel = "spring",uses = {TopicDTOMapper.class,TagDTOMapper.class,ReminderDTOMapper.class})
 public abstract class NoteDTOMapper {
     @Autowired
     protected TagService tagService;
@@ -21,10 +22,10 @@ public abstract class NoteDTOMapper {
     @Autowired
     protected TopicDTOMapper topicDTOMapper;
 
-
-//    @Autowired
-//    protected Remai
-
+    @Autowired
+    protected RemainderService remainderService;
+    @Autowired
+    protected ReminderDTOMapper reminderDTOMapper;
 
     //todo de ce doar daca am facut public static nu am primit err?
     //    public static NoteDTOMapper INSTANCE = Mappers.getMapper(NoteDTOMapper.class);
@@ -36,6 +37,8 @@ public abstract class NoteDTOMapper {
             "tagService.getListOfTagsDTOByNoteId(note.getId()))")
     @Mapping(target = "topicsThatContainTheNote", expression = "java("+
             "topicDTOMapper.TopicsToTopicsDTO(topicService.getTopicsByNote(note)))")
+    @Mapping(target = "remainderDTOList", expression = "java("+
+            "reminderDTOMapper.RemainderListTORemainderDTOList(remainderService.getRemainderListByNoteId(note.getId())))")
    public abstract NoteFDTO NoteToNoteFDTO(Note note);
     public abstract List<NoteFDTO> NotesToNotesFDTO(List<Note> note);
 
