@@ -54,7 +54,7 @@ public class Runner implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-//        dbInit();
+ //     dbInit();
 
 
     }

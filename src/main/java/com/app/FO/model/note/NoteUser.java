@@ -35,9 +35,9 @@ public class NoteUser {
 
     public NoteUser() {
     }
-    public NoteUser(User user, Note note){
-        this.user=user;
+    public NoteUser(Note note, User user){
         this.note=note;
+        this.user=user;
         this.createdDate=LocalDateTime.now();
     }
 

@@ -7,6 +7,7 @@ import com.app.FO.model.expense.Expense;
 //import com.app.FO.model.expenseslist.Expenses;
 import com.app.FO.model.expenses.ExpensesUser;
 import com.app.FO.model.note.NoteHistory;
+import com.app.FO.model.note.NoteUser;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
@@ -54,7 +55,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<TopicHistory> topicHistoryList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
     private List<Note> noteList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -100,6 +101,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<TopicUser> topicUserList;
 
+    @OneToMany(mappedBy = "user")
+    private List<NoteUser> noteUserList;
+
     public User() {
     }
 
@@ -128,6 +132,7 @@ public class User {
                 ", transactionList=" + transactionList +
                 ", userTagList=" + userTagList +
                 ", topicUserList=" + topicUserList +
+                ", noteUserList=" + noteUserList +
                 '}';
     }
 
@@ -148,6 +153,41 @@ public class User {
             throw new IdAlreadyAllocatedException(
                     "Id is already allocated cannot be changed");
         }
+    }
+
+    public List<Tasks> getTasksList() {
+        return tasksList;
+    }
+
+    public void setTasksList(List<Tasks> tasksList) {
+        this.tasksList = tasksList;
+    }
+
+    public List<ExpensesUser> getExpensesUserList() {
+        return expensesUserList;
+    }
+
+    public void setExpensesUserList(List<ExpensesUser> expensesUserList) {
+        this.expensesUserList = expensesUserList;
+    }
+
+    public List<TopicUser> getTopicUserList() {
+        return topicUserList;
+    }
+
+    public void setTopicUserList(List<TopicUser> topicUserList) {
+        this.topicUserList = topicUserList;
+    }
+
+    public List<NoteUser> getNoteUserList() {
+        if(noteUserList==null){
+            noteUserList=new ArrayList<>();
+        }
+        return noteUserList;
+    }
+
+    public void setNoteUserList(List<NoteUser> noteUserList) {
+        this.noteUserList = noteUserList;
     }
 
     public String getUsername() {

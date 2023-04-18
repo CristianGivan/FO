@@ -4,6 +4,7 @@ import com.app.FO.exceptions.*;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.note.NoteTag;
+import com.app.FO.model.note.NoteUser;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.Topic;
@@ -15,6 +16,7 @@ import com.app.FO.service.tag.TagService;
 import com.app.FO.service.topic.TopicNoteService;
 import com.app.FO.service.topic.TopicService;
 import com.app.FO.service.user.UserService;
+import com.app.FO.util.CheckForNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,6 +42,9 @@ public class NoteService {
 
     @Autowired
     private RemainderService remainderService;
+
+    @Autowired
+    private CheckForNote checkForNote;
 
     //    private NoteDTOMapper noteDTOMapper;
     @Autowired
@@ -86,11 +91,11 @@ public class NoteService {
     }
 
     public List<Note> getAllNotes() {
-        return noteRepository.getNotesByUserId(getLogInUser().getId());
+        return noteRepository.getNotesByCreatorId(getLogInUser().getId());
     }
 
     public Note getNoteByNoteId(Long noteId) {
-        return noteRepository.getNoteByUserIdAndId(getLogInUser().getId(), noteId);
+        return noteRepository.getNoteByCreatorIdAndId(getLogInUser().getId(), noteId);
     }
 
     public List<Note> getNotesByTagId(Long tagId) {
@@ -102,7 +107,7 @@ public class NoteService {
     }
 
     public List<Note> getNotesByNoteThatContainsText(String containsText) {
-        return noteRepository.getNotesByUserIdAndNoteContains(getLogInUser().getId(), containsText);
+        return noteRepository.getNotesByCreatorIdAndNoteContains(getLogInUser().getId(), containsText);
     }
 
 
@@ -113,17 +118,31 @@ public class NoteService {
     }
 
 
-    public Note adminPostNewNote(String note) {
-        return noteRepository.save(new Note(note, getLogInUser(), LocalDateTime.now()));
-    }
+    //-- Post admin
 
+    public Note adminPostNewNote(String noteText) {
+        User user = getLogInUser();
+        Note note = new Note(noteText, user);// todo tbd cam be created without save it 2 times
+        NoteUser noteUser = new NoteUser(note, user);
+        note.getNoteUserList().add(noteUser);
+        return noteRepository.save(note);
+    }
+    //-- Post
+
+    public Note postNewNote(String noteText) {
+        User user = getLogInUser();
+        Note note = new Note(noteText, user);// todo tbd cam be created without save it 2 times
+        NoteUser noteUser = new NoteUser(note, user);
+        note.getNoteUserList().add(noteUser);
+        return noteRepository.save(note);
+    }
     //-- Put admin
 
 
     public Note adminPutNoteText(Long noteId, String noteText) {
         Note updatedNote = adminGetNoteById(noteId);
         NoteHistory noteHistory = createNoteHistory(updatedNote);
-        updatedNote.setUser(getLogInUser());
+        updatedNote.setCreator(getLogInUser());
         updatedNote.setNote(noteText);
         updatedNote.getNoteHistoryList().add(noteHistory);
         return noteRepository.save(updatedNote);
@@ -143,36 +162,28 @@ public class NoteService {
     //-- Put
 
     public Note putTagToNote(Long noteId, Long tagId) {
-        Note updatedNote = getNoteByNoteId(noteId);
-        Tag addTag = tagService.getTagByTagIdFromUser(tagId);// to make sure that the tag is accessible form current user
-        isNoteAndTag(updatedNote, addTag);
-        //todo -c
-        if (noteRepository.noteHasTag(noteId, tagId)) {
-            throw new TagAlreadyExistException("Tag already exist");
-        }
-        NoteTag newNoteTag = new NoteTag(updatedNote, addTag);
-        updatedNote.getNoteTagList().add(newNoteTag);
-        return noteRepository.save(updatedNote);
+        Note note = getNoteByNoteId(noteId);
+        Tag tag = tagService.getTagByTagIdFromUser(tagId);// to make sure that the tag is accessible form current user
+        checkForNote.checkIsNoteAndTagAndAreNotLinked(note, tag);
+        NoteTag newNoteTag = new NoteTag(note, tag);
+        note.getNoteTagList().add(newNoteTag);
+        return noteRepository.save(note);
     }
 
 
     public Note putTopicToNote(Long noteId, Long topicId) {
-        Note updatedNote = getNoteByNoteId(noteId);
-        Topic addTopic = topicService.getTopicByTopicIdFromUser(topicId);
-        isNoteAndTopic(updatedNote, addTopic);
-        //todo -c
-        if (noteRepository.isTopicAtNote(noteId, topicId)) {
-            throw new TopicAlreadyExistException("Topic already exist");
-        }
-        TopicNote newTopicNote = new TopicNote(addTopic, updatedNote);
-        updatedNote.getTopicNoteList().add(newTopicNote);
-        return noteRepository.save(updatedNote);
+        Note note = getNoteByNoteId(noteId);
+        Topic topic = topicService.getTopicByTopicIdFromUser(topicId);
+        checkForNote.checkIsNoteAndTopicAndAreNotLinked(note, topic);
+        TopicNote newTopicNote = new TopicNote(topic, note);
+        note.getTopicNoteList().add(newTopicNote);
+        return noteRepository.save(note);
     }
 
     public Note putRemainderToNote(Long noteId, Long remainderId) {
         /*
          * 1. Find parameter1 by id (from log in user)
-         * 2. Find parameter2 if topic(from log in user)
+         * 2. Find parameter2 by id (from log in user)
          * 3. Check if there are not null else throw an exception)
          * 4. Check if parameter1 has parameter2
          * 5. Crate an entry in linking table
@@ -181,24 +192,45 @@ public class NoteService {
 
         Note note = getNoteByNoteId(noteId);
         Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
-        isNoteAndNoteHasNotRemainder(note, remainder);
-        isNoOtherNoteAtRemainder(remainder); // one remainder hase only one note shall throw exception to don't overwrite.
+        checkForNote.checkIsNoteAndRemainderAndAreNotLiked(note, remainder);
+        checkForNote.checkIsNoOtherNoteAtRemainder(remainder); // one remainder hase only one note shall throw exception to don't overwrite.
         note.getRemainderList().add(remainder);
         remainder.setNote(note);
+        return noteRepository.save(note);
+    }
+
+    public Note putUserToNote(Long noteId, Long userId) {
+        /*
+         * 1. Find parameter1 by id (from log in user)
+         * 2. Find parameter2 by id
+         * 3. Check if there are not null else throw an exception)
+         * 4. Check if parameter1 do not have has parameter2
+         * 5. Crate an entry in linking table
+         * 5. Add parameter2 in parameter1 list
+         * 6. Save parameter1
+         * */
+
+        Note note = getNoteByNoteId(noteId);
+        User user = userService.findUserById(userId);
+        checkForNote.checkIsNoteAndUserAndAreNotLiked(note, user);
+        NoteUser noteUser = new NoteUser(note, user);
+        note.getNoteUserList().add(noteUser);
+        user.getNoteUserList().add(noteUser);//ar trebi si asta?
         return noteRepository.save(note);
     }
 
     //--Delete
 
     public Note adminDeleteTagFromNote(Long noteId, Long tagId) {
-        Note updatedNote = adminGetNoteById(noteId);
+        Note note = adminGetNoteById(noteId);
         Tag tag = tagService.getTagByTagIdFromUser(tagId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
-        isNoteAndTagAndLinked(updatedNote, tag, foundNoteTag);
-        updatedNote.getNoteTagList().remove(foundNoteTag);
+        checkForNote.checkIsNoteAndTagAndAreLinked(note, tag);
+        note.getNoteTagList().remove(foundNoteTag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
-        return noteRepository.save(updatedNote);
+        return noteRepository.save(note);
     }
+
 
     /*
      * If a note is found by user it can be edited by him
@@ -208,7 +240,7 @@ public class NoteService {
         Note updatedNote = getNoteByNoteId(noteId);
         Tag tag = tagService.getTagByTagIdFromUser(tagId);
         NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
-        isNoteAndTagAndLinked(updatedNote, tag, foundNoteTag);
+        checkForNote.checkIsNoteAndTagAndAreLinked(updatedNote, tag);
         noteTagService.deleteNoteTagById(foundNoteTag.getId());
         return noteRepository.save(updatedNote);
     }
@@ -217,7 +249,7 @@ public class NoteService {
         Note updatedNote = getNoteByNoteId(noteId);
         Topic topic = topicService.getTopicByTopicIdFromUser(topicId);
         TopicNote topicNote = topicNoteService.getTopicNoteOfANoteIdByTopicId(noteId, topicId);
-        isNoteAndTopicAndLink(updatedNote, topic, topicNote);
+        checkForNote.checkIsNoteAndTopicAndAreLinked(updatedNote, topic);
         topicNoteService.deleteTopicNoteById(topicNote.getId());
         return noteRepository.save(updatedNote);
     }
@@ -233,7 +265,7 @@ public class NoteService {
          * 4. Save param1, no needed to save param2 because there is persist*/
         Note note = getNoteByNoteId(noteId);
         Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
-        isNoteAndRemainderAndLiked(note, remainder);
+        checkForNote.checkIsNoteAndRemainderAndAreLiked(note, remainder);
         remainder.setNote(null);
         return noteRepository.save(note);
     }
@@ -241,122 +273,11 @@ public class NoteService {
     //-- Other
 
     public NoteHistory createNoteHistory(Note note) {
-        return new NoteHistory(LocalDateTime.now(), note.getUser(), note, note.getNote());
+        return new NoteHistory(LocalDateTime.now(), note.getCreator(), note, note.getNote());
     }
 
     //-- Checks
 
-    public Boolean isNoteAndNoteHasNotTopic(Note note, Topic topic) {
-        //todo
-        return true;
-    }
 
-    public Boolean isNoteAndNoteHasNotRemainder(Note note, Remainder remainder) {
-        isNote(note);
-        isNotRemainderAtNote(note, remainder);
-        return true;
-    }
 
-    private Boolean isNoteAndTagAndLinked(Note note, Tag tag, NoteTag noteTag) {
-        isNoteAndTag(note, tag);
-        isNotTagAtNote(noteTag);
-        return true;
-    }
-
-    private Boolean isNoteAndTopicAndLink(Note note, Topic topic, TopicNote topicNote) {
-        isNoteAndTopic(note, topic);
-        isNotTopicAtNote(topicNote);
-        return true;
-    }
-
-    private Boolean isNoteAndRemainderAndLiked(Note note, Remainder remainder) {
-        isNoteAndRemainder(note, remainder);
-        isRemainderAtNote(note, remainder);
-        return true;
-    }
-
-    private Boolean isNoteAndTag(Note note, Tag tag) {
-        isNote(note);
-        isTag(tag);
-        return true;
-    }
-
-    private Boolean isNoteAndTopic(Note note, Topic topic) {
-        isNote(note);
-        isTopic(topic);
-        return true;
-    }
-
-    private Boolean isNoteAndRemainder(Note note, Remainder remainder) {
-        isNote(note);
-        isRemainder(remainder);
-        return true;
-    }
-
-    //todo TBT
-    private Boolean isNote(Note note) {
-        if (note == null) {
-            throw new NoteNotFoundException("Note not found!");
-        }
-        return true;
-    }
-
-    //todo TBT
-    private Boolean isTag(Tag tag) {
-        if (tag == null) {
-            throw new TagNotFoundException("Tag not found!");
-        }
-        return true;
-    }
-
-    //todo TBT
-    private Boolean isTopic(Topic topic) {
-        if (topic == null) {
-            throw new TopicNotFoundException("Topic not found!");
-        }
-        return true;
-    }
-
-    private Boolean isRemainder(Remainder remainder) {
-        if (remainder == null) {
-            throw new RemainderNotFoundException("Remainder not found!");
-        }
-        return true;
-    }
-
-    //todo TBT
-    private Boolean isNotTagAtNote(NoteTag noteTag) {
-        if (noteTag == null) {
-            throw new NoteTagNotFoundException("Tag not linked to note!");
-        }
-        return true;
-    }
-
-    private Boolean isNotTopicAtNote(TopicNote topicNote) {
-        if (topicNote == null) {
-            throw new TopicNoteNotFoundException("Topic not linked to note!");
-        }
-        return true;
-    }
-
-    private Boolean isRemainderAtNote(Note note, Remainder remainder) {
-
-        if (!remainderService.isRemainderIdAtNoteId(note.getId(), remainder.getId())) {
-            throw new RemainderNotFoundException("Remainder not linked to note!");
-        }
-        return true;
-    }
-
-    private boolean isNotRemainderAtNote(Note note, Remainder remainder) {
-        if (noteRepository.isRemainderAtNote(note.getId(), remainder.getId())) {
-            throw new RemainderAlreadyExistException("Remainder already exist");
-        }
-        return true;
-    }
-    private boolean isNoOtherNoteAtRemainder(Remainder remainder) {
-        if (remainder.getNote()!=null) {
-            throw new RemainderAlreadyExistException("Another note already exist, do you want to replace it?");
-        }
-        return true;
-    }
 }

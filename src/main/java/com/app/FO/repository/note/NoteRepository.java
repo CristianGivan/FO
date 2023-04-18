@@ -21,13 +21,17 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> getNotesByNoteContains(String containText);
 
     //-- get from user
-    List<Note> getNotesByUserId(Long userId);
-    Note getNoteByUserIdAndId(Long userId, Long noteId);
+    List<Note> getNotesByCreatorId(Long userId);
+    Note getNoteByCreatorIdAndId(Long userId, Long noteId);
 
-    List<Note> getNotesByUserIdAndNoteContains(Long userId,String containText);
+    List<Note> getNotesByCreatorIdAndNoteContains(Long userId, String containText);
 
-    @Query(value = "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"//todo aici ceva nu ii bine trebuie sa fie user_note table
+    //todo td
+/*    @Query(value = "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"//todo aici ceva nu ii bine trebuie sa fie user_note table
             ,nativeQuery = true)
+    List<Note> getNotesFromUserIdByTagId(Long noteId, Long userId);*/
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id inner join note_user nu on n.note_id = nu.note_id where n.user_id=?1 and nt.tag_id=?2")
     List<Note> getNotesFromUserIdByTagId(Long noteId, Long userId);
 
     @Query(value = "SELECT * FROM note as n inner join topic_note as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.topic_id=?2"
@@ -43,4 +47,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     @Query(nativeQuery = true, value =
             "SELECT IF(EXISTS(SELECT * FROM note_remainder as nr where nr.note_id = ?1 and nr.remainder_id = ?2), 'True', 'False')")
     Boolean isRemainderAtNote(Long noteId, Long topicId);
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM note_user as nu where nu.note_id = 3 and nu.user_id = 3), 'True', 'False')")
+    Boolean isUserAtNote(Long noteId, Long topicId);
+
 }

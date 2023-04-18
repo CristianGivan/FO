@@ -32,6 +32,14 @@ public class NoteController {
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
 
+    //-- PostMapping
+
+    @PostMapping("/postNewNote")
+    public NoteFDTO postNewNote(@RequestBody TextDTO noteText) {
+        Note note = noteService.postNewNote(noteText.getText());
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
+
     //-- GetMapping admin
 
     //
@@ -149,6 +157,11 @@ public class NoteController {
         Note note = noteService.putRemainderToNote(noteId, remainderId);
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
+    @PutMapping("/putUserToNote")
+    public NoteFDTO putUserToNote(@RequestParam Long noteId, @RequestParam Long userId){
+        Note note = noteService.putUserToNote(noteId,userId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
 
 
     //-- DeleteMapping admin
@@ -180,6 +193,13 @@ public class NoteController {
         Note note =noteService.deleteRemainderFromNote(noteId, remainderId);
         return noteDTOMapper.NoteToNoteFDTO(note);
     }
+
+    @DeleteMapping("/deleteUserFromNote")
+    public NoteFDTO deleteUserFromNote(@RequestParam Long noteId, @RequestParam Long userId) {
+        Note note =null;//noteService.deleteRemainderFromNote(noteId, remainderId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
+
     //--- Other
 
 

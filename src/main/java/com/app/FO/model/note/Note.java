@@ -32,7 +32,10 @@ public class Note {
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private User creator;
+
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private List<NoteUser> noteUserList;
 
     @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<NoteTag> noteTagList;
@@ -57,7 +60,7 @@ public class Note {
                 "id=" + id +
                 ", note='" + note + '\'' +
                 ", noteTags=" + noteTagList +
-                ", userId=" + user.getId() +
+                ", userId=" + creator.getId() +
                 ", createdDate=" + createdDate +
                 ", topicNotes=" + topicNoteList +
                 ", taskNotes=" + taskNoteList +
@@ -71,14 +74,14 @@ public class Note {
     }
 
     //todo tbdel
-    public Note(String note, User user, LocalDateTime createdDate) {
+    public Note(String note, User creator, LocalDateTime createdDate) {
         this.note = note;
-        this.user = user;
+        this.creator = creator;
         this.createdDate = createdDate;
     }
-    public Note(String note, User user) {
+    public Note(String note, User creator) {
         this.note = note;
-        this.user = user;
+        this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
 
@@ -88,6 +91,18 @@ public class Note {
 
     public List<TaskNote> getTaskNoteList() {
         return taskNoteList;
+    }
+
+    public List<NoteUser> getNoteUserList() {
+
+        if(noteUserList ==null){
+            noteUserList =new ArrayList<>();
+        }
+        return noteUserList;
+    }
+
+    public void setNoteUserList(List<NoteUser> noteUserList) {
+        this.noteUserList = noteUserList;
     }
 
     public void setTaskNoteList(List<TaskNote> taskNotes) {
@@ -124,12 +139,12 @@ public class Note {
         this.noteTagList = noteTags;
     }
 
-    public User getUser() {
-        return user;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreator(User user) {
+        this.creator = user;
     }
 
     public LocalDateTime getCreatedDate() {
