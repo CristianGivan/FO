@@ -179,7 +179,11 @@ public class NoteController {
 
 
     //-- DeleteMapping
-
+    @DeleteMapping("/deleteNoteByNoteId")
+    public NoteFDTO deleteNoteByNoteId(@RequestParam Long noteId) {
+        Note note = noteService.deleteNoteByNoteId(noteId);
+        return noteDTOMapper.NoteToNoteFDTO(note);
+    }
 
     @DeleteMapping("/deleteTagFromNote")
     public NoteFDTO deleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {

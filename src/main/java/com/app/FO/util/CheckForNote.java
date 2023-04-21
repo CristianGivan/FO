@@ -18,6 +18,11 @@ public class CheckForNote {
     public CheckForNote(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
+    public void checkIsNote(Note note){
+        if(!isNote(note)){
+            throw new NoteNotFoundException("Note not found!");
+        }
+    }
 
     public void checkIsNoteAndTagAndAreLinked(Note note, Tag tag) {
         if(!isNote(note)){

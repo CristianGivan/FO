@@ -142,7 +142,7 @@ public class NoteService {
 
     public Note postNewNote(String noteText) {
         User user = getLogInUser();
-        Note note = new Note(noteText, user);// todo tbd cam be created without save it 2 times
+        Note note = new Note(noteText, user);
         NoteUser noteUser = new NoteUser(note, user);
         note.getNoteUserList().add(noteUser);
         return noteRepository.save(note);
@@ -238,6 +238,17 @@ public class NoteService {
 
     //--Delete
 
+    public Note deleteNoteByNoteId(Long noteId){
+        /*
+        * get note by Id
+        * check if note exist
+        * delete nie
+        * */
+        Note note =getNoteByNoteId(noteId);
+        checkForNote.checkIsNote(note);
+        noteRepository.delete(note);
+        return note;
+    }
 
 
     /*
