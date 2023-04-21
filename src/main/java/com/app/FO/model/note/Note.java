@@ -1,7 +1,6 @@
 package com.app.FO.model.note;
 
 import com.app.FO.model.remainder.Remainder;
-import com.app.FO.model.task.TaskNote;
 import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,33 +22,31 @@ public class Note {
     @Column(name = "note_id")
     private Long id;
 
-    @Column(name = "note")
-    private String note;
+    @Column(name = "note_text")
+    private String noteText;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDateTime;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
 
-    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteUser> noteUserList;
 
-    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteTag> noteTagList;
 
-    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TopicNote> topicNoteList;
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<NoteRemainder> noteRemainderList;
 
-    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskNote> taskNoteList;
-    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteHistory> noteHistoryList;
 
-    @OneToMany(mappedBy = "note",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Remainder> remainderList;
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TopicNote> topicNoteList;
 
     public Note() {
     }
@@ -58,45 +55,43 @@ public class Note {
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                ", note='" + note + '\'' +
-                ", noteTags=" + noteTagList +
-                ", userId=" + creator.getId() +
-                ", createdDate=" + createdDate +
-                ", topicNotes=" + topicNoteList +
-                ", taskNotes=" + taskNoteList +
-                ", noteHistories=" + noteHistoryList +
-                ", remainders=" + remainderList +
+                ", noteText='" + noteText + '\'' +
+                ", createdDate=" + createdDateTime +
+                ", creator=" + creator.getId() +
+                ", noteUserList=" + noteUserList +
+                ", noteTagList=" + noteTagList +
+                ", topicNoteList=" + topicNoteList +
+                ", noteRemainderList=" + noteRemainderList +
+                ", noteHistoryList=" + noteHistoryList +
                 '}';
     }
 
-    public Note(String note) {
-        this.note = note;
+    public Note(String noteText) {
+        this.noteText = noteText;
     }
 
     //todo tbdel
-    public Note(String note, User creator, LocalDateTime createdDate) {
-        this.note = note;
+    public Note(String noteText, User creator, LocalDateTime createdDateTime) {
+        this.noteText = noteText;
         this.creator = creator;
-        this.createdDate = createdDate;
+        this.createdDateTime = createdDateTime;
     }
-    public Note(String note, User creator) {
-        this.note = note;
+
+    public Note(String noteText, User creator) {
+        this.noteText = noteText;
         this.creator = creator;
-        this.createdDate = LocalDateTime.now();
+        this.createdDateTime = LocalDateTime.now();
     }
 
     public Long getId() {
         return id;
     }
 
-    public List<TaskNote> getTaskNoteList() {
-        return taskNoteList;
-    }
 
     public List<NoteUser> getNoteUserList() {
 
-        if(noteUserList ==null){
-            noteUserList =new ArrayList<>();
+        if (noteUserList == null) {
+            noteUserList = new ArrayList<>();
         }
         return noteUserList;
     }
@@ -105,32 +100,29 @@ public class Note {
         this.noteUserList = noteUserList;
     }
 
-    public void setTaskNoteList(List<TaskNote> taskNotes) {
-        this.taskNoteList = taskNotes;
-    }
 
-    public List<Remainder> getRemainderList() {
-        if(remainderList ==null){
-            remainderList =new ArrayList<>();
+    public List<NoteRemainder> getNoteRemainderList() {
+        if (noteRemainderList == null) {
+            noteRemainderList = new ArrayList<>();
         }
-        return remainderList;
+        return noteRemainderList;
     }
 
-    public void setRemainderList(List<Remainder> remainders) {
-        this.remainderList = remainders;
+    public void setNoteRemainderList(List<NoteRemainder> noteRemainderList) {
+        this.noteRemainderList = noteRemainderList;
     }
 
-    public String getNote() {
-        return note;
+    public String getNoteText() {
+        return noteText;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setNoteText(String note) {
+        this.noteText = note;
     }
 
     public List<NoteTag> getNoteTagList() {
-        if(noteTagList ==null){
-            noteTagList =new ArrayList<>();
+        if (noteTagList == null) {
+            noteTagList = new ArrayList<>();
         }
         return noteTagList;
     }
@@ -147,17 +139,17 @@ public class Note {
         this.creator = user;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedDateTime(LocalDateTime createdDate) {
+        this.createdDateTime = createdDate;
     }
 
     public List<NoteHistory> getNoteHistoryList() {
-        if (noteHistoryList ==null){
-            noteHistoryList =new ArrayList<>();
+        if (noteHistoryList == null) {
+            noteHistoryList = new ArrayList<>();
         }
         return noteHistoryList;
     }
@@ -167,8 +159,8 @@ public class Note {
     }
 
     public List<TopicNote> getTopicNoteList() {
-        if (topicNoteList ==null){
-            topicNoteList =new ArrayList<>();
+        if (topicNoteList == null) {
+            topicNoteList = new ArrayList<>();
         }
         return topicNoteList;
     }

@@ -1,25 +1,30 @@
 package com.app.FO.dto.note;
 
+import com.app.FO.dto.user.UserDTO;
+
 import java.time.LocalDateTime;
 
 public class NoteDTO {
     private Long noteId;
-    private String note;
+    private String noteText;
     private LocalDateTime createdDate;
+    private UserDTO creator;
+
+    public NoteDTO(Long noteId, String noteText, LocalDateTime createdDate, UserDTO creator) {
+        this.noteId = noteId;
+        this.noteText = noteText;
+        this.createdDate = createdDate;
+        this.creator = creator;
+    }
 
     @Override
     public String toString() {
         return "NoteDTO{" +
                 "noteId=" + noteId +
-                ", note='" + note + '\'' +
+                ", noteText='" + noteText + '\'' +
                 ", createdDate=" + createdDate +
+                ", creator=" + creator +
                 '}';
-    }
-
-    public NoteDTO(Long noteId, String note, LocalDateTime createdDate) {
-        this.noteId = noteId;
-        this.note = note;
-        this.createdDate = createdDate;
     }
 
     public Long getNoteId() {
@@ -30,12 +35,12 @@ public class NoteDTO {
         this.noteId = noteId;
     }
 
-    public String getNote() {
-        return note;
+    public String getNoteText() {
+        return noteText;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setNoteText(String noteText) {
+        this.noteText = noteText;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -44,6 +49,14 @@ public class NoteDTO {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public UserDTO getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserDTO creator) {
+        this.creator = creator;
     }
 }
 

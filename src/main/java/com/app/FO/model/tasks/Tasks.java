@@ -39,7 +39,7 @@ public class Tasks {
     private LocalDateTime endDate;
 
     @Column(name = "task_status")
-    private TaskStatus tasksStatuList;
+    private TaskStatus tasksStatusList;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksTask> tasksTaskList;
@@ -62,7 +62,7 @@ public class Tasks {
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", taskStatus=" + tasksStatuList +
+                ", taskStatus=" + tasksStatusList +
                 ", tasksTasks=" + tasksTaskList +
                 ", TasksHistory=" + tasksHistoryList +
                 ", eventTaskLists=" + eventTasksList +
@@ -117,12 +117,12 @@ public class Tasks {
         this.endDate = endDate;
     }
 
-    public TaskStatus getTasksStatuList() {
-        return tasksStatuList;
+    public TaskStatus getTasksStatusList() {
+        return tasksStatusList;
     }
 
-    public void setTasksStatuList(TaskStatus taskStatus) {
-        this.tasksStatuList = taskStatus;
+    public void setTasksStatusList(TaskStatus taskStatus) {
+        this.tasksStatusList = taskStatus;
     }
 
     public List<TasksTask> getTaskListTasks() {

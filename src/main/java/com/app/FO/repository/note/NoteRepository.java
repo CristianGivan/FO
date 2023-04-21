@@ -10,21 +10,11 @@ import java.util.List;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
-    @Query("select n from Note as n inner join NoteTag nt on n.id=nt.note.id " +
-            "where nt.tag.id=?1")
-    List<Note> getNotesByTagId(Long tegId);
-
-    @Query("select n from Note as n inner join TopicNote tn on n.id=tn.note.id " +
-            "where tn.topic.id=?1")
-    List<Note> getNotesByTopicId(Long topicId);
-
-    List<Note> getNotesByNoteContains(String containText);
-
-    //-- get from user
+    //-- get
     List<Note> getNotesByCreatorId(Long userId);
     Note getNoteByCreatorIdAndId(Long userId, Long noteId);
 
-    List<Note> getNotesByCreatorIdAndNoteContains(Long userId, String containText);
+    List<Note> getNotesByCreatorIdAndNoteTextContains(Long userId, String containText);
 
     //todo td
 /*    @Query(value = "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"//todo aici ceva nu ii bine trebuie sa fie user_note table

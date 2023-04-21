@@ -45,8 +45,8 @@ public class TopicService {
        return topicRepository.getTopicFromUserByTopicId(userService.getLogInUser().getId(),topicId);
     }
 
-    public List<Topic> getTopicsByNote(Note note) {
-        return topicRepository.getTopicsByNoteId(note.getId());
+    public List<Topic> getTopicsByNote(Long noteId) {
+        return topicRepository.getTopicsByNoteId(noteId);
     }
 
 

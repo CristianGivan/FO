@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface TopicNoteRepository extends JpaRepository<TopicNote,Long> {
 
-    TopicNote findTopicNoteByNote_IdAndTopic_Id(Long noteId, Long topicId);
+    TopicNote findTopicNoteByNote_IdAndTopic_Id(Long noteId, Long topicId);//todo -c schimb ordinea la note si topic
 
 }

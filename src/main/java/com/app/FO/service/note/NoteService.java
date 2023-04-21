@@ -1,10 +1,6 @@
 package com.app.FO.service.note;
 
-import com.app.FO.exceptions.*;
-import com.app.FO.model.note.Note;
-import com.app.FO.model.note.NoteHistory;
-import com.app.FO.model.note.NoteTag;
-import com.app.FO.model.note.NoteUser;
+import com.app.FO.model.note.*;
 import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.Topic;
@@ -47,6 +43,8 @@ public class NoteService {
     private CheckForNote checkForNote;
     @Autowired
     private NoteUserService noteUserService;
+    @Autowired
+    private NoteRemainderService noteRemainderService;
 
     //    private NoteDTOMapper noteDTOMapper;
     @Autowired
@@ -184,7 +182,8 @@ public class NoteService {
         Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
         checkForNote.checkIsNoteAndRemainderAndAreNotLiked(note, remainder);
         checkForNote.checkIsNoOtherNoteAtRemainder(remainder); // one remainder hase only one note shall throw exception to don't overwrite.
-        note.getRemainderList().add(remainder);
+        NoteRemainder noteRemainder=new NoteRemainder(note, remainder);
+        note.getNoteRemainderList().add(noteRemainder);
         remainder.setNote(note);
         return noteRepository.save(note);
     }
@@ -205,7 +204,7 @@ public class NoteService {
         checkForNote.checkIsNoteAndUserAndAreNotLiked(note, user);
         NoteUser noteUser = new NoteUser(note, user);
         note.getNoteUserList().add(noteUser);
-        user.getNoteUserList().add(noteUser);//ar trebi si asta?
+       // user.getNoteUserList().add(noteUser);//ar trebi si asta?
         return noteRepository.save(note);
     }
 
@@ -233,7 +232,7 @@ public class NoteService {
     }
 
     public List<Note> getNotesByNoteThatContainsText(String containsText) {
-        return noteRepository.getNotesByCreatorIdAndNoteContains(getLogInUser().getId(), containsText);
+        return noteRepository.getNotesByCreatorIdAndNoteTextContains(getLogInUser().getId(), containsText);
     }
 
     //--Delete
@@ -258,18 +257,16 @@ public class NoteService {
     public Note deleteTagFromNote(Long noteId, Long tagId) {
         Note note = getNoteByNoteId(noteId);
         Tag tag = tagService.getTagByTagIdFromUser(tagId);
-        NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
         checkForNote.checkIsNoteAndTagAndAreLinked(note, tag);
-        noteTagService.deleteNoteTagById(foundNoteTag.getId());
+        noteTagService.deleteNoteTagById(noteId,tagId);
         return noteRepository.save(note);
     }
 
     public Note deleteTopicFromNote(Long noteId, Long topicId) {
         Note note = getNoteByNoteId(noteId);
         Topic topic = topicService.getTopicByTopicIdFromUser(topicId);
-        TopicNote topicNote = topicNoteService.getTopicNoteOfANoteIdByTopicId(noteId, topicId);
         checkForNote.checkIsNoteAndTopicAndAreLinked(note, topic);
-        topicNoteService.deleteTopicNoteById(topicNote.getId());
+        topicNoteService.deleteTopicNoteById(topicId, noteId);
         return noteRepository.save(note);
     }
 
@@ -285,6 +282,7 @@ public class NoteService {
         Note note = getNoteByNoteId(noteId);
         Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
         checkForNote.checkIsNoteAndRemainderAndAreLiked(note, remainder);
+        noteRemainderService.deleteNoteRemainderFormNoteIdByRemainderId(noteId,remainderId);
         remainder.setNote(null);
         return noteRepository.save(note);
     }
@@ -309,7 +307,7 @@ public class NoteService {
     //-- Other
 
     public NoteHistory createNoteHistory(Note note) {
-        return new NoteHistory(LocalDateTime.now(), note.getCreator(), note, note.getNote());
+        return new NoteHistory(LocalDateTime.now(), note.getCreator(), note, note.getNoteText());
     }
 
 }

@@ -23,6 +23,12 @@ public class CheckForNote {
             throw new NoteNotFoundException("Note not found!");
         }
     }
+    public void checkIsNoteWithTheSame(Note note){
+        if(!isNote(note)){
+            throw new NoteNotFoundException("Note not found!");
+        }
+    }
+
 
     public void checkIsNoteAndTagAndAreLinked(Note note, Tag tag) {
         if(!isNote(note)){

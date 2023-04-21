@@ -51,9 +51,6 @@ public class Task {
     private List<TaskTag> taskTagList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskNote> taskNoteList;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TasksTask> tasksTaskList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
@@ -75,7 +72,6 @@ public class Task {
                 ", remainders=" + remainderList +
                 ", taskEfforts=" + taskEffortList +
                 ", noteTags=" + taskTagList +
-                ", taskNotes=" + taskNoteList +
                 ", tasksTasks=" + tasksTaskList +
                 ", taskHistories=" + taskHistoryList +
                 '}';
@@ -159,14 +155,6 @@ public class Task {
 
     public void setTaskTagList(List<TaskTag> noteTags) {
         this.taskTagList = noteTags;
-    }
-
-    public List<TaskNote> getTaskNoteList() {
-        return taskNoteList;
-    }
-
-    public void setTaskNoteList(List<TaskNote> taskNotes) {
-        this.taskNoteList = taskNotes;
     }
 
     public List<TasksTask> getTaskListTasks() {

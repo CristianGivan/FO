@@ -11,40 +11,39 @@ import java.util.List;
 public class NoteFDTO {
 
     private Long noteId;
-    private String note;
+    private String noteText;
     private LocalDateTime createdDateTime;
-    private UserDTO user;
+    private UserDTO creator;
+    private List<UserDTO> userDTOList;
     private List<TagDTO> tagDTOList;
-    private List<TopicDTO> topicsThatContainTheNote;
+    private List<TopicDTO> topicDTOList;
     private List<RemainderDTO> remainderDTOList;
     private List<NoteHistoryDTO> noteHistoryDTOList;
-//    //todo adaug DTO
-//    private List<TaskNote> tasksThatContainTheNote;
 
-    public NoteFDTO(Long noteId, String note, LocalDateTime createdDateTime, UserDTO user, List<TagDTO> tags
-            , List<TopicDTO> topicsThatContainTheNote, List<RemainderDTO> remainderDTOList, List<NoteHistoryDTO> noteHistoryDTOList
-    ) {
+    public NoteFDTO(Long noteId, String noteText, LocalDateTime createdDateTime, UserDTO creator, List<UserDTO> userDTOList, List<TagDTO> tagDTOList, List<TopicDTO> topicDTOList, List<RemainderDTO> remainderDTOList, List<NoteHistoryDTO> noteHistoryDTOList) {
         this.noteId = noteId;
-        this.note = note;
+        this.noteText = noteText;
         this.createdDateTime = createdDateTime;
-        this.user = user;
-        this.tagDTOList = tags;
-        this.topicsThatContainTheNote = topicsThatContainTheNote;
+        this.creator = creator;
+        this.userDTOList = userDTOList;
+        this.tagDTOList = tagDTOList;
+        this.topicDTOList = topicDTOList;
         this.remainderDTOList = remainderDTOList;
         this.noteHistoryDTOList = noteHistoryDTOList;
     }
 
     @Override
     public String toString() {
-        return "NoteDTO{" +
+        return "NoteFDTO{" +
                 "noteId=" + noteId +
-                ", note='" + note + '\'' +
-                ", tags=" + tagDTOList +
-                ", user=" + user +
+                ", noteText='" + noteText + '\'' +
                 ", createdDateTime=" + createdDateTime +
-                ", topicsThatContainTheNote=" + topicsThatContainTheNote +
-                ", noteHistory=" + noteHistoryDTOList +
-//                ", remainders=" + remainders +
+                ", creator=" + creator.getUserId() +
+                ", userDTOList=" + userDTOList +
+                ", tagDTOList=" + tagDTOList +
+                ", topicDTOList=" + topicDTOList +
+                ", remainderDTOList=" + remainderDTOList +
+                ", noteHistoryDTOList=" + noteHistoryDTOList +
                 '}';
     }
 
@@ -56,28 +55,12 @@ public class NoteFDTO {
         this.noteId = noteId;
     }
 
-    public String getNote() {
-        return note;
+    public String getNoteText() {
+        return noteText;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public List<TagDTO> getTagDTOList() {
-        return tagDTOList;
-    }
-
-    public void setTagDTOList(List<TagDTO> tagDTOList) {
-        this.tagDTOList = tagDTOList;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setNoteText(String noteText) {
+        this.noteText = noteText;
     }
 
     public LocalDateTime getCreatedDateTime() {
@@ -88,12 +71,36 @@ public class NoteFDTO {
         this.createdDateTime = createdDateTime;
     }
 
-    public List<TopicDTO> getTopicsThatContainTheNote() {
-        return topicsThatContainTheNote;
+    public UserDTO getCreator() {
+        return creator;
     }
 
-    public void setTopicsThatContainTheNote(List<TopicDTO> topicsThatContainTheNote) {
-        this.topicsThatContainTheNote = topicsThatContainTheNote;
+    public void setCreator(UserDTO creator) {
+        this.creator = creator;
+    }
+
+    public List<UserDTO> getUserDTOList() {
+        return userDTOList;
+    }
+
+    public void setUserDTOList(List<UserDTO> userDTOList) {
+        this.userDTOList = userDTOList;
+    }
+
+    public List<TagDTO> getTagDTOList() {
+        return tagDTOList;
+    }
+
+    public void setTagDTOList(List<TagDTO> tagDTOList) {
+        this.tagDTOList = tagDTOList;
+    }
+
+    public List<TopicDTO> getTopicDTOList() {
+        return topicDTOList;
+    }
+
+    public void setTopicDTOList(List<TopicDTO> topicDTOList) {
+        this.topicDTOList = topicDTOList;
     }
 
     public List<RemainderDTO> getRemainderDTOList() {
@@ -111,5 +118,4 @@ public class NoteFDTO {
     public void setNoteHistoryDTOList(List<NoteHistoryDTO> noteHistoryDTOList) {
         this.noteHistoryDTOList = noteHistoryDTOList;
     }
-
 }

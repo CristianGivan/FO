@@ -23,14 +23,13 @@ public class NoteTagService {
                 ()->new NoteTagNotFoundException("NoteTag note find"));
     }
 
-    public NoteTag findNoteTagByTagId(Long tagId){
-        return noteTagRepository.findNoteTagByTag_Id(tagId);
-    }
+
     public NoteTag findNoteTagOfANoteIdByTagId(Long noteId, Long tagId){
         return noteTagRepository.findNoteTagByNote_IdAndTag_Id(noteId, tagId);
     }
 
-    public void deleteNoteTagById(Long noteTagId){
-        noteTagRepository.delete(findNteTagById(noteTagId));
+    public void deleteNoteTagById(Long noteId,Long tagId){
+        NoteTag noteTag=findNoteTagOfANoteIdByTagId(noteId, tagId);
+        noteTagRepository.delete(noteTag);
     }
 }

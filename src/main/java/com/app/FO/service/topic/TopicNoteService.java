@@ -23,7 +23,7 @@ public class TopicNoteService {
                 ()->new TopicNoteNotFoundException("TopicNote note find"));
     }
 
-    public TopicNote getTopicNoteOfANoteIdByTopicId(Long noteId, Long topicId){
+    public TopicNote getTopicNoteOfANoteIdByTopicId(Long topicId, Long noteId){
         return topicNoteRepository.findTopicNoteByNote_IdAndTopic_Id(noteId, topicId);
     }
 
@@ -37,8 +37,9 @@ public class TopicNoteService {
 
     //--Delete
 
-    public void deleteTopicNoteById(Long topicNoteId){
-        topicNoteRepository.delete(getTopicNoteById(topicNoteId));
+    public void deleteTopicNoteById(Long topicId, Long noteId){
+        TopicNote topicNote=getTopicNoteOfANoteIdByTopicId(topicId,noteId);
+        topicNoteRepository.delete(topicNote);
     }
 
     //-- Other
