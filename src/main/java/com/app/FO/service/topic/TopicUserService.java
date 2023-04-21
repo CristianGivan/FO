@@ -1,17 +1,17 @@
-package com.app.FO.service.user;
+package com.app.FO.service.topic;
 
 import com.app.FO.model.topic.TopicUser;
-import com.app.FO.repository.user.UsersTopicsRepository;
+import com.app.FO.repository.topic.TopicsUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserTopicService {
-    private UsersTopicsRepository usersTopicsRepository;
+public class TopicUserService {
+    private TopicsUserRepository topicsUserRepository;
 
     @Autowired
-    public UserTopicService(UsersTopicsRepository usersTopicsRepository) {
-        this.usersTopicsRepository = usersTopicsRepository;
+    public TopicUserService(TopicsUserRepository topicsUserRepository) {
+        this.topicsUserRepository = topicsUserRepository;
     }
 
 
@@ -25,7 +25,7 @@ public class UserTopicService {
     //-- Post
 
     public TopicUser postUsersTopics(TopicUser topicUser){
-        return usersTopicsRepository.save(topicUser);
+        return topicsUserRepository.save(topicUser);
     }
 
     //-- Put

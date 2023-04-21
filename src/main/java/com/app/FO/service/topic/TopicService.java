@@ -7,7 +7,6 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.topic.TopicUser;
 import com.app.FO.repository.topic.TopicRepository;
 import com.app.FO.service.user.UserService;
-import com.app.FO.service.user.UserTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,7 @@ public class TopicService {
     private UserService userService;
 
     @Autowired
-    private UserTopicService userTopicService;
+    private TopicUserService topicUserService;
 
     @Autowired
      public TopicService(TopicRepository topicRepository) {
@@ -56,7 +55,7 @@ public class TopicService {
 
     public Topic postTopic(String topicName){
         Topic topic =topicRepository.save(new Topic(topicName,userService.getLogInUser()));
-        TopicUser topicUser = userTopicService.postUsersTopics(new TopicUser(userService.getLogInUser(),topic));
+        TopicUser topicUser = topicUserService.postUsersTopics(new TopicUser(userService.getLogInUser(),topic));
         return topic;
     }
 

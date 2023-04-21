@@ -46,9 +46,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Boolean isTopicAtNote(Long noteId, Long topicId);
     @Query(nativeQuery = true, value =
             "SELECT IF(EXISTS(SELECT * FROM note_remainder as nr where nr.note_id = ?1 and nr.remainder_id = ?2), 'True', 'False')")
-    Boolean isRemainderAtNote(Long noteId, Long topicId);
+    Boolean isRemainderAtNote(Long noteId, Long remainderId);
     @Query(nativeQuery = true, value =
-            "SELECT IF(EXISTS(SELECT * FROM note_user as nu where nu.note_id = 3 and nu.user_id = 3), 'True', 'False')")
-    Boolean isUserAtNote(Long noteId, Long topicId);
+            "SELECT IF(EXISTS(SELECT * FROM note_user as nu where nu.note_id = ?1 and nu.user_id = ?2), 'True', 'False')")
+    Boolean isUserAtNote(Long noteId, Long userId);
 
 }

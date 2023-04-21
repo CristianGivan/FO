@@ -10,7 +10,6 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserTag;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.service.user.UserService;
-import com.app.FO.service.user.UserTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,7 @@ public class TagService {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserTagService userTagService;
+    private TagUserService tagUserService;
 
     @Autowired
     public TagService(TagRepository tagRepository, TagDTOMapper tagDTOMapper) {
@@ -136,7 +135,7 @@ public class TagService {
 
         // todo chiar trebuie sa fortez salvarea tagului si dupa aia salvarea usertagului sau se poate face si alt fel,decamdata merge.
         newTag = tagRepository.save(new Tag(tagText));
-        UserTag userTag = userTagService.saveUserTag(new UserTag(logInUser, newTag));
+        UserTag userTag = tagUserService.saveUserTag(new UserTag(logInUser, newTag));
         logInUser.getUserTagList().add(userTag);
         newTag.getUserTagList().add(userTag);
         return tagRepository.save(newTag);

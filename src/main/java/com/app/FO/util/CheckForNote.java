@@ -89,8 +89,8 @@ public class CheckForNote {
             throw new NoteNotFoundException("Note not found!");
         }else if(!isUser(user)){
             throw new UserNotFoundException("User not found");
-        }else if(isUserLinkedToNote(note, user)) {
-            throw new UserAlreadyExistException("User already exist");
+        }else if(!isUserLinkedToNote(note, user)) {
+            throw new UserNotFoundException("User is not linked to note");
         }
     }
     public void checkIsNoteAndUserAndAreNotLiked(Note note, User user) {
@@ -99,7 +99,7 @@ public class CheckForNote {
         }else if(!isUser(user)){
             throw new UserNotFoundException("User not found");
         }else if(isUserLinkedToNote(note, user)) {
-            throw new UserAlreadyExistException("User already exist");
+            throw new UserAlreadyExistException("User linked to note");
         }
     }
 
@@ -140,30 +140,30 @@ public class CheckForNote {
 
     private Boolean isTagLinkedToNote(Note note, Tag tag) {
         if (noteRepository.noteHasTag(note.getId(), tag.getId())) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private Boolean isTopicLinkedToNote(Note note, Topic topic) {
         if (noteRepository.isTopicAtNote(note.getId(), topic.getId())) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private Boolean isRemainderLinkedToNote(Note note, Remainder remainder) {
         if (noteRepository.isRemainderAtNote(note.getId(), remainder.getId())) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private Boolean isUserLinkedToNote(Note note, User user) {
-        if (!noteRepository.isUserAtNote(note.getId(), user.getId())) {
-            return false;
+        if (noteRepository.isUserAtNote(note.getId(), user.getId())) {
+            return true;
         }
-        return true;
+        return false;
 
     }
 
