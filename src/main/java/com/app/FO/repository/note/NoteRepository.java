@@ -11,18 +11,27 @@ import java.util.List;
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
     //-- get
-    List<Note> getNotesByCreatorId(Long userId);
-    Note getNoteByCreatorIdAndId(Long userId, Long noteId);
-
     List<Note> getNotesByCreatorIdAndNoteTextContains(Long userId, String containText);
+
+
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1")
+    List<Note> getNoteListByUserId(Long userId);
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_user nu on n.note_id = nu.note_id where nu.note_id=?1 and nu.user_id=?2")
+    Note getNoteByIdAndUserId(Long noteId, Long userId);
 
     //todo td
 /*    @Query(value = "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"//todo aici ceva nu ii bine trebuie sa fie user_note table
             ,nativeQuery = true)
     List<Note> getNotesFromUserIdByTagId(Long noteId, Long userId);*/
     @Query(nativeQuery = true, value =
-            "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id inner join note_user nu on n.note_id = nu.note_id where n.user_id=?1 and nt.tag_id=?2")
-    List<Note> getNotesFromUserIdByTagId(Long noteId, Long userId);
+            "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and nt.tag_id=?2")
+    List<Note> getNotesFromUserIdByTagId(Long userId, Long tagId);
 
     @Query(value = "SELECT * FROM note as n inner join topic_note as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.topic_id=?2"
             ,nativeQuery = true)

@@ -216,15 +216,15 @@ public class NoteService {
     }
 
     public List<Note> getAllNotes() {
-        return noteRepository.getNotesByCreatorId(getLogInUser().getId());
+        return noteRepository.getNoteListByUserId(getLogInUser().getId());
     }
 
     public Note getNoteByNoteId(Long noteId) {
-        return noteRepository.getNoteByCreatorIdAndId(getLogInUser().getId(), noteId);
+        return noteRepository.getNoteByIdAndUserId(noteId,getLogInUser().getId());
     }
 
     public List<Note> getNotesByTagId(Long tagId) {
-        return noteRepository.getNotesFromUserIdByTagId(getLogInUser().getId(), tagId);
+        return noteRepository.  getNotesFromUserIdByTagId(getLogInUser().getId(), tagId);
     }
 
     public List<Note> getNotesByTopicId(Long topicId) {
@@ -299,7 +299,6 @@ public class NoteService {
         Note note = getNoteByNoteId(noteId);
         User user=userService.getUserByUserId(userId);
         checkForNote.checkIsNoteAndUserAndAreLiked(note, user);
-//        note.getNoteUserList().remove(user);
         noteUserService.deleteNoteUserFormNoteIdByUserId(noteId,userId);
         return noteRepository.save(note);
     }
