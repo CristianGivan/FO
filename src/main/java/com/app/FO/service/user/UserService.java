@@ -13,6 +13,7 @@ import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,6 +50,23 @@ public class UserService {
 
 
     //-- GET
+
+    public List<User> getUserListByNoteId(Long noteId){
+        /*
+        * Every user has a list of users that with witch can share information
+        * To have access to other users information it has to request the conses
+        * You can have access only for the notes where you are included in the user list
+        * Cam be seen the users that are not in your user list? yes but you cannot see there content only if you are included by them int user list of there content
+        * */
+
+        //todo tbc checks
+
+        return userRepository.getUserListByNoteId(noteId);
+    }
+
+
+
+
     public User getUserByUserId(Long userId){
         return userRepository.getUserByUserId(userId);
     }

@@ -52,6 +52,11 @@ public class UserController {
         return userService.findAllUsersDTO();
     }
 
+    @GetMapping("/getUserListByNoteId/{noteId}")
+    public List<UserDTO> getUserListByNoteId(@PathVariable Long noteId){
+        List<User> userList=userService.getUserListByNoteId(noteId);
+        return userDTOMapper.UsersToUsersDTO(userList);
+    }
 
 
     //-- PostMapping
