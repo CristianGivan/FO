@@ -13,7 +13,6 @@ import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -81,10 +80,10 @@ public class UserService {
     }
 
     public List<UserDTO> findAllUsersDTO(){
-        return userDTOMapper.UsersToUsersDTO(findAllUsers());
+        return userDTOMapper.UserListToUserDTOList(findAllUsers());
     }
     public List<UserFDTO> findAllUsersFDTO(){
-        return userDTOMapper.UsersToUsersFDTO(findAllUsers());
+        return userDTOMapper.UserListToUserFDTOList(findAllUsers());
     }
 
     public User getUserByUsername(String username) {

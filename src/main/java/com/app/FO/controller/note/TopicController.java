@@ -35,7 +35,7 @@ public class TopicController {
     @GetMapping("/getAllTopics")
     public List<TopicDTO> getAllTopics() {
         List<Topic> topics = topicService.getAllTopics();
-        return topicDTOMapper.TopicsToTopicsDTO(topics);
+        return topicDTOMapper.TopicListToTopicDTOList(topics);
     }
 
     //-- PostMapping

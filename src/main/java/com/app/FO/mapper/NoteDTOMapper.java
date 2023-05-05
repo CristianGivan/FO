@@ -38,21 +38,20 @@ public abstract class NoteDTOMapper {
     //    public static NoteDTOMapper INSTANCE = Mappers.getMapper(NoteDTOMapper.class);
     @Mapping(target="noteId", source="id")
     public abstract NoteDTO NoteToNoteDTO(Note note);
-    public abstract List<NoteDTO> NotesToNotesDTO(List<Note> note);
+    public abstract List<NoteDTO> NoteListToNoteDTOList(List<Note> note);
     @Mapping(target="noteId", source="id")
     @Mapping(target = "userDTOList", expression = "java("+
-            "userDTOMapper.UsersToUsersDTO(userService.getUserListByNoteId(noteId))" +
+            "userDTOMapper.UserListToUserDTOList(userService.getUserListByNoteId(noteId))" +
             ")")
     @Mapping(target = "tagDTOList", expression = "java("+
-            "tagService.getListOfTagsDTOByNoteId(noteId)" +
+            "tagDTOMapper.tagListToTagDTOList(tagService.getListOfTagByNoteId(noteId))" +
             ")")
     @Mapping(target = "remainderDTOList", expression = "java("+
             "reminderDTOMapper.RemainderListTORemainderDTOList(remainderService.getRemainderListByNoteId(noteId))" +
             ")")
     @Mapping(target = "topicDTOList", expression = "java("+
-            "topicDTOMapper.TopicsToTopicsDTO(topicService.getTopicsByNote(noteId))" +
+            "topicDTOMapper.TopicListToTopicDTOList(topicService.getTopicsByNote(noteId))" +
             ")")
     public abstract NoteFDTO NoteToNoteFDTO(Note note);
-    public abstract List<NoteFDTO> NotesToNotesFDTO(List<Note> note);
-
+    public abstract List<NoteFDTO> NoteListToNoteFDTOList(List<Note> note);
 }

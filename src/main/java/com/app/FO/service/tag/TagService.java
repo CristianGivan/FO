@@ -59,25 +59,15 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public List<TagDTO> getAllTagsDTO() {
-        return tagDTOMapper.tagsToTagsDTO(getAllTags());
-    }
 
     public List<Tag> getListOfTagByNoteId(Long noteId) {
         return tagRepository.getTagsByNoteId(noteId);
-    }
-
-    public List<TagDTO> getListOfTagsDTOByNoteId(Long noteId) {
-        return tagDTOMapper.tagsToTagsDTO(getListOfTagByNoteId(noteId));
     }
 
     public List<Tag> getTagsByTopicId(Long topicId) {
         return tagRepository.getTagsByTopicId(topicId);
     }
 
-    public List<TagDTO> getTagsDTOByTopicId(Long topicId) {
-        return tagDTOMapper.tagsToTagsDTO(getTagsByTopicId(topicId));
-    }
 
     //-- actual user
 
@@ -85,9 +75,6 @@ public class TagService {
         return tagRepository.getTagsByUserId(userId);
     }
 
-    public List<TagDTO> getTagsDTOByUserId(Long userId) {
-        return tagDTOMapper.tagsToTagsDTO(getTagsByUserId(userId));
-    }
 
     public Tag getTagByTagIdFromUser(Long tagId) {
         return tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(),tagId);
@@ -99,7 +86,7 @@ public class TagService {
     }
 
     public List<TagDTO> getTagsDTOOfLogInUser() {
-        return tagDTOMapper.tagsToTagsDTO(getTagsOfLogInUser());
+        return tagDTOMapper.tagListToTagDTOList(getTagsOfLogInUser());
     }
 
     public Tag getTagByUserIdAndTagName(Long id, String tagName) {

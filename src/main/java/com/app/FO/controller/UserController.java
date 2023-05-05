@@ -1,16 +1,11 @@
 package com.app.FO.controller;
 
 
-import com.app.FO.dto.general.TextDTO;
-import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.user.RegisterDTO;
 import com.app.FO.dto.user.UserDTO;
 import com.app.FO.dto.user.UserFDTO;
-import com.app.FO.dto.user.UserRoleDTO;
 import com.app.FO.mapper.UserDTOMapper;
-import com.app.FO.mapper.UserRoleDTOMapper;
 import com.app.FO.model.user.User;
-import com.app.FO.model.user.UserRole;
 import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +50,7 @@ public class UserController {
     @GetMapping("/getUserListByNoteId/{noteId}")
     public List<UserDTO> getUserListByNoteId(@PathVariable Long noteId){
         List<User> userList=userService.getUserListByNoteId(noteId);
-        return userDTOMapper.UsersToUsersDTO(userList);
+        return userDTOMapper.UserListToUserDTOList(userList);
     }
 
 

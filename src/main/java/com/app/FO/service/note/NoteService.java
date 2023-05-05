@@ -140,6 +140,7 @@ public class NoteService {
 
     public Note postNewNote(String noteText) {
         User user = getLogInUser();
+        checks.checkIsNoteWithNoteText(user,noteText);
         Note note = new Note(noteText, user);
         NoteUser noteUser = new NoteUser(note, user);
         note.getNoteUserList().add(noteUser);
@@ -152,7 +153,7 @@ public class NoteService {
     public Note putTagToNote(Long noteId, Long tagId) {
         Note note = getNoteByNoteId(noteId);
         Tag tag = tagService.getTagByTagIdFromUser(tagId);// to make sure that the tag is accessible form current user
-        checks.isNoteAndTagAndAreNotLinked(note, tag);
+        checks.checkIsNoteAndTagAndAreNotLinked(note, tag);
         NoteTag newNoteTag = new NoteTag(note, tag);
         note.getNoteTagList().add(newNoteTag);
         return noteRepository.save(note);
@@ -162,7 +163,7 @@ public class NoteService {
     public Note putTopicToNote(Long noteId, Long topicId) {
         Note note = getNoteByNoteId(noteId);
         Topic topic = topicService.getTopicByTopicIdFromUser(topicId);
-        checks.isNoteAndTopicAndAreNotLinked(note, topic);
+        checks.checkIsNoteAndTopicAndAreNotLinked(note, topic);
         TopicNote newTopicNote = new TopicNote(topic, note);
         note.getTopicNoteList().add(newTopicNote);
         return noteRepository.save(note);
@@ -180,8 +181,8 @@ public class NoteService {
 
         Note note = getNoteByNoteId(noteId);
         Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
-        checks.isNoteAndRemainderAndAreNotLiked(note, remainder);
-        checks.isNoOtherNoteAtRemainder(remainder); // one remainder hase only one note shall throw exception to don't overwrite.
+        checks.checkIsNoteAndRemainderAndAreNotLiked(note, remainder);
+        checks.checkIsNoOtherNoteAtRemainder(remainder); // one remainder hase only one note shall throw exception to don't overwrite.
         NoteRemainder noteRemainder=new NoteRemainder(note, remainder);
         note.getNoteRemainderList().add(noteRemainder);
         remainder.setNote(note);
@@ -201,7 +202,7 @@ public class NoteService {
 
         Note note = getNoteByNoteId(noteId);
         User user = userService.findUserById(userId);
-        checks.isNoteAndUserAndAreNotLiked(note, user);
+        checks.checkIsNoteAndUserAndAreNotLiked(note, user);
         NoteUser noteUser = new NoteUser(note, user);
         note.getNoteUserList().add(noteUser);
         return noteRepository.save(note);
@@ -214,24 +215,39 @@ public class NoteService {
         return userService.getUserByUsername(userDetails.getUsername());
     }
 
-    public List<Note> getAllNotes() {
-        return noteRepository.getNoteListByUserId(getLogInUser().getId());
+    public List<Note> getNoteList() {
+        List<Note> noteList =noteRepository.getNoteListByUserId(getLogInUser().getId());
+        checks.checkIsNoteList(noteList);
+        return noteList;
     }
 
     public Note getNoteByNoteId(Long noteId) {
-        return noteRepository.getNoteByIdAndUserId(noteId,getLogInUser().getId());
+        Note note = noteRepository.getNoteByIdAndUserId(noteId,getLogInUser().getId());
+        checks.checkIsNote(note);
+        return note;
     }
 
-    public List<Note> getNotesByTagId(Long tagId) {
-        return noteRepository.  getNotesFromUserIdByTagId(getLogInUser().getId(), tagId);
+    public List<Note> getNoteListByTagId(Long tagId) {
+        List<Note> noteList =noteRepository.getNoteListFromUserIdByTagId(getLogInUser().getId(), tagId);
+        checks.checkIsNoteList(noteList);
+        return noteList;
+    }
+    public List<Note> getNoteListByRemainderId(Long remainderId) {
+        List<Note> noteList =noteRepository.getNoteListFromUserIdByRemainderId(getLogInUser().getId(), remainderId);
+        checks.checkIsNoteList(noteList);
+        return noteList;
     }
 
-    public List<Note> getNotesByTopicId(Long topicId) {
-        return noteRepository.getNotesFromUserIdByTopicId(getLogInUser().getId(), topicId);
+    public List<Note> getNoteListByTopicId(Long topicId) {
+        List<Note> noteList =noteRepository.getNoteListFromUserIdByTopicId(getLogInUser().getId(), topicId);
+        checks.checkIsNoteList(noteList);
+        return noteList;
     }
 
-    public List<Note> getNotesByNoteThatContainsText(String containsText) {
-        return noteRepository.getNotesByCreatorIdAndNoteTextContains(getLogInUser().getId(), containsText);
+    public List<Note> getNoteListByNoteThatContainsText(String containsText) {
+        List<Note> noteList =noteRepository.getNotesByCreatorIdAndNoteTextContains(getLogInUser().getId(), containsText);
+        checks.checkIsNoteList(noteList);
+        return noteList;
     }
 
     //--Delete
@@ -256,7 +272,7 @@ public class NoteService {
     public Note deleteTagFromNote(Long noteId, Long tagId) {
         Note note = getNoteByNoteId(noteId);
         Tag tag = tagService.getTagByTagIdFromUser(tagId);
-        checks.isNoteAndTagAndAreLinked(note, tag);
+        checks.checkIsNoteAndTagAndAreLinked(note, tag);
         noteTagService.deleteNoteTagById(noteId,tagId);
         return noteRepository.save(note);
     }
@@ -264,7 +280,7 @@ public class NoteService {
     public Note deleteTopicFromNote(Long noteId, Long topicId) {
         Note note = getNoteByNoteId(noteId);
         Topic topic = topicService.getTopicByTopicIdFromUser(topicId);
-        checks.isNoteAndTopicAndAreLinked(note, topic);
+        checks.checkIsNoteAndTopicAndAreLinked(note, topic);
         topicNoteService.deleteTopicNoteById(topicId, noteId);
         return noteRepository.save(note);
     }
@@ -280,7 +296,7 @@ public class NoteService {
          * 4. Save param1, no needed to save param2 because there is persist*/
         Note note = getNoteByNoteId(noteId);
         Remainder remainder = remainderService.getRemainderByRemainderIdFromUser(remainderId);
-        checks.isNoteAndRemainderAndAreLiked(note, remainder);
+        checks.checkIsNoteAndRemainderAndAreLiked(note, remainder);
         noteRemainderService.deleteNoteRemainderFormNoteIdByRemainderId(noteId,remainderId);
         remainder.setNote(null);
         return noteRepository.save(note);
@@ -297,7 +313,7 @@ public class NoteService {
          * 4. Save param1, no needed to save param2 because there is persist*/
         Note note = getNoteByNoteId(noteId);
         User user=userService.getUserByUserId(userId);
-        checks.isNoteAndUserAndAreLiked(note, user);
+        checks.checkIsNoteAndUserAndAreLiked(note, user);
         noteUserService.deleteNoteUserFormNoteIdByUserId(noteId,userId);
         return noteRepository.save(note);
     }

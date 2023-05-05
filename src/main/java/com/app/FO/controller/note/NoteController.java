@@ -1,6 +1,5 @@
 package com.app.FO.controller.note;
 
-import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.exceptions.NoteNotFoundException;
@@ -109,8 +108,8 @@ public class NoteController {
     //-- GetMapping
     @GetMapping("/getAllNotes")
     public List<NoteFDTO> getAllNotes() {
-        List<Note> notes = noteService.getAllNotes();
-        return noteDTOMapper.NotesToNotesFDTO(notes);
+        List<Note> notes = noteService.getNoteList();
+        return noteDTOMapper.NoteListToNoteFDTOList(notes);
     }
 
     @GetMapping("/getNoteByNoteId/{noteId}")
@@ -124,29 +123,20 @@ public class NoteController {
 
     @GetMapping("/getNotesByTagId/{tagId}")
     public List<NoteFDTO> getNotesByTagId(@PathVariable Long tagId) {
-        List<Note> notes = noteService.getNotesByTagId(tagId);
-        if (notes == null) {
-            throw new NoteNotFoundException("The note was not found");
-        }
-        return noteDTOMapper.NotesToNotesFDTO(notes);
+        List<Note> notes = noteService.getNoteListByTagId(tagId);
+        return noteDTOMapper.NoteListToNoteFDTOList(notes);
     }
 
-    @GetMapping("/getNotesByTopicId/{tagId}")
-    public List<NoteFDTO> getNotesByTopicId(@PathVariable Long tagId) {
-        List<Note> notes = noteService.getNotesByTopicId(tagId);
-        if (notes == null) {
-            throw new NoteNotFoundException("The note was not found");
-        }
-        return noteDTOMapper.NotesToNotesFDTO(notes);
+    @GetMapping("/getNotesByTopicId/{topicId}")
+    public List<NoteFDTO> getNotesByTopicId(@PathVariable Long topicId) {
+        List<Note> notes = noteService.getNoteListByTopicId(topicId);
+        return noteDTOMapper.NoteListToNoteFDTOList(notes);
     }
 
     @GetMapping("/getNotesByNoteThatContainsText/{containsText}")
     public List<NoteFDTO> getNotesByNoteThatContainsText(@PathVariable String containsText) {
-        List<Note> notes = noteService.getNotesByNoteThatContainsText(containsText);
-        if (notes == null) {
-            throw new NoteNotFoundException("The note was not found");
-        }
-        return noteDTOMapper.NotesToNotesFDTO(notes);
+        List<Note> notes = noteService.getNoteListByNoteThatContainsText(containsText);
+        return noteDTOMapper.NoteListToNoteFDTOList(notes);
     }
 
 

@@ -46,17 +46,20 @@ public class TagController {
 
     @GetMapping("/getAllTags")
     public List<TagDTO> getAllTagsDTO() {
-        return tagService.getAllTagsDTO();
+        List<Tag> tagList = tagService.getAllTags();
+        return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 
     @GetMapping("/getTagByNoteId/{noteId}")
     public List<TagDTO> getTagByNoteId(@PathVariable Long noteId) {
-        return tagService.getListOfTagsDTOByNoteId(noteId);
+        List<Tag> tagList =tagService.getListOfTagByNoteId(noteId);
+        return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 
     @GetMapping("/getTagByTopicId/{topicId}")
     public List<TagDTO> getTagByTopicId(@PathVariable Long topicId) {
-        return tagService.getTagsDTOByTopicId(topicId);
+        List<Tag> tagList =tagService.getTagsByTopicId(topicId);
+        return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 
     @GetMapping("/getTagOfLogInUser")

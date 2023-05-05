@@ -10,6 +10,8 @@ import com.app.FO.repository.note.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class Checks {
     private NoteRepository noteRepository;
@@ -23,14 +25,26 @@ public class Checks {
             throw new NoteNotFoundException("Note not found!");
         }
     }
-    public void isNoteWithTheSame(Note note){
+
+    public void checkIsNoteList(List<Note> noteList){
+        if(noteList.size()==0){
+            throw new NoteNotFoundException("No Note found!");
+        }
+    }
+
+    public void checkIsNoteWithTheSame(Note note){
         if(!isNote(note)){
             throw new NoteNotFoundException("Note not found!");
         }
     }
 
-
-    public void isNoteAndTagAndAreLinked(Note note, Tag tag) {
+    public void checkIsNoteWithNoteText(User user, String noteText){
+        Note existingNote =noteRepository.getNoteFromUserIdByNoteText(user.getId(),noteText);
+        if (existingNote!=null){
+            throw new NoteAlreadyExistException("Note with this text already exist");
+        }
+    }
+    public void checkIsNoteAndTagAndAreLinked(Note note, Tag tag) {
         if(!isNote(note)){
             throw new NoteNotFoundException("Note not found!");
         }else if (!isTag(tag)) {
@@ -40,7 +54,7 @@ public class Checks {
         }
     }
 
-    public void isNoteAndTagAndAreNotLinked(Note note, Tag tag) {
+    public void checkIsNoteAndTagAndAreNotLinked(Note note, Tag tag) {
         if(!isNote(note)){
             throw new NoteNotFoundException("Note not found!");
         }else if (!isTag(tag)) {
@@ -50,7 +64,7 @@ public class Checks {
         }
     }
 
-    public void isNoteAndTopicAndAreLinked(Note note, Topic topic) {
+    public void checkIsNoteAndTopicAndAreLinked(Note note, Topic topic) {
         if(!isNote(note)){
             throw new NoteNotFoundException("Note not found!");
         }else if (!isTopic(topic)) {
@@ -60,7 +74,7 @@ public class Checks {
         }
     }
 
-    public void isNoteAndTopicAndAreNotLinked(Note note, Topic topic) {
+    public void checkIsNoteAndTopicAndAreNotLinked(Note note, Topic topic) {
         if(!isNote(note)){
             throw new NoteNotFoundException("Note not found!");
         }else if (!isTopic(topic)) {
@@ -70,7 +84,7 @@ public class Checks {
         }
     }
 
-    public void isNoteAndRemainderAndAreLiked(Note note, Remainder remainder) {
+    public void checkIsNoteAndRemainderAndAreLiked(Note note, Remainder remainder) {
         if (!isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
         } else if (!isRemainder(remainder)) {
@@ -80,7 +94,7 @@ public class Checks {
         }
     }
 
-    public void isNoteAndRemainderAndAreNotLiked(Note note, Remainder remainder) {
+    public void checkIsNoteAndRemainderAndAreNotLiked(Note note, Remainder remainder) {
         if (!isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
         } else if (!isRemainder(remainder)) {
@@ -90,12 +104,12 @@ public class Checks {
         }
     }
 
-    public void isNoOtherNoteAtRemainder(Remainder remainder) {
+    public void checkIsNoOtherNoteAtRemainder(Remainder remainder) {
         if (remainder.getNote() != null) {
             throw new RemainderAlreadyExistException("Another note already exist, do you want to replace it?");
         }
     }
-    public void isNoteAndUserAndAreLiked(Note note, User user) {
+    public void checkIsNoteAndUserAndAreLiked(Note note, User user) {
         if(!isNote(note)){
             throw new NoteNotFoundException("Note not found!");
         }else if(!isUser(user)){
@@ -104,7 +118,7 @@ public class Checks {
             throw new UserNotFoundException("User is not linked to note");
         }
     }
-    public void isNoteAndUserAndAreNotLiked(Note note, User user) {
+    public void checkIsNoteAndUserAndAreNotLiked(Note note, User user) {
         if(!isNote(note)){
             throw new NoteNotFoundException("Note not found!");
         }else if(!isUser(user)){

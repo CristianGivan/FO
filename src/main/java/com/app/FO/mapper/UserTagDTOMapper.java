@@ -16,6 +16,6 @@ public abstract class UserTagDTOMapper {
             "userTag.getCreatedDate().toString())")
     public abstract UserTagDTO UserTagToUserTagDTO(UserTag userTag);
 
-    public abstract List<UserTagDTO> UserTagsToUserTagsDTO(List<UserTag> userTag);
+    public abstract List<UserTagDTO> UserTagListToUserTagDTOList(List<UserTag> userTag);
 
 }
