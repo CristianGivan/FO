@@ -1,6 +1,6 @@
 package com.app.FO.dto.note;
 
-import com.app.FO.dto.remainder.RemainderDTO;
+import com.app.FO.dto.reminder.ReminderDTO;
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.topic.TopicDTO;
 import com.app.FO.dto.user.UserDTO;
@@ -17,10 +17,10 @@ public class NoteFDTO {
     private List<UserDTO> userDTOList;
     private List<TagDTO> tagDTOList;
     private List<TopicDTO> topicDTOList;
-    private List<RemainderDTO> remainderDTOList;
+    private List<ReminderDTO> reminderDTOList;
     private List<NoteHistoryDTO> noteHistoryDTOList;
 
-    public NoteFDTO(Long noteId, String noteText, LocalDateTime createdDateTime, UserDTO creator, List<UserDTO> userDTOList, List<TagDTO> tagDTOList, List<TopicDTO> topicDTOList, List<RemainderDTO> remainderDTOList, List<NoteHistoryDTO> noteHistoryDTOList) {
+    public NoteFDTO(Long noteId, String noteText, LocalDateTime createdDateTime, UserDTO creator, List<UserDTO> userDTOList, List<TagDTO> tagDTOList, List<TopicDTO> topicDTOList, List<ReminderDTO> reminderDTOList, List<NoteHistoryDTO> noteHistoryDTOList) {
         this.noteId = noteId;
         this.noteText = noteText;
         this.createdDateTime = createdDateTime;
@@ -28,7 +28,7 @@ public class NoteFDTO {
         this.userDTOList = userDTOList;
         this.tagDTOList = tagDTOList;
         this.topicDTOList = topicDTOList;
-        this.remainderDTOList = remainderDTOList;
+        this.reminderDTOList = reminderDTOList;
         this.noteHistoryDTOList = noteHistoryDTOList;
     }
 
@@ -42,7 +42,7 @@ public class NoteFDTO {
                 ", userDTOList=" + userDTOList +
                 ", tagDTOList=" + tagDTOList +
                 ", topicDTOList=" + topicDTOList +
-                ", remainderDTOList=" + remainderDTOList +
+                ", reminderDTOList=" + reminderDTOList +
                 ", noteHistoryDTOList=" + noteHistoryDTOList +
                 '}';
     }
@@ -103,12 +103,12 @@ public class NoteFDTO {
         this.topicDTOList = topicDTOList;
     }
 
-    public List<RemainderDTO> getRemainderDTOList() {
-        return remainderDTOList;
+    public List<ReminderDTO> getRemainderDTOList() {
+        return reminderDTOList;
     }
 
-    public void setRemainderDTOList(List<RemainderDTO> remainderDTOList) {
-        this.remainderDTOList = remainderDTOList;
+    public void setRemainderDTOList(List<ReminderDTO> reminderDTOList) {
+        this.reminderDTOList = reminderDTOList;
     }
 
     public List<NoteHistoryDTO> getNoteHistoryDTOList() {

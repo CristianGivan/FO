@@ -2,7 +2,7 @@ package com.app.FO.util;
 
 import com.app.FO.exceptions.*;
 import com.app.FO.model.note.Note;
-import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class Checks {
+public class ChecksNote {
     private NoteRepository noteRepository;
 
     @Autowired
-    public Checks(NoteRepository noteRepository) {
+    public ChecksNote(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
     public void checkIsNote(Note note){
@@ -38,7 +38,7 @@ public class Checks {
         }
     }
 
-    public void checkIsNoteWithNoteText(User user, String noteText){
+    public void checkIsNoteWithNoteText(String noteText, User user){
         Note existingNote =noteRepository.getNoteFromUserIdByNoteText(user.getId(),noteText);
         if (existingNote!=null){
             throw new NoteAlreadyExistException("Note with this text already exist");
@@ -84,29 +84,29 @@ public class Checks {
         }
     }
 
-    public void checkIsNoteAndRemainderAndAreLiked(Note note, Remainder remainder) {
+    public void checkIsNoteAndReminderAndAreLiked(Note note, Reminder reminder) {
         if (!isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!isRemainder(remainder)) {
-            throw new RemainderNotFoundException("Remainder not found!");
-        }else if (!NoteHasRemainder(note, remainder)) {
-            throw new RemainderNotFoundException("Remainder not linked to note!");
+        } else if (!isReminder(reminder)) {
+            throw new ReminderNotFoundException("Reminder not found!");
+        }else if (!NoteHasReminder(note, reminder)) {
+            throw new ReminderNotFoundException("Reminder not linked to note!");
         }
     }
 
-    public void checkIsNoteAndRemainderAndAreNotLiked(Note note, Remainder remainder) {
+    public void checkIsNoteAndReminderAndAreNotLiked(Note note, Reminder reminder) {
         if (!isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!isRemainder(remainder)) {
-            throw new RemainderNotFoundException("Remainder not found!");
-        }else if (NoteHasRemainder(note, remainder)) {
-            throw new RemainderAlreadyExistException("Remainder already exist");
+        } else if (!isReminder(reminder)) {
+            throw new ReminderNotFoundException("Reminder not found!");
+        }else if (NoteHasReminder(note, reminder)) {
+            throw new ReminderAlreadyExistException("Reminder already exist");
         }
     }
 
-    public void checkIsNoOtherNoteAtRemainder(Remainder remainder) {
-        if (remainder.getNote() != null) {
-            throw new RemainderAlreadyExistException("Another note already exist, do you want to replace it?");
+    public void checkIsNoOtherNoteAtReminder(Reminder reminder) {
+        if (reminder.getNote() != null) {
+            throw new ReminderAlreadyExistException("Another note already exist, do you want to replace it?");
         }
     }
     public void checkIsNoteAndUserAndAreLiked(Note note, User user) {
@@ -149,8 +149,8 @@ public class Checks {
         return true;
     }
 
-    private Boolean isRemainder(Remainder remainder) {
-        if (remainder == null) {
+    private Boolean isReminder(Reminder reminder) {
+        if (reminder == null) {
             return false;
         }
         return true;
@@ -177,8 +177,8 @@ public class Checks {
         return false;
     }
 
-    private Boolean NoteHasRemainder(Note note, Remainder remainder) {
-        if (noteRepository.NoteIdHasRemainderId(note.getId(), remainder.getId())) {
+    private Boolean NoteHasReminder(Note note, Reminder reminder) {
+        if (noteRepository.NoteIdHasReminderId(note.getId(), reminder.getId())) {
             return true;
         }
         return false;

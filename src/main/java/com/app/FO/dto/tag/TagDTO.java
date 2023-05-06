@@ -1,25 +1,39 @@
 package com.app.FO.dto.tag;
 
+import com.app.FO.dto.user.UserDTO;
+
 import java.time.LocalDateTime;
 
 public class TagDTO {
     private Long tagId;
-    private String tag;
-    private LocalDateTime createdDate;
+    private String tagText;
+    private LocalDateTime createdDateTime;
+    private UserDTO creator;
+
 
     @Override
     public String toString() {
         return "TagDTO{" +
                 "tagId=" + tagId +
-                ", tag='" + tag + '\'' +
-                ", createdDate=" + createdDate +
+                ", tagText='" + tagText + '\'' +
+                ", createdDateTime=" + createdDateTime +
+                ", creator=" + creator.getUserId() +
                 '}';
     }
 
-    public TagDTO(Long tagId, String tag, LocalDateTime createdDate) {
+    public TagDTO(Long tagId, String tagText, LocalDateTime createdDateTime, UserDTO creator) {
         this.tagId = tagId;
-        this.tag = tag;
-        this.createdDate = createdDate;
+        this.tagText = tagText;
+        this.createdDateTime = createdDateTime;
+        this.creator=creator;
+    }
+
+    public UserDTO getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserDTO creator) {
+        this.creator = creator;
     }
 
     public Long getTagId() {
@@ -30,19 +44,19 @@ public class TagDTO {
         this.tagId = tagId;
     }
 
-    public String getTag() {
-        return tag;
+    public String getTagText() {
+        return tagText;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTagText(String tagText) {
+        this.tagText = tagText;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 }

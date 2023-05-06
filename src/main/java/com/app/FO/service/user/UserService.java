@@ -63,6 +63,10 @@ public class UserService {
         return userRepository.getUserListByNoteId(noteId);
     }
 
+    public List<User> getUserListByTagId(Long tagId){
+        return userRepository.getUserListByTagId(tagId);
+    }
+
 
 
 

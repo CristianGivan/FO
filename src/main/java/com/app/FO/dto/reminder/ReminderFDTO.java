@@ -1,4 +1,4 @@
-package com.app.FO.dto.remainder;
+package com.app.FO.dto.reminder;
 
 import com.app.FO.dto.event.EventDTO;
 import com.app.FO.dto.note.NoteDTO;
@@ -10,13 +10,13 @@ import com.app.FO.dto.user.UserDTO;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class RemainderFDTO {
+public class ReminderFDTO {
     private Long id;
-    private String remainder;
+    private String reminder;
     private LocalDateTime createdDateTime;
-    private LocalDateTime remainderDateTime;
+    private LocalDateTime reminderDateTime;
     private List<SnoozeDTO> snoozeDTOList;
-    private List<RemainderDTO> remainderDTOList;
+    private List<ReminderDTO> reminderDTOList;
     private NoteDTO note;
     private TaskDTO task;
     private TopicDTO topic;
@@ -25,13 +25,13 @@ public class RemainderFDTO {
 
     @Override
     public String toString() {
-        return "RemainderFDTO{" +
+        return "ReminderFDTO{" +
                 "id=" + id +
-                ", remainder='" + remainder + '\'' +
+                ", reminder='" + reminder + '\'' +
                 ", createdDateTime=" + createdDateTime +
-                ", remainderDateTime=" + remainderDateTime +
+                ", reminderDateTime=" + reminderDateTime +
                 ", snoozes=" + snoozeDTOList +
-                ", repeatedReminders=" + remainderDTOList +
+                ", repeatedReminders=" + reminderDTOList +
                 ", note=" + note +
                 ", task=" + task +
                 ", topics=" + topic +
@@ -40,16 +40,16 @@ public class RemainderFDTO {
                 '}';
     }
 
-    public RemainderFDTO(Long id, String remainder, LocalDateTime createdDateTime,
-                         LocalDateTime remainderDateTime, List<SnoozeDTO> snoozeDTOList,
-                         List<RemainderDTO> remainderDTOList, NoteDTO note, TaskDTO task,
-                         TopicDTO topic, UserDTO user, EventDTO event) {
+    public ReminderFDTO(Long id, String reminder, LocalDateTime createdDateTime,
+                        LocalDateTime reminderDateTime, List<SnoozeDTO> snoozeDTOList,
+                        List<ReminderDTO> reminderDTOList, NoteDTO note, TaskDTO task,
+                        TopicDTO topic, UserDTO user, EventDTO event) {
         this.id = id;
-        this.remainder = remainder;
+        this.reminder = reminder;
         this.createdDateTime = createdDateTime;
-        this.remainderDateTime = remainderDateTime;
+        this.reminderDateTime = reminderDateTime;
         this.snoozeDTOList = snoozeDTOList;
-        this.remainderDTOList = remainderDTOList;
+        this.reminderDTOList = reminderDTOList;
         this.note = note;
         this.task = task;
         this.topic = topic;
@@ -65,12 +65,12 @@ public class RemainderFDTO {
         this.id = id;
     }
 
-    public String getRemainder() {
-        return remainder;
+    public String getReminder() {
+        return reminder;
     }
 
-    public void setRemainder(String remainder) {
-        this.remainder = remainder;
+    public void setReminder(String reminder) {
+        this.reminder = reminder;
     }
 
     public LocalDateTime getCreatedDateTime() {
@@ -81,12 +81,12 @@ public class RemainderFDTO {
         this.createdDateTime = createdDateTime;
     }
 
-    public LocalDateTime getRemainderDateTime() {
-        return remainderDateTime;
+    public LocalDateTime getReminderDateTime() {
+        return reminderDateTime;
     }
 
-    public void setRemainderDateTime(LocalDateTime remainderDateTime) {
-        this.remainderDateTime = remainderDateTime;
+    public void setReminderDateTime(LocalDateTime reminderDateTime) {
+        this.reminderDateTime = reminderDateTime;
     }
 
     public List<SnoozeDTO> getSnoozeDTOList() {
@@ -97,12 +97,12 @@ public class RemainderFDTO {
         this.snoozeDTOList = snoozeDTOList;
     }
 
-    public List<RemainderDTO> getRemainderDTOList() {
-        return remainderDTOList;
+    public List<ReminderDTO> getReminderDTOList() {
+        return reminderDTOList;
     }
 
-    public void setRemainderDTOList(List<RemainderDTO> remainderDTOList) {
-        this.remainderDTOList = remainderDTOList;
+    public void setReminderDTOList(List<ReminderDTO> reminderDTOList) {
+        this.reminderDTOList = reminderDTOList;
     }
 
     public NoteDTO getNote() {

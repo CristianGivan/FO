@@ -29,8 +29,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> getNoteListFromUserIdByTagId(Long userId, Long tagId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM note as n inner join note_remainder as nr on n.note_id = nr.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and nr.remainder_id=?2")
-    List<Note> getNoteListFromUserIdByRemainderId(Long noteId, Long remainderId);
+            "SELECT * FROM note as n inner join note_reminder as nr on n.note_id = nr.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and nr.reminder_id=?2")
+    List<Note> getNoteListFromUserIdByReminderId(Long noteId, Long reminderId);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM note as n inner join topic_note as tn on n.note_id = tn.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and tn.topic_id=?2")
@@ -45,8 +45,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Boolean NoteIdHasTopicId(Long noteId, Long topicId);
 
     @Query(nativeQuery = true, value =
-            "SELECT IF(EXISTS(SELECT * FROM note_remainder as nr where nr.note_id = ?1 and nr.remainder_id = ?2), 'True', 'False')")
-    Boolean NoteIdHasRemainderId(Long noteId, Long remainderId);
+            "SELECT IF(EXISTS(SELECT * FROM note_reminder as nr where nr.note_id = ?1 and nr.reminder_id = ?2), 'True', 'False')")
+    Boolean NoteIdHasReminderId(Long noteId, Long reminderId);
 
     @Query(nativeQuery = true, value =
             "SELECT IF(EXISTS(SELECT * FROM note_user as nu where nu.note_id = ?1 and nu.user_id = ?2), 'True', 'False')")

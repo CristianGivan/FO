@@ -1,6 +1,5 @@
 package com.app.FO.model.note;
 
-import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.topic.TopicNote;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,7 +39,7 @@ public class Note {
     private List<NoteTag> noteTagList;
 
     @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<NoteRemainder> noteRemainderList;
+    private List<NoteReminder> noteReminderList;
 
     @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteHistory> noteHistoryList;
@@ -61,7 +60,7 @@ public class Note {
                 ", noteUserList=" + noteUserList +
                 ", noteTagList=" + noteTagList +
                 ", topicNoteList=" + topicNoteList +
-                ", noteRemainderList=" + noteRemainderList +
+                ", noteReminderList=" + noteReminderList +
                 ", noteHistoryList=" + noteHistoryList +
                 '}';
     }
@@ -101,15 +100,15 @@ public class Note {
     }
 
 
-    public List<NoteRemainder> getNoteRemainderList() {
-        if (noteRemainderList == null) {
-            noteRemainderList = new ArrayList<>();
+    public List<NoteReminder> getNoteRemainderList() {
+        if (noteReminderList == null) {
+            noteReminderList = new ArrayList<>();
         }
-        return noteRemainderList;
+        return noteReminderList;
     }
 
-    public void setNoteRemainderList(List<NoteRemainder> noteRemainderList) {
-        this.noteRemainderList = noteRemainderList;
+    public void setNoteRemainderList(List<NoteReminder> noteReminderList) {
+        this.noteReminderList = noteReminderList;
     }
 
     public String getNoteText() {

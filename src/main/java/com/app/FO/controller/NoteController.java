@@ -1,4 +1,4 @@
-package com.app.FO.controller.note;
+package com.app.FO.controller;
 
 import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.dto.general.TextDTO;

@@ -1,35 +1,35 @@
 package com.app.FO.dto.snooze;
 
-import com.app.FO.dto.remainder.RemainderDTO;
+import com.app.FO.dto.reminder.ReminderDTO;
 
 import java.time.LocalTime;
 
 public class SnoozeDTO {
-    private RemainderDTO remainder;
+    private ReminderDTO reminder;
     private LocalTime snoozeTime;
     private Integer snoozeCount;
 
     @Override
     public String toString() {
         return "SnoozeDTO{" +
-                "remainder=" + remainder +
+                "reminder=" + reminder +
                 ", snoozeTime=" + snoozeTime +
                 ", snoozeCount=" + snoozeCount +
                 '}';
     }
 
-    public SnoozeDTO(RemainderDTO remainder, LocalTime snoozeTime, Integer snoozeCount) {
-        this.remainder = remainder;
+    public SnoozeDTO(ReminderDTO reminder, LocalTime snoozeTime, Integer snoozeCount) {
+        this.reminder = reminder;
         this.snoozeTime = snoozeTime;
         this.snoozeCount = snoozeCount;
     }
 
-    public RemainderDTO getRemainder() {
-        return remainder;
+    public ReminderDTO getReminder() {
+        return reminder;
     }
 
-    public void setRemainder(RemainderDTO remainder) {
-        this.remainder = remainder;
+    public void setReminder(ReminderDTO reminder) {
+        this.reminder = reminder;
     }
 
     public LocalTime getSnoozeTime() {

@@ -1,4 +1,4 @@
-package com.app.FO.controller.note;
+package com.app.FO.controller;
 
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.dto.topic.TopicDTO;
@@ -28,13 +28,18 @@ public class TopicController {
 
     @GetMapping("/getTopicById/{topicId}")
     public TopicDTO getTopicById(@PathVariable Long topicId) {
-        Topic topic = topicService.getTopicById(topicId);
+        Topic topic = topicService.getTopicByTopicId(topicId);
         return topicDTOMapper.TopicToTopicDTO(topic);
     }
 
     @GetMapping("/getAllTopics")
     public List<TopicDTO> getAllTopics() {
         List<Topic> topics = topicService.getAllTopics();
+        return topicDTOMapper.TopicListToTopicDTOList(topics);
+    }
+    @GetMapping("/getTopicListByTagId/{tagId}")
+    public List<TopicDTO> getTopicListByTagId(@PathVariable Long tagId) {
+        List<Topic> topics = topicService.getTopicsByTagId(tagId);
         return topicDTOMapper.TopicListToTopicDTOList(topics);
     }
 

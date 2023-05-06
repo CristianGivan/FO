@@ -17,9 +17,9 @@ public class TopicUserService {
 
     //-- GET
 
-//    public UserTag findUserTagById(Long userTagId){
+//    public TagUser findUserTagById(Long userTagId){
 //        return userTagRepository.findById(userTagId).orElseThrow(
-//                ()->new UserTagNotFoundException("UserTag not found"));
+//                ()->new UserTagNotFoundException("TagUser not found"));
 
 
     //-- Post
@@ -37,5 +37,5 @@ public class TopicUserService {
     //-- Other
 
 
-    //-- Checks
+    //-- ChecksNote
 }

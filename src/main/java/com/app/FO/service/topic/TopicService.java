@@ -1,15 +1,10 @@
 package com.app.FO.service.topic;
 
-import com.app.FO.exceptions.TopicNotFoundException;
-import com.app.FO.model.note.Note;
 import com.app.FO.model.topic.Topic;
-import com.app.FO.model.user.User;
 import com.app.FO.model.topic.TopicUser;
 import com.app.FO.repository.topic.TopicRepository;
 import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,18 +25,16 @@ public class TopicService {
     }
 
     //-- GET
-    //todo tnu can be used usertService.getLogInUser
-    public User getLogInUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        return userService.getUserByUsername(userDetails.getUsername());
+    public List<Topic> getAllTopics(){
+        //todo tbc with from user
+        return topicRepository.findAll();
     }
 
     public List<Topic> getTopicsByTagId(Long tagId){
-        return topicRepository.getTopicsByTagId(tagId);
+        return topicRepository.getTopicListByTagId(tagId);
     }
 
-    public Topic getTopicByTopicIdFromUser(Long topicId){
+    public Topic getTopicByTopicId(Long topicId){
        return topicRepository.getTopicFromUserByTopicId(userService.getLogInUser().getId(),topicId);
     }
 
@@ -70,7 +63,7 @@ public class TopicService {
 
 
 
-    //-- Checks
+    //-- ChecksNote
 
 
 
@@ -81,14 +74,8 @@ public class TopicService {
         return topicRepository.save(topic);
     }
 
-    public List<Topic> getAllTopics(){
-        return topicRepository.findAll();
-    }
 
-    public Topic getTopicById(Long topicId){
-        return topicRepository.findById(topicId).orElseThrow(
-                ()->new TopicNotFoundException("Topic not found"));
-    }
+
 
 
 

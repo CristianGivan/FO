@@ -8,7 +8,9 @@ import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenses.ExpensesUser;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.note.NoteUser;
-import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.reminder.Reminder;
+import com.app.FO.model.tag.Tag;
+import com.app.FO.model.tag.TagUser;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
 import com.app.FO.model.tasks.Tasks;
@@ -57,12 +59,14 @@ public class User {
 
     @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
     private List<Note> noteList;
+    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
+    private List<Tag> tagList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<NoteHistory> noteHistoryList;
 
     @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
-    private List<Remainder> remainderList;
+    private List<Reminder> reminderList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Task> taskList;
@@ -96,7 +100,7 @@ public class User {
     private List<Transaction> transactionList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<UserTag> userTagList;
+    private List<TagUser> tagUserList;
 
     @OneToMany(mappedBy = "user")
     private List<TopicUser> topicUserList;
@@ -107,6 +111,7 @@ public class User {
     public User() {
     }
 
+    //todo tbc ar trebui sa vad gaca nu cuva de aici mi se trage err de to string si anume sapun la note tag etc .getId
     @Override
     public String toString() {
         return "User{" +
@@ -118,8 +123,9 @@ public class User {
                 ", topicList=" + topicList +
                 ", topicHistoryList=" + topicHistoryList +
                 ", noteList=" + noteList +
+                ", tagList=" + tagList +
                 ", noteHistoryList=" + noteHistoryList +
-                ", remainderList=" + remainderList +
+                ", reminderList=" + reminderList +
                 ", taskList=" + taskList +
                 ", taskHistoryList=" + taskHistoryList +
                 ", tasksList=" + tasksList +
@@ -130,7 +136,7 @@ public class User {
                 ", accountList=" + accountList +
                 ", accountUserList=" + accountUserList +
                 ", transactionList=" + transactionList +
-                ", userTagList=" + userTagList +
+                ", tagUserList=" + tagUserList +
                 ", topicUserList=" + topicUserList +
                 ", noteUserList=" + noteUserList +
                 '}';
@@ -261,12 +267,12 @@ public class User {
         this.email = email;
     }
 
-    public List<Remainder> getRemainderList() {
-        return remainderList;
+    public List<Reminder> getRemainderList() {
+        return reminderList;
     }
 
-    public void setRemainderList(List<Remainder> remainders) {
-        this.remainderList = remainders;
+    public void setRemainderList(List<Reminder> reminders) {
+        this.reminderList = reminders;
     }
 
     public List<Task> getTaskList() {
@@ -349,14 +355,14 @@ public class User {
         this.transactionList = transactions;
     }
 
-    public List<UserTag> getUserTagList() {
-        if (userTagList ==null){
-            userTagList = new ArrayList<>();
+    public List<TagUser> getUserTagList() {
+        if (tagUserList ==null){
+            tagUserList = new ArrayList<>();
         }
-        return userTagList;
+        return tagUserList;
     }
 
-    public void setUserTagList(List<UserTag> userTags) {
-        this.userTagList = userTags;
+    public void setUserTagList(List<TagUser> tagUsers) {
+        this.tagUserList = tagUsers;
     }
 }

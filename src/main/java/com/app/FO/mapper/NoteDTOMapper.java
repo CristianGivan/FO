@@ -3,7 +3,7 @@ package com.app.FO.mapper;
 import com.app.FO.dto.note.NoteDTO;
 import com.app.FO.dto.note.NoteFDTO;
 import com.app.FO.model.note.Note;
-import com.app.FO.service.remainder.RemainderService;
+import com.app.FO.service.reminder.ReminderService;
 import com.app.FO.service.tag.TagService;
 import com.app.FO.service.topic.TopicService;
 import com.app.FO.service.user.UserService;
@@ -30,7 +30,7 @@ public abstract class NoteDTOMapper {
     protected TopicDTOMapper topicDTOMapper;
 
     @Autowired
-    protected RemainderService remainderService;
+    protected ReminderService reminderService;
     @Autowired
     protected ReminderDTOMapper reminderDTOMapper;
 
@@ -47,7 +47,7 @@ public abstract class NoteDTOMapper {
             "tagDTOMapper.tagListToTagDTOList(tagService.getListOfTagByNoteId(noteId))" +
             ")")
     @Mapping(target = "remainderDTOList", expression = "java("+
-            "reminderDTOMapper.RemainderListTORemainderDTOList(remainderService.getRemainderListByNoteId(noteId))" +
+            "reminderDTOMapper.ReminderListTOReminderDTOList(reminderService.getReminderListByNoteId(noteId))" +
             ")")
     @Mapping(target = "topicDTOList", expression = "java("+
             "topicDTOMapper.TopicListToTopicDTOList(topicService.getTopicsByNote(noteId))" +

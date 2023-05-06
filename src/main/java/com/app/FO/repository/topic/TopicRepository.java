@@ -10,12 +10,12 @@ import java.util.List;
 @Repository
 public interface TopicRepository extends JpaRepository<Topic,Long> {
 
-    @Query("SELECT t from Topic as t inner join TopicNote tn on t.id=tn.topic.id " +
-            "where tn.note.id=?1")
+    @Query(nativeQuery = true, value =
+            "SELECT * from Topic as t inner join topic_note tn on t.topic_id=tn.topic_id where tn.note_id=?1")
     List<Topic> getTopicsByNoteId(Long noteId);
-    @Query("SELECT t from Topic as t inner join TopicTag tt on t.id=tt.topic.id " +
-            "where tt.topic.id=?1")
-    List<Topic> getTopicsByTagId(Long topicId);
+    @Query(nativeQuery = true, value =
+            "SELECT * from Topic as t inner join topic_tag tt on t.topic_id=tt.topic_id where tt.tag_id=?1")
+    List<Topic> getTopicListByTagId(Long tagId);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM topic as t inner join topic_user ut on t.topic_id = ut.topic_id where ut.user_id=?1 and ut.topic_id=?2")

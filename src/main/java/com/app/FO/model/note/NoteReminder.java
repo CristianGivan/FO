@@ -1,6 +1,6 @@
 package com.app.FO.model.note;
 
-import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.reminder.Reminder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "note_remainder")
-public class NoteRemainder {
+public class NoteReminder {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_remainder_seq")
     @SequenceGenerator(name = "note_remainder_seq",
@@ -26,13 +26,13 @@ public class NoteRemainder {
     @ManyToOne
     @JoinColumn(name = "remainder_id")
     @JsonIgnore
-    private Remainder remainder;
+    private Reminder reminder;
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
 
-    public NoteRemainder() {
+    public NoteReminder() {
     }
 
     @Override
@@ -40,14 +40,14 @@ public class NoteRemainder {
         return "noteRemainder{" +
                 "id=" + id +
                 ", noteId=" + note.getId() +
-                ", remainderId=" + remainder.getId() +
+                ", remainderId=" + reminder.getId() +
                 ", createdDate=" + linkDate +
                 '}';
     }
 
-    public NoteRemainder(Note note, Remainder remainder) {
+    public NoteReminder(Note note, Reminder reminder) {
         this.note = note;
-        this.remainder = remainder;
+        this.reminder = reminder;
         this.linkDate = LocalDateTime.now();
     }
 
@@ -67,12 +67,12 @@ public class NoteRemainder {
         this.note = note;
     }
 
-    public Remainder getRemainder() {
-        return remainder;
+    public Reminder getRemainder() {
+        return reminder;
     }
 
-    public void setRemainder(Remainder remainder) {
-        this.remainder = remainder;
+    public void setRemainder(Reminder reminder) {
+        this.reminder = reminder;
     }
 
     public LocalDateTime getLinkDate() {

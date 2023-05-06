@@ -1,7 +1,6 @@
-package com.app.FO.model.remainder;
+package com.app.FO.model.reminder;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -18,7 +17,7 @@ public class Snooze {
 
     @ManyToOne
     @JoinColumn(name = "remainder_id")
-    private Remainder remainder;
+    private Reminder reminder;
 
     @Column(name = "snooze_time")
     private LocalTime snoozeTime;
@@ -33,7 +32,7 @@ public class Snooze {
     public String toString() {
         return "Snooze{" +
                 "id=" + id +
-                ", remainderId=" + remainder.getId() +
+                ", remainderId=" + reminder.getId() +
                 ", snoozeTime=" + snoozeTime +
                 ", snoozeCount=" + snoozeCount +
                 '}';
@@ -47,12 +46,12 @@ public class Snooze {
         this.id = id;
     }
 
-    public Remainder getRemainder() {
-        return remainder;
+    public Reminder getRemainder() {
+        return reminder;
     }
 
-    public void setRemainder(Remainder remainder) {
-        this.remainder = remainder;
+    public void setRemainder(Reminder reminder) {
+        this.reminder = reminder;
     }
 
     public LocalTime getSnoozeTime() {

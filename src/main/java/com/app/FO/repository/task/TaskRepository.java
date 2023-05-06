@@ -1,6 +1,5 @@
 package com.app.FO.repository.task;
 
-import com.app.FO.model.remainder.Remainder;
 import com.app.FO.model.task.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

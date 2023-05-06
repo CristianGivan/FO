@@ -1,7 +1,7 @@
 package com.app.FO.service.tag;
 
 import com.app.FO.exceptions.UserTagNotFoundException;
-import com.app.FO.model.user.UserTag;
+import com.app.FO.model.tag.TagUser;
 import com.app.FO.repository.tag.TagUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +18,17 @@ public class TagUserService {
 
     //-- GET
 
-    public UserTag findUserTagById(Long userTagId){
+    public TagUser findUserTagById(Long userTagId){
         return tagUserRepository.findById(userTagId).orElseThrow(
-                ()->new UserTagNotFoundException("UserTag not found"));
+                ()->new UserTagNotFoundException("TagUser not found"));
     }
 
 
 
     //-- Post
 
-    public UserTag saveUserTag(UserTag userTag){
-        return tagUserRepository.save(userTag);
+    public TagUser saveUserTag(TagUser tagUser){
+        return tagUserRepository.save(tagUser);
     }
 
 
@@ -44,6 +44,6 @@ public class TagUserService {
 
 
 
-    //-- Checks
+    //-- ChecksNote
 
 }

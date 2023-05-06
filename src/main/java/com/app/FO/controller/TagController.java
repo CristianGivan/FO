@@ -1,4 +1,4 @@
-package com.app.FO.controller.note;
+package com.app.FO.controller;
 
 import com.app.FO.dto.general.TextDTO;
 import com.app.FO.dto.tag.TagDTO;
@@ -6,6 +6,7 @@ import com.app.FO.dto.tag.TagFDTO;
 import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.service.tag.TagService;
+import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,9 @@ public class TagController {
     private TagDTOMapper tagDTOMapper;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     public TagController(TagService tagService, TagDTOMapper tagDTOMapper) {
         this.tagService = tagService;
         this.tagDTOMapper=tagDTOMapper;
@@ -25,28 +29,29 @@ public class TagController {
 
     //-- PostMapping
 
-    @PostMapping("/addNewTag")
+    @PostMapping("/postTag")
     public TagFDTO addNewTag(@RequestBody TextDTO tagText) {
-        return tagService.saveTagFDTOFromText(tagText.getText());
+        Tag tag = tagService.postTag(tagText.getText());
+        return tagDTOMapper.tagToTagFDTO(tag);
     }
 
     //-- GetMapping
 
     @GetMapping("/getTagById/{tagId}")
     public TagFDTO getTagById(@PathVariable Long tagId) {
-        Tag tag = tagService.getTagById(tagId);
+        Tag tag = tagService.getTagByTagId(tagId);
         return tagDTOMapper.tagToTagFDTO(tag);
     }
 
-    @GetMapping("/getTagByName/{tagName}")
-    public TagDTO getTagByName(@PathVariable String tagName) {
-        return tagService.getTagDTOByName(tagName);
+    @GetMapping("/getTagByText/{tagText}")
+    public TagDTO getTagByName(@PathVariable String tagText) {
+        return tagService.getTagDTOByName(tagText);
     }
 
 
     @GetMapping("/getAllTags")
     public List<TagDTO> getAllTagsDTO() {
-        List<Tag> tagList = tagService.getAllTags();
+        List<Tag> tagList = tagService.getTagListByUserId(userService.getLogInUser().getId());
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 

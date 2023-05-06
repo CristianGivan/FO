@@ -9,11 +9,14 @@ import java.util.List;
 
 public class TagFDTO {
     private Long tagId;
-    private String tagName;
+    private String tagText;
 
-    private UserDTO user;
+    private LocalDateTime createdDateTime;
 
-    private LocalDateTime createdDate;
+    private UserDTO creator;
+
+    private List<UserDTO> userDTOList;
+
     private List<NoteDTO> noteDTOList;
     private List<TopicDTO> topicDTOList;
 
@@ -21,24 +24,26 @@ public class TagFDTO {
     public String toString() {
         return "TagFDTO{" +
                 "tagId=" + tagId +
-                ", tagName='" + tagName + '\'' +
-                ", user=" + user +
-                ", createdDate=" + createdDate +
-                ", notes=" + noteDTOList +
-                ", topics=" + topicDTOList +
+                ", tagName='" + tagText + '\'' +
+                ", createdDate=" + createdDateTime +
+                ", creator=" + creator.getUserId() +
+                ", userDTOList=" + userDTOList +
+                ", noteDTOList=" + noteDTOList +
+                ", topicDTOList=" + topicDTOList +
                 '}';
     }
 
-    public TagFDTO(Long tagId, String tagName, UserDTO user, LocalDateTime createdDate,
-                   List<NoteDTO> noteDTOList, List<TopicDTO> topicDTOList) {
+
+    public TagFDTO(Long tagId, String tagText, LocalDateTime createdDateTime, UserDTO creator,
+                   List<UserDTO> userDTOList, List<NoteDTO> noteDTOList, List<TopicDTO> topicDTOList) {
         this.tagId = tagId;
-        this.tagName = tagName;
-        this.user = user;
-        this.createdDate = createdDate;
+        this.tagText = tagText;
+        this.createdDateTime = createdDateTime;
+        this.creator = creator;
+        this.userDTOList = userDTOList;
         this.noteDTOList = noteDTOList;
         this.topicDTOList = topicDTOList;
     }
-
 
     public Long getTagId() {
         return tagId;
@@ -48,12 +53,12 @@ public class TagFDTO {
         this.tagId = tagId;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getTagText() {
+        return tagText;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
+    public void setTagText(String tagText) {
+        this.tagText = tagText;
     }
 
     public List<NoteDTO> getNoteDTOList() {
@@ -72,19 +77,27 @@ public class TagFDTO {
         this.topicDTOList = topicDTOList;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public UserDTO getCreator() {
+        return creator;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setCreator(UserDTO creator) {
+        this.creator = creator;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public List<UserDTO> getUserDTOList() {
+        return userDTOList;
+    }
+
+    public void setUserDTOList(List<UserDTO> userDTOList) {
+        this.userDTOList = userDTOList;
     }
 }

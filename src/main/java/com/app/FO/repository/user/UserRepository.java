@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(nativeQuery = true, value =
             "SELECT * FROM user as u inner join note_user nu on u.user_id = nu.user_id where nu.note_id=?1")
     List<User> getUserListByNoteId(Long noteId);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM user as u inner join tag_user tu on u.user_id = tu.user_id where tu.tag_id=?1")
+    List<User> getUserListByTagId(Long tagId);
 }

@@ -6,9 +6,11 @@ import com.app.FO.model.expenses.ExpensesTag;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.topic.TopicTag;
-import com.app.FO.model.user.UserTag;
+import com.app.FO.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +26,19 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
-    @Column(name = "tag")
-    private String tagName;
+    @Column(name = "tag_text")
+    private String tagText;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDateTime;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
 
     @OneToMany(mappedBy = "tag",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<UserTag> userTagList;
+    private List<TagUser> tagUserList;
 
     @OneToMany(mappedBy = "tag")
     private List<NoteTag> noteTagList;
@@ -51,23 +61,58 @@ public class Tag {
     public String toString() {
         return "Tag{" +
                 "id=" + id +
-                ", tagName='" + tagName + '\'' +
-                ", userTags=" + userTagList +
-                ", noteTags=" + noteTagList +
-                ", topicTags=" + topicTagList +
-                ", taskTags=" + taskTagList +
-                ", expenseTags=" + expenseTagList +
-                ", expensesTags=" + expensesTagList +
-                ", eventTags=" + eventTagList +
+                ", tagText='" + tagText + '\'' +
+                ", createdDateTime=" + createdDateTime +
+                ", creator=" + creator.getId() +
+                ", tagUserList=" + tagUserList +
+                ", noteTagList=" + noteTagList +
+                ", topicTagList=" + topicTagList +
+                ", taskTagList=" + taskTagList +
+                ", expenseTagList=" + expenseTagList +
+                ", expensesTagList=" + expensesTagList +
+                ", eventTagList=" + eventTagList +
                 '}';
     }
 
     public Tag() {
     }
-    public Tag(String tagName) {
-        this.tagName = tagName;
+    public Tag(String tagText, User creator) {
+        this.tagText = tagText;
+        this.creator=creator;
+        this.createdDateTime=LocalDateTime.now();
     }
 
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public List<TagUser> getTagUserList() {
+        return tagUserList;
+    }
+
+    public void setTagUserList(List<TagUser> tagUserList) {
+        this.tagUserList = tagUserList;
+    }
+
+    public List<ExpensesTag> getExpensesTagList() {
+        return expensesTagList;
+    }
+
+    public void setExpensesTagList(List<ExpensesTag> expensesTagList) {
+        this.expensesTagList = expensesTagList;
+    }
 
     public Long getId() {
         return id;
@@ -89,12 +134,12 @@ public class Tag {
         this.topicTagList = topicTags;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getTagText() {
+        return tagText;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
+    public void setTagText(String tagName) {
+        this.tagText = tagName;
     }
 
     public void setId(Long id) {
@@ -134,15 +179,15 @@ public class Tag {
     }
 
 
-    public List<UserTag> getUserTagList() {
-        if (userTagList ==null){
-            userTagList = new ArrayList<>();
+    public List<TagUser> getUserTagList() {
+        if (tagUserList ==null){
+            tagUserList = new ArrayList<>();
         }
-        return userTagList;
+        return tagUserList;
     }
 
-    public void setUserTagList(List<UserTag> userTags) {
-        this.userTagList = userTags;
+    public void setUserTagList(List<TagUser> tagUsers) {
+        this.tagUserList = tagUsers;
     }
 
 }

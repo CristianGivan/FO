@@ -1,23 +1,23 @@
-package com.app.FO.model.user;
+package com.app.FO.model.tag;
 
 import com.app.FO.model.tag.Tag;
-import com.app.FO.model.topic.Topic;
+import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_tag")
-public class UserTag {
+@Table(name = "tag_user")
+public class TagUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_tag_seq")
-    @SequenceGenerator(name = "user_tag_seq",
-            sequenceName = "user_tag_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_user_seq")
+    @SequenceGenerator(name = "tag_user_seq",
+            sequenceName = "tag_user_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "user_tag_id")
+    @Column(name = "tag_user_id")
     private Long id;
 
     @ManyToOne
@@ -33,12 +33,12 @@ public class UserTag {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    public UserTag() {
+    public TagUser() {
     }
 
     @Override
     public String toString() {
-        return "UserTag{" +
+        return "TagUser{" +
                 "id=" + id +
                 ", userId=" + user.getId() +
                 ", tagId=" + tag.getId() +
@@ -46,7 +46,7 @@ public class UserTag {
                 '}';
     }
 
-    public UserTag(User user, Tag tag) {
+    public TagUser(User user, Tag tag) {
         this.user = user;
         this.tag = tag;
         this.createdDate = LocalDateTime.now();

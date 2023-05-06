@@ -1,5 +1,7 @@
 package com.app.FO.model.user;
 
+import com.app.FO.model.user.Role;
+import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

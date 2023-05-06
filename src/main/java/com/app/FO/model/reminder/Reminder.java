@@ -1,12 +1,10 @@
-package com.app.FO.model.remainder;
+package com.app.FO.model.reminder;
 
 import com.app.FO.model.event.Event;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
-import com.app.FO.repository.user.UserRepository;
-import com.app.FO.service.user.UserService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -14,34 +12,34 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "remainder")
-public class Remainder {
+@Table(name = "reminder")
+public class Reminder {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "remainder_seq")
-    @SequenceGenerator(name = "remainder_seq",
-            sequenceName = "remainder_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reminder_seq")
+    @SequenceGenerator(name = "reminder_seq",
+            sequenceName = "reminder_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "remainder_id")
+    @Column(name = "reminder_id")
     private Long id;
 
-    @Column(name = "remainder")
-    private String remainder;
+    @Column(name = "reminder")
+    private String reminder;
 
     @Column(name = "created_date")
     private LocalDateTime createdDateTime;
 
     @Column(name = "data_time")
-    private LocalDateTime remainderDateTime;
+    private LocalDateTime reminderDateTime;
 
     //is a table mostly for statistics
-    @OneToMany(mappedBy = "remainder", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "reminder", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Snooze> snoozes;
 
     //todo ar putea fi un tabel de legatura?
     @OneToMany
-    @JoinColumn(name = "remainders")
-    private List<Remainder> repeatedReminders;
+    @JoinColumn(name = "reminders")
+    private List<Reminder> repeatedReminders;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
@@ -69,16 +67,16 @@ public class Remainder {
     @JsonIgnore
     private Event event;
 
-    public Remainder() {
+    public Reminder() {
     }
 
     @Override
     public String toString() {
-        return "Remainder{" +
+        return "Reminder{" +
                 "id=" + id +
-                ", remainder='" + remainder + '\'' +
+                ", remainder='" + reminder + '\'' +
                 ", createdDateTime=" + createdDateTime +
-                ", remainderDateTime=" + remainderDateTime +
+                ", remainderDateTime=" + reminderDateTime +
                 ", snoozes=" + snoozes +
                 ", repeatedReminders=" + repeatedReminders +
                 ", creatorId=" + creator.getId() +
@@ -89,8 +87,8 @@ public class Remainder {
                 '}';
     }
 
-    public Remainder(String remainder, User creator) {
-        this.remainder = remainder;
+    public Reminder(String reminder, User creator) {
+        this.reminder = reminder;
         this.createdDateTime = LocalDateTime.now();
         this.creator=creator;
     }
@@ -103,12 +101,12 @@ public class Remainder {
         this.id = id;
     }
 
-    public String getRemainder() {
-        return remainder;
+    public String getReminder() {
+        return reminder;
     }
 
-    public void setRemainder(String remainder) {
-        this.remainder = remainder;
+    public void setReminder(String remainder) {
+        this.reminder = remainder;
     }
 
     public LocalDateTime getCreatedDateTime() {
@@ -119,12 +117,12 @@ public class Remainder {
         this.createdDateTime = createdDateTime;
     }
 
-    public LocalDateTime getRemainderDateTime() {
-        return remainderDateTime;
+    public LocalDateTime getReminderDateTime() {
+        return reminderDateTime;
     }
 
-    public void setRemainderDateTime(LocalDateTime remainderDateTime) {
-        this.remainderDateTime = remainderDateTime;
+    public void setReminderDateTime(LocalDateTime remainderDateTime) {
+        this.reminderDateTime = remainderDateTime;
     }
 
     public List<Snooze> getSnoozes() {
@@ -135,11 +133,11 @@ public class Remainder {
         this.snoozes = snoozes;
     }
 
-    public List<Remainder> getRepeatedReminders() {
+    public List<Reminder> getRepeatedReminders() {
         return repeatedReminders;
     }
 
-    public void setRepeatedReminders(List<Remainder> repeatedReminders) {
+    public void setRepeatedReminders(List<Reminder> repeatedReminders) {
         this.repeatedReminders = repeatedReminders;
     }
 

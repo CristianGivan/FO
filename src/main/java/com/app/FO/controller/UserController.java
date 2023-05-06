@@ -52,6 +52,11 @@ public class UserController {
         List<User> userList=userService.getUserListByNoteId(noteId);
         return userDTOMapper.UserListToUserDTOList(userList);
     }
+    @GetMapping("/getUserListByTagId/{tagId}")
+    public List<UserDTO> getUserListByTagId(@PathVariable Long tagId){
+        List<User> userList=userService.getUserListByTagId(tagId);
+        return userDTOMapper.UserListToUserDTOList(userList);
+    }
 
 
     //-- PostMapping

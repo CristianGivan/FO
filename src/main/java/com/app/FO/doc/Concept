@@ -17,7 +17,7 @@ Functionalitati:
 - sa fac un DTO in care sa imi pun toate informatiile care vreau sa le arat
 si un DTO in care sa pun doar ID pentru celelalte entitati pentru a nu avem situatii recurente
 - sa pot ordona notele in topic
-- la cate un topic sa pot adauga diferite lucruri note tag remainder to do check list si altele
+- la cate un topic sa pot adauga diferite lucruri note tag reminder to do check list si altele
 - la un topic pot contribui mai multi utilizatori
 
 Hotarat

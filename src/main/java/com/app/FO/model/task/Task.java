@@ -1,6 +1,6 @@
 package com.app.FO.model.task;
 
-import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tasks.TasksTask;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,7 +42,7 @@ public class Task {
     private TaskStatus taskStatus;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Remainder> remainderList;
+    private List<Reminder> reminderList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TaskEffort> taskEffortList;
@@ -69,7 +69,7 @@ public class Task {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", remainders=" + remainderList +
+                ", remainders=" + reminderList +
                 ", taskEfforts=" + taskEffortList +
                 ", noteTags=" + taskTagList +
                 ", tasksTasks=" + tasksTaskList +
@@ -133,12 +133,12 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public List<Remainder> getRemainderList() {
-        return remainderList;
+    public List<Reminder> getRemainderList() {
+        return reminderList;
     }
 
-    public void setRemainderList(List<Remainder> remainders) {
-        this.remainderList = remainders;
+    public void setRemainderList(List<Reminder> reminders) {
+        this.reminderList = reminders;
     }
 
     public List<TaskEffort> getTaskEffortList() {

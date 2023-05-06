@@ -2,14 +2,14 @@ package com.app.FO.service.tag;
 
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tag.TagFDTO;
-import com.app.FO.exceptions.TagAlreadyExistException;
 import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
+import com.app.FO.model.tag.TagUser;
 import com.app.FO.model.user.User;
-import com.app.FO.model.user.UserTag;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.service.user.UserService;
+import com.app.FO.util.ChecksTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,8 @@ public class TagService {
     private TagUserService tagUserService;
 
     @Autowired
+    private ChecksTag checksTag;
+    @Autowired
     public TagService(TagRepository tagRepository, TagDTOMapper tagDTOMapper) {
         this.tagRepository = tagRepository;
         this.tagDTOMapper = tagDTOMapper;
@@ -32,6 +34,42 @@ public class TagService {
 
     public TagService() {
     }
+
+
+    //-- Post
+
+    public Tag postTag(String tagText) {
+        User user = userService.getLogInUser();
+        checksTag.checkIsTagWithTagText(user,tagText);
+        Tag tag = new Tag(tagText,user);
+        TagUser tagUser = new TagUser(user, tag);
+        tag.getUserTagList().add(tagUser);
+        return tagRepository.save(tag);
+    }
+
+    //-- Put
+
+
+
+    //-- GET
+
+    public Tag getTagByTagId(Long tagId) {
+        Tag tag =tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(),tagId);
+        checksTag.checkIsTag(tag);
+        return tag;
+    }
+    public List<Tag> getTagListByUserId(Long userId) {
+        List<Tag> tagList = tagRepository.getTagListByUserId(userId);
+        return tagList;
+    }
+
+
+    //--Delete
+
+
+
+    //-- Other
+
 
 
     //-- GET
@@ -42,12 +80,9 @@ public class TagService {
                 () -> new TagNotFoundException("Tag not found"));
     }
 
-    public TagDTO getTagDTOById(Long tagId) {
-        return tagDTOMapper.tagToTagDTO(getTagById(tagId));
-    }
 
     public Tag getTagByName(String tagName) {
-        return tagRepository.findTagByTagName(tagName);
+        return tagRepository.findTagByTagText(tagName);
     }
 
     public TagDTO getTagDTOByName(String tagName) {
@@ -71,18 +106,14 @@ public class TagService {
 
     //-- actual user
 
-    public List<Tag> getTagsByUserId(Long userId) {
-        return tagRepository.getTagsByUserId(userId);
-    }
 
 
-    public Tag getTagByTagIdFromUser(Long tagId) {
-        return tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(),tagId);
-    }
+
+
 
 
     public List<Tag> getTagsOfLogInUser() {
-        return getTagsByUserId(userService.getLogInUser().getId());
+        return getTagListByUserId(userService.getLogInUser().getId());
     }
 
     public List<TagDTO> getTagsDTOOfLogInUser() {
@@ -90,7 +121,7 @@ public class TagService {
     }
 
     public Tag getTagByUserIdAndTagName(Long id, String tagName) {
-        return tagRepository.getTagsByUserIdAndTagName(id, tagName);
+        return tagRepository.getTagsByUserIdAndTagText(id, tagName);
     }
 
     public TagDTO getTagDTOByUserIdAndTagName(Long userId, String tagName) {
@@ -98,7 +129,7 @@ public class TagService {
     }
 
     public Tag getTagOfLogInUserByTagName(String tagName) {
-        return tagRepository.getTagsByUserIdAndTagName(userService.getLogInUser().getId(), tagName);
+        return tagRepository.getTagsByUserIdAndTagText(userService.getLogInUser().getId(), tagName);
     }
 
     public TagDTO getTagDTOOfLogInUserByTagName(String tagName) {
@@ -113,27 +144,14 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
-    public Tag saveTagFromText(String tagText) {
-        User logInUser = userService.getLogInUser();
-        Tag newTag = getTagOfLogInUserByTagName(tagText);
-        if (newTag != null) {
-            throw new TagAlreadyExistException("Tag already exist");
-        }
 
-        // todo chiar trebuie sa fortez salvarea tagului si dupa aia salvarea usertagului sau se poate face si alt fel,decamdata merge.
-        newTag = tagRepository.save(new Tag(tagText));
-        UserTag userTag = tagUserService.saveUserTag(new UserTag(logInUser, newTag));
-        logInUser.getUserTagList().add(userTag);
-        newTag.getUserTagList().add(userTag);
-        return tagRepository.save(newTag);
-    }
 
     public TagDTO saveTagDTOFromText(String tagText) {
-        return tagDTOMapper.tagToTagDTO(saveTagFromText(tagText));
+        return tagDTOMapper.tagToTagDTO(postTag(tagText));
     }
 
     public TagFDTO saveTagFDTOFromText(String tagText) {
-        return tagDTOMapper.tagToTagFDTO(saveTagFromText(tagText));
+        return tagDTOMapper.tagToTagFDTO(postTag(tagText));
     }
 
     //-- Other

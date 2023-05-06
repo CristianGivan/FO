@@ -1,7 +1,7 @@
 package com.app.FO.dto.task;
 
 import com.app.FO.dto.note.NoteDTO;
-import com.app.FO.dto.remainder.RemainderDTO;
+import com.app.FO.dto.reminder.ReminderDTO;
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tasks.TasksDTO;
 import com.app.FO.dto.user.UserDTO;
@@ -18,7 +18,7 @@ public class TaskFDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private TaskStatus taskStatus;
-    private List<RemainderDTO> remainderDTOList;
+    private List<ReminderDTO> reminderDTOList;
     private List<TaskEffortSDTO> taskEffortSDTOList;
     private List<TagDTO> tagDTOList;
     private List<NoteDTO> noteDTOList;
@@ -35,7 +35,7 @@ public class TaskFDTO {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", remainders=" + remainderDTOList +
+                ", remainders=" + reminderDTOList +
                 ", taskEfforts=" + taskEffortSDTOList +
                 ", noteTags=" + tagDTOList +
                 ", taskNotes=" + noteDTOList +
@@ -45,7 +45,7 @@ public class TaskFDTO {
     }
 
     public TaskFDTO(Long id, String task, UserDTO user, LocalDateTime createdDate, LocalDateTime startDate,
-                    LocalDateTime endDate, TaskStatus taskStatus, List<RemainderDTO> remainderDTOList,
+                    LocalDateTime endDate, TaskStatus taskStatus, List<ReminderDTO> reminderDTOList,
                     List<TaskEffortSDTO> taskEffortSDTOList, List<TagDTO> tagDTOList, List<NoteDTO> noteDTOList,
                     List<TasksDTO> tasksDTOList, List<TaskHistoryDTO> taskHistoryDTOList) {
         this.id = id;
@@ -55,7 +55,7 @@ public class TaskFDTO {
         this.startDate = startDate;
         this.endDate = endDate;
         this.taskStatus = taskStatus;
-        this.remainderDTOList = remainderDTOList;
+        this.reminderDTOList = reminderDTOList;
         this.taskEffortSDTOList = taskEffortSDTOList;
         this.tagDTOList = tagDTOList;
         this.noteDTOList = noteDTOList;
@@ -119,12 +119,12 @@ public class TaskFDTO {
         this.taskStatus = taskStatus;
     }
 
-    public List<RemainderDTO> getRemainderDTOList() {
-        return remainderDTOList;
+    public List<ReminderDTO> getRemainderDTOList() {
+        return reminderDTOList;
     }
 
-    public void setRemainderDTOList(List<RemainderDTO> remainderDTOList) {
-        this.remainderDTOList = remainderDTOList;
+    public void setRemainderDTOList(List<ReminderDTO> reminderDTOList) {
+        this.reminderDTOList = reminderDTOList;
     }
 
     public List<TaskEffortSDTO> getTaskEffortSDTOList() {

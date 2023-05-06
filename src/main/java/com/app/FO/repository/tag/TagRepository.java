@@ -1,6 +1,5 @@
 package com.app.FO.repository.tag;
 
-import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.tag.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,21 +17,21 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
             "where tt.topic.id=?1")
     List<Tag> getTagsByTopicId(Long topicId);
 
-    //@Query("select t from Tag as t inner join UserTag ut on t.id=ut.tag.id where ut.user.id=?1")
+    //@Query("select t from Tag as t inner join TagUser ut on t.id=ut.tag.id where ut.user.id=?1")
 
     //todo verific daca ii adevarat vezi query mai jos
-    @Query(value = "SELECT * FROM tag as t inner join user_tag ut on t.tag_id = ut.tag_id where user_id=?1"
+    @Query(value = "SELECT * FROM tag as t inner join tag_user ut on t.tag_id = ut.tag_id where ut.user_id=?1"
             ,nativeQuery = true)
-    List<Tag> getTagsByUserId(Long UserId);
+    List<Tag> getTagListByUserId(Long UserId);
 
-    @Query(value = "SELECT * FROM tag as t inner join user_tag ut on t.tag_id = ut.tag_id where ut.user_id=?1 and ut.tag_id=?2"
+    @Query(value = "SELECT * FROM tag as t inner join tag_user tu on t.tag_id = tu.tag_id where tu.user_id=?1 and t.tag_id=?2"
             ,nativeQuery = true)
     Tag getTagByUserIdAndTagId(Long UserId, Long tagId);
 
     //todo verific daca ii adevarat vezi query getTagByUserIdAndTagId
-    @Query(value = "SELECT * FROM tag as t inner join user_tag ut on t.tag_id = ut.tag_id where user_id=?1 and t.tag=?2"
+    @Query(value = "SELECT * FROM tag as t inner join tag_user ut on t.tag_id = ut.tag_id where ut.user_id=?1 and t.tag_text=?2"
             ,nativeQuery = true)
-    Tag getTagsByUserIdAndTagName(Long UserId,String tagName);
+    Tag getTagsByUserIdAndTagText(Long UserId, String tagName);
 
-    Tag findTagByTagName(String tagName);
+    Tag findTagByTagText(String tagName);
 }

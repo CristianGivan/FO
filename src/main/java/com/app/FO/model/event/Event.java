@@ -1,6 +1,6 @@
 package com.app.FO.model.event;
 
-import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.reminder.Reminder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -37,7 +37,7 @@ public class Event {
     private List<EventExpense> expenseList;
 
     @OneToMany(mappedBy = "event")
-    private List<Remainder> remainderList;
+    private List<Reminder> reminderList;
 
     public Event() {
     }
@@ -52,7 +52,7 @@ public class Event {
                 ", topics=" + topicList +
                 ", taskLists=" + taskList +
                 ", expenses=" + expenseList +
-                ", remainders=" + remainderList +
+                ", remainders=" + reminderList +
                 '}';
     }
 
@@ -112,11 +112,11 @@ public class Event {
         this.expenseList = expenses;
     }
 
-    public List<Remainder> getRemainderList() {
-        return remainderList;
+    public List<Reminder> getRemainderList() {
+        return reminderList;
     }
 
-    public void setRemainderList(List<Remainder> remainders) {
-        this.remainderList = remainders;
+    public void setRemainderList(List<Reminder> reminders) {
+        this.reminderList = reminders;
     }
 }

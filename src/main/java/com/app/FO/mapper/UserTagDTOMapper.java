@@ -1,7 +1,7 @@
 package com.app.FO.mapper;
 
 import com.app.FO.dto.user.UserTagDTO;
-import com.app.FO.model.user.UserTag;
+import com.app.FO.model.tag.TagUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,11 +11,11 @@ import java.util.List;
 public abstract class UserTagDTOMapper {
     @Mapping(target = "useTagId", source = "id")
     @Mapping(target = "tag", expression = "java(" +
-            " userTag.getTag().getTagName())")
+            " tagUser.getTag().getTagText())")
     @Mapping(target = "createdDate", expression = "java(" +
-            "userTag.getCreatedDate().toString())")
-    public abstract UserTagDTO UserTagToUserTagDTO(UserTag userTag);
+            "tagUser.getCreatedDate().toString())")
+    public abstract UserTagDTO UserTagToUserTagDTO(TagUser tagUser);
 
-    public abstract List<UserTagDTO> UserTagListToUserTagDTOList(List<UserTag> userTag);
+    public abstract List<UserTagDTO> UserTagListToUserTagDTOList(List<TagUser> tagUser);
 
 }
