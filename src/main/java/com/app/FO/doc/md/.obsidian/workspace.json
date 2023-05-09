@@ -11,8 +11,12 @@
             "id": "20d571105759dc81",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Classes/Classes.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Classes/Classes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Classes/Classes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Classes/Classes.md"
+              }
             }
           }
         ]
@@ -138,25 +146,26 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "20d571105759dc81",
+  "active": "6f3804444eed1582",
   "lastOpenFiles": [
-    "Classes/Classes.md~",
     "Classes/Tag.md~",
+    "ToDo/Done.md",
+    "General/LearnByHardWay.md",
+    "Untitled.md",
+    "Classes/Classes.md",
+    "Classes/Classes.md~",
     "Classes/Topic.md",
     "Classes/User.md~",
     "ToDo/Done.md~",
     "Classes/User.md",
     "Classes/User/md.java",
     "Classes/User",
-    "ToDo/Done.md",
     "ToDo/ToDo.md",
     "ToDo/ToDO",
     "ToDo",
-    "Classes/Classes.md",
     "Classes/Note.md",
     "Classes/Tag.md",
     "General/LearnByHardWay.md~",
-    "General/LearnByHardWay.md",
     "General/LearnByHardWay",
     "Classes/Remainder.md",
     "Classes/Reminder.md"

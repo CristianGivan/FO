@@ -56,76 +56,7 @@ public class NoteService {
         this.noteTagService = noteTagService;
 //        this.noteDTOMapper = noteDTOMapper;
     }
-/*
 
-    //-- Post admin
-
-    public Note adminPostNewNote(String noteText) {
-        User user = getLogInUser();
-        Note note = new Note(noteText, user);// todo tbd cam be created without save it 2 times
-        NoteUser noteUser = new NoteUser(note, user);
-        note.getNoteUserList().add(noteUser);
-        return noteRepository.save(note);
-    }
-
-    //-- Put admin
-
-
-        public Note adminPutNoteText(Long noteId, String noteText) {
-            Note updatedNote = adminGetNoteById(noteId);
-            NoteHistory noteHistory = createNoteHistory(updatedNote);
-            updatedNote.setCreator(getLogInUser());
-            updatedNote.setNote(noteText);
-            updatedNote.getNoteHistoryList().add(noteHistory);
-            return noteRepository.save(updatedNote);
-        }
-
-        public Note adminPutTagToNote(Long noteId, Long tagId) {
-            Note updatedNote = adminGetNoteById(noteId);
-            Tag addTag = tagService.getTagById(tagId);
-            if (noteRepository.noteHasTag(noteId, tagId)) {
-                throw new TagAlreadyExistException("Tag already exist");
-            }
-            NoteTag newNoteTag = new NoteTag(updatedNote, addTag);
-            updatedNote.getNoteTagList().add(newNoteTag);
-            return noteRepository.save(updatedNote);
-        }
-
-    //--Delete addmin
-    public Note adminDeleteTagFromNote(Long noteId, Long tagId) {
-        Note note = adminGetNoteById(noteId);
-        Tag tag = tagService.getTagByTagIdFromUser(tagId);
-        NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
-        checkForNote.checkIsNoteAndTagAndAreLinked(note, tag);
-        note.getNoteTagList().remove(foundNoteTag);
-        noteTagService.deleteNoteTagById(foundNoteTag.getId());
-        return noteRepository.save(note);
-}
-   //-- Get admin
-
-    public Note adminGetNoteById(Long noteId) {
-        return noteRepository.findById(noteId).orElseThrow(
-                () -> new NoteNotFoundException("Note not found"));
-    }
-
-
-    public List<Note> adminGetAllNotes() {
-        return noteRepository.findAll();
-    }
-
-
-    public List<Note> adminGetNotesByTagId(Long tagId) {
-        return noteRepository.getNotesByTagId(tagId);
-    }
-
-
-    public List<Note> adminGetNotesByTopicId(Long topicId) {
-        return noteRepository.getNotesByTopicId(topicId);
-    }
-
-    public List<Note> adminGetNotesByNoteThatContainsText(String containsText) {
-        return noteRepository.getNotesByNoteContains(containsText);
-    }*/
 
 
     //-- Post
@@ -320,5 +251,74 @@ public class NoteService {
     public NoteHistory createNoteHistory(Note note) {
         return new NoteHistory(LocalDateTime.now(), note.getCreator(), note, note.getNoteText());
     }
+/*
 
+    //-- Post admin
+
+    public Note adminPostNewNote(String noteText) {
+        User user = getLogInUser();
+        Note note = new Note(noteText, user);// todo tbd cam be created without save it 2 times
+        NoteUser noteUser = new NoteUser(note, user);
+        note.getNoteUserList().add(noteUser);
+        return noteRepository.save(note);
+    }
+
+    //-- Put admin
+
+
+        public Note adminPutNoteText(Long noteId, String noteText) {
+            Note updatedNote = adminGetNoteById(noteId);
+            NoteHistory noteHistory = createNoteHistory(updatedNote);
+            updatedNote.setCreator(getLogInUser());
+            updatedNote.setNote(noteText);
+            updatedNote.getNoteHistoryList().add(noteHistory);
+            return noteRepository.save(updatedNote);
+        }
+
+        public Note adminPutTagToNote(Long noteId, Long tagId) {
+            Note updatedNote = adminGetNoteById(noteId);
+            Tag addTag = tagService.getTagById(tagId);
+            if (noteRepository.noteHasTag(noteId, tagId)) {
+                throw new TagAlreadyExistException("Tag already exist");
+            }
+            NoteTag newNoteTag = new NoteTag(updatedNote, addTag);
+            updatedNote.getNoteTagList().add(newNoteTag);
+            return noteRepository.save(updatedNote);
+        }
+
+    //--Delete addmin
+    public Note adminDeleteTagFromNote(Long noteId, Long tagId) {
+        Note note = adminGetNoteById(noteId);
+        Tag tag = tagService.getTagByTagIdFromUser(tagId);
+        NoteTag foundNoteTag = noteTagService.findNoteTagOfANoteIdByTagId(noteId, tagId);
+        checkForNote.checkIsNoteAndTagAndAreLinked(note, tag);
+        note.getNoteTagList().remove(foundNoteTag);
+        noteTagService.deleteNoteTagById(foundNoteTag.getId());
+        return noteRepository.save(note);
+}
+   //-- Get admin
+
+    public Note adminGetNoteById(Long noteId) {
+        return noteRepository.findById(noteId).orElseThrow(
+                () -> new NoteNotFoundException("Note not found"));
+    }
+
+
+    public List<Note> adminGetAllNotes() {
+        return noteRepository.findAll();
+    }
+
+
+    public List<Note> adminGetNotesByTagId(Long tagId) {
+        return noteRepository.getNotesByTagId(tagId);
+    }
+
+
+    public List<Note> adminGetNotesByTopicId(Long topicId) {
+        return noteRepository.getNotesByTopicId(topicId);
+    }
+
+    public List<Note> adminGetNotesByNoteThatContainsText(String containsText) {
+        return noteRepository.getNotesByNoteContains(containsText);
+    }*/
 }

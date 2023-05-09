@@ -37,7 +37,7 @@ public class Tag {
     @JsonIgnore
     private User creator;
 
-    @OneToMany(mappedBy = "tag",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "tag", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TagUser> tagUserList;
 
     @OneToMany(mappedBy = "tag")
@@ -76,10 +76,11 @@ public class Tag {
 
     public Tag() {
     }
+
     public Tag(String tagText, User creator) {
         this.tagText = tagText;
-        this.creator=creator;
-        this.createdDateTime=LocalDateTime.now();
+        this.creator = creator;
+        this.createdDateTime = LocalDateTime.now();
     }
 
     public User getCreator() {
@@ -99,6 +100,9 @@ public class Tag {
     }
 
     public List<TagUser> getTagUserList() {
+        if (tagUserList == null) {
+            tagUserList = new ArrayList<>();
+        }
         return tagUserList;
     }
 
@@ -177,17 +181,4 @@ public class Tag {
     public void setEventTagList(List<EventTag> eventTags) {
         this.eventTagList = eventTags;
     }
-
-
-    public List<TagUser> getUserTagList() {
-        if (tagUserList ==null){
-            tagUserList = new ArrayList<>();
-        }
-        return tagUserList;
-    }
-
-    public void setUserTagList(List<TagUser> tagUsers) {
-        this.tagUserList = tagUsers;
-    }
-
 }

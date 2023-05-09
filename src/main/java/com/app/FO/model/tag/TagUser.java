@@ -46,9 +46,9 @@ public class TagUser {
                 '}';
     }
 
-    public TagUser(User user, Tag tag) {
-        this.user = user;
+    public TagUser(Tag tag,User user) {
         this.tag = tag;
+        this.user = user;
         this.createdDate = LocalDateTime.now();
     }
 

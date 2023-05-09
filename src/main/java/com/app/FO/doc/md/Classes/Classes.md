@@ -12,7 +12,6 @@
 1. If FDTO is defined I receive: spring.main.allow-circular-references
    1. I used in  NoteService is TagService
 2. 
-
 ## Controller
 ### General
 - [ ] Get instance form service

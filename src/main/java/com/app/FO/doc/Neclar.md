@@ -10,6 +10,7 @@ pt Oli particular
 
 pt Oli general
 
+- [ ] Chiar trebuie sa folosim mapper sau sa punem sa trimitem obiectul gen note
 
 
 

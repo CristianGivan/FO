@@ -2,7 +2,6 @@ package com.app.FO.service.tag;
 
 import com.app.FO.dto.tag.TagDTO;
 import com.app.FO.dto.tag.TagFDTO;
-import com.app.FO.exceptions.TagNotFoundException;
 import com.app.FO.mapper.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tag.TagUser;
@@ -19,13 +18,16 @@ import java.util.List;
 public class TagService {
     private TagRepository tagRepository;
     private TagDTOMapper tagDTOMapper;
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private TagUserService tagUserService;
 
     @Autowired
     private ChecksTag checksTag;
+
     @Autowired
     public TagService(TagRepository tagRepository, TagDTOMapper tagDTOMapper) {
         this.tagRepository = tagRepository;
@@ -40,76 +42,70 @@ public class TagService {
 
     public Tag postTag(String tagText) {
         User user = userService.getLogInUser();
-        checksTag.checkIsTagWithTagText(user,tagText);
-        Tag tag = new Tag(tagText,user);
-        TagUser tagUser = new TagUser(user, tag);
-        tag.getUserTagList().add(tagUser);
+        checksTag.checkIsTagWithTagText(user, tagText);
+        Tag tag = new Tag(tagText, user);
+        TagUser tagUser = new TagUser(tag, user);
+        tag.getTagUserList().add(tagUser);
         return tagRepository.save(tag);
     }
 
     //-- Put
 
-
+    public Tag putUserToTag(Long tagId, Long userId) {
+        /*
+         1. Find parameter1 by id (from log in user)
+         2. Find parameter2 by id
+         3. Check if there are not null else throw an exception)
+         4. Check if parameter1 do not have has parameter2
+         5. Crate an entry in linking table
+         5. Add parameter2 in parameter1 list
+         6. Save parameter1
+         */
+        Tag tag = getTagByTagId(tagId);
+        User user = userService.findUserById(userId);
+        checksTag.checkIsTagAndUserAndAreNotLinked(tag,user);
+        TagUser tagUser = new TagUser(tag, user);
+        tag.getTagUserList().add(tagUser);
+        return tagRepository.save(tag);
+    }
 
     //-- GET
 
     public Tag getTagByTagId(Long tagId) {
-        Tag tag =tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(),tagId);
+        Tag tag = tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(), tagId);
         checksTag.checkIsTag(tag);
         return tag;
     }
+
     public List<Tag> getTagListByUserId(Long userId) {
         List<Tag> tagList = tagRepository.getTagListByUserId(userId);
         return tagList;
     }
 
+    public List<Tag> getTagListByContainingText(String containingText) {
+        return tagRepository.getTagListByUserIdAndContainingTagText(userService.getLogInUser().getId(), containingText);
+    }
 
+
+    public List<Tag> getListOfTagByNoteId(Long noteId) {
+        return tagRepository.getTagsByNoteId(userService.getLogInUser().getId(),noteId);
+    }
+    
+    public List<Tag> getTagsByTopicId(Long topicId) {
+        return tagRepository.getTagListByUserIdAndTopicId(userService.getLogInUser().getId(), topicId);
+    }
     //--Delete
-
 
 
     //-- Other
 
 
-
     //-- GET
 
 
-    public Tag getTagById(Long tagId) {
-        return tagRepository.findById(tagId).orElseThrow(
-                () -> new TagNotFoundException("Tag not found"));
-    }
-
-
-    public Tag getTagByName(String tagName) {
-        return tagRepository.findTagByTagText(tagName);
-    }
-
-    public TagDTO getTagDTOByName(String tagName) {
-        return tagDTOMapper.tagToTagDTO(getTagByName(tagName));
-    }
-
-
-    public List<Tag> getAllTags() {
-        return tagRepository.findAll();
-    }
-
-
-    public List<Tag> getListOfTagByNoteId(Long noteId) {
-        return tagRepository.getTagsByNoteId(noteId);
-    }
-
-    public List<Tag> getTagsByTopicId(Long topicId) {
-        return tagRepository.getTagsByTopicId(topicId);
-    }
 
 
     //-- actual user
-
-
-
-
-
 
 
     public List<Tag> getTagsOfLogInUser() {
@@ -120,13 +116,10 @@ public class TagService {
         return tagDTOMapper.tagListToTagDTOList(getTagsOfLogInUser());
     }
 
-    public Tag getTagByUserIdAndTagName(Long id, String tagName) {
-        return tagRepository.getTagsByUserIdAndTagText(id, tagName);
+    public Tag getTagByUserIdAndTagText(String tagName) {
+        return tagRepository.getTagsByUserIdAndTagText(userService.getLogInUser().getId(), tagName);
     }
 
-    public TagDTO getTagDTOByUserIdAndTagName(Long userId, String tagName) {
-        return tagDTOMapper.tagToTagDTO(getTagByUserIdAndTagName(userId, tagName));
-    }
 
     public Tag getTagOfLogInUserByTagName(String tagName) {
         return tagRepository.getTagsByUserIdAndTagText(userService.getLogInUser().getId(), tagName);
@@ -143,7 +136,6 @@ public class TagService {
     public Tag saveTag(Tag tag) {
         return tagRepository.save(tag);
     }
-
 
 
     public TagDTO saveTagDTOFromText(String tagText) {
