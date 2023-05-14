@@ -37,24 +37,24 @@ public class Tag {
     @JsonIgnore
     private User creator;
 
-    @OneToMany(mappedBy = "tag", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TagUser> tagUserList;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteTag> noteTagList;
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicTag> topicTagList;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskTag> taskTagList;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTag> expenseTagList;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesTag> expensesTagList;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTag> eventTagList;
 
     @Override

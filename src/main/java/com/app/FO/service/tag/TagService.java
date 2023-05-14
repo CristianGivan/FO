@@ -63,11 +63,25 @@ public class TagService {
          */
         Tag tag = getTagByTagId(tagId);
         User user = userService.findUserById(userId);
-        checksTag.checkIsTagAndUserAndAreNotLinked(tag,user);
+        checksTag.checkIsTagAndUserAndAreNotLinked(tag, user);
         TagUser tagUser = new TagUser(tag, user);
         tag.getTagUserList().add(tagUser);
         return tagRepository.save(tag);
     }
+
+    public Tag putTextToTag(Long tagId, String tagText) {
+        /*
+         1. Find parameter1 by id (from log in user)
+         3. Check if there are not null else throw an exception)
+         4. Add new text
+         5. Save parameter1
+         */
+        Tag tag = getTagByTagId(tagId);
+        checksTag.checkIsTag(tag);
+        tag.setTagText(tagText);
+        return tagRepository.save(tag);
+    }
+
 
     //-- GET
 
@@ -88,21 +102,46 @@ public class TagService {
 
 
     public List<Tag> getListOfTagByNoteId(Long noteId) {
-        return tagRepository.getTagsByNoteId(userService.getLogInUser().getId(),noteId);
+        return tagRepository.getTagsByNoteId(userService.getLogInUser().getId(), noteId);
     }
-    
+
     public List<Tag> getTagsByTopicId(Long topicId) {
         return tagRepository.getTagListByUserIdAndTopicId(userService.getLogInUser().getId(), topicId);
     }
     //--Delete
 
 
+    public String deleteTag(Long tagId) {
+        /*
+        1. Find user by Id and userID
+        3 save tag
+        */
+        Tag tag = tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(), tagId);
+        checksTag.checkIsTag(tag);
+        tagRepository.delete(tag);
+        return "the tag with Id: " + tagId + " was deleted";
+    }
+
+    public Tag deleteUserFromTag(Long tagId, Long userId) {
+        /*
+        1. Find user by Id and userID
+        2. Check if the user is the creator
+        3. delete the user form userList
+        3 save tag
+        */
+        Tag tag = tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(), tagId);
+        User user = userService.findUserById(userId);
+        checksTag.checkIsTagAndTheCreatorAndAreLinked(tag, userService.getLogInUser());
+        checksTag.checkIsTagAndUserAndAreLinked(tag, user);// todo to be optimized
+        tagUserService.deleteUserFromTag(tag,user);
+        return tagRepository.save(tag);
+    }
+
+
     //-- Other
 
 
     //-- GET
-
-
 
 
     //-- actual user

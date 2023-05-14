@@ -30,16 +30,21 @@ public class TagController {
     //-- PostMapping
 
     @PostMapping("/postTag")
-    public TagDTO putUserToTag(@RequestBody TextDTO tagText) {
+    public TagDTO postTag(@RequestBody TextDTO tagText) {
         Tag tag = tagService.postTag(tagText.getText());
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
     //-- PutMapping
 
-    @PostMapping("/putUserToTag/")
-    public TagDTO addNewTag(@RequestParam Long tagId, @RequestParam Long userId) {
+    @PutMapping("/putUserToTag/")
+    public TagDTO putUserToTag(@RequestParam Long tagId, @RequestParam Long userId) {
         Tag tag = tagService.putUserToTag(tagId,userId);
+        return tagDTOMapper.tagToTagDTO(tag);
+    }
+    @PutMapping("/putTextToTag/")
+    public TagDTO putTextToTag(@RequestParam Long tagId, @RequestParam String tagText) {
+        Tag tag = tagService.putTextToTag(tagId,tagText);
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
@@ -93,6 +98,17 @@ public class TagController {
 
 
     //-- DeleteMapping
+    @DeleteMapping("/deleteTag/{tagId}")
+    public String deleteTag(@RequestParam Long tagId) {
+        String message = tagService.deleteTag(tagId);
+        return message;
+    }
+    @DeleteMapping("/deleteUserFromTag")
+    public TagDTO deleteUserFromTag(@RequestParam Long tagId, @RequestParam Long userId) {
+        Tag tag = tagService.deleteUserFromTag(tagId, userId);
+        return tagDTOMapper.tagToTagDTO(tag);
+    }
+
     //-- Converter
 
     //--- Other

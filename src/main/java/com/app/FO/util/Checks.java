@@ -52,9 +52,16 @@ public class Checks {
         if (user == null) {
             return false;
         }
-
         return true;
     }
+
+    public Boolean isUserTagCreator(User user, Tag tag) {
+        if (user.getId() == tag.getCreator().getId()) {
+            return true;
+        }
+        return false;
+    }
+
 
     public Boolean NoteHasTag(Note note, Tag tag) {
         if (noteRepository.noteIdHasTagId(note.getId(), tag.getId())) {

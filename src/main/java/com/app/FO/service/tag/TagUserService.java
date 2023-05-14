@@ -1,7 +1,9 @@
 package com.app.FO.service.tag;
 
 import com.app.FO.exceptions.UserTagNotFoundException;
+import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tag.TagUser;
+import com.app.FO.model.user.User;
 import com.app.FO.repository.tag.TagUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,6 @@ public class TagUserService {
     }
 
 
-
     //-- Post
 
     public TagUser saveUserTag(TagUser tagUser){
@@ -38,6 +39,10 @@ public class TagUserService {
 
     //--Delete
 
+    public void deleteUserFromTag(Tag tag, User user){
+       TagUser tagUser= tagUserRepository.getTagUserByTagIdAndUserId(tag.getId(),user.getId());
+       tagUserRepository.delete(tagUser);
+    }
 
 
     //-- Other

@@ -1,5 +1,12 @@
 # Done
+## 23_05_14-15_08_14
+- 3
+- [x] putTextToTag
+- [x] deleteTag
+- [x] deleteUserFromTag
+
 ## 23.05.09
+- 8 
 - [x] getTagListByTopic
 - [x] getTagListByUser
 - [x] putUserToTag
