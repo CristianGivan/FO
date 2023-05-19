@@ -1,9 +1,8 @@
 package com.app.FO.controller;
 
-import com.app.FO.dto.general.TextDTO;
-import com.app.FO.dto.tag.TagDTO;
-import com.app.FO.dto.tag.TagFDTO;
-import com.app.FO.mapper.TagDTOMapper;
+import com.app.FO.mapper.dto.general.TextDTO;
+import com.app.FO.mapper.dto.tag.TagDTO;
+import com.app.FO.mapper.mappers.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.service.tag.TagService;
 import com.app.FO.service.user.UserService;
@@ -24,7 +23,7 @@ public class TagController {
     @Autowired
     public TagController(TagService tagService, TagDTOMapper tagDTOMapper) {
         this.tagService = tagService;
-        this.tagDTOMapper=tagDTOMapper;
+        this.tagDTOMapper = tagDTOMapper;
     }
 
     //-- PostMapping
@@ -39,12 +38,13 @@ public class TagController {
 
     @PutMapping("/putUserToTag/")
     public TagDTO putUserToTag(@RequestParam Long tagId, @RequestParam Long userId) {
-        Tag tag = tagService.putUserToTag(tagId,userId);
+        Tag tag = tagService.putUserToTag(tagId, userId);
         return tagDTOMapper.tagToTagDTO(tag);
     }
+
     @PutMapping("/putTextToTag/")
     public TagDTO putTextToTag(@RequestParam Long tagId, @RequestParam String tagText) {
-        Tag tag = tagService.putTextToTag(tagId,tagText);
+        Tag tag = tagService.putTextToTag(tagId, tagText);
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
@@ -56,6 +56,7 @@ public class TagController {
         Tag tag = tagService.getTagByTagId(tagId);
         return tagDTOMapper.tagToTagDTO(tag);
     }
+
     @GetMapping("/returnTagById/{tagId}")
     public Tag returnTagById(@PathVariable Long tagId) {
         Tag tag = tagService.getTagByTagId(tagId);
@@ -67,7 +68,9 @@ public class TagController {
         List<Tag> tagList = tagService.getTagListByContainingText(containingText);
         return tagDTOMapper.tagListToTagDTOList(tagList);
 
-    }    @GetMapping("/getTagListByTagText/{tagText}")
+    }
+
+    @GetMapping("/getTagListByTagText/{tagText}")
     public TagDTO getTagListByTagText(@PathVariable String tagText) {
         Tag tagList = tagService.getTagByUserIdAndTagText(tagText);
         return tagDTOMapper.tagToTagDTO(tagList);
@@ -78,6 +81,7 @@ public class TagController {
         List<Tag> tagList = tagService.getTagListByUserId(userService.getLogInUser().getId());
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
+
     @GetMapping("/getTagListByUserId/{userId}")
     public List<TagDTO> getTagListByUserId(@PathVariable Long userId) {
         List<Tag> tagList = tagService.getTagListByUserId(userId);
@@ -86,13 +90,13 @@ public class TagController {
 
     @GetMapping("/getTagListByNoteId/{noteId}")
     public List<TagDTO> getTagListByNoteId(@PathVariable Long noteId) {
-        List<Tag> tagList =tagService.getListOfTagByNoteId(noteId);
+        List<Tag> tagList = tagService.getListOfTagByNoteId(noteId);
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 
     @GetMapping("/getTagListByTopicId/{topicId}")
     public List<TagDTO> getTagListByTopicId(@PathVariable Long topicId) {
-        List<Tag> tagList =tagService.getTagsByTopicId(topicId);
+        List<Tag> tagList = tagService.getTagsByTopicId(topicId);
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 
@@ -103,6 +107,7 @@ public class TagController {
         String message = tagService.deleteTag(tagId);
         return message;
     }
+
     @DeleteMapping("/deleteUserFromTag")
     public TagDTO deleteUserFromTag(@RequestParam Long tagId, @RequestParam Long userId) {
         Tag tag = tagService.deleteUserFromTag(tagId, userId);

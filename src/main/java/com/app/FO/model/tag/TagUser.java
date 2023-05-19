@@ -1,6 +1,5 @@
 package com.app.FO.model.tag;
 
-import com.app.FO.model.tag.Tag;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,6 +35,12 @@ public class TagUser {
     public TagUser() {
     }
 
+    public TagUser(Tag tag, User user) {
+        this.tag = tag;
+        this.user = user;
+        this.createdDate = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "TagUser{" +
@@ -44,12 +49,6 @@ public class TagUser {
                 ", tagId=" + tag.getId() +
                 ", createdDate=" + createdDate +
                 '}';
-    }
-
-    public TagUser(Tag tag,User user) {
-        this.tag = tag;
-        this.user = user;
-        this.createdDate = LocalDateTime.now();
     }
 
     public Long getId() {

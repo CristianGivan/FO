@@ -1,14 +1,8 @@
 package com.app.FO.service.note;
 
-import com.app.FO.exceptions.NoteTagNotFoundException;
-import com.app.FO.model.note.Note;
-import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.note.NoteUser;
-import com.app.FO.model.tag.Tag;
-import com.app.FO.repository.note.NoteTagRepository;
 import com.app.FO.repository.note.NoteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,14 +29,14 @@ public class NoteUserService {
     }
 
     public NoteUser getNoteUserByNoteIdAndUserId(Long noteId, Long userId) {
-        return noteUserRepository.getNoteUserByNoteIdAndUserId(noteId,userId);
+        return noteUserRepository.getNoteUserByNoteIdAndUserId(noteId, userId);
     }
 
 
     //--Delete
 
-    public void deleteNoteUserFormNoteIdByUserId(Long noteId, Long userId){
-        NoteUser noteUser=getNoteUserByNoteIdAndUserId(noteId,userId);
+    public void deleteNoteUserFormNoteIdByUserId(Long noteId, Long userId) {
+        NoteUser noteUser = getNoteUserByNoteIdAndUserId(noteId, userId);
         noteUserRepository.delete(noteUser);
     }
 

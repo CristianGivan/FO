@@ -47,7 +47,7 @@ public class ChecksTag {
             throw new TagNotFoundException("Tag not found!");
         }else if(!checks.isUser(user)){
             throw new UserNotFoundException("User not found");
-        }else if(!checks.isUserTagCreator(user,tag)){
+        }else if(!checks.isUserTagCreator(user, tag)){
             throw new UserNotFoundException("User not the creator");
         }else if(!checks.tagHasUser(tag, user)) {
             throw new UserNotFoundException("User is not linked to tag");

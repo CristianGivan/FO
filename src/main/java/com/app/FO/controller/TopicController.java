@@ -1,8 +1,8 @@
 package com.app.FO.controller;
 
-import com.app.FO.dto.general.TextDTO;
-import com.app.FO.dto.topic.TopicDTO;
-import com.app.FO.mapper.TopicDTOMapper;
+import com.app.FO.mapper.dto.general.TextDTO;
+import com.app.FO.mapper.dto.topic.TopicDTO;
+import com.app.FO.mapper.mappers.TopicDTOMapper;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.service.topic.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,7 @@ public class TopicController {
         List<Topic> topics = topicService.getAllTopics();
         return topicDTOMapper.TopicListToTopicDTOList(topics);
     }
+
     @GetMapping("/getTopicListByTagId/{tagId}")
     public List<TopicDTO> getTopicListByTagId(@PathVariable Long tagId) {
         List<Topic> topics = topicService.getTopicsByTagId(tagId);

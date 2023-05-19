@@ -37,10 +37,10 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(User user, Role role, LocalDateTime allocatedDay) {
+    public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
-        this.allocatedDay = allocatedDay;
+        this.allocatedDay =LocalDateTime.now();
     }
 
     @Override

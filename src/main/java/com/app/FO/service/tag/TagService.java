@@ -1,8 +1,8 @@
 package com.app.FO.service.tag;
 
-import com.app.FO.dto.tag.TagDTO;
-import com.app.FO.dto.tag.TagFDTO;
-import com.app.FO.mapper.TagDTOMapper;
+import com.app.FO.mapper.dto.tag.TagDTO;
+import com.app.FO.mapper.dto.tag.TagFDTO;
+import com.app.FO.mapper.mappers.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tag.TagUser;
 import com.app.FO.model.user.User;
@@ -62,7 +62,7 @@ public class TagService {
          6. Save parameter1
          */
         Tag tag = getTagByTagId(tagId);
-        User user = userService.findUserById(userId);
+        User user = userService.getUserByUserId(userId);
         checksTag.checkIsTagAndUserAndAreNotLinked(tag, user);
         TagUser tagUser = new TagUser(tag, user);
         tag.getTagUserList().add(tagUser);
@@ -130,10 +130,10 @@ public class TagService {
         3 save tag
         */
         Tag tag = tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(), tagId);
-        User user = userService.findUserById(userId);
+        User user = userService.getUserByUserId(userId);
         checksTag.checkIsTagAndTheCreatorAndAreLinked(tag, userService.getLogInUser());
         checksTag.checkIsTagAndUserAndAreLinked(tag, user);// todo to be optimized
-        tagUserService.deleteUserFromTag(tag,user);
+        tagUserService.deleteUserFromTag(tag, user);
         return tagRepository.save(tag);
     }
 

@@ -14,7 +14,7 @@ public class Role {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "role_id")
-    public Long id;
+    private Long id;
 
     @Column(name = "role_type")
     private RoleType roleType;
@@ -61,8 +61,8 @@ public class Role {
     }
 
     public List<UserRole> getUserRoleList() {
-        if (userRoleList ==null){
-            userRoleList =new ArrayList<>();
+        if (userRoleList == null) {
+            userRoleList = new ArrayList<>();
         }
         return userRoleList;
     }

@@ -1,9 +1,9 @@
 package com.app.FO.controller;
 
-import com.app.FO.dto.note.NoteFDTO;
-import com.app.FO.dto.general.TextDTO;
 import com.app.FO.exceptions.NoteNotFoundException;
-import com.app.FO.mapper.NoteDTOMapper;
+import com.app.FO.mapper.dto.general.TextDTO;
+import com.app.FO.mapper.dto.note.NoteFDTO;
+import com.app.FO.mapper.mappers.NoteDTOMapper;
 import com.app.FO.model.note.Note;
 import com.app.FO.service.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;

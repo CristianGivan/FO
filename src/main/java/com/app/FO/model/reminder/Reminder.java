@@ -38,8 +38,8 @@ public class Reminder {
 
     //todo ar putea fi un tabel de legatura?
     @OneToMany
-    @JoinColumn(name = "reminders")
-    private List<Reminder> repeatedReminders;
+    @JoinColumn(name = "repeated_reminders")
+    private List<Reminder> repeatedReminderList;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
@@ -78,7 +78,7 @@ public class Reminder {
                 ", createdDateTime=" + createdDateTime +
                 ", remainderDateTime=" + reminderDateTime +
                 ", snoozes=" + snoozes +
-                ", repeatedReminders=" + repeatedReminders +
+                ", repeatedReminders=" + repeatedReminderList +
                 ", creatorId=" + creator.getId() +
                 ", noteId=" + note.getId() +
                 ", taskId=" + task.getId() +
@@ -133,12 +133,12 @@ public class Reminder {
         this.snoozes = snoozes;
     }
 
-    public List<Reminder> getRepeatedReminders() {
-        return repeatedReminders;
+    public List<Reminder> getRepeatedReminderList() {
+        return repeatedReminderList;
     }
 
-    public void setRepeatedReminders(List<Reminder> repeatedReminders) {
-        this.repeatedReminders = repeatedReminders;
+    public void setRepeatedReminderList(List<Reminder> repeatedReminders) {
+        this.repeatedReminderList = repeatedReminders;
     }
 
     public Note getNote() {

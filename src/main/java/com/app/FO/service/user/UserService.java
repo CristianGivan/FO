@@ -1,26 +1,22 @@
 package com.app.FO.service.user;
 
 
-import com.app.FO.dto.user.RegisterDTO;
-import com.app.FO.dto.user.UserDTO;
-import com.app.FO.dto.user.UserFDTO;
 import com.app.FO.exceptions.UserNotFoundException;
-import com.app.FO.mapper.UserDTOMapper;
+import com.app.FO.mapper.dto.user.RegisterDTO;
+import com.app.FO.mapper.mappers.UserDTOMapper;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
+import com.app.FO.util.ChecksUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -37,6 +33,8 @@ public class UserService {
 
     @Autowired
     private UserDTOMapper userDTOMapper;
+    @Autowired
+    private ChecksUser checksUser;
 
     @Autowired
     public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository,
@@ -48,112 +46,149 @@ public class UserService {
     }
 
 
+    //-- Post
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public User postUser(RegisterDTO newUser) {
+        /*
+        - Verifies if the log in user has the admin role
+        - Verifies if the user all ready exist
+        - Add role to user
+        - Save Role
+        */
+        checksUser.checkUserHasPermission(getLogInUser());
+        checksUser.checkIsUserWithUserName(newUser.getUsername());
+        User user = new User(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
+        Role role;
+        if (newUser.getRole() == "admin") {
+            role = roleService.findRoleByType(RoleType.ROLE_ADMIN);
+        } else {
+            role = roleService.findRoleByType(RoleType.ROLE_STANDARD);
+        }
+        UserRole userRole = new UserRole(user, role);
+        user.getUserRoleList().add(userRole);
+        userRoleRepository.save(userRole);
+        return user;
+    }
+
+    //-- Put
+
+    public User putRoleToUser(Long userId, String userType) {
+        /*
+         - check if the user exist and the user has the type
+         - create an user role
+         - add user role to user
+         - save user
+         */
+        RoleType roleType;
+        if (userType == "admin") {
+            roleType = RoleType.ROLE_ADMIN;
+        } else {
+            roleType = RoleType.ROLE_STANDARD;
+        }
+        User user = userRepository.getUserByUserId(userId);
+        Role role = roleService.findRoleByType(roleType);
+        checksUser.checkIsUserAndRoleAndAreNotLinked(user, role);
+        UserRole userRole = new UserRole(user, role);
+        user.getUserRoleList().add(userRole);
+        return userRepository.save(user);
+    }
+
+    public User putUsernameToUser(Long userId, String username) {
+
+        User user = userRepository.getUserByUserId(userId);
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
+        user.setUsername(username);
+        return userRepository.save(user);
+    }
+
+    public User putPasswordToUser(Long userId, String password) {
+
+        User user = userRepository.getUserByUserId(userId);
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
+        user.setPassword(passwordEncoder.encode(password));
+        return userRepository.save(user);
+    }
+
+    public User putEmailToUser(Long userId, String email) {
+
+        User user = userRepository.getUserByUserId(userId);
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
+        user.setEmail(email);
+        return userRepository.save(user);
+    }
+
     //-- GET
 
-    public List<User> getUserListByNoteId(Long noteId){
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getLogInUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        return userRepository.getUserByUserName(userDetails.getUsername());
+    }
+
+    public User getUserByUserId(Long userId) {
+        return userRepository.getUserByUserId(userId);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.getUserByUserName(username);
+    }
+
+    public List<User> getUserListByNoteId(Long noteId) {
         /*
-        * Every user has a list of users that with witch can share information
-        * To have access to other users information it has to request the conses
-        * You can have access only for the notes where you are included in the user list
-        * Cam be seen the users that are not in your user list? yes but you cannot see there content only if you are included by them int user list of there content
-        * */
+         * Every user has a list of users that with witch can share information
+         * To have access to other users information it has to request the conses
+         * You can have access only for the notes where you are included in the user list
+         * Cam be seen the users that are not in your user list? yes but you cannot see there content only if you are included by them int user list of there content
+         * */
 
         //todo tbc checks
 
         return userRepository.getUserListByNoteId(noteId);
     }
 
-    public List<User> getUserListByTagId(Long tagId){
+    public List<User> getUserListByTagId(Long tagId) {
         return userRepository.getUserListByTagId(tagId);
     }
 
-
-
-
-    public User getUserByUserId(Long userId){
-        return userRepository.getUserByUserId(userId);
-    }
-
-    public User findUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() ->
-                new UserNotFoundException("User not found"));
-    }
-
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public List<UserDTO> findAllUsersDTO(){
-        return userDTOMapper.UserListToUserDTOList(findAllUsers());
-    }
-    public List<UserFDTO> findAllUsersFDTO(){
-        return userDTOMapper.UserListToUserFDTOList(findAllUsers());
-    }
-
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public User getLogInUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        User foundUser=userRepository.findByUsername(userDetails.getUsername());
-        return foundUser;
-    }
-
-    public UserDTO getLogInUserDTO(){
-        return userDTOMapper.UserToUserDTO(getLogInUser());
-    }
-    public UserFDTO getLogInUserFDTO(){
-        return userDTOMapper.UserToUserFDTO(getLogInUser());
-    }
-    public UserFDTO getUserFDTOByUsername(String username){
-        return userDTOMapper.UserToUserFDTO(getUserByUsername(username));
-    }
-
-    //-- Set
-
-
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
-
-    public User registerStandardUser(RegisterDTO newUser) throws ResponseStatusException {
-        User user = userRepository.findByUsername(newUser.getUsername());
-        if (user != null) {
-            throw new ResponseStatusException(HttpStatus.CREATED, "User already exist");
+    public List<User> getUserListByRole(String userType) {
+        Role role;
+        if (userType == "admin") {
+            role = roleService.findRoleByType(RoleType.ROLE_ADMIN);
+        } else {
+            role = roleService.findRoleByType(RoleType.ROLE_STANDARD);
         }
-        user = new User();
-        user.setUsername(newUser.getUsername());
-        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        Role role = roleService.findRoleByType(RoleType.ROLE_CLIENT);
-        UserRole userRole = new UserRole(user, role, LocalDateTime.now());
-        role.getUserRoleList().add(userRole);
-        user.getUserRoleList().add(userRole);
-        userRoleRepository.save(userRole);
-        return user;
-    }
-    public UserFDTO registerStandardUserFDTO(RegisterDTO newUser){
-        return userDTOMapper.UserToUserFDTO(registerStandardUser(newUser));
+        return userRepository.getUserListByRole(role.getId());
     }
 
     //--Delete
-    public List<User> deleteUserByUserId (Long userId){
-        userRepository.delete(findUserById(userId));
-        return findAllUsers();
-    }
-    public List<User> deleteUserDTOByUsername (String username){
-        userRepository.delete(getUserByUsername(username));
-        return findAllUsers();
-    }
-
 
 
     //-- Other
 
 
+    //--Delete
+    public List<User> deleteUserByUserId(Long userId) {
+        userRepository.delete(getUserByUserId(userId));
+        return findAllUsers();
+    }
 
-
-
+    public List<User> deleteUserDTOByUsername(String username) {
+        userRepository.delete(getUserByUsername(username));
+        return findAllUsers();
+    }
 
 }

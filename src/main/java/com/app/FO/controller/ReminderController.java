@@ -1,8 +1,8 @@
 package com.app.FO.controller;
 
-import com.app.FO.dto.general.TextDTO;
-import com.app.FO.dto.reminder.ReminderDTO;
-import com.app.FO.mapper.ReminderDTOMapper;
+import com.app.FO.mapper.dto.general.TextDTO;
+import com.app.FO.mapper.dto.reminder.ReminderDTO;
+import com.app.FO.mapper.mappers.ReminderDTOMapper;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.service.reminder.ReminderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ public class ReminderController {
         this.reminderService = reminderService;
         this.reminderDTOMapper = reminderDTOMapper;
     }
-
 
 
     //-- PutMapping

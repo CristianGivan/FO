@@ -20,15 +20,15 @@ public class TagUserService {
 
     //-- GET
 
-    public TagUser findUserTagById(Long userTagId){
+    public TagUser findUserTagById(Long userTagId) {
         return tagUserRepository.findById(userTagId).orElseThrow(
-                ()->new UserTagNotFoundException("TagUser not found"));
+                () -> new UserTagNotFoundException("TagUser not found"));
     }
 
 
     //-- Post
 
-    public TagUser saveUserTag(TagUser tagUser){
+    public TagUser saveUserTag(TagUser tagUser) {
         return tagUserRepository.save(tagUser);
     }
 
@@ -36,17 +36,15 @@ public class TagUserService {
     //-- Put
 
 
-
     //--Delete
 
-    public void deleteUserFromTag(Tag tag, User user){
-       TagUser tagUser= tagUserRepository.getTagUserByTagIdAndUserId(tag.getId(),user.getId());
-       tagUserRepository.delete(tagUser);
+    public void deleteUserFromTag(Tag tag, User user) {
+        TagUser tagUser = tagUserRepository.getTagUserByTagIdAndUserId(tag.getId(), user.getId());
+        tagUserRepository.delete(tagUser);
     }
 
 
     //-- Other
-
 
 
     //-- ChecksNote

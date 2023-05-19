@@ -35,6 +35,12 @@ public class TopicTag {
     public TopicTag() {
     }
 
+    public TopicTag(Topic topic, Tag tag, LocalDateTime createdDate) {
+        this.topic = topic;
+        this.tag = tag;
+        this.createdDate = createdDate;
+    }
+
     @Override
     public String toString() {
         return "NoteTag{" +
@@ -43,12 +49,6 @@ public class TopicTag {
                 ", tagId=" + tag.getId() +
                 ", createdDate=" + createdDate +
                 '}';
-    }
-
-    public TopicTag(Topic topic, Tag tag, LocalDateTime createdDate) {
-        this.topic = topic;
-        this.tag = tag;
-        this.createdDate = createdDate;
     }
 
     public Long getId() {

@@ -2,10 +2,11 @@ package com.app.FO.model.user;
 
 
 import com.app.FO.exceptions.IdAlreadyAllocatedException;
+import com.app.FO.model.account.Account;
 import com.app.FO.model.account.AccountUser;
 import com.app.FO.model.expense.Expense;
-//import com.app.FO.model.expenseslist.Expenses;
 import com.app.FO.model.expenses.ExpensesUser;
+import com.app.FO.model.note.Note;
 import com.app.FO.model.note.NoteHistory;
 import com.app.FO.model.note.NoteUser;
 import com.app.FO.model.reminder.Reminder;
@@ -15,10 +16,8 @@ import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.tasks.TasksHistory;
-import com.app.FO.model.topic.TopicHistory;
-import com.app.FO.model.note.Note;
 import com.app.FO.model.topic.Topic;
-import com.app.FO.model.account.Account;
+import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.topic.TopicUser;
 import com.app.FO.model.transaction.Transaction;
 
@@ -47,71 +46,78 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserRole> userRoleList;
 
+    @OneToMany
+    @JoinColumn(name = "repeated_list")
+    private List<User> userList;
 
-    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Topic> topicList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicHistory> topicHistoryList;
 
-    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Note> noteList;
-    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tag> tagList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteHistory> noteHistoryList;
 
-    @OneToMany(mappedBy = "creator",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Reminder> reminderList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Task> taskList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskHistory> taskHistoryList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tasks> tasksList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksHistory> tasksHistoryList;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Expense> expensesCreatedList;
 
-    @OneToMany(mappedBy = "payer")
+    @OneToMany(mappedBy = "payer", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Expense> expensesPayedList;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesUser> expensesUserList;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Account> accountList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountUser> accountUserList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Transaction> transactionList;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TagUser> tagUserList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicUser> topicUserList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteUser> noteUserList;
 
     public User() {
     }
 
-    //todo tbc ar trebui sa vad gaca nu cuva de aici mi se trage err de to string si anume sapun la note tag etc .getId
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -120,6 +126,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", userRoleList=" + userRoleList +
+                ", userList=" + userList +
                 ", topicList=" + topicList +
                 ", topicHistoryList=" + topicHistoryList +
                 ", noteList=" + noteList +
@@ -142,12 +149,6 @@ public class User {
                 '}';
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password=password;
-    }
-
-
     public Long getId() {
         return id;
     }
@@ -159,6 +160,38 @@ public class User {
             throw new IdAlreadyAllocatedException(
                     "Id is already allocated cannot be changed");
         }
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
+
+    public List<Reminder> getReminderList() {
+        return reminderList;
+    }
+
+    public void setReminderList(List<Reminder> reminderList) {
+        this.reminderList = reminderList;
+    }
+
+    public List<TagUser> getTagUserList() {
+        return tagUserList;
+    }
+
+    public void setTagUserList(List<TagUser> tagUserList) {
+        this.tagUserList = tagUserList;
     }
 
     public List<Tasks> getTasksList() {
@@ -186,8 +219,8 @@ public class User {
     }
 
     public List<NoteUser> getNoteUserList() {
-        if(noteUserList==null){
-            noteUserList=new ArrayList<>();
+        if (noteUserList == null) {
+            noteUserList = new ArrayList<>();
         }
         return noteUserList;
     }
@@ -214,13 +247,11 @@ public class User {
     }
 
     public List<UserRole> getUserRoleList() {
-        if (userRoleList ==null){
-            userRoleList =new ArrayList<>();
+        if (userRoleList == null) {
+            userRoleList = new ArrayList<>();
         }
         return userRoleList;
     }
-
-
 
 
     public void setUserRoleList(List<UserRole> userRoles) {
@@ -356,7 +387,7 @@ public class User {
     }
 
     public List<TagUser> getUserTagList() {
-        if (tagUserList ==null){
+        if (tagUserList == null) {
             tagUserList = new ArrayList<>();
         }
         return tagUserList;

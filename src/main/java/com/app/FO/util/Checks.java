@@ -4,9 +4,11 @@ import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.tag.TagRepository;
+import com.app.FO.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
 public class Checks {
     private NoteRepository noteRepository;
     private TagRepository tagRepository;
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     public Checks(NoteRepository noteRepository, TagRepository tagRepository) {
         this.noteRepository = noteRepository;
@@ -55,6 +60,7 @@ public class Checks {
         return true;
     }
 
+
     public Boolean isUserTagCreator(User user, Tag tag) {
         if (user.getId() == tag.getCreator().getId()) {
             return true;
@@ -90,10 +96,19 @@ public class Checks {
         }
         return false;
     }
+
     public Boolean tagHasUser(Tag tag, User user) {
         if (tagRepository.tagIdHasUserId(tag.getId(), user.getId())) {
             return true;
         }
         return false;
     }
+
+    public Boolean userHasRole(User user, Role role) {
+        if (userRepository.userIdHasRoleId(user.getId(), role.getId())) {
+            return true;
+        }
+        return false;
+    }
+
 }
