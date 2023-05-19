@@ -18,5 +18,5 @@ public abstract class UserRoleDTOMapper {
             " userRole.getAllocatedDay().toString())")
     public abstract UserRoleDTO UserRoleToUserRoleDTO(UserRole userRole);
 
-    public abstract List<UserRoleDTO> UserRolesToUserRolesDTO(List<UserRole> userRole);
+    public abstract List<UserRoleDTO> UserRolesToUserRolesDTO(List<UserRole> userRoleList);
 }

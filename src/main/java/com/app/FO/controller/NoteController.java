@@ -2,6 +2,7 @@ package com.app.FO.controller;
 
 import com.app.FO.exceptions.NoteNotFoundException;
 import com.app.FO.mapper.dto.general.TextDTO;
+import com.app.FO.mapper.dto.note.NoteDTO;
 import com.app.FO.mapper.dto.note.NoteFDTO;
 import com.app.FO.mapper.mappers.NoteDTOMapper;
 import com.app.FO.model.note.Note;
@@ -70,12 +71,12 @@ public class NoteController {
     }
 
     @GetMapping("/getNoteByNoteId/{noteId}")
-    public NoteFDTO getNoteByNoteId(@PathVariable Long noteId) {
+    public NoteDTO getNoteByNoteId(@PathVariable Long noteId) {
         Note note = noteService.getNoteByNoteId(noteId);
         if (note == null) {
             throw new NoteNotFoundException("The note was not found");
         }
-        return noteDTOMapper.NoteToNoteFDTO(note);
+        return noteDTOMapper.NoteToNoteDTO(note);
     }
 
     @GetMapping("/getNotesByTagId/{tagId}")

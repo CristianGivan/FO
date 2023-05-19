@@ -8,6 +8,9 @@
 - [x] putUserEmail
 - [x] putUserName
 
+- [x] putRoleToUser
+- [x] getUserListByRole
+
 ## 230518
 
 - 4

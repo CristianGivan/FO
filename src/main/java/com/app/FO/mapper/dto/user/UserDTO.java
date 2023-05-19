@@ -9,6 +9,23 @@ public class UserDTO {
     private String password;
 
     private String email;
+/*    private List<UserRole> userRoleList;
+
+    public UserDTO(Long userId, String username, String password, String email, List<UserRole> userRoleList) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.userRoleList = userRoleList;
+    }
+
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
+    }
+
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
+    }*/
 
     private List<UserRoleDTO> userRoleDTOList;
 
@@ -29,6 +46,14 @@ public class UserDTO {
                 ", email='" + email + '\'' +
                 ", userRoleDTOList=" + userRoleDTOList +
                 '}';
+    }
+
+    public List<UserRoleDTO> getUserRoleDTOList() {
+        return userRoleDTOList;
+    }
+
+    public void setUserRoleDTOList(List<UserRoleDTO> userRoleDTOList) {
+        this.userRoleDTOList = userRoleDTOList;
     }
 
     public Long getUserId() {
@@ -63,11 +88,5 @@ public class UserDTO {
         this.email = email;
     }
 
-    public List<UserRoleDTO> getUserRoleDTOList() {
-        return userRoleDTOList;
-    }
 
-    public void setUserRoleDTOList(List<UserRoleDTO> userRoleDTOList) {
-        this.userRoleDTOList = userRoleDTOList;
-    }
 }

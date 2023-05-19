@@ -18,7 +18,7 @@
 
 - [x] postUser
 -
-- [c] putRoleToUser
+- [x] putRoleToUser
 - [x] putUserName
 - [x] putUserPassword
 - [x] putUserEmail
@@ -28,7 +28,7 @@
 - [x] getUserListByTagId
 - [x] getLogInUser
 - [x] getUserByUsername
-- [c] getUserListByRole
+- [x] getUserListByRole
 
 - [ ] deleteRoleToUser
 -

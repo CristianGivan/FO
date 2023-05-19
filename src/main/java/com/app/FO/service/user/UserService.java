@@ -63,7 +63,7 @@ public class UserService {
         checksUser.checkIsUserWithUserName(newUser.getUsername());
         User user = new User(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
         Role role;
-        if (newUser.getRole() == "admin") {
+        if (newUser.getRole().equals("admin")) {
             role = roleService.findRoleByType(RoleType.ROLE_ADMIN);
         } else {
             role = roleService.findRoleByType(RoleType.ROLE_STANDARD);
@@ -84,7 +84,7 @@ public class UserService {
          - save user
          */
         RoleType roleType;
-        if (userType == "admin") {
+        if (userType.equals("admin")) {
             roleType = RoleType.ROLE_ADMIN;
         } else {
             roleType = RoleType.ROLE_STANDARD;
@@ -166,7 +166,7 @@ public class UserService {
 
     public List<User> getUserListByRole(String userType) {
         Role role;
-        if (userType == "admin") {
+        if (userType.equals("admin")) {
             role = roleService.findRoleByType(RoleType.ROLE_ADMIN);
         } else {
             role = roleService.findRoleByType(RoleType.ROLE_STANDARD);
