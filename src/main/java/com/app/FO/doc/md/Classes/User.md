@@ -34,5 +34,4 @@
 -
 - [ ] Check userDTO
 - [ ] getLogInUserF
-- [w] display put get by Role had to be done
 - [w] check that the password is coded correctly

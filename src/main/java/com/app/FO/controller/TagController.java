@@ -1,7 +1,9 @@
 package com.app.FO.controller;
 
+import com.app.FO.config.AllServices;
 import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.tag.TagDTO;
+import com.app.FO.mapper.dto.tag.TagFDTO;
 import com.app.FO.mapper.mappers.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.service.tag.TagService;
@@ -19,6 +21,8 @@ public class TagController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AllServices allServices;
 
     @Autowired
     public TagController(TagService tagService, TagDTOMapper tagDTOMapper) {
@@ -58,9 +62,9 @@ public class TagController {
     }
 
     @GetMapping("/returnTagById/{tagId}")
-    public Tag returnTagById(@PathVariable Long tagId) {
+    public TagFDTO returnTagById(@PathVariable Long tagId) {
         Tag tag = tagService.getTagByTagId(tagId);
-        return tag;
+        return tagDTOMapper.tagToTagFDTO(tag);
     }
 
     @GetMapping("/getTagListByContainingText/{containingText}")

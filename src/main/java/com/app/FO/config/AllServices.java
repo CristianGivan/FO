@@ -1,46 +1,32 @@
 package com.app.FO.config;
 
+import com.app.FO.mapper.dto.user.UserDTO;
+import com.app.FO.mapper.mappers.UserDTOMapper;
+import com.app.FO.model.tag.Tag;
+import com.app.FO.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class AllServices {
+    /*
+     * I decided to use this class as a workaround because:
+     * after inserting to many services in Note and Tag mapper I receive spring.main.allow-circular-references if I uncomment note service
+     * */
 
-//    to be deleted
+    public UserService userService;
+    public UserDTOMapper userDTOMapper;
 
-//    private UserService userService;
-//    private TagService tagService;
-//    private NoteService noteService;
-//    private TopicService topicService;
-//    private NoteTagService noteTagService;
-//
-//    @Autowired
-//    public AllServices(UserService userService, TagService tagService, NoteService noteService,
-//                       TopicService topicService,NoteTagService noteTagService) {
-//        this.userService = userService;
-//        this.tagService = tagService;
-//        this.noteService = noteService;
-//        this.topicService = topicService;
-//        this.noteTagService=noteTagService;
-//    }
-//
-//    public UserService getUserService() {
-//        return userService;
-//    }
-//
-//    public TagService getTagService() {
-//        return tagService;
-//    }
-//
-//    public NoteService getNoteService() {
-//        return noteService;
-//    }
-//
-//    public TopicService getTopicService() {
-//        return topicService;
-//    }
-//
-//    public NoteTagService getNoteTagService() {
-//        return noteTagService;
-//    }
+    @Autowired
+    public AllServices(UserService userService, UserDTOMapper userDTOMapper) {
+        this.userService = userService;
+        this.userDTOMapper = userDTOMapper;
+    }
+
+    public List<UserDTO> getUserListDTOByTag(Tag tag) {
+        return userDTOMapper.UserListToUserDTOList(userService.getUserListByTagId(tag.getId()));
+    }
 
 }

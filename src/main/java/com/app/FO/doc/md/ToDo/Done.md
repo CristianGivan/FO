@@ -2,7 +2,7 @@
 
 ## 230519
 
-- 3
+- 6
 - [x] getUserById
 - [x] getUserList
 - [x] putUserEmail
@@ -10,6 +10,8 @@
 
 - [x] putRoleToUser
 - [x] getUserListByRole
+
+- [x] todo spring.main.allow-circular-references if I uncomment note service
 
 ## 230518
 

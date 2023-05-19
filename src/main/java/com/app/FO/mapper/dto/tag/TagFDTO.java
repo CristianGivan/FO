@@ -15,18 +15,18 @@ public class TagFDTO {
 
     private UserDTO creator;
 
-    private List<UserDTO> userDTOList;
+    private List<UserDTO> userList;
 
     private List<NoteDTO> noteDTOList;
     private List<TopicDTO> topicDTOList;
 
     public TagFDTO(Long tagId, String tagText, LocalDateTime createdDateTime, UserDTO creator,
-                   List<UserDTO> userDTOList, List<NoteDTO> noteDTOList, List<TopicDTO> topicDTOList) {
+                   List<UserDTO> userList, List<NoteDTO> noteDTOList, List<TopicDTO> topicDTOList) {
         this.tagId = tagId;
         this.tagText = tagText;
         this.createdDateTime = createdDateTime;
         this.creator = creator;
-        this.userDTOList = userDTOList;
+        this.userList = userList;
         this.noteDTOList = noteDTOList;
         this.topicDTOList = topicDTOList;
     }
@@ -38,7 +38,7 @@ public class TagFDTO {
                 ", tagName='" + tagText + '\'' +
                 ", createdDate=" + createdDateTime +
                 ", creator=" + creator.getUserId() +
-                ", userDTOList=" + userDTOList +
+                ", userDTOList=" + userList +
                 ", noteDTOList=" + noteDTOList +
                 ", topicDTOList=" + topicDTOList +
                 '}';
@@ -92,11 +92,11 @@ public class TagFDTO {
         this.createdDateTime = createdDateTime;
     }
 
-    public List<UserDTO> getUserDTOList() {
-        return userDTOList;
+    public List<UserDTO> getUserList() {
+        return userList;
     }
 
-    public void setUserDTOList(List<UserDTO> userDTOList) {
-        this.userDTOList = userDTOList;
+    public void setUserList(List<UserDTO> userList) {
+        this.userList = userList;
     }
 }

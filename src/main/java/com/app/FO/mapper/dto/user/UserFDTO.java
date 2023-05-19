@@ -5,14 +5,18 @@ import java.util.List;
 public class UserFDTO {
     private Long userId;
     private String username;
-    private List<UserRoleDTO> userRoleDTOList;
-    private List<UserTagDTO> userTagDTOList;
 
-    public UserFDTO(Long userId, String username, List<UserRoleDTO> userRoleDTOList, List<UserTagDTO> userTagDTOList) {
+    private String password;
+
+    private String email;
+    private List<UserRoleDTO> userRoleDTOList;
+
+    public UserFDTO(Long userId, String username, String password, String email, List<UserRoleDTO> userRoleDTOList) {
         this.userId = userId;
         this.username = username;
+        this.password = password;
+        this.email = email;
         this.userRoleDTOList = userRoleDTOList;
-        this.userTagDTOList = userTagDTOList;
     }
 
     @Override
@@ -20,8 +24,9 @@ public class UserFDTO {
         return "UserFDTO{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", userRoles=" + userRoleDTOList +
-                ", userTags=" + userTagDTOList +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", userRoleDTOList=" + userRoleDTOList +
                 '}';
     }
 
@@ -41,19 +46,27 @@ public class UserFDTO {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public List<UserRoleDTO> getUserRoleDTOList() {
         return userRoleDTOList;
     }
 
     public void setUserRoleDTOList(List<UserRoleDTO> userRoleDTOList) {
         this.userRoleDTOList = userRoleDTOList;
-    }
-
-    public List<UserTagDTO> getUserTagDTOList() {
-        return userTagDTOList;
-    }
-
-    public void setUserTagDTOList(List<UserTagDTO> userTagDTOList) {
-        this.userTagDTOList = userTagDTOList;
     }
 }
