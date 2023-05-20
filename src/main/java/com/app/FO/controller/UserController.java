@@ -1,17 +1,12 @@
 package com.app.FO.controller;
 
 
-import com.app.FO.dto.general.TextDTO;
-import com.app.FO.dto.note.NoteDTO;
-import com.app.FO.dto.user.RegisterDTO;
-import com.app.FO.dto.user.UserDTO;
-import com.app.FO.dto.user.UserFDTO;
-import com.app.FO.dto.user.UserRoleDTO;
-import com.app.FO.mapper.UserDTOMapper;
-import com.app.FO.mapper.UserRoleDTOMapper;
+import com.app.FO.mapper.dto.user.RegisterDTO;
+import com.app.FO.mapper.dto.user.UserDTO;
+import com.app.FO.mapper.mappers.UserDTOMapper;
 import com.app.FO.model.user.User;
-import com.app.FO.model.user.UserRole;
 import com.app.FO.service.user.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,69 +16,130 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserService userService;
-
+    private final UserService userService;
     @Autowired
     UserDTOMapper userDTOMapper;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    //-- GetMapping
-
-    @GetMapping("/getLogInUser")
-    public UserDTO getLogInUser(){
-        return userService.getLogInUserDTO();
-    }
-
-    @GetMapping("/getLogInUserF")
-    public UserFDTO getLogInUserF(){
-        return userService.getLogInUserFDTO();
-    }
-
-    @GetMapping("/getUserFDTOByUsername/{username}")
-    public UserFDTO getUserFDTOByUsername(@PathVariable String username){
-        return userService.getUserFDTOByUsername(username);
-    }
-
-    @GetMapping("/findAll")
-    public List<UserDTO> findAllUsers(){
-        return userService.findAllUsersDTO();
-    }
-
-
 
     //-- PostMapping
-    @PostMapping("/registerStandardUser")
-    public UserFDTO registerStandardUser(@RequestBody RegisterDTO newUser) {
-        UserFDTO userFDTO=userService.registerStandardUserFDTO(newUser);
-        return userFDTO;
+    @PostMapping("/postUser")
+    public UserDTO postUser(@RequestBody RegisterDTO newUser) {
+        User user = userService.postUser(newUser);
+        return userDTOMapper.UserToUserDTO(user);
     }
 
     //-- PutMapping
+
+    @PutMapping("/putRoleToUser")
+    public UserDTO putRoleToUser(@RequestParam Long userId, @RequestParam String userType) {
+        User user = userService.putRoleToUser(userId, userType);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @PutMapping("/putUsernameToUser")
+    public UserDTO putUsernameToUser(@RequestParam Long userId, @RequestParam String username) {
+        User user = userService.putUsernameToUser(userId, username);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @PutMapping("/putPasswordToUser")
+    public UserDTO putPasswordToUser(@RequestParam Long userId, @RequestParam String password) {
+        User user = userService.putPasswordToUser(userId, password);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @PutMapping("/putEmailToUser")
+    public UserDTO putEmailToUser(@RequestParam Long userId, @RequestParam String email) {
+        User user = userService.putEmailToUser(userId, email);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @PutMapping("/putUserToLogInUser")
+    public UserDTO putUserToLogInUser(@RequestParam Long userId) {
+        User user = userService.putUserToLogInUser(userId);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+
+    //-- GetMapping
+
+    @GetMapping("/getAllUser")
+    public List<UserDTO> getAllUser() {
+        List<User> userList = userService.getAllUsers();
+        return userDTOMapper.UserListToUserDTOList(userList);
+    }
+
+    @GetMapping("/getUserById/{userId}")
+    public UserDTO getUserById(@PathVariable Long userId) {
+        User user = userService.getUserByUserId(userId);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @GetMapping("/getLogInUser")
+    public UserDTO getLogInUser() {
+        User user = userService.getLogInUser();
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @GetMapping("/getLogInUserF")
+    public UserDTO getLogInUserF() {
+        User user = userService.getLogInUser();
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @GetMapping("/getUserByUsername/{username}")
+    public UserDTO getUserFDTOByUsername(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+
+    @GetMapping("/getUserListByNoteId/{noteId}")
+    public List<UserDTO> getUserListByNoteId(@PathVariable Long noteId) {
+        List<User> userList = userService.getUserListByNoteId(noteId);
+        return userDTOMapper.UserListToUserDTOList(userList);
+    }
+
+    @GetMapping("/getUserListByTagId/{tagId}")
+    public List<UserDTO> getUserListByTagId(@PathVariable Long tagId) {
+        List<User> userList = userService.getUserListByTagId(tagId);
+        return userDTOMapper.UserListToUserDTOList(userList);
+    }
+
+    @GetMapping("/getUserListByRole/{userType}")
+    @ApiOperation(value = "admin or standard")
+    public List<UserDTO> getUserListByRole(@PathVariable String userType) {
+        List<User> userList = userService.getUserListByRole(userType);
+        return userDTOMapper.UserListToUserDTOList(userList);
+    }
 
 
     //-- DeleteMapping
 
     @DeleteMapping("/deleteUserDTOByUserId/{userId}")
     public List<UserDTO> deleteUserDTOByUserId(@PathVariable Long userId) {
-        userService.deleteUserByUserId(userId);
-        return userService.findAllUsersDTO();
+        List<User> userList = userService.deleteUserByUserId(userId);
+        return userDTOMapper.UserListToUserDTOList(userList);
     }
-    @DeleteMapping("/deleteUserFDTOByUserId/{username}")
-    public List<UserFDTO> deleteUserFDTOByUsername(@PathVariable String username) {
-        userService.deleteUserDTOByUsername(username);
-//        return userService.findAllUsersDTO();
-        return userService.findAllUsersFDTO();
+
+    @DeleteMapping("/deleteRoleFromUser/")
+    public UserDTO deleteRoleFromUser(@RequestParam Long userId, @RequestParam String userType) {
+        User user = userService.deleteRoleFromUser(userId, userType);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @DeleteMapping("/deleteUserFromLogInUser/")
+    public UserDTO deleteUserFromLogInUser(@RequestParam Long userId) {
+        User user = userService.deleteUserFromLogInUserList(userId);
+        return userDTOMapper.UserToUserDTO(user);
     }
 
     //--- Other
-
-
-
-
-
 
 
 }

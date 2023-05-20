@@ -35,6 +35,12 @@ public class TopicNote {
     public TopicNote() {
     }
 
+    public TopicNote(Topic topic, Note note) {
+        this.topic = topic;
+        this.note = note;
+        this.linkDate =LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "TopicNote{" +

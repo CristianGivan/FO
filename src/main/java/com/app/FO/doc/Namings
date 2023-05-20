@@ -1,0 +1,24 @@
+Abbreviates
+
+    tbt = to be tested
+    tbdel = to be deleted
+    tnu = to not use
+    tbd = to be discussed
+    tbm = to be modified
+
+    -c to continue
+
+
+Namings
+
+    user = log in user or current user
+    anyUser = admin can access data of any user
+
+    It shouldn't be use 'S as plural but use instead List ex: taskList not tasks (tasks different entity then task)
+
+
+Repository
+    getTopicFromUserIdByTopicId
+
+    isRemainderAtNoteAndUser
+

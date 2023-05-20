@@ -1,15 +1,23 @@
 
 Controller
-    //-- GetMapping
+
+
 
 
     //-- PostMapping
 
 
+
     //-- PutMapping
 
 
+
+    //-- GetMapping
+
+
+
     //-- DeleteMapping
+
 
 
     //--- Other
@@ -17,11 +25,16 @@ Controller
 
 
 Service
+
+    //-- Post
+
+
+
+    //-- Put
+
+
+
     //-- GET
-
-
-
-    //-- Set
 
 
 
@@ -29,5 +42,23 @@ Service
 
 
 
-
     //-- Other
+
+
+
+repository
+    //-- Create
+
+
+    //-- Read
+
+
+    //-- Update
+
+
+
+    //-- Delete
+
+
+
+    //-- Checks

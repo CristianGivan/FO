@@ -1,7 +1,7 @@
 package com.app.FO.model.task;
 
-import com.app.FO.model.remainder.Remainder;
-import com.app.FO.model.tasklist.TaskListTask;
+import com.app.FO.model.reminder.Reminder;
+import com.app.FO.model.tasks.TasksTask;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
@@ -42,22 +42,19 @@ public class Task {
     private TaskStatus taskStatus;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Remainder> remainders;
+    private List<Reminder> reminderList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskEffort> taskEfforts;
+    private List<TaskEffort> taskEffortList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskTag> noteTags;
+    private List<TaskTag> taskTagList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskNote> taskNotes;
+    private List<TasksTask> tasksTaskList;
 
     @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskListTask> taskListTasks;
-
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TaskHistory> taskHistories;
+    private List<TaskHistory> taskHistoryList;
 
     public Task() {
     }
@@ -72,12 +69,11 @@ public class Task {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", remainders=" + remainders +
-                ", taskEfforts=" + taskEfforts +
-                ", noteTags=" + noteTags +
-                ", taskNotes=" + taskNotes +
-                ", taskListTasks=" + taskListTasks +
-                ", taskHistories=" + taskHistories +
+                ", remainders=" + reminderList +
+                ", taskEfforts=" + taskEffortList +
+                ", noteTags=" + taskTagList +
+                ", tasksTasks=" + tasksTaskList +
+                ", taskHistories=" + taskHistoryList +
                 '}';
     }
 
@@ -137,51 +133,43 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public List<Remainder> getRemainders() {
-        return remainders;
+    public List<Reminder> getRemainderList() {
+        return reminderList;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
-        this.remainders = remainders;
+    public void setRemainderList(List<Reminder> reminders) {
+        this.reminderList = reminders;
     }
 
-    public List<TaskEffort> getTaskEfforts() {
-        return taskEfforts;
+    public List<TaskEffort> getTaskEffortList() {
+        return taskEffortList;
     }
 
-    public void setTaskEfforts(List<TaskEffort> taskEfforts) {
-        this.taskEfforts = taskEfforts;
+    public void setTaskEffortList(List<TaskEffort> taskEfforts) {
+        this.taskEffortList = taskEfforts;
     }
 
-    public List<TaskTag> getNoteTags() {
-        return noteTags;
+    public List<TaskTag> getTaskTagList() {
+        return taskTagList;
     }
 
-    public void setNoteTags(List<TaskTag> noteTags) {
-        this.noteTags = noteTags;
+    public void setTaskTagList(List<TaskTag> noteTags) {
+        this.taskTagList = noteTags;
     }
 
-    public List<TaskNote> getTaskNotes() {
-        return taskNotes;
+    public List<TasksTask> getTaskListTasks() {
+        return tasksTaskList;
     }
 
-    public void setTaskNotes(List<TaskNote> taskNotes) {
-        this.taskNotes = taskNotes;
+    public void setTaskListTasks(List<TasksTask> tasksTasks) {
+        this.tasksTaskList = tasksTasks;
     }
 
-    public List<TaskListTask> getTaskListTasks() {
-        return taskListTasks;
+    public List<TaskHistory> getTaskHistoryList() {
+        return taskHistoryList;
     }
 
-    public void setTaskListTasks(List<TaskListTask> taskListTasks) {
-        this.taskListTasks = taskListTasks;
-    }
-
-    public List<TaskHistory> getTaskHistories() {
-        return taskHistories;
-    }
-
-    public void setTaskHistories(List<TaskHistory> taskHistories) {
-        this.taskHistories = taskHistories;
+    public void setTaskHistoryList(List<TaskHistory> taskHistories) {
+        this.taskHistoryList = taskHistories;
     }
 }

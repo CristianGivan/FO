@@ -1,0 +1,173 @@
+{
+  "main": {
+    "id": "b394a93501705173",
+    "type": "split",
+    "children": [
+      {
+        "id": "20aae29779f1b64a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "20d571105759dc81",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Classes/Classes.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "425142d261163268",
+    "type": "split",
+    "children": [
+      {
+        "id": "5e6b8af039c34cc8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6f3804444eed1582",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "53b9247da26fa598",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "8a1bafa96291e7c2",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b91e7cb50bae27b9",
+    "type": "split",
+    "children": [
+      {
+        "id": "524cb0f2a28f20ca",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "36706cdf752fd2c4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Classes/Classes.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "517982b9084e2d99",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Classes/Classes.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b0911b6e19a4e08b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "2a188ffba892d537",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Classes/Classes.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "6f3804444eed1582",
+  "lastOpenFiles": [
+    "Classes/Tag.md~",
+    "ToDo/Done.md",
+    "General/LearnByHardWay.md",
+    "Untitled.md",
+    "Classes/Classes.md",
+    "Classes/Classes.md~",
+    "Classes/Topic.md",
+    "Classes/User.md~",
+    "ToDo/Done.md~",
+    "Classes/User.md",
+    "Classes/User/md.java",
+    "Classes/User",
+    "ToDo/ToDo.md",
+    "ToDo/ToDO",
+    "ToDo",
+    "Classes/Note.md",
+    "Classes/Tag.md",
+    "General/LearnByHardWay.md~",
+    "General/LearnByHardWay",
+    "Classes/Remainder.md",
+    "Classes/Reminder.md"
+  ]
+}

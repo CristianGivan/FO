@@ -10,14 +10,14 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('Start container'){
+        stage('Create image'){
             steps{
                 script{
                     sh 'docker build -t givanc/fo-app:latest .'
                 }
             }
         }
-        stage('Run in docker'){
+        stage('Start container'){
             steps{
                 script{
                     sh 'docker compose up -d --wait'

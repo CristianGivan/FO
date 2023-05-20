@@ -1,6 +1,5 @@
 package com.app.FO.model.account;
 
-import com.app.FO.model.transaction.Transaction;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,10 +30,10 @@ public class Account {
 
     //todo cum ar trebui sa fac aici  sa fac dou coloane de tranzactii una d din care se cumpara si una din care se vande
     @OneToMany(mappedBy = "account")
-    private List<AccountUsers> accountUsers;
+    private List<AccountUser> accountUsers;
 
     @OneToMany(mappedBy = "account")
-    private List<AccountTransactions> accountTransactions;
+    private List<AccountTransaction> accountTransactionList;
 
     public Account() {
     }
@@ -47,7 +46,7 @@ public class Account {
                 ", details='" + details + '\'' +
                 ", creatorId=" + creator.getId() +
                 ", accountUsers=" + accountUsers +
-                ", accountTransactions=" + accountTransactions +
+                ", accountTransactions=" + accountTransactionList +
                 '}';
     }
 
@@ -83,19 +82,19 @@ public class Account {
         this.creator = creator;
     }
 
-    public List<AccountUsers> getAccountUsers() {
+    public List<AccountUser> getAccountUsers() {
         return accountUsers;
     }
 
-    public void setAccountUsers(List<AccountUsers> accountUsers) {
+    public void setAccountUsers(List<AccountUser> accountUsers) {
         this.accountUsers = accountUsers;
     }
 
-    public List<AccountTransactions> getAccountTransactions() {
-        return accountTransactions;
+    public List<AccountTransaction> getAccountTransactionList() {
+        return accountTransactionList;
     }
 
-    public void setAccountTransactions(List<AccountTransactions> accountTransactions) {
-        this.accountTransactions = accountTransactions;
+    public void setAccountTransactionList(List<AccountTransaction> accountTransactions) {
+        this.accountTransactionList = accountTransactions;
     }
 }

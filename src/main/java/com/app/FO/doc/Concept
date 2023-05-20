@@ -8,7 +8,7 @@ Tag care sa descrie componentele
 Posibilitati:
 - un user ar putea fi default la care sa se poata atribui toate lucrurile generate de aplicatie
 gen o lista de taguri generale
-- ar putea fi un user guies care sa nu trebuiasca sa se inregistreze doar sa testeze aplicatia
+- ar putea fi un user guest care sa nu trebuiasca sa se inregistreze doar sa testeze aplicatia
 
 Functionalitati:
 - cand incep sa scriu in subiect sau la taguri sa imi arate ce este deja folosti
@@ -17,7 +17,7 @@ Functionalitati:
 - sa fac un DTO in care sa imi pun toate informatiile care vreau sa le arat
 si un DTO in care sa pun doar ID pentru celelalte entitati pentru a nu avem situatii recurente
 - sa pot ordona notele in topic
-- la cate un topic sa pot adauga diferite lucruri note tag remainder to do check list si altele
+- la cate un topic sa pot adauga diferite lucruri note tag reminder to do check list si altele
 - la un topic pot contribui mai multi utilizatori
 
 Hotarat
@@ -28,6 +28,7 @@ Hotarat
 - de fiecare data cand se mai adauga o notita se mai face o nota
 - la fiecare modificare se va salva intr-un history versiunea anterioara modificari
 - oricine poate sa vada toate tagurile incluse, pe viitor pot aparea taguri private doar la utilizitorul care este logat
+- dupa ce am trecut la toate modelele cu lombok mi-am dat seama ca nu pot sa il folosesc asa ca o sa raman cu getteri si seteri pe proiectul asta
 
 Nehotarat
 - ar trebui sa am o lista de taskuri la o notita  sau la un topic?

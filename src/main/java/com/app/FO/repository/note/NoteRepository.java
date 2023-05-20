@@ -10,37 +10,46 @@ import java.util.List;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
-    @Query("select n from Note as n inner join NoteTag nt on n.id=nt.note.id " +
-            "where nt.tag.id=?1")
-    List<Note> getNotesByTagId(Long tegId);
+    //-- get
+    List<Note> getNotesByCreatorIdAndNoteTextContains(Long userId, String containText);
 
-    //Todo cum ar trebui sa fac sa imi iasa ca mai sus?
-    //List<Note> getNotesByNoteTagsContainsTag(Long tegId);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and n.note_text=?2")
+    Note getNoteFromUserIdByNoteText(Long userId, String noteText);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1")
+    List<Note> getNoteListByUserId(Long userId);
 
-    @Query("select n from Note as n inner join TopicNote tn on n.id=tn.note.id " +
-            "where tn.topic.id=?1")
-    List<Note> getNotesByTopicId(Long topicId);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_user nu on n.note_id = nu.note_id where nu.note_id=?1 and nu.user_id=?2")
+    Note getNoteByIdAndUserId(Long noteId, Long userId);
 
-    List<Note> getNotesByNoteContains(String containText);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_tag as nt on n.note_id = nt.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and nt.tag_id=?2")
+    List<Note> getNoteListFromUserIdByTagId(Long userId, Long tagId);
 
-    //-- get from user
-    List<Note> getNotesByUserId(Long userId);
-    Note getNoteByUserIdAndId(Long userId, Long noteId);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join note_reminder as nr on n.note_id = nr.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and nr.reminder_id=?2")
+    List<Note> getNoteListFromUserIdByReminderId(Long noteId, Long reminderId);
 
-    List<Note> getNotesByUserIdAndNoteContains(Long userId,String containText);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM note as n inner join topic_note as tn on n.note_id = tn.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and tn.topic_id=?2")
+    List<Note> getNoteListFromUserIdByTopicId(Long noteId, Long topicId);
 
-    @Query(value = "SELECT * FROM notes as n inner join not_tag as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.tag_id=?2"
-            ,nativeQuery = true)
-    List<Note> getNotesFromUserIdByTagId(Long userId, Long tagId);
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM note_tag as nt where nt.note_id = ?1 and nt.tag_id = ?2), 'True', 'False')")
+    Boolean noteIdHasTagId(Long noteId, Long tagId);
 
-    @Query(value = "SELECT * FROM notes as n inner join topic_note as nt on n.note_id = nt.note_id where n.user_id=?1 and nt.topic_id=?2"
-            ,nativeQuery = true)
-    List<Note> getNotesFromUserIdByTopicId(Long userId, Long tagId);
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM topic_note as tn where tn.note_id = ?1 and tn.topic_id = ?2), 'True', 'False')")
+    Boolean noteIdHasTopicId(Long noteId, Long topicId);
 
-    @Query(value = "SELECT IF(EXISTS(SELECT * FROM note_tag as nt where nt.note_id = ?1 and nt.tag_id = ?2), 'True', 'False')"
-            ,nativeQuery = true)
-    Boolean noteHasTag(Long userId, Long tagId);
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM note_reminder as nr where nr.note_id = ?1 and nr.reminder_id = ?2), 'True', 'False')")
+    Boolean noteIdHasReminderId(Long noteId, Long reminderId);
 
-
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM note_user as nu where nu.note_id = ?1 and nu.user_id = ?2), 'True', 'False')")
+    Boolean noteIdHasUserId(Long noteId, Long userId);
 
 }

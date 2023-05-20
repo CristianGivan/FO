@@ -1,7 +1,7 @@
 package com.app.FO.model.topic;
 
-import com.app.FO.model.remainder.Remainder;
-import com.app.FO.model.event.EventTopics;
+import com.app.FO.model.event.EventTopic;
+import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "topics")
+@Table(name = "topic")
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_seq")
@@ -29,24 +29,27 @@ public class Topic {
     private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "topic",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TopicNote> topicNotes;
+    private List<TopicNote> topicNoteList;
 
     @OneToMany(mappedBy = "topic",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<TopicTag> topicTags;
+    private List<TopicTag> topicTagList;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private User creator;
 
     @OneToMany(mappedBy = "topic")
-    private List<TopicHistory> topicHistory;
+    private List<TopicUser> usersTopicList;
 
     @OneToMany(mappedBy = "topic")
-    private List<Remainder> remainders;
+    private List<TopicHistory> topicHistoryList;
 
     @OneToMany(mappedBy = "topic")
-    private List<EventTopics> eventTopics;
+    private List<Reminder> reminderList;
+
+    @OneToMany(mappedBy = "topic")
+    private List<EventTopic> eventTopicList;
 
     public Topic() {
     }
@@ -56,20 +59,26 @@ public class Topic {
         return "Topic{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", topicNotes=" + topicNotes +
-                ", topicTags=" + topicTags +
-                ", userId=" + user.getId() +
+                ", topicNotes=" + topicNoteList +
+                ", topicTags=" + topicTagList +
+                ", userId=" + creator.getId() +
                 ", createdDate=" + createdDate +
-                ", topicHistory=" + topicHistory +
-                ", remainders=" + remainders +
-                ", eventTopics=" + eventTopics +
+                ", topicHistory=" + topicHistoryList +
+                ", remainders=" + reminderList +
+                ", eventTopics=" + eventTopicList +
                 '}';
     }
 
+    //todo tnu
     public Topic(String subject, User user, LocalDateTime createdDate) {
         this.subject = subject;
-        this.user = user;
+        this.creator = user;
         this.createdDate = createdDate;
+    }
+    public Topic(String subject, User user) {
+        this.subject = subject;
+        this.creator = user;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -84,34 +93,45 @@ public class Topic {
         this.subject = subject;
     }
 
-    public List<TopicNote> getTopicNotes() {
-        if(topicNotes==null){
-            topicNotes=new ArrayList<>();
+    public List<TopicNote> getTopicNoteList() {
+        if(topicNoteList ==null){
+            topicNoteList =new ArrayList<>();
         }
-        return topicNotes;
+        return topicNoteList;
     }
 
-    public void setTopicNotes(List<TopicNote> topicNotes) {
-        this.topicNotes = topicNotes;
+    public void setTopicNoteList(List<TopicNote> topicNotes) {
+        this.topicNoteList = topicNotes;
     }
 
-    public List<TopicTag> getTopicTags() {
-        if (topicTags==null){
-            topicTags=new ArrayList<>();
+    public List<TopicTag> getTopicTagList() {
+        if (topicTagList ==null){
+            topicTagList =new ArrayList<>();
         }
-        return topicTags;
+        return topicTagList;
     }
 
-    public void setTopicTags(List<TopicTag> topicTags) {
-        this.topicTags = topicTags;
+    public List<TopicUser> getUsersTopicList() {
+        if (usersTopicList ==null){
+            usersTopicList =new ArrayList<>();
+        }
+        return usersTopicList;
+    }
+
+    public void setUsersTopicList(List<TopicUser> usersTopics) {
+        this.usersTopicList = usersTopics;
+    }
+
+    public void setTopicTagList(List<TopicTag> topicTags) {
+        this.topicTagList = topicTags;
     }
 
     public User getUser() {
-        return user;
+        return creator;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.creator = user;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -123,30 +143,30 @@ public class Topic {
         this.createdDate = createdDate;
     }
 
-    public List<TopicHistory> getTopicHistory() {
-        if (topicHistory==null){
-            topicHistory=new ArrayList<>();
+    public List<TopicHistory> getTopicHistoryList() {
+        if (topicHistoryList ==null){
+            topicHistoryList =new ArrayList<>();
         }
-        return topicHistory;
+        return topicHistoryList;
     }
 
-    public void setTopicHistory(List<TopicHistory> topicHistory) {
-        this.topicHistory = topicHistory;
+    public void setTopicHistoryList(List<TopicHistory> topicHistory) {
+        this.topicHistoryList = topicHistory;
     }
 
-    public List<Remainder> getRemainders() {
-        return remainders;
+    public List<Reminder> getRemainderList() {
+        return reminderList;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
-        this.remainders = remainders;
+    public void setRemainderList(List<Reminder> reminders) {
+        this.reminderList = reminders;
     }
 
-    public List<EventTopics> getEventTopics() {
-        return eventTopics;
+    public List<EventTopic> getEventTopicList() {
+        return eventTopicList;
     }
 
-    public void setEventTopics(List<EventTopics> eventTopics) {
-        this.eventTopics = eventTopics;
+    public void setEventTopicList(List<EventTopic> eventTopics) {
+        this.eventTopicList = eventTopics;
     }
 }

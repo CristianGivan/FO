@@ -1,5 +1,7 @@
 package com.app.FO.model.user;
 
+import com.app.FO.model.user.Role;
+import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -35,10 +37,10 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(User user, Role role, LocalDateTime allocatedDay) {
+    public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
-        this.allocatedDay = allocatedDay;
+        this.allocatedDay =LocalDateTime.now();
     }
 
     @Override

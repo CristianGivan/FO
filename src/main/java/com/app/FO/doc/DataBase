@@ -11,4 +11,6 @@ Relations:
 
 
 drop database fo_db;
-create database fo_db
+create database fo_db;
+
+use fo_db;

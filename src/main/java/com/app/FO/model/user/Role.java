@@ -14,13 +14,13 @@ public class Role {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "role_id")
-    public Long id;
+    private Long id;
 
     @Column(name = "role_type")
     private RoleType roleType;
 
     @OneToMany(mappedBy = "role")
-    private List<UserRole> userRoles;
+    private List<UserRole> userRoleList;
 
     public Role() {
     }
@@ -29,9 +29,9 @@ public class Role {
         this.roleType = roleType;
     }
 
-    public Role(RoleType roleType, List<UserRole> userRoles) {
+    public Role(RoleType roleType, List<UserRole> userRoleList) {
         this.roleType = roleType;
-        this.userRoles = userRoles;
+        this.userRoleList = userRoleList;
 
     }
 
@@ -40,7 +40,7 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", roleType=" + roleType +
-                ", userRoles=" + userRoles +
+                ", userRoles=" + userRoleList +
                 '}';
     }
 
@@ -60,14 +60,14 @@ public class Role {
         this.roleType = roleType;
     }
 
-    public List<UserRole> getUserRoles() {
-        if (userRoles==null){
-            userRoles=new ArrayList<>();
+    public List<UserRole> getUserRoleList() {
+        if (userRoleList == null) {
+            userRoleList = new ArrayList<>();
         }
-        return userRoles;
+        return userRoleList;
     }
 
-    public void setUserRoles(List<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRoleList(List<UserRole> userRoles) {
+        this.userRoleList = userRoles;
     }
 }

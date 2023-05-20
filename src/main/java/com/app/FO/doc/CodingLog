@@ -1,3 +1,79 @@
+230423
+5
+Note	FDTO
+
+
+Note	Update Repository
+User	getUserList
+
+
+230422
+1
+Note	Sterg Remainder
+
+230421
+12
+Note	Add user to userlist
+Note	Delete user from Userlist
+
+Note	Delete
+
+Refactoring
+
+230418
+10
+reformatting checking for note
+
+230409
+7
+
++ Creez delete endpoint reminder
++ Check why the reminder in not in note
++ Delete note form reminder
++ Save note and remander
++ get all reminders by noteId
++ rename check if note with return
++ when no element was found throw exception
+
+Note	Find by reminder
+Note	Sterg Remainder
+Remainder	Sterg
+Remainder	Get reminder by note
+
+
+230408
+View all
+Creez
+Find by Id
+Adaug Remainder
+
+230407
+I tried to use lombok but I couldn't because is hard to integrate lombok with mapstruct and the Id shall be ignored.
+I managed to rebase but I lost all modifications
+
+230306
+4
+Note:
+Adaug Remainder
+Sterg Remainder
+tesdt
+230325
+6
++ access also the local db
++ delete a note tag
+Topic:
+Creez
+View all
+Find by Id
+
+
+230318
+4
++ revizuit ce am facut data trecuta
++ rename admin
++ Add tag to note for log in user
+
+
 230123
 6
 - Service se va returna doar elementele de baza exemplu Note (note)

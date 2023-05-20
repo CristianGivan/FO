@@ -35,20 +35,20 @@ public class NoteTag {
     public NoteTag() {
     }
 
-    @Override
-    public String toString() {
-        return "NoteTag{" +
-                "id=" + id +
-                ", noteId=" + note.getId()+
-                ", tagId=" + tag.getId() +
-                ", createdDate=" + linkDate +
-                '}';
-    }
-
     public NoteTag(Note note, Tag tag) {
         this.note = note;
         this.tag = tag;
         this.linkDate = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "NoteTag{" +
+                "id=" + id +
+                ", noteId=" + note.getId() +
+                ", tagId=" + tag.getId() +
+                ", createdDate=" + linkDate +
+                '}';
     }
 
     public Long getId() {

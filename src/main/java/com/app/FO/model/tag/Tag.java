@@ -1,16 +1,13 @@
 package com.app.FO.model.tag;
 
-import com.app.FO.model.event.EventTags;
-import com.app.FO.model.expense.Expense;
+import com.app.FO.model.event.EventTag;
 import com.app.FO.model.expense.ExpenseTag;
-import com.app.FO.model.expenseslist.ExpensesListTags;
+import com.app.FO.model.expenses.ExpensesTag;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.user.User;
-import com.app.FO.model.user.UserTag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tag")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_seq")
@@ -29,125 +26,159 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
-    @Column(name = "tag")
-    private String tagName;
+    @Column(name = "tag_text")
+    private String tagText;
 
-    @OneToMany(mappedBy = "tag",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<UserTag> userTags;
+    @Column(name = "created_date")
+    private LocalDateTime createdDateTime;
 
-    @OneToMany(mappedBy = "tag")
-    private List<NoteTag> noteTags;
-    @OneToMany(mappedBy = "tag")
-    private List<TopicTag> topicTags;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
 
-    @OneToMany(mappedBy = "tag")
-    private List<TaskTag> taskTags;
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TagUser> tagUserList;
 
-    @OneToMany(mappedBy = "tag")
-    private List<ExpenseTag> expenseTags;
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<NoteTag> noteTagList;
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TopicTag> topicTagList;
 
-    @OneToMany(mappedBy = "tag")
-    private List<ExpensesListTags> expensesListTags;
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskTag> taskTagList;
 
-    @OneToMany(mappedBy = "tag")
-    private List<EventTags> eventTags;
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTag> expenseTagList;
+
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesTag> expensesTagList;
+
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventTag> eventTagList;
 
     @Override
     public String toString() {
         return "Tag{" +
                 "id=" + id +
-                ", tagName='" + tagName + '\'' +
-                ", userTags=" + userTags +
-                ", noteTags=" + noteTags +
-                ", topicTags=" + topicTags +
-                ", taskTags=" + taskTags +
-                ", expenseTags=" + expenseTags +
-                ", expensesListTags=" + expensesListTags +
-                ", eventTags=" + eventTags +
+                ", tagText='" + tagText + '\'' +
+                ", createdDateTime=" + createdDateTime +
+                ", creator=" + creator.getId() +
+                ", tagUserList=" + tagUserList +
+                ", noteTagList=" + noteTagList +
+                ", topicTagList=" + topicTagList +
+                ", taskTagList=" + taskTagList +
+                ", expenseTagList=" + expenseTagList +
+                ", expensesTagList=" + expensesTagList +
+                ", eventTagList=" + eventTagList +
                 '}';
     }
 
     public Tag() {
     }
-    public Tag(String tagName) {
-        this.tagName = tagName;
+
+    public Tag(String tagText, User creator) {
+        this.tagText = tagText;
+        this.creator = creator;
+        this.createdDateTime = LocalDateTime.now();
     }
 
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public List<TagUser> getTagUserList() {
+        if (tagUserList == null) {
+            tagUserList = new ArrayList<>();
+        }
+        return tagUserList;
+    }
+
+    public void setTagUserList(List<TagUser> tagUserList) {
+        this.tagUserList = tagUserList;
+    }
+
+    public List<ExpensesTag> getExpensesTagList() {
+        return expensesTagList;
+    }
+
+    public void setExpensesTagList(List<ExpensesTag> expensesTagList) {
+        this.expensesTagList = expensesTagList;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public List<NoteTag> getNoteTags() {
-        return noteTags;
+    public List<NoteTag> getNoteTagList() {
+        return noteTagList;
     }
 
-    public void setNoteTags(List<NoteTag> noteTags) {
-        this.noteTags = noteTags;
+    public void setNoteTagList(List<NoteTag> noteTags) {
+        this.noteTagList = noteTags;
     }
 
-    public List<TopicTag> getTopicTags() {
-        return topicTags;
+    public List<TopicTag> getTopicTagList() {
+        return topicTagList;
     }
 
-    public void setTopicTags(List<TopicTag> topicTags) {
-        this.topicTags = topicTags;
+    public void setTopicTagList(List<TopicTag> topicTags) {
+        this.topicTagList = topicTags;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getTagText() {
+        return tagText;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
+    public void setTagText(String tagName) {
+        this.tagText = tagName;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public List<TaskTag> getTaskTags() {
-        return taskTags;
+    public List<TaskTag> getTaskTagList() {
+        return taskTagList;
     }
 
-    public void setTaskTags(List<TaskTag> taskTags) {
-        this.taskTags = taskTags;
+    public void setTaskTagList(List<TaskTag> taskTags) {
+        this.taskTagList = taskTags;
     }
 
-    public List<ExpenseTag> getExpenseTags() {
-        return expenseTags;
+    public List<ExpenseTag> getExpenseTagList() {
+        return expenseTagList;
     }
 
-    public void setExpenseTags(List<ExpenseTag> expenseTags) {
-        this.expenseTags = expenseTags;
+    public void setExpenseTagList(List<ExpenseTag> expenseTags) {
+        this.expenseTagList = expenseTags;
     }
 
-    public List<ExpensesListTags> getExpensesListTags() {
-        return expensesListTags;
+    public List<ExpensesTag> getExpensesListTags() {
+        return expensesTagList;
     }
 
-    public void setExpensesListTags(List<ExpensesListTags> expensesListTags) {
-        this.expensesListTags = expensesListTags;
+    public void setExpensesListTags(List<ExpensesTag> expensesTags) {
+        this.expensesTagList = expensesTags;
     }
 
-    public List<EventTags> getEventTags() {
-        return eventTags;
+    public List<EventTag> getEventTagList() {
+        return eventTagList;
     }
 
-    public void setEventTags(List<EventTags> eventTags) {
-        this.eventTags = eventTags;
+    public void setEventTagList(List<EventTag> eventTags) {
+        this.eventTagList = eventTags;
     }
-
-
-    public List<UserTag> getUserTags() {
-        if (userTags==null){
-            userTags= new ArrayList<>();
-        }
-        return userTags;
-    }
-
-    public void setUserTags(List<UserTag> userTags) {
-        this.userTags = userTags;
-    }
-
 }

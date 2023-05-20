@@ -1,8 +1,8 @@
 package com.app.FO.controller;
 
 
-import com.app.FO.dto.user.AuthDTO;
-import com.app.FO.dto.user.RegisterDTO;
+import com.app.FO.mapper.dto.user.AuthDTO;
+import com.app.FO.mapper.dto.user.RegisterDTO;
 import com.app.FO.model.user.User;
 import com.app.FO.service.security.JwtTokenService;
 import com.app.FO.service.security.UserDetailsServiceImpl;
@@ -45,6 +45,7 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
         return jwtTokenService.generateToken(userDetails);
     }
+
     @PostMapping("/authenticateUser1")
     @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY4NDUyNjgwNn0.G32GHNQ3ly1jJuje7mT0DEoMNVx8Nv0STqs2-IPYAHjUDb9ebl_53HV0JvLICLtoM9iIuAYvFA3ciImrNXja9g")
     public String authenticateUser1(@RequestBody String username, String password) {
@@ -53,6 +54,7 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return jwtTokenService.generateToken(userDetails);
     }
+
     @PostMapping("/authenticateUser2")
     @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMiIsImV4cCI6MTY4NDUyNzUwN30.485xc7qF22Waz8HCWXqxs7WY0GFNBjGE0VT_p3One649pMq__ozIbP-et47pjLvco0tovz2OO6yTuO_qUKd-FA")
     public String authenticateUser2(@RequestBody String username, String password) {
@@ -61,8 +63,11 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return jwtTokenService.generateToken(userDetails);
     }
+
     @PostMapping("/authenticateUser3")
-    @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4NDUyNzc1M30.sTJUcJZ047Kgr4sdZaVbu8w-OCArFtgqOsQR7c7cRaie0kW-DNf2Bgxxr0h3ar1LhqrXgpNK4usTFYasmfivZA")
+    @ApiOperation(value =
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4NDUyNzc1M30.sTJUcJZ047Kgr4sdZaVbu8w-OCArFtgqOsQR7c7cRaie0kW-DNf2Bgxxr0h3ar1LhqrXgpNK4usTFYasmfivZA"
+    )
     public String authenticateUser3(@RequestBody String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
@@ -78,6 +83,7 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return jwtTokenService.generateToken(userDetails);
     }
+
     @PostMapping("/authenticateUser5")
     @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyNSIsImV4cCI6MTY4NDUyNzg4NH0.gP0jcNWj5gaWBq9rygBgWlXQsgoZX09nS755Z5gFRAgZlJw4T-RfZxFXLPMCgZIAnFMsqWZXEt-mhLeVWtIaUw")
     public String authenticateUser5(@RequestBody String username, String password) {
@@ -86,8 +92,10 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return jwtTokenService.generateToken(userDetails);
     }
+
     @PostMapping("/register")
     public User register(@RequestBody RegisterDTO newUser) {
-        return userService.registerStandardUser(newUser);
+        System.out.println("test");
+        return userService.postUser(newUser);
     }
 }

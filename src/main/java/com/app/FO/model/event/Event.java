@@ -1,13 +1,13 @@
 package com.app.FO.model.event;
 
-import com.app.FO.model.remainder.Remainder;
+import com.app.FO.model.reminder.Reminder;
 
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
-@Table(name = "events")
+@Table(name = "event")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq")
@@ -22,22 +22,22 @@ public class Event {
     private String name;
 
     @OneToMany(mappedBy = "event")
-    private List<EventTags> tags;
+    private List<EventTag> tagList;
 
     @OneToMany(mappedBy = "event")
-    private List<EventUsers> users;
+    private List<EventUser> userList;
 
     @OneToMany(mappedBy = "event")
-    private List<EventTopics> topics;
+    private List<EventTopic> topicList;
 
     @OneToMany(mappedBy = "event")
-    private List<EventTaskLists> taskLists;
+    private List<EventTasks> taskList;
 
     @OneToMany(mappedBy = "event")
-    private List<EventExpenseLists> expenses;
+    private List<EventExpense> expenseList;
 
     @OneToMany(mappedBy = "event")
-    private List<Remainder> remainders;
+    private List<Reminder> reminderList;
 
     public Event() {
     }
@@ -47,12 +47,12 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", tags=" + tags +
-                ", users=" + users +
-                ", topics=" + topics +
-                ", taskLists=" + taskLists +
-                ", expenses=" + expenses +
-                ", remainders=" + remainders +
+                ", tags=" + tagList +
+                ", users=" + userList +
+                ", topics=" + topicList +
+                ", taskLists=" + taskList +
+                ", expenses=" + expenseList +
+                ", remainders=" + reminderList +
                 '}';
     }
 
@@ -72,51 +72,51 @@ public class Event {
         this.name = name;
     }
 
-    public List<EventTags> getTags() {
-        return tags;
+    public List<EventTag> getTagList() {
+        return tagList;
     }
 
-    public void setTags(List<EventTags> tags) {
-        this.tags = tags;
+    public void setTagList(List<EventTag> tags) {
+        this.tagList = tags;
     }
 
-    public List<EventUsers> getUsers() {
-        return users;
+    public List<EventUser> getUserList() {
+        return userList;
     }
 
-    public void setUsers(List<EventUsers> users) {
-        this.users = users;
+    public void setUserList(List<EventUser> users) {
+        this.userList = users;
     }
 
-    public List<EventTopics> getTopics() {
-        return topics;
+    public List<EventTopic> getTopicList() {
+        return topicList;
     }
 
-    public void setTopics(List<EventTopics> topics) {
-        this.topics = topics;
+    public void setTopicList(List<EventTopic> topics) {
+        this.topicList = topics;
     }
 
-    public List<EventTaskLists> getTaskLists() {
-        return taskLists;
+    public List<EventTasks> getTaskList() {
+        return taskList;
     }
 
-    public void setTaskLists(List<EventTaskLists> taskLists) {
-        this.taskLists = taskLists;
+    public void setTaskList(List<EventTasks> taskLists) {
+        this.taskList = taskLists;
     }
 
-    public List<EventExpenseLists> getExpenses() {
-        return expenses;
+    public List<EventExpense> getExpenseList() {
+        return expenseList;
     }
 
-    public void setExpenses(List<EventExpenseLists> expenses) {
-        this.expenses = expenses;
+    public void setExpenseList(List<EventExpense> expenses) {
+        this.expenseList = expenses;
     }
 
-    public List<Remainder> getRemainders() {
-        return remainders;
+    public List<Reminder> getRemainderList() {
+        return reminderList;
     }
 
-    public void setRemainders(List<Remainder> remainders) {
-        this.remainders = remainders;
+    public void setRemainderList(List<Reminder> reminders) {
+        this.reminderList = reminders;
     }
 }
