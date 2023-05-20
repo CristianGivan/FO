@@ -50,7 +50,7 @@ public class User {
     private List<UserRole> userRoleList;
 
     @OneToMany
-    @JoinColumn(name = "repeated_list")
+    @JoinColumn(name = "user_list")
     private List<User> userList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -163,6 +163,9 @@ public class User {
     }
 
     public List<User> getUserList() {
+        if (userList == null) {
+            userList = new ArrayList<>();
+        }
         return userList;
     }
 

@@ -1,6 +1,9 @@
 package com.app.FO.service.user;
 
 
+import com.app.FO.exceptions.RoleNotFoundException;
+import com.app.FO.exceptions.UserAlreadyExistException;
+import com.app.FO.exceptions.UserHasNotEnoughPrivileges;
 import com.app.FO.exceptions.UserNotFoundException;
 import com.app.FO.mapper.dto.user.RegisterDTO;
 import com.app.FO.mapper.mappers.UserDTOMapper;
@@ -10,6 +13,7 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
+import com.app.FO.util.Checks;
 import com.app.FO.util.ChecksUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,6 +39,9 @@ public class UserService {
     private UserDTOMapper userDTOMapper;
     @Autowired
     private ChecksUser checksUser;
+
+    @Autowired
+    private Checks checks;
 
     @Autowired
     public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository,
@@ -127,9 +134,25 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User putUserToLogInUser(Long userId) {
+
+        User logInUser = getLogInUser();
+
+        User userToBeAdded = userRepository.getUserByUserId(userId);
+        if (userToBeAdded == null) {
+            throw new UserNotFoundException("User not found");
+        }
+        if (checks.userHasUser(logInUser, userToBeAdded)) {
+            throw new UserAlreadyExistException("User already exist");
+        }
+
+        logInUser.getUserList().add(userToBeAdded);
+        return userRepository.save(logInUser);
+    }
+
     //-- GET
 
-    public List<User> findAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -183,12 +206,68 @@ public class UserService {
     //--Delete
     public List<User> deleteUserByUserId(Long userId) {
         userRepository.delete(getUserByUserId(userId));
-        return findAllUsers();
+        return getAllUsers();
     }
 
-    public List<User> deleteUserDTOByUsername(String username) {
-        userRepository.delete(getUserByUsername(username));
-        return findAllUsers();
+    public User deleteRoleFromUser(Long userId, String userType) {
+        /*
+         * 1. Find param1 and param2
+         * 2. Check if
+         *   a. param1 exist
+         *   b. param2 exist
+         *   c. param2 is at param1
+         * 3. Delete param2 from param1
+         * 4. Save param1, no needed to save param2 because there is persist*/
+
+        RoleType roleType;
+        if (userType.equals("admin")) {
+            roleType = RoleType.ROLE_ADMIN;
+        } else {
+            roleType = RoleType.ROLE_STANDARD;
+        }
+
+        User user = userRepository.getUserByUserId(userId);
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
+        if (!checks.userIsAdmin(user)) {
+            throw new UserHasNotEnoughPrivileges("The user has not enough rights to create another user");
+        }
+
+        Role role = roleService.findRoleByType(roleType);
+        if (role == null) {
+            throw new RoleNotFoundException("Role not found");
+        }
+        if (checks.userHasRole(user, role)) {
+            throw new RoleNotFoundException("Role is not linked to the user");
+        }
+
+        user.getUserRoleList().remove(role);
+        return userRepository.save(user);
+    }
+
+    public User deleteUserFromLogInUserList(Long userIdToBeDeleted) {
+        /*
+         * 1. Find param1 and param2
+         * 2. Check if
+         *   a. param1 exist
+         *   b. param2 exist
+         *   c. param2 is at param1
+         * 3. Delete param2 from param1
+         * 4. Save param1, no needed to save param2 because there is persist*/
+
+        User logInUser = getLogInUser();
+
+        User userToBeDeleted = userRepository.getUserByUserId(userIdToBeDeleted);
+        if (userToBeDeleted == null) {
+            throw new UserNotFoundException("User not found");
+        }
+        if (!checks.userHasUser(logInUser, userToBeDeleted)) {
+            throw new UserNotFoundException("User is not linked to the log in user");
+        }
+
+        logInUser.getUserList().remove(userToBeDeleted);
+        return userRepository.save(logInUser);
     }
 
 }

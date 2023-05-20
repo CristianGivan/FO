@@ -111,4 +111,21 @@ public class Checks {
         return false;
     }
 
+    public Boolean userHasUser(User userFrom, User user) {
+        if (userRepository.userIdHasUserId(userFrom.getId(), user.getId())) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean userIsAdmin(User user) {
+        Boolean isAdminRole = user.getUserRoleList().stream().
+                map(userRole -> userRole.getRole().getRoleType().toString()).
+                filter(t -> t == "ROLE_ADMIN").findAny().isPresent();
+        if (isAdminRole) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -59,11 +59,18 @@ public class UserController {
         return userDTOMapper.UserToUserDTO(user);
     }
 
+    @PutMapping("/putUserToLogInUser")
+    public UserDTO putUserToLogInUser(@RequestParam Long userId) {
+        User user = userService.putUserToLogInUser(userId);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+
     //-- GetMapping
 
-    @GetMapping("/getUserList")
-    public List<UserDTO> getUserList() {
-        List<User> userList = userService.findAllUsers();
+    @GetMapping("/getAllUser")
+    public List<UserDTO> getAllUser() {
+        List<User> userList = userService.getAllUsers();
         return userDTOMapper.UserListToUserDTOList(userList);
     }
 
@@ -116,16 +123,20 @@ public class UserController {
 
     @DeleteMapping("/deleteUserDTOByUserId/{userId}")
     public List<UserDTO> deleteUserDTOByUserId(@PathVariable Long userId) {
-        userService.deleteUserByUserId(userId);
-        List<User> userList = userService.findAllUsers();
+        List<User> userList = userService.deleteUserByUserId(userId);
         return userDTOMapper.UserListToUserDTOList(userList);
     }
 
-    @DeleteMapping("/deleteUserFDTOByUserId/{username}")
-    public List<UserDTO> deleteUserFDTOByUsername(@PathVariable String username) {
-        userService.deleteUserDTOByUsername(username);
-        List<User> userList = userService.findAllUsers();
-        return userDTOMapper.UserListToUserDTOList(userList);
+    @DeleteMapping("/deleteRoleFromUser/")
+    public UserDTO deleteRoleFromUser(@RequestParam Long userId, @RequestParam String userType) {
+        User user = userService.deleteRoleFromUser(userId, userType);
+        return userDTOMapper.UserToUserDTO(user);
+    }
+
+    @DeleteMapping("/deleteUserFromLogInUser/")
+    public UserDTO deleteUserFromLogInUser(@RequestParam Long userId) {
+        User user = userService.deleteUserFromLogInUserList(userId);
+        return userDTOMapper.UserToUserDTO(user);
     }
 
     //--- Other

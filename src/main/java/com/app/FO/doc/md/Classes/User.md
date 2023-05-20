@@ -17,11 +17,12 @@
 ## ToDo
 
 - [x] postUser
--
+- 
 - [x] putRoleToUser
 - [x] putUserName
 - [x] putUserPassword
 - [x] putUserEmail
+- [c] putUserToUserList 
 
 - [x] getUserList
 - [x] getUserById
@@ -30,8 +31,6 @@
 - [x] getUserByUsername
 - [x] getUserListByRole
 
-- [ ] deleteRoleToUser
--
-- [ ] Check userDTO
-- [ ] getLogInUserF
-- [w] check that the password is coded correctly
+- [c] deleteRoleToUser
+- [c] deleteUserFromLogInUserList
+- [c] deleteUserById

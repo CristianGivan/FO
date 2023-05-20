@@ -19,3 +19,43 @@ Rezolvat
 - cum facem sa dam acces doar la userul care ii logat acces la ce a facut el
     - nu prin filtre prin metode
 - cum faci u JSON o singura linie?
+
+
+## Best Practice
+
+### 1. Fail Fast or all checks in one place:
+
+a. Fail fast
+
+```java
+        User user=userRepository.getUserByUserId(userId);
+        if(user==null){
+            throw new UserNotFoundException("User not found");
+        }
+
+        Role role=roleService.findRoleByType(roleType);
+        if(role==null){
+            throw new RoleNotFoundException("Role not found");
+        }
+```
+
+```
+b. Create a method where there are all the checks
+
+```java
+        User user=userRepository.getUserByUserId(userId);
+            Role role=roleService.findRoleByType(roleType);
+        checksUser.checkIsUserAndRoleAndAreNotLinked(user,role);
+```
+
+```java
+ public void checkIsUserAndRoleAndAreNotLinked(User user,Role role){
+        if(user==null){
+            throw new UserNotFoundException("User not found");
+        }else if(role==null){
+            throw new RoleNotFoundException("Role not found");
+        }else if(checks.userHasRole(user,role)){
+            throw new RoleAlreadyExistException("Role is already mapped to the user");
+        }
+        }
+```

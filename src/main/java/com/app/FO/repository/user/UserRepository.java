@@ -36,4 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "SELECT IF(EXISTS(SELECT * FROM user_role as ur where ur.user_id = ?1 and ur.role_id = ?2), 'True', 'False')")
     Boolean userIdHasRoleId(Long userId, Long roleId);
 
+    @Query(nativeQuery = true, value =
+            "SELECT IF(EXISTS(SELECT * FROM user_role as ur where ur.user_id = ?1 and ur.role_id = ?2), 'True', 'False')")
+    Boolean userIdHasUserId(Long userId, Long roleId);
 }

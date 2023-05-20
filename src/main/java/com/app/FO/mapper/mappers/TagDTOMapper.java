@@ -22,7 +22,7 @@ public abstract class TagDTOMapper {
 
     @Mapping(target = "tagId", source = "id")
     @Mapping(target = "userList", expression = "java(" +
-            "services.getUserListDTOByTag(tag)" +
+            "allServices.getUserListDTOByTag(tag)" +
             ")")
 //            ")")
 //    @Mapping(target = "topicDTOList", expression = "java(" +
