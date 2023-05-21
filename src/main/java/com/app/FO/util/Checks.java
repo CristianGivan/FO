@@ -104,18 +104,12 @@ public class Checks {
         return false;
     }
 
-    public Boolean userHasRole(User user, Role role) {
-        if (userRepository.userIdHasRoleId(user.getId(), role.getId())) {
-            return true;
-        }
-        return false;
+    public Long userHasRole(User user, Role role) {
+        return userRepository.userIdHasRoleId(user.getId(), role.getId());
     }
 
-    public Boolean userHasUser(User userFrom, User user) {
-        if (userRepository.userIdHasUserId(userFrom.getId(), user.getId())) {
-            return true;
-        }
-        return false;
+    public Long userHasUser(User userFrom, User user) {
+        return userRepository.userIdHasUserId(userFrom.getId(), user.getId());
     }
 
     public Boolean userIsAdmin(User user) {

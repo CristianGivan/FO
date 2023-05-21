@@ -1,8 +1,18 @@
 # Done
+## 230521
+
+- 2
+
+- [x] putUserToUserList 
+
+
+- [x] check if it had to be a linking column or linking table -:- linking table because it had to be more to more
+- [x] DTOF had to add the userList
 
 ## 230519
 
-- 6
+- 8
+- 
 - [x] getUserById
 - [x] getUserList
 - [x] putUserEmail

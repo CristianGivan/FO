@@ -14,6 +14,8 @@ import java.util.List;
 public abstract class TagDTOMapper {
     @Autowired
     protected AllServices allServices;
+    @Autowired
+    protected UserDTOMapper userDTOMapper;
 
     @Mapping(target = "tagId", source = "id")
     public abstract TagDTO tagToTagDTO(Tag tag);
@@ -22,12 +24,8 @@ public abstract class TagDTOMapper {
 
     @Mapping(target = "tagId", source = "id")
     @Mapping(target = "userList", expression = "java(" +
-            "allServices.getUserListDTOByTag(tag)" +
+            "userDTOMapper.UserListToUserDTOList(allServices.getUserListDTOByTag(tag))" +
             ")")
-//            ")")
-//    @Mapping(target = "topicDTOList", expression = "java(" +
-//            "topicDTOMapper.TopicListToTopicDTOList(topicService.getTopicsByTagId(tagId))" +
-//            ")")
     public abstract TagFDTO tagToTagFDTO(Tag tag);
 
     public abstract List<TagFDTO> tagListToTagFDTOList(List<Tag> tags);

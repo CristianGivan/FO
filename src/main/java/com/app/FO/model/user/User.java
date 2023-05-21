@@ -49,9 +49,9 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserRole> userRoleList;
 
-    @OneToMany
-    @JoinColumn(name = "user_list")
-    private List<User> userList;
+    //    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<UserUser> userList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Topic> topicList;
@@ -126,7 +126,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", userRoleList=" + userRoleList +
-                ", userList=" + userList +
+//                ", userList=" + userList +
                 ", topicList=" + topicList +
                 ", topicHistoryList=" + topicHistoryList +
                 ", noteList=" + noteList +
@@ -162,14 +162,14 @@ public class User {
         }
     }
 
-    public List<User> getUserList() {
+    public List<UserUser> getUserList() {
         if (userList == null) {
             userList = new ArrayList<>();
         }
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(List<UserUser> userList) {
         this.userList = userList;
     }
 

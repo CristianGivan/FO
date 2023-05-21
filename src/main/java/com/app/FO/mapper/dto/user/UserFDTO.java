@@ -1,5 +1,7 @@
 package com.app.FO.mapper.dto.user;
 
+import com.app.FO.mapper.dto.tag.TagDTO;
+
 import java.util.List;
 
 public class UserFDTO {
@@ -11,12 +13,18 @@ public class UserFDTO {
     private String email;
     private List<UserRoleDTO> userRoleDTOList;
 
-    public UserFDTO(Long userId, String username, String password, String email, List<UserRoleDTO> userRoleDTOList) {
+    private List<UserDTO> userDTOList;
+
+    private List<TagDTO> tagDTOList;
+
+    public UserFDTO(Long userId, String username, String password, String email, List<UserRoleDTO> userRoleDTOList, List<UserDTO> userDTOList, List<TagDTO> tagDTOList) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
         this.userRoleDTOList = userRoleDTOList;
+        this.userDTOList = userDTOList;
+        this.tagDTOList = tagDTOList;
     }
 
     @Override
@@ -27,6 +35,8 @@ public class UserFDTO {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", userRoleDTOList=" + userRoleDTOList +
+                ", userDTOList=" + userDTOList +
+                ", tagDTOList=" + tagDTOList +
                 '}';
     }
 
@@ -68,5 +78,21 @@ public class UserFDTO {
 
     public void setUserRoleDTOList(List<UserRoleDTO> userRoleDTOList) {
         this.userRoleDTOList = userRoleDTOList;
+    }
+
+    public List<UserDTO> getUserDTOList() {
+        return userDTOList;
+    }
+
+    public void setUserDTOList(List<UserDTO> userList) {
+        this.userDTOList = userList;
+    }
+
+    public List<TagDTO> getTagDTOList() {
+        return tagDTOList;
+    }
+
+    public void setTagDTOList(List<TagDTO> tagDTOList) {
+        this.tagDTOList = tagDTOList;
     }
 }

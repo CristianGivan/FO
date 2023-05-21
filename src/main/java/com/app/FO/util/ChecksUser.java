@@ -41,7 +41,7 @@ public class ChecksUser {
             throw new UserNotFoundException("User not found");
         } else if (role == null) {
             throw new RoleNotFoundException("Role not found");
-        } else if (checks.userHasRole(user, role)) {
+        } else if (checks.userHasRole(user, role) != null) {
             throw new RoleAlreadyExistException("Role is already mapped to the user");
 
         }

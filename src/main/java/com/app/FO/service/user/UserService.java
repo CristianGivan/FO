@@ -6,13 +6,8 @@ import com.app.FO.exceptions.UserAlreadyExistException;
 import com.app.FO.exceptions.UserHasNotEnoughPrivileges;
 import com.app.FO.exceptions.UserNotFoundException;
 import com.app.FO.mapper.dto.user.RegisterDTO;
-import com.app.FO.mapper.mappers.UserDTOMapper;
-import com.app.FO.model.user.Role;
-import com.app.FO.model.user.RoleType;
-import com.app.FO.model.user.User;
-import com.app.FO.model.user.UserRole;
+import com.app.FO.model.user.*;
 import com.app.FO.repository.user.UserRepository;
-import com.app.FO.repository.user.UserRoleRepository;
 import com.app.FO.util.Checks;
 import com.app.FO.util.ChecksUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +26,21 @@ public class UserService {
     // @Autowired
     // private static UserRepository userRepositoryStatic;
     private UserRepository userRepository;
-    private UserRoleRepository userRoleRepository;
     private RoleService roleService;
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserDTOMapper userDTOMapper;
     @Autowired
     private ChecksUser checksUser;
 
     @Autowired
     private Checks checks;
+//    @Autowired
+//    private UserRoleService userRoleService;
+
 
     @Autowired
-    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository,
-                       RoleService roleService, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -66,18 +59,24 @@ public class UserService {
         - Add role to user
         - Save Role
         */
-        checksUser.checkUserHasPermission(getLogInUser());
+        User logInUser = getLogInUser();
+        checksUser.checkUserHasPermission(logInUser);
         checksUser.checkIsUserWithUserName(newUser.getUsername());
         User user = new User(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
+
         Role role;
         if (newUser.getRole().equals("admin")) {
             role = roleService.findRoleByType(RoleType.ROLE_ADMIN);
         } else {
             role = roleService.findRoleByType(RoleType.ROLE_STANDARD);
         }
+
         UserRole userRole = new UserRole(user, role);
         user.getUserRoleList().add(userRole);
-        userRoleRepository.save(userRole);
+
+        UserUser userAddedToUser = new UserUser(logInUser, user);
+        logInUser.getUserList().add(userAddedToUser);
+        userRepository.save(user);
         return user;
     }
 
@@ -142,11 +141,14 @@ public class UserService {
         if (userToBeAdded == null) {
             throw new UserNotFoundException("User not found");
         }
-        if (checks.userHasUser(logInUser, userToBeAdded)) {
-            throw new UserAlreadyExistException("User already exist");
+        Long idOfUserLinkedToUser = checks.userHasUser(logInUser, userToBeAdded);
+        if (idOfUserLinkedToUser != null) {
+            throw new UserAlreadyExistException("User already exist (id from linking table is: " + idOfUserLinkedToUser + ")");
         }
 
-        logInUser.getUserList().add(userToBeAdded);
+        UserUser userAddedToUser = new UserUser(logInUser, userToBeAdded);
+
+        logInUser.getUserList().add(userAddedToUser);
         return userRepository.save(logInUser);
     }
 
@@ -157,8 +159,7 @@ public class UserService {
     }
 
     public User getLogInUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.getUserByUserName(userDetails.getUsername());
     }
 
@@ -195,6 +196,11 @@ public class UserService {
             role = roleService.findRoleByType(RoleType.ROLE_STANDARD);
         }
         return userRepository.getUserListByRole(role.getId());
+    }
+
+    public List<User> getUserListByUserId(Long userId) {
+        return userRepository.getUsersByUserList_User(getUserByUserId(userId));
+//        return userRepository.getUserListByUserId(userId);
     }
 
     //--Delete
@@ -238,11 +244,14 @@ public class UserService {
         if (role == null) {
             throw new RoleNotFoundException("Role not found");
         }
-        if (checks.userHasRole(user, role)) {
+        Long idUserRole = checks.userHasRole(user, role);
+        if (idUserRole == null) {
             throw new RoleNotFoundException("Role is not linked to the user");
         }
 
-        user.getUserRoleList().remove(role);
+//        UserRole userRole = userRoleService.getUserRoleByUserRoleId(idUserRole);
+//        user.getUserRoleList().remove(userRole);
+//        userRoleService.deleteUserRole(userRole);
         return userRepository.save(user);
     }
 
@@ -262,7 +271,8 @@ public class UserService {
         if (userToBeDeleted == null) {
             throw new UserNotFoundException("User not found");
         }
-        if (!checks.userHasUser(logInUser, userToBeDeleted)) {
+        Long idOfUserLinkedToUser = checks.userHasUser(logInUser, userToBeDeleted);
+        if (idOfUserLinkedToUser == null) {
             throw new UserNotFoundException("User is not linked to the log in user");
         }
 

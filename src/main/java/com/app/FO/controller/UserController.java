@@ -3,6 +3,7 @@ package com.app.FO.controller;
 
 import com.app.FO.mapper.dto.user.RegisterDTO;
 import com.app.FO.mapper.dto.user.UserDTO;
+import com.app.FO.mapper.dto.user.UserFDTO;
 import com.app.FO.mapper.mappers.UserDTOMapper;
 import com.app.FO.model.user.User;
 import com.app.FO.service.user.UserService;
@@ -18,7 +19,7 @@ public class UserController {
 
     private final UserService userService;
     @Autowired
-    UserDTOMapper userDTOMapper;
+    private UserDTOMapper userDTOMapper;
 
     @Autowired
     public UserController(UserService userService) {
@@ -28,9 +29,9 @@ public class UserController {
 
     //-- PostMapping
     @PostMapping("/postUser")
-    public UserDTO postUser(@RequestBody RegisterDTO newUser) {
+    public UserFDTO postUser(@RequestBody RegisterDTO newUser) {
         User user = userService.postUser(newUser);
-        return userDTOMapper.UserToUserDTO(user);
+        return userDTOMapper.UserToUserFDTO(user);
     }
 
     //-- PutMapping
@@ -75,9 +76,9 @@ public class UserController {
     }
 
     @GetMapping("/getUserById/{userId}")
-    public UserDTO getUserById(@PathVariable Long userId) {
+    public UserFDTO getUserById(@PathVariable Long userId) {
         User user = userService.getUserByUserId(userId);
-        return userDTOMapper.UserToUserDTO(user);
+        return userDTOMapper.UserToUserFDTO(user);
     }
 
     @GetMapping("/getLogInUser")
@@ -87,9 +88,9 @@ public class UserController {
     }
 
     @GetMapping("/getLogInUserF")
-    public UserDTO getLogInUserF() {
+    public UserFDTO getLogInUserF() {
         User user = userService.getLogInUser();
-        return userDTOMapper.UserToUserDTO(user);
+        return userDTOMapper.UserToUserFDTO(user);
     }
 
     @GetMapping("/getUserByUsername/{username}")

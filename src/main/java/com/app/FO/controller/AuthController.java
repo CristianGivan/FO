@@ -66,7 +66,7 @@ public class AuthController {
 
     @PostMapping("/authenticateUser3")
     @ApiOperation(value =
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4NDUyNzc1M30.sTJUcJZ047Kgr4sdZaVbu8w-OCArFtgqOsQR7c7cRaie0kW-DNf2Bgxxr0h3ar1LhqrXgpNK4usTFYasmfivZA"
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY5NTY0MTM5Mn0.bfmaVSWDkb-vBiXEeV13_BhMkZ-Hzv9pvLdEgCnDf27FyiND4jqszqWTtyTInYYFrxzh_sSZxjgrek81BWQ5Zg"
     )
     public String authenticateUser3(@RequestBody String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

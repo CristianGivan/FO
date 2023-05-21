@@ -1,5 +1,13 @@
 # Classes
 
+- [ ]
+
+- [ ] Resolve DTO mapoper cisrcular dependecis 
+  1. Create A mapper thta as all Mapers check is is posible to don't use All Services but to inculde them one by one in in de mapper
+  2. Create in AllServices athe DTO becasue you get stacOverflow if it is User to DTO to create user to DTO
+- [ ] addUserListToTag at tagFDTO
+- [ ] cehck mapstruct and longbook
+
 - [ ] DTO mapper mapstruct shall be improved shall be used UserRoleDTO or RoleDTO maybe using services
 - [ ] @Autowire should be privat public or protected
 - [ ] delete isTag isNote
