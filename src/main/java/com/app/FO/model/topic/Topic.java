@@ -1,7 +1,6 @@
 package com.app.FO.model.topic;
 
 import com.app.FO.model.event.EventTopic;
-import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -40,26 +39,20 @@ public class Topic {
     private User creator;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TopicUser> usersTopicList;
+    private List<TopicUser> topicUserList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TopicHistory> topicHistoryList;
-
-    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Reminder> reminderList;
+    private List<TopicReminder> topicReminderList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTopic> eventTopicList;
 
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TopicHistory> topicHistoryList;
+
     public Topic() {
     }
 
-    //todo tnu
-    public Topic(String subject, User user, LocalDateTime createdDate) {
-        this.subject = subject;
-        this.creator = user;
-        this.createdDate = createdDate;
-    }
 
     public Topic(String subject, User user) {
         this.subject = subject;
@@ -77,7 +70,7 @@ public class Topic {
                 ", userId=" + creator.getId() +
                 ", createdDate=" + createdDate +
                 ", topicHistory=" + topicHistoryList +
-                ", remainders=" + reminderList +
+                ", topicReminderList=" + topicReminderList +
                 ", eventTopics=" + eventTopicList +
                 '}';
     }
@@ -117,14 +110,14 @@ public class Topic {
     }
 
     public List<TopicUser> getTopicUserList() {
-        if (usersTopicList == null) {
-            usersTopicList = new ArrayList<>();
+        if (topicUserList == null) {
+            topicUserList = new ArrayList<>();
         }
-        return usersTopicList;
+        return topicUserList;
     }
 
     public void setTopicUserList(List<TopicUser> usersTopics) {
-        this.usersTopicList = usersTopics;
+        this.topicUserList = usersTopics;
     }
 
     public User getUser() {
@@ -155,12 +148,15 @@ public class Topic {
         this.topicHistoryList = topicHistory;
     }
 
-    public List<Reminder> getRemainderList() {
-        return reminderList;
+    public List<TopicReminder> getTopicReminderList() {
+        if (topicReminderList == null) {
+            topicReminderList = new ArrayList<>();
+        }
+        return topicReminderList;
     }
 
-    public void setRemainderList(List<Reminder> reminders) {
-        this.reminderList = reminders;
+    public void setTopicReminderList(List<TopicReminder> reminders) {
+        this.topicReminderList = reminders;
     }
 
     public List<EventTopic> getEventTopicList() {

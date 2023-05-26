@@ -176,10 +176,10 @@ public class Runner implements CommandLineRunner {
         savedNote2 = noteService.saveNote(note2);
         savedNote3 = noteService.saveNote(note3);
 
-        Topic topic1 = new Topic("Topic1", savedUser1, LocalDateTime.now().minusDays(1));
-        Topic topic2 = new Topic("Topic2", savedUser2, LocalDateTime.now().minusDays(2));
-        Topic topic3 = new Topic("Topic3", savedUser3, LocalDateTime.now().minusDays(3));
-        Topic topic4 = new Topic("Topic4", savedUser3, LocalDateTime.now().minusDays(4));
+        Topic topic1 = new Topic("Topic1", savedUser1);
+        Topic topic2 = new Topic("Topic2", savedUser2);
+        Topic topic3 = new Topic("Topic3", savedUser3);
+        Topic topic4 = new Topic("Topic4", savedUser3);
 
         Topic savedTopic1 = topicService.saveTopic(topic1);
         Topic savedTopic2 = topicService.saveTopic(topic2);

@@ -3,13 +3,14 @@ package com.app.FO.util;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
-import com.app.FO.model.topic.Topic;
-import com.app.FO.model.topic.TopicTag;
-import com.app.FO.model.topic.TopicUser;
+import com.app.FO.model.topic.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
+import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.tag.TagRepository;
+import com.app.FO.repository.topic.TopicNoteRepository;
+import com.app.FO.repository.topic.TopicReminderRepository;
 import com.app.FO.repository.topic.TopicTagRepository;
 import com.app.FO.repository.topic.TopicUserRepository;
 import com.app.FO.repository.user.RoleRepository;
@@ -26,14 +27,23 @@ public class ServiceAll {
     private UserRepository userRepository;
 
     @Autowired
+    private UserRoleRepository userRoleRepository;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
-    private UserRoleRepository userRoleRepository;
+    private ReminderRepository reminderRepository;
+
     @Autowired
     private TopicUserRepository topicUserRepository;
     @Autowired
     private TopicTagRepository topicTagRepository;
+
+    @Autowired
+    private TopicNoteRepository topicNoteRepository;
+    @Autowired
+    private TopicReminderRepository topicReminderRepository;
 
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -148,11 +158,28 @@ public class ServiceAll {
         return topicTagRepository.getTopicTagByTopicIdAndTagId(topicId, tagId);
     }
 
-    //-- getTag
-
-    public Tag getTagByUserIdAndTagId(Long userId, Long tagId) {
-        return tagRepository.getTagByUserIdAndTagId(userId, tagId);
+    public TopicNote getTopicNote(Long topicId, Long noteId) {
+        return topicNoteRepository.getTopicNoteByTopicIdAndNoteId(topicId, noteId);
     }
 
+    public TopicReminder getTopicReminder(Long topicId, Long reminderId) {
+        return topicReminderRepository.getTopicReminderByTopicIdAndReminderId(topicId, reminderId);
+    }
+
+    //-- getTag
+
+    public Tag getTagByUserIdAndTagId(Long tagId, Long userId) {
+        return tagRepository.getTagByUserIdAndTagId(tagId, userId);
+    }
+
+    //-- getNote
+    public Note getNoteByIdAndUserId(Long noteId, Long userId) {
+        return noteRepository.getNoteByIdAndUserId(noteId, userId);
+    }
+
+    //-- getReminder
+    public Reminder getReminderByIdAndUserId(Long reminderId, Long userId) {
+        return reminderRepository.getReminderByIdAndUserId(reminderId, userId);
+    }
 
 }

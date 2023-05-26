@@ -3,7 +3,9 @@
 
 # ToDo
 
-## Template
+## Entity
+
+- [ ] Add creator (log in user)
 
 ### Entity
 - [x] Add to all OneToMany the orphanRemoval and cascade
@@ -42,8 +44,8 @@
 - [x] putSubjectToTopic
 - [x] putUserToTopic
 - [x] putTagToTopic
-- [ ] putNoteToTopic
-- [ ] putReminderToTopic
+- [x] putNoteToTopic
+- [x] putReminderToTopic
 
 
 ### Get

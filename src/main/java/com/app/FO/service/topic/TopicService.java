@@ -3,10 +3,10 @@ package com.app.FO.service.topic;
 import com.app.FO.exceptions.TopicAlreadyExistException;
 import com.app.FO.exceptions.TopicNotFoundException;
 import com.app.FO.exceptions.TopicUserAlreadyExistException;
+import com.app.FO.model.note.Note;
+import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
-import com.app.FO.model.topic.Topic;
-import com.app.FO.model.topic.TopicTag;
-import com.app.FO.model.topic.TopicUser;
+import com.app.FO.model.topic.*;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.topic.TopicRepository;
 import com.app.FO.service.user.UserService;
@@ -99,7 +99,7 @@ public class TopicService {
             throw new TopicNotFoundException("Topic not found in your list");
         }
 
-        Tag tag = serviceAll.getTagByUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagByUserIdAndTagId(tagId, logInUser.getId());
         if (tag == null) {
             throw new TopicNotFoundException("Tag not found");
         }
@@ -116,13 +116,49 @@ public class TopicService {
     }
 
     public Topic putNoteToTopic(Long topicId, Long noteId) {
-        Topic topic = null;
+        User logInUser = userService.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        Note note = serviceAll.getNoteByIdAndUserId(noteId, logInUser.getId());
+        if (note == null) {
+            throw new TopicNotFoundException("Note not found");
+        }
+
+        TopicNote topicNote = serviceAll.getTopicNote(topicId, noteId);
+        if (topicNote != null) {
+            throw new TopicUserAlreadyExistException("The topic already has the note");
+        }
+
+        topicNote = new TopicNote(topic, note);
+        topic.getTopicNoteList().add(topicNote);
 
         return topicRepository.save(topic);
     }
 
     public Topic putReminderToTopic(Long topicId, Long reminderId) {
-        Topic topic = null;
+        User logInUser = userService.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        Reminder reminder = serviceAll.getReminderByIdAndUserId(reminderId, logInUser.getId());
+        if (reminder == null) {
+            throw new TopicNotFoundException("Reminder not found");
+        }
+
+        TopicReminder topicReminder = serviceAll.getTopicReminder(topicId, reminderId);
+        if (topicReminder != null) {
+            throw new TopicUserAlreadyExistException("The topic already has the reminder");
+        }
+
+        topicReminder = new TopicReminder(topic, reminder);
+        topic.getTopicReminderList().add(topicReminder);
 
         return topicRepository.save(topic);
     }

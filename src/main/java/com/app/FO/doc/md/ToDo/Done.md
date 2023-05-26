@@ -10,6 +10,8 @@
 - [x] Renamed Checks
 - [x] putUserToTopic
 - [x] putTagToTopic
+- [x] putNoteToTopic
+- [x] putReminderToTopic
 
 ## 230522
 
