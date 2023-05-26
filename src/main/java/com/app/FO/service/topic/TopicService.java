@@ -1,7 +1,9 @@
 package com.app.FO.service.topic;
 
+import com.app.FO.exceptions.TopicAlreadyExistException;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicUser;
+import com.app.FO.model.user.User;
 import com.app.FO.repository.topic.TopicRepository;
 import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,40 +22,48 @@ public class TopicService {
     private TopicUserService topicUserService;
 
     @Autowired
-     public TopicService(TopicRepository topicRepository) {
+    public TopicService(TopicRepository topicRepository) {
         this.topicRepository = topicRepository;
     }
 
+
+    //-- Post
+
+    public Topic postTopic(String subject) {
+        User user = userService.getLogInUser();
+        Topic topic = topicRepository.getTopicFromUserIdBySubject(user.getId(), subject);
+
+        if (topic != null) {
+            throw new TopicAlreadyExistException("Topic with this subject already exist");
+        }
+        topic = topicRepository.save(new Topic(subject, userService.getLogInUser()));
+
+        TopicUser topicUser = new TopicUser(userService.getLogInUser(), topic);
+        topic.getTopicUserList().add(topicUser);
+
+        return topicRepository.save(topic);
+    }
+
+    //-- Put
+
+
     //-- GET
-    public List<Topic> getAllTopics(){
+    public List<Topic> getAllTopics() {
         //todo tbc with from user
         return topicRepository.findAll();
     }
 
-    public List<Topic> getTopicsByTagId(Long tagId){
+    public List<Topic> getTopicsByTagId(Long tagId) {
         return topicRepository.getTopicListByTagId(tagId);
     }
 
-    public Topic getTopicByTopicId(Long topicId){
-       return topicRepository.getTopicFromUserByTopicId(userService.getLogInUser().getId(),topicId);
+    public Topic getTopicByTopicId(Long topicId) {
+        return topicRepository.getTopicFromUserIdByTopicId(userService.getLogInUser().getId(), topicId);
     }
 
     public List<Topic> getTopicsByNote(Long noteId) {
         return topicRepository.getTopicsByNoteId(noteId);
     }
-
-
-
-    //-- Post
-
-    public Topic postTopic(String topicName){
-        Topic topic =topicRepository.save(new Topic(topicName,userService.getLogInUser()));
-        TopicUser topicUser = topicUserService.postUsersTopics(new TopicUser(userService.getLogInUser(),topic));
-        return topic;
-    }
-
-    //-- Put
-
 
 
     //--Delete
@@ -62,23 +72,15 @@ public class TopicService {
     //-- Other
 
 
-
     //-- ChecksNote
-
 
 
     //-- Redefine
 
     //todo tbdel
-    public Topic saveTopic(Topic topic){
+    public Topic saveTopic(Topic topic) {
         return topicRepository.save(topic);
     }
-
-
-
-
-
-
 
 
 }

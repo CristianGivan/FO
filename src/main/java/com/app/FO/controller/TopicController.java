@@ -23,6 +23,17 @@ public class TopicController {
         this.topicService = topicService;
     }
 
+    //-- PostMapping
+
+    @PostMapping("/postNewTopic")
+    public TopicDTO postNewTopic(@RequestBody TextDTO noteText) {
+        Topic topic = topicService.postTopic(noteText.getText());
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+
+    //-- PutMapping
+
 
     //---GetMapping
 
@@ -43,17 +54,6 @@ public class TopicController {
         List<Topic> topics = topicService.getTopicsByTagId(tagId);
         return topicDTOMapper.TopicListToTopicDTOList(topics);
     }
-
-    //-- PostMapping
-
-    @PostMapping("/postNewTopic")
-    public TopicDTO postNewTopic(@RequestBody TextDTO noteText) {
-        Topic topic = topicService.postTopic(noteText.getText());
-        return topicDTOMapper.TopicToTopicDTO(topic);
-    }
-
-
-    //-- PutMapping
 
 
     //-- DeleteMapping

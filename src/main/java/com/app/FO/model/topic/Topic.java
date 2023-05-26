@@ -28,10 +28,10 @@ public class Topic {
     @Column(name = "create_date")
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "topic",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicNote> topicNoteList;
 
-    @OneToMany(mappedBy = "topic",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicTag> topicTagList;
 
     @ManyToOne
@@ -39,19 +39,32 @@ public class Topic {
     @JsonIgnore
     private User creator;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicUser> usersTopicList;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicHistory> topicHistoryList;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Reminder> reminderList;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTopic> eventTopicList;
 
     public Topic() {
+    }
+
+    //todo tnu
+    public Topic(String subject, User user, LocalDateTime createdDate) {
+        this.subject = subject;
+        this.creator = user;
+        this.createdDate = createdDate;
+    }
+
+    public Topic(String subject, User user) {
+        this.subject = subject;
+        this.creator = user;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
@@ -69,18 +82,6 @@ public class Topic {
                 '}';
     }
 
-    //todo tnu
-    public Topic(String subject, User user, LocalDateTime createdDate) {
-        this.subject = subject;
-        this.creator = user;
-        this.createdDate = createdDate;
-    }
-    public Topic(String subject, User user) {
-        this.subject = subject;
-        this.creator = user;
-        this.createdDate = LocalDateTime.now();
-    }
-
     public Long getId() {
         return id;
     }
@@ -94,8 +95,8 @@ public class Topic {
     }
 
     public List<TopicNote> getTopicNoteList() {
-        if(topicNoteList ==null){
-            topicNoteList =new ArrayList<>();
+        if (topicNoteList == null) {
+            topicNoteList = new ArrayList<>();
         }
         return topicNoteList;
     }
@@ -105,25 +106,25 @@ public class Topic {
     }
 
     public List<TopicTag> getTopicTagList() {
-        if (topicTagList ==null){
-            topicTagList =new ArrayList<>();
+        if (topicTagList == null) {
+            topicTagList = new ArrayList<>();
         }
         return topicTagList;
     }
 
-    public List<TopicUser> getUsersTopicList() {
-        if (usersTopicList ==null){
-            usersTopicList =new ArrayList<>();
+    public void setTopicTagList(List<TopicTag> topicTags) {
+        this.topicTagList = topicTags;
+    }
+
+    public List<TopicUser> getTopicUserList() {
+        if (usersTopicList == null) {
+            usersTopicList = new ArrayList<>();
         }
         return usersTopicList;
     }
 
-    public void setUsersTopicList(List<TopicUser> usersTopics) {
+    public void setTopicUserList(List<TopicUser> usersTopics) {
         this.usersTopicList = usersTopics;
-    }
-
-    public void setTopicTagList(List<TopicTag> topicTags) {
-        this.topicTagList = topicTags;
     }
 
     public User getUser() {
@@ -144,8 +145,8 @@ public class Topic {
     }
 
     public List<TopicHistory> getTopicHistoryList() {
-        if (topicHistoryList ==null){
-            topicHistoryList =new ArrayList<>();
+        if (topicHistoryList == null) {
+            topicHistoryList = new ArrayList<>();
         }
         return topicHistoryList;
     }
