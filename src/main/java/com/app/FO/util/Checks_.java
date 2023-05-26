@@ -7,12 +7,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Checks_ {
     private UserRepository userRepository;
-    private Checks checks;
+    private ServiceAll serviceAll;
 
     @Autowired
-    public Checks_(UserRepository userRepository, Checks checks) {
+    public Checks_(UserRepository userRepository, ServiceAll serviceAll) {
         this.userRepository = userRepository;
-        this.checks = checks;
+        this.serviceAll = serviceAll;
 
     }
 

@@ -10,6 +10,8 @@
 
 - to get Log In User use userService.getLogInUser()
 - Create FDTO mappers using services class
+- Each Service return only the service's entity
+- ServiceAll return any entity
 
 ## Problems
 

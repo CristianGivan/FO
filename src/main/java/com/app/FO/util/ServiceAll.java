@@ -4,10 +4,14 @@ import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.topic.TopicTag;
+import com.app.FO.model.topic.TopicUser;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.tag.TagRepository;
+import com.app.FO.repository.topic.TopicTagRepository;
+import com.app.FO.repository.topic.TopicUserRepository;
 import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
@@ -15,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Checks {
+public class ServiceAll {
     private NoteRepository noteRepository;
     private TagRepository tagRepository;
     @Autowired
@@ -26,9 +30,13 @@ public class Checks {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
+    @Autowired
+    private TopicUserRepository topicUserRepository;
+    @Autowired
+    private TopicTagRepository topicTagRepository;
 
     @Autowired
-    public Checks(NoteRepository noteRepository, TagRepository tagRepository) {
+    public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
         this.noteRepository = noteRepository;
         this.tagRepository = tagRepository;
     }
@@ -129,5 +137,22 @@ public class Checks {
         }
         return false;
     }
+
+    //-- getTopicAnd
+
+    public TopicUser getTopicUser(Long topicId, Long userId) {
+        return topicUserRepository.getTopicUserByTopicIdAndUserId(topicId, userId);
+    }
+
+    public TopicTag getTopicTag(Long topicId, Long tagId) {
+        return topicTagRepository.getTopicTagByTopicIdAndTagId(topicId, tagId);
+    }
+
+    //-- getTag
+
+    public Tag getTagByUserIdAndTagId(Long userId, Long tagId) {
+        return tagRepository.getTagByUserIdAndTagId(userId, tagId);
+    }
+
 
 }

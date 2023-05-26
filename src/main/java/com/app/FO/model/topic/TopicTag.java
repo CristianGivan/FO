@@ -35,10 +35,10 @@ public class TopicTag {
     public TopicTag() {
     }
 
-    public TopicTag(Topic topic, Tag tag, LocalDateTime createdDate) {
+    public TopicTag(Topic topic, Tag tag) {
         this.topic = topic;
         this.tag = tag;
-        this.createdDate = createdDate;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override

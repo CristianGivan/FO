@@ -2,11 +2,15 @@ package com.app.FO.service.topic;
 
 import com.app.FO.exceptions.TopicAlreadyExistException;
 import com.app.FO.exceptions.TopicNotFoundException;
+import com.app.FO.exceptions.TopicUserAlreadyExistException;
+import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.topic.TopicUser;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.topic.TopicRepository;
 import com.app.FO.service.user.UserService;
+import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +24,7 @@ public class TopicService {
     private UserService userService;
 
     @Autowired
-    private TopicUserService topicUserService;
+    private ServiceAll serviceAll;
 
     @Autowired
     public TopicService(TopicRepository topicRepository) {
@@ -31,16 +35,16 @@ public class TopicService {
     //-- Post
 
     public Topic postTopic(String subject) {
-        User user = userService.getLogInUser();
+        User logInUser = userService.getLogInUser();
 
-        Topic topic = topicRepository.getTopicFromUserIdBySubject(user.getId(), subject);
+        Topic topic = topicRepository.getTopicFromUserIdBySubject(logInUser.getId(), subject);
         if (topic != null) {
             throw new TopicAlreadyExistException("Topic with this subject already exist");
         }
 
-        topic = topicRepository.save(new Topic(subject, user));
+        topic = topicRepository.save(new Topic(subject, logInUser));
 
-        TopicUser topicUser = new TopicUser(userService.getLogInUser(), topic);
+        TopicUser topicUser = new TopicUser(topic, logInUser);
         topic.getTopicUserList().add(topicUser);
 
         return topicRepository.save(topic);
@@ -48,8 +52,8 @@ public class TopicService {
 
     //-- Put
     public Topic putSubjectToTopic(Long topicId, String subject) {
-        User user = userService.getLogInUser();
-        Topic topic = topicRepository.getTopicFromUserIdByTopicId(user.getId(), topicId);
+        User logInUser = userService.getLogInUser();
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
@@ -64,13 +68,49 @@ public class TopicService {
     }
 
     public Topic putUserToTopic(Long topicId, Long userId) {
-        Topic topic = null;
+        User logInUser = userService.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        User user = userService.getUserByUserId(userId);
+        if (user == null) {
+            throw new TopicNotFoundException("User not found");
+        }
+
+        TopicUser topicUser = serviceAll.getTopicUser(topicId, userId);
+        if (topicUser != null) {
+            throw new TopicUserAlreadyExistException("The topic already has the user");
+        }
+
+        topicUser = new TopicUser(topic, user);
+        topic.getTopicUserList().add(topicUser);
 
         return topicRepository.save(topic);
     }
 
     public Topic putTagToTopic(Long topicId, Long tagId) {
-        Topic topic = null;
+        User logInUser = userService.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        Tag tag = serviceAll.getTagByUserIdAndTagId(logInUser.getId(), tagId);
+        if (tag == null) {
+            throw new TopicNotFoundException("Tag not found");
+        }
+
+        TopicTag topicTag = serviceAll.getTopicTag(topicId, tagId);
+        if (topicTag != null) {
+            throw new TopicUserAlreadyExistException("The topic already has the tag");
+        }
+
+        topicTag = new TopicTag(topic, tag);
+        topic.getTopicTagList().add(topicTag);
 
         return topicRepository.save(topic);
     }

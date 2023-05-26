@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ChecksUser {
     private UserRepository userRepository;
-    private Checks checks;
+    private ServiceAll serviceAll;
 
     @Autowired
-    public ChecksUser(UserRepository userRepository, Checks checks) {
+    public ChecksUser(UserRepository userRepository, ServiceAll serviceAll) {
         this.userRepository = userRepository;
-        this.checks = checks;
+        this.serviceAll = serviceAll;
 
     }
 
@@ -28,7 +28,7 @@ public class ChecksUser {
     }
 
     public void checkUserHasPermission(User user) {
-        if (!checks.userIsAdmin(user)) {
+        if (!serviceAll.userIsAdmin(user)) {
 //            throw new UserNotFoundException("The user has not enough rights to create another user");
             throw new UserHasNotEnoughPrivileges("The user has not enough rights to create another user");
         }
@@ -39,7 +39,7 @@ public class ChecksUser {
             throw new UserNotFoundException("User not found");
         } else if (role == null) {
             throw new RoleNotFoundException("Role not found");
-        } else if (checks.userHasRole(user, role) != null) {
+        } else if (serviceAll.userHasRole(user, role) != null) {
             throw new RoleAlreadyExistException("Role is already mapped to the user");
 
         }

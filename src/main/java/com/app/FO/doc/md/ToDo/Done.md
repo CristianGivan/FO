@@ -5,6 +5,11 @@
 - 2
 
 - [x] deleteUserById
+- [x] postTopic
+- [x] putSubjectToTopic
+- [x] Renamed Checks
+- [x] putUserToTopic
+- [x] putTagToTopic
 
 ## 230522
 

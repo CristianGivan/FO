@@ -186,16 +186,16 @@ public class Runner implements CommandLineRunner {
         Topic savedTopic3 = topicService.saveTopic(topic3);
         Topic savedTopic4 = topicService.saveTopic(topic4);
 
-        TopicTag topicTag1 = new TopicTag(savedTopic1, savedTag11, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag2 = new TopicTag(savedTopic1, savedTag21, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag3 = new TopicTag(savedTopic1, savedTag31, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag4 = new TopicTag(savedTopic2, savedTag41, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag5 = new TopicTag(savedTopic2, savedTag51, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag6 = new TopicTag(savedTopic2, savedTag61, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag7 = new TopicTag(savedTopic3, savedTag71, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag8 = new TopicTag(savedTopic3, savedTag81, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag9 = new TopicTag(savedTopic3, savedTag91, LocalDateTime.now().minusHours(1));
-        TopicTag topicTag10 = new TopicTag(savedTopic3, savedTag101, LocalDateTime.now().minusHours(1));
+        TopicTag topicTag1 = new TopicTag(savedTopic1, savedTag11);
+        TopicTag topicTag2 = new TopicTag(savedTopic1, savedTag21);
+        TopicTag topicTag3 = new TopicTag(savedTopic1, savedTag31);
+        TopicTag topicTag4 = new TopicTag(savedTopic2, savedTag41);
+        TopicTag topicTag5 = new TopicTag(savedTopic2, savedTag51);
+        TopicTag topicTag6 = new TopicTag(savedTopic2, savedTag61);
+        TopicTag topicTag7 = new TopicTag(savedTopic3, savedTag71);
+        TopicTag topicTag8 = new TopicTag(savedTopic3, savedTag81);
+        TopicTag topicTag9 = new TopicTag(savedTopic3, savedTag91);
+        TopicTag topicTag10 = new TopicTag(savedTopic3, savedTag101);
 
 
         savedTopic1.getTopicTagList().add(topicTag1);
