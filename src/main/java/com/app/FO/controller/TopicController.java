@@ -33,18 +33,46 @@ public class TopicController {
 
 
     //-- PutMapping
+    @PutMapping("/putSubjectToTopic")
+    public TopicDTO putSubjectToTopic(@RequestParam Long topicId, @RequestParam String subject) {
+        Topic topic = topicService.putSubjectToTopic(topicId, subject);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
 
+    @PutMapping("/putUserToTopic")
+    public TopicDTO putUserToTopic(@RequestParam Long topicId, @RequestParam Long userId) {
+        Topic topic = topicService.putUserToTopic(topicId, userId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @PutMapping("/putTagToTopic")
+    public TopicDTO putTagToTopic(@RequestParam Long topicId, @RequestParam Long tagId) {
+        Topic topic = topicService.putTagToTopic(topicId, tagId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @PutMapping("/putNoteToTopic")
+    public TopicDTO putNoteToTopic(@RequestParam Long topicId, @RequestParam Long noteId) {
+        Topic topic = topicService.putNoteToTopic(topicId, noteId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @PutMapping("/putReminderToTopic")
+    public TopicDTO putReminderToTopic(@RequestParam Long topicId, @RequestParam Long reminderId) {
+        Topic topic = topicService.putReminderToTopic(topicId, reminderId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
 
     //---GetMapping
 
-    @GetMapping("/getTopicById/{topicId}")
-    public TopicDTO getTopicById(@PathVariable Long topicId) {
+    @GetMapping("/getTopicById")
+    public TopicDTO getTopicById(@RequestParam Long topicId) {
         Topic topic = topicService.getTopicByTopicId(topicId);
         return topicDTOMapper.TopicToTopicDTO(topic);
     }
 
-    @GetMapping("/getAllTopics")
-    public List<TopicDTO> getAllTopics() {
+    @GetMapping("/getAllTopic")
+    public List<TopicDTO> getAllTopic() {
         List<Topic> topics = topicService.getAllTopics();
         return topicDTOMapper.TopicListToTopicDTOList(topics);
     }

@@ -1,6 +1,7 @@
 package com.app.FO.service.topic;
 
 import com.app.FO.exceptions.TopicAlreadyExistException;
+import com.app.FO.exceptions.TopicNotFoundException;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicUser;
 import com.app.FO.model.user.User;
@@ -31,12 +32,13 @@ public class TopicService {
 
     public Topic postTopic(String subject) {
         User user = userService.getLogInUser();
-        Topic topic = topicRepository.getTopicFromUserIdBySubject(user.getId(), subject);
 
+        Topic topic = topicRepository.getTopicFromUserIdBySubject(user.getId(), subject);
         if (topic != null) {
             throw new TopicAlreadyExistException("Topic with this subject already exist");
         }
-        topic = topicRepository.save(new Topic(subject, userService.getLogInUser()));
+
+        topic = topicRepository.save(new Topic(subject, user));
 
         TopicUser topicUser = new TopicUser(userService.getLogInUser(), topic);
         topic.getTopicUserList().add(topicUser);
@@ -45,6 +47,45 @@ public class TopicService {
     }
 
     //-- Put
+    public Topic putSubjectToTopic(Long topicId, String subject) {
+        User user = userService.getLogInUser();
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(user.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        if (topic.getSubject().equals(subject)) {
+            throw new TopicAlreadyExistException("Topic has already the same subject");
+        }
+
+        topic.setSubject(subject);
+
+        return topicRepository.save(topic);
+    }
+
+    public Topic putUserToTopic(Long topicId, Long userId) {
+        Topic topic = null;
+
+        return topicRepository.save(topic);
+    }
+
+    public Topic putTagToTopic(Long topicId, Long tagId) {
+        Topic topic = null;
+
+        return topicRepository.save(topic);
+    }
+
+    public Topic putNoteToTopic(Long topicId, Long noteId) {
+        Topic topic = null;
+
+        return topicRepository.save(topic);
+    }
+
+    public Topic putReminderToTopic(Long topicId, Long reminderId) {
+        Topic topic = null;
+
+        return topicRepository.save(topic);
+    }
 
 
     //-- GET

@@ -80,8 +80,8 @@ public class TagController {
         return tagDTOMapper.tagToTagDTO(tagList);
     }
 
-    @GetMapping("/getAllTagList")
-    public List<TagDTO> getAllTagList() {
+    @GetMapping("/getAllTag")
+    public List<TagDTO> getAllTag() {
         List<Tag> tagList = tagService.getTagListByUserId(userService.getLogInUser().getId());
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }

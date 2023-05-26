@@ -4,6 +4,22 @@
 # ToDo
 
 ## Template
+### Service
+- [x] putStringToId
+  - [1] getLogInUser (userService.getLogInUser())
+  - [2] Check if parameter1 (by id) exists (from log in user)
+  - [3] Check if record with the parameter1 already exist
+  - [4] Add parameter2 in parameter1
+  - [5] Save record (entityRepository.save(entity))
+
+- [x] putIdToId
+  - [1] getLogInUser (userService.getLogInUser())
+  - [2] Check if parameter1 (by id) exists (from log in user)
+  - [3] Check if parameter2 (by id) exists (from log in user)
+  - [4] Check if parameter1 has parameter2
+  - [5] Create a parameter1Parameter2 record in linking table
+  - [6] Add parameter2 in parameter1 list (.getParameter1Parameter2List.set)
+  - [7] Save record (entityRepository.save(entity))
 ### Entity
 - [x] Add to all OneToMany the orphanRemoval and cascade
 ```
@@ -12,22 +28,27 @@
 
 ### Post
 - [x] postTopic
-  - [x] getLogInUser (userService.getLogInUser())
-  - [x] Check if record with the param1 already exist
-  - [x] Create an entity
-  - [x] Create an entityUser
-  - [x] Save record
+  - [x] See in Template | Service | putStringToId
 
 ### Put
-- [ ] putTopicTextToTopic
+- [x] putSubjectToTopic
+  - [x] See in Template | Service | putIdToId
+
 - [ ] putUserToTopic
+  - [ ] See in Template | Service | putIdToId
+
 - [ ] putTagToTopic
+  - [ ] See in Template | Service | putIdToId
+
 - [ ] putNoteToTopic
+  - [ ] See in Template | Service | putIdToId
+
 - [ ] putReminderToTopic
+  - [ ] See in Template | Service | putIdToId
 
 
 ### Get
-- [ ] getTopicByTopicText
+- [ ] getTopicByTopicSubject
 - [ ] getTopicByNoteUser
 - [ ] getTopicByTag
 - [ ] getTopicByNote
