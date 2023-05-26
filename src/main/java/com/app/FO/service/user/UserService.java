@@ -8,7 +8,6 @@ import com.app.FO.exceptions.UserNotFoundException;
 import com.app.FO.mapper.dto.user.RegisterDTO;
 import com.app.FO.model.user.*;
 import com.app.FO.repository.user.UserRepository;
-import com.app.FO.util.Checks;
 import com.app.FO.util.ChecksUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,9 +32,9 @@ public class UserService {
     private ChecksUser checksUser;
 
     @Autowired
-    private Checks checks;
-//    @Autowired
-//    private UserRoleService userRoleService;
+    private UserRoleService userRoleService;
+    @Autowired
+    private UserUserService userUserService;
 
 
     @Autowired
@@ -60,9 +59,14 @@ public class UserService {
         - Save Role
         */
         User logInUser = getLogInUser();
-        checksUser.checkUserHasPermission(logInUser);
-        checksUser.checkIsUserWithUserName(newUser.getUsername());
-        User user = new User(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
+        if (!userIsAdmin(logInUser)) {
+            throw new UserHasNotEnoughPrivileges("The user has not enough rights to create another user");
+        }
+        User user = userRepository.getUserByUserName(newUser.getUsername());
+        if (user != null) {
+            throw new UserAlreadyExistException("User already exist has id: " + user.getId());
+        }
+        user = new User(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
 
         Role role;
         if (newUser.getRole().equals("admin")) {
@@ -75,7 +79,7 @@ public class UserService {
         user.getUserRoleList().add(userRole);
 
         UserUser userAddedToUser = new UserUser(logInUser, user);
-        logInUser.getUserList().add(userAddedToUser);
+        logInUser.getUserUserList().add(userAddedToUser);
         userRepository.save(user);
         return user;
     }
@@ -141,14 +145,14 @@ public class UserService {
         if (userToBeAdded == null) {
             throw new UserNotFoundException("User not found");
         }
-        Long idOfUserLinkedToUser = checks.userHasUser(logInUser, userToBeAdded);
-        if (idOfUserLinkedToUser != null) {
-            throw new UserAlreadyExistException("User already exist (id from linking table is: " + idOfUserLinkedToUser + ")");
+        UserUser userHasUser = userUserService.getUserUserByUserUserId(logInUser.getId(), userToBeAdded.getId());
+        if (userHasUser != null) {
+            throw new UserAlreadyExistException("User already exist (id from linking table is: " + userHasUser.getId() + ")");
         }
 
         UserUser userAddedToUser = new UserUser(logInUser, userToBeAdded);
 
-        logInUser.getUserList().add(userAddedToUser);
+        logInUser.getUserUserList().add(userAddedToUser);
         return userRepository.save(logInUser);
     }
 
@@ -199,17 +203,17 @@ public class UserService {
     }
 
     public List<User> getUserListByUserId(Long userId) {
-        return userRepository.getUsersByUserList_User(getUserByUserId(userId));
+        //todo tbr by receiving from query directly the list of users
+//        return userRepository.getUsersByUserList_User(getUserByUserId(userId));
 //        return userRepository.getUserListByUserId(userId);
+        List<Long> userIdList = userRepository.getUserIdListByUserId(userId);
+        List<User> userList = userIdList.stream().map(this::getUserByUserId).toList();
+        return userList;
     }
 
-    //--Delete
-
-
-    //-- Other
-
 
     //--Delete
+
     public List<User> deleteUserByUserId(Long userId) {
         userRepository.delete(getUserByUserId(userId));
         return getAllUsers();
@@ -225,33 +229,33 @@ public class UserService {
          * 3. Delete param2 from param1
          * 4. Save param1, no needed to save param2 because there is persist*/
 
-        RoleType roleType;
-        if (userType.equals("admin")) {
-            roleType = RoleType.ROLE_ADMIN;
-        } else {
-            roleType = RoleType.ROLE_STANDARD;
+        User logInUser = getLogInUser();
+        if (!userIsAdmin(logInUser)) {
+            throw new UserHasNotEnoughPrivileges("The user has not enough rights to delete user's role");
         }
 
         User user = userRepository.getUserByUserId(userId);
         if (user == null) {
             throw new UserNotFoundException("User not found");
         }
-        if (!checks.userIsAdmin(user)) {
-            throw new UserHasNotEnoughPrivileges("The user has not enough rights to create another user");
-        }
 
+        RoleType roleType;
+        if (userType.equals("admin")) {
+            roleType = RoleType.ROLE_ADMIN;
+        } else {
+            roleType = RoleType.ROLE_STANDARD;
+        }
         Role role = roleService.findRoleByType(roleType);
         if (role == null) {
             throw new RoleNotFoundException("Role not found");
         }
-        Long idUserRole = checks.userHasRole(user, role);
-        if (idUserRole == null) {
+
+        UserRole userRole = userRoleService.getUserRoleByUserRoleId(userId, role.getId());
+        if (userRole == null) {
             throw new RoleNotFoundException("Role is not linked to the user");
         }
 
-//        UserRole userRole = userRoleService.getUserRoleByUserRoleId(idUserRole);
-//        user.getUserRoleList().remove(userRole);
-//        userRoleService.deleteUserRole(userRole);
+        user.getUserRoleList().remove(userRole);
         return userRepository.save(user);
     }
 
@@ -271,13 +275,33 @@ public class UserService {
         if (userToBeDeleted == null) {
             throw new UserNotFoundException("User not found");
         }
-        Long idOfUserLinkedToUser = checks.userHasUser(logInUser, userToBeDeleted);
-        if (idOfUserLinkedToUser == null) {
+        UserUser userHasUser = userUserService.getUserUserByUserUserId(logInUser.getId(), userToBeDeleted.getId());
+        if (userHasUser == null) {
             throw new UserNotFoundException("User is not linked to the log in user");
         }
 
-        logInUser.getUserList().remove(userToBeDeleted);
+        logInUser.getUserUserList().remove(userHasUser);
         return userRepository.save(logInUser);
+    }
+
+    //-- Other
+
+    public Boolean userIsAdmin(User user) {
+        Boolean isAdminRole = user.getUserRoleList().stream().
+                map(userRole -> userRole.getRole().getRoleType().toString()).
+                filter(t -> t == "ROLE_ADMIN").findAny().isPresent();
+        if (isAdminRole) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean checkIsUserWithUserName(String username) {
+        User user = userRepository.getUserByUserName(username);
+        if (user != null) {
+            throw new UserAlreadyExistException("User already exist has id: " + user.getId());
+        }
+        return true;
     }
 
 }

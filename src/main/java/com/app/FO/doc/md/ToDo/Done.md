@@ -1,9 +1,23 @@
 # Done
-## 230521
+
+## 230526
 
 - 2
 
-- [x] putUserToUserList 
+- [x] deleteUserById
+
+## 230522
+
+- 4
+
+- [x] deleteUserFromLogInUserList
+
+## 230521
+
+- 10
+
+- [x] putUserToUserList
+- [x] deleteRoleToUser
 
 
 - [x] check if it had to be a linking column or linking table -:- linking table because it had to be more to more
@@ -12,7 +26,7 @@
 ## 230519
 
 - 8
-- 
+
 - [x] getUserById
 - [x] getUserList
 - [x] putUserEmail

@@ -19,18 +19,16 @@ public class ChecksUser {
 
     }
 
-    public void checkIsUserWithUserName(String username) {
+    public Boolean checkIsUserWithUserName(String username) {
         User user = userRepository.getUserByUserName(username);
         if (user != null) {
             throw new UserAlreadyExistException("User already exist has id: " + user.getId());
         }
+        return true;
     }
 
     public void checkUserHasPermission(User user) {
-        Boolean isAdminRole = user.getUserRoleList().stream().
-                map(userRole -> userRole.getRole().getRoleType().toString()).
-                filter(t -> t == "ROLE_ADMIN").findAny().isPresent();
-        if (!isAdminRole) {
+        if (!checks.userIsAdmin(user)) {
 //            throw new UserNotFoundException("The user has not enough rights to create another user");
             throw new UserHasNotEnoughPrivileges("The user has not enough rights to create another user");
         }

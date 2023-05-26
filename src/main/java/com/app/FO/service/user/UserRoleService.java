@@ -22,8 +22,7 @@ public class UserRoleService {
         userRoleRepository.delete(userRole);
     }
 
-    public UserRole getUserRoleByUserRoleId(Long userRoleId) {
-//        return userRoleRepository.getUserRoleByUserRoleId(userRoleId);
-        return userRoleRepository.findById(userRoleId).orElse(null);
+    public UserRole getUserRoleByUserRoleId(Long userId, Long roleId) {
+        return userRoleRepository.getUserRoleByUserIdAndRoleId(userId, roleId);
     }
 }

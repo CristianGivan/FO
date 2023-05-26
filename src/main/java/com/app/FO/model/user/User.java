@@ -51,7 +51,7 @@ public class User {
 
     //    @JsonIgnore
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<UserUser> userList;
+    private List<UserUser> userUserList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Topic> topicList;
@@ -126,7 +126,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", userRoleList=" + userRoleList +
-//                ", userList=" + userList +
+                ", userUserList=" + userUserList +
                 ", topicList=" + topicList +
                 ", topicHistoryList=" + topicHistoryList +
                 ", noteList=" + noteList +
@@ -162,15 +162,16 @@ public class User {
         }
     }
 
-    public List<UserUser> getUserList() {
-        if (userList == null) {
-            userList = new ArrayList<>();
+
+    public List<UserUser> getUserUserList() {
+        if (userUserList == null) {
+            userUserList = new ArrayList<>();
         }
-        return userList;
+        return userUserList;
     }
 
-    public void setUserList(List<UserUser> userList) {
-        this.userList = userList;
+    public void setUserUserList(List<UserUser> userList) {
+        this.userUserList = userList;
     }
 
     public List<Tag> getTagList() {

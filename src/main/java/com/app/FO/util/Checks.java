@@ -8,7 +8,9 @@ import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.tag.TagRepository;
+import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
+import com.app.FO.repository.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +20,12 @@ public class Checks {
     private TagRepository tagRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @Autowired
     public Checks(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -104,8 +112,8 @@ public class Checks {
         return false;
     }
 
-    public Long userHasRole(User user, Role role) {
-        return userRepository.userIdHasRoleId(user.getId(), role.getId());
+    public Role userHasRole(User user, Role role) {
+        return roleRepository.userIdHasRoleId(role.getId(), user.getId());
     }
 
     public Long userHasUser(User userFrom, User user) {

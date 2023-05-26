@@ -12,25 +12,26 @@ import java.util.stream.Collectors;
 
 @Service
 public class RoleService {
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
-    public Role findRoleByType(RoleType roleType){
+    public Role findRoleByType(RoleType roleType) {
         return roleRepository.findRoleByRoleType(roleType);
     }
 
-    public Role saveRole(Role role){
+    public Role saveRole(Role role) {
         return roleRepository.save(role);
     }
 
-    public List<Role> findRolesByUserId(Long userId){
+    public List<Role> findRolesByUserId(Long userId) {
         return roleRepository.findRolesByUserId(userId);
     }
-    public List<String> getAllRolesByUserIdAsStrings(Long userId){
+
+    public List<String> getAllRolesByUserIdAsStrings(Long userId) {
         return roleRepository.findRolesByUserId(userId).stream()
                 .map(role -> role.getRoleType().toString())
                 .collect(Collectors.toList());

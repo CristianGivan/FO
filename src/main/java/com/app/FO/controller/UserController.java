@@ -119,11 +119,16 @@ public class UserController {
         return userDTOMapper.UserListToUserDTOList(userList);
     }
 
+    @GetMapping("/getUserListByUser/{userId}")
+    public List<UserFDTO> getUserListByUser(@PathVariable Long userId) {
+        List<User> userList = userService.getUserListByUserId(userId);
+        return userDTOMapper.UserListToUserFDTOList(userList);
+    }
 
     //-- DeleteMapping
 
-    @DeleteMapping("/deleteUserDTOByUserId/{userId}")
-    public List<UserDTO> deleteUserDTOByUserId(@PathVariable Long userId) {
+    @DeleteMapping("/deleteUserByUserId/{userId}")
+    public List<UserDTO> deleteUserByUserId(@PathVariable Long userId) {
         List<User> userList = userService.deleteUserByUserId(userId);
         return userDTOMapper.UserListToUserDTOList(userList);
     }
@@ -135,9 +140,9 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUserFromLogInUser/")
-    public UserDTO deleteUserFromLogInUser(@RequestParam Long userId) {
+    public UserFDTO deleteUserFromLogInUser(@RequestParam Long userId) {
         User user = userService.deleteUserFromLogInUserList(userId);
-        return userDTOMapper.UserToUserDTO(user);
+        return userDTOMapper.UserToUserFDTO(user);
     }
 
     //--- Other

@@ -1,10 +1,15 @@
 # Classes
 
-- [ ]
+- [ ] CHeck how to proceid use delete userRole from UserRoleservice
+  or delete userRole from userRoleList - this second part is better
+  because is one interogation fo faind userRole and then can be chacke and not deleter use service
 
-- [ ] Resolve DTO mapoper cisrcular dependecis 
-  1. Create A mapper thta as all Mapers check is is posible to don't use All Services but to inculde them one by one in in de mapper
-  2. Create in AllServices athe DTO becasue you get stacOverflow if it is User to DTO to create user to DTO
+- [ ] create a db local on one drive
+
+- [ ] Resolve DTO mapoper cisrcular dependecis
+    1. Create A mapper thta as all Mapers check is is posible to don't use All Services but to inculde them one by one
+       in in de mapper
+    2. Create in AllServices athe DTO becasue you get stacOverflow if it is User to DTO to create user to DTO
 - [ ] addUserListToTag at tagFDTO
 - [ ] cehck mapstruct and longbook
 
