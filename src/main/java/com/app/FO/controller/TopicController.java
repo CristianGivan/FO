@@ -65,22 +65,48 @@ public class TopicController {
 
     //---GetMapping
 
+    @GetMapping("/getAllTopic")
+    public List<TopicDTO> getAllTopic() {
+        List<Topic> topicList = topicService.getAllTopic();
+        return topicDTOMapper.TopicListToTopicDTOList(topicList);
+    }
+
+
+    @GetMapping("/getTopicBySubject")
+    public TopicDTO getTopicBySubject(@RequestParam String subject) {
+        Topic topic = topicService.getTopicBySubject(subject);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @GetMapping("/getTopicListBySubjectContains")
+    public List<TopicDTO> getTopicListBySubjectContains(@RequestParam String subjectContain) {
+        List<Topic> topicList = topicService.getTopicListBySubjectContains(subjectContain);
+        return topicDTOMapper.TopicListToTopicDTOList(topicList);
+    }
+
     @GetMapping("/getTopicById")
     public TopicDTO getTopicById(@RequestParam Long topicId) {
         Topic topic = topicService.getTopicByTopicId(topicId);
         return topicDTOMapper.TopicToTopicDTO(topic);
     }
 
-    @GetMapping("/getAllTopic")
-    public List<TopicDTO> getAllTopic() {
-        List<Topic> topics = topicService.getAllTopics();
-        return topicDTOMapper.TopicListToTopicDTOList(topics);
+
+    @GetMapping("/getTopicListByNoteId")
+    public List<TopicDTO> getTopicListByNoteId(@RequestParam Long noteId) {
+        List<Topic> topicList = topicService.getTopicListByNoteId(noteId);
+        return topicDTOMapper.TopicListToTopicDTOList(topicList);
     }
 
-    @GetMapping("/getTopicListByTagId/{tagId}")
-    public List<TopicDTO> getTopicListByTagId(@PathVariable Long tagId) {
-        List<Topic> topics = topicService.getTopicsByTagId(tagId);
-        return topicDTOMapper.TopicListToTopicDTOList(topics);
+    @GetMapping("/getTopicListByTagId")
+    public List<TopicDTO> getTopicListByTagId(@RequestParam Long tagId) {
+        List<Topic> topicList = topicService.getTopicListByTagId(tagId);
+        return topicDTOMapper.TopicListToTopicDTOList(topicList);
+    }
+
+    @GetMapping("/getTopicListByReminderId")
+    public List<TopicDTO> getTopicListByReminderId(@RequestParam Long reminderId) {
+        List<Topic> topicList = topicService.getTopicListByReminderId(reminderId);
+        return topicDTOMapper.TopicListToTopicDTOList(topicList);
     }
 
 

@@ -71,7 +71,7 @@ public class UserController {
 
     @GetMapping("/getAllUser")
     public List<UserDTO> getAllUser() {
-        List<User> userList = userService.getAllUsers();
+        List<User> userList = userService.getAllUser();
         return userDTOMapper.UserListToUserDTOList(userList);
     }
 

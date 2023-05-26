@@ -66,7 +66,7 @@ public class NoteController {
     //-- GetMapping
     @GetMapping("/getAllNote")
     public List<NoteDTO> getAllNote() {
-        List<Note> notes = noteService.getNoteList();
+        List<Note> notes = noteService.getAllNote();
         return noteDTOMapper.NoteListToNoteDTOList(notes);
     }
 

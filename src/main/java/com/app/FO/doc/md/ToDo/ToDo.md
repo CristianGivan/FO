@@ -1,3 +1,10 @@
+# Todo
+- [ ] Do Topic
+- [ ] Check User
+- [ ] Check Note
+- [ ] Check Tag
+- [ ] Check Reminder
+
 # Classes
 
 - [ ] CHeck how to proceid use delete userRole from UserRoleservice

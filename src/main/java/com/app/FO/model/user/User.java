@@ -53,9 +53,6 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserUser> userUserList;
 
-    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Topic> topicList;
-
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicHistory> topicHistoryList;
 
@@ -63,6 +60,8 @@ public class User {
     private List<Note> noteList;
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tag> tagList;
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Topic> topicList;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteHistory> noteHistoryList;
@@ -400,4 +399,5 @@ public class User {
     public void setUserTagList(List<TagUser> tagUsers) {
         this.tagUserList = tagUsers;
     }
+
 }

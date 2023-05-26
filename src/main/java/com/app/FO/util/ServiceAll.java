@@ -18,6 +18,8 @@ import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Configuration
 public class ServiceAll {
@@ -164,6 +166,19 @@ public class ServiceAll {
 
     public TopicReminder getTopicReminder(Long topicId, Long reminderId) {
         return topicReminderRepository.getTopicReminderByTopicIdAndReminderId(topicId, reminderId);
+    }
+
+    //--------------------------
+
+    //-- getUser
+
+    public User getLogInUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.getUserByUserName(userDetails.getUsername());
+    }
+
+    public User getUserByUserId(Long userId) {
+        return userRepository.getUserByUserId(userId);
     }
 
     //-- getTag

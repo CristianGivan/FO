@@ -5,7 +5,20 @@
 
 ## Entity
 
-- [ ] Add creator (log in user)
+- [x] Add creator (log in user)
+- [1] Add in entity and constructor, getter, setter, toString:
+   ```
+      @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+      @JoinColumn(name = "user_id")
+      @JsonIgnore
+      private User creator;
+  ```
+- [2] Add in user and getter setter toString:
+  ```
+      @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+      private List<Entity> entityList;
+  ```
+   
 
 ### Entity
 - [x] Add to all OneToMany the orphanRemoval and cascade
@@ -14,6 +27,13 @@
 ```
 
 ### Service
+- [x] post
+  - [x] getLogInUser (userService.getLogInUser())
+  - [x] Check if record with the param1 already exist
+  - [x] Create an entity adding creator
+  - [x] Create an entityUser
+  - [x] Save record
+  
 - [x] putStringToId
   - [1] getLogInUser (userService.getLogInUser())
   - [2] Check if parameter1 (by id) exists (from log in user)
@@ -35,7 +55,7 @@
 - [x] postTopic
   - [x] getLogInUser (userService.getLogInUser())
   - [x] Check if record with the param1 already exist
-  - [x] Create an entity
+  - [x] Create an entity adding creator
   - [x] Create an entityUser
   - [x] Save record
   
@@ -43,23 +63,25 @@
 ### Put
 - [x] putSubjectToTopic
 - [x] putUserToTopic
-- [x] putTagToTopic
 - [x] putNoteToTopic
+- [x] putTagToTopic
 - [x] putReminderToTopic
 
 
 ### Get
-- [ ] getTopicByTopicSubject
-- [ ] getTopicByNoteUser
-- [ ] getTopicByTag
-- [ ] getTopicByNote
-- [ ] getTopicByNoteReminder
+- [x] getAllTopic
+- [x] getTopicBySubject
+- [x] getTopicListBySubjectContains
+- [x] getTopicByTopicId
+- [x] getTopicListByNoteId
+- [x] getTopicListByTagId
+- [x] getTopicListByReminderId
 
 
 ### Delete
 - [ ] deleteUserFromTopic
-- [ ] deleteTagFromTopic
 - [ ] deleteNoteFromTopic
+- [ ] deleteTagFromTopic
 - [ ] deleteReminderFromTopic
 - [ ] deleteTopic
 
@@ -73,15 +95,17 @@ User
 - [ ] getUserByTopic
 - [ ] deleteTopicFromUser
 
+Note
+- [ ] putTopicToNote
+- [ ] getNoteByTopic
+- [ ] deleteTopicFromNote
+
+
 Tag
 - [ ] putTopicToTag
 - [ ] getTagByTopic
 - [ ] deleteTopicFromTag
 
-Note
-- [ ] putTopicToNote
-- [ ] getNoteByTopic
-- [ ] deleteTopicFromNote
 
 Reminder
 - [ ] putTopicToReminder
@@ -89,3 +113,4 @@ Reminder
 - [ ] deleteTopicFromReminder
 
 ## Other
+- [ ] move throw exception from Controller to Service

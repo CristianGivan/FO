@@ -158,7 +158,7 @@ public class UserService {
 
     //-- GET
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
@@ -216,7 +216,7 @@ public class UserService {
 
     public List<User> deleteUserByUserId(Long userId) {
         userRepository.delete(getUserByUserId(userId));
-        return getAllUsers();
+        return getAllUser();
     }
 
     public User deleteRoleFromUser(Long userId, String userType) {

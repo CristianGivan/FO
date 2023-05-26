@@ -27,16 +27,16 @@ public class Topic {
     @Column(name = "create_date")
     private LocalDateTime createdDate;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
+
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicNote> topicNoteList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicTag> topicTagList;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User creator;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicUser> topicUserList;
@@ -65,13 +65,14 @@ public class Topic {
         return "Topic{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", topicNotes=" + topicNoteList +
-                ", topicTags=" + topicTagList +
-                ", userId=" + creator.getId() +
                 ", createdDate=" + createdDate +
-                ", topicHistory=" + topicHistoryList +
+                ", creator=" + creator.getId() +
+                ", topicNoteList=" + topicNoteList +
+                ", topicTagList=" + topicTagList +
+                ", topicUserList=" + topicUserList +
                 ", topicReminderList=" + topicReminderList +
-                ", eventTopics=" + eventTopicList +
+                ", eventTopicList=" + eventTopicList +
+                ", topicHistoryList=" + topicHistoryList +
                 '}';
     }
 
