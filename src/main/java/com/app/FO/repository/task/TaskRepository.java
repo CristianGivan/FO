@@ -28,9 +28,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             "SELECT * FROM task as t inner join task_user ut on t.task_id = ut.task_id where ut.user_id=:userId and t.subject like %:containingText%")
     List<Task> getTaskListBySubjectContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
-//    @Query(nativeQuery = true, value =
-//            "SELECT * FROM task as t inner join task_note as tn on t.task_id = tn.task_id inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and tn.note_id=?2")
-//    List<Task> getTaskListFromUserIdByNoteId(Long userId, Long noteId);
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_topic as tn on t.task_id = tn.task_id inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and tn.topic_id=?2")
+    List<Task> getTaskListFromUserIdByTopicId(Long userId, Long topicId);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM task as t inner join task_tag as tt on t.task_id = tt.task_id inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and tt.tag_id=?2")

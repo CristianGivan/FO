@@ -1,7 +1,6 @@
 package com.app.FO.model.task;
 
 import com.app.FO.model.tasks.TasksTask;
-import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -43,10 +42,8 @@ public class Task {
     private TaskStatus taskStatus;
 
     //todo tbc
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "topic_id", referencedColumnName = "topic_id")
-    @JsonIgnore
-    private Topic topic;
+    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskTopic> taskTopicList;
 
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskUser> taskUserList;
@@ -85,8 +82,8 @@ public class Task {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", topic=" + topic.getId() +
                 ", taskUserList=" + taskUserList +
+                ", taskTopicList=" + taskTopicList +
                 ", taskWorkList=" + taskWorkList +
                 ", taskReminderList=" + taskReminderList +
                 ", taskTagList=" + taskTagList +
@@ -184,12 +181,15 @@ public class Task {
         this.taskHistoryList = taskHistories;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public List<TaskTopic> getTaskTopicList() {
+        if (taskTopicList == null) {
+            taskTopicList = new ArrayList<>();
+        }
+        return taskTopicList;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setTaskTopicList(List<TaskTopic> taskTopicList) {
+        this.taskTopicList = taskTopicList;
     }
 
     public List<TaskUser> getTaskUserList() {

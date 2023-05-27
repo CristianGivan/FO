@@ -3,10 +3,8 @@ package com.app.FO.service.task;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
-import com.app.FO.model.task.Task;
-import com.app.FO.model.task.TaskReminder;
-import com.app.FO.model.task.TaskTag;
-import com.app.FO.model.task.TaskUser;
+import com.app.FO.model.task.*;
+import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.task.TaskRepository;
 import com.app.FO.util.ServiceAll;
@@ -110,29 +108,6 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-//    public Task putNoteToTask(Long taskId, Long noteId) {
-//        User logInUser = serviceAll.getLogInUser();
-//
-//        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
-//        if (task == null) {
-//            throw new TaskNotFoundException("Task not found in your list");
-//        }
-//
-//        Note note = serviceAll.getNoteByIdAndUserId(noteId, logInUser.getId());
-//        if (note == null) {
-//            throw new NoteNotFoundException("Note not found");
-//        }
-//
-//        TaskNote taskNote = serviceAll.getTaskNote(taskId, noteId);
-//        if (taskNote != null) {
-//            throw new TaskNoteAlreadyExistException("The task already has the note");
-//        }
-//
-//        taskNote = new TaskNote(task, note);
-//        task.getTaskNoteList().add(taskNote);
-//
-//        return taskRepository.save(task);
-//    }
 
     public Task putReminderToTask(Long taskId, Long reminderId) {
         User logInUser = serviceAll.getLogInUser();
@@ -158,6 +133,28 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public Task putTopicToTask(Long taskId, Long topicId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("Task not found in your list");
+        }
+
+        Topic topic = serviceAll.getTopicByIdAndUserId(topicId, logInUser.getId());
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found");
+        }
+
+        TaskTopic taskTopic = serviceAll.getTaskTopic(taskId, topicId);
+        if (taskTopic != null) {
+            throw new TaskTopicAlreadyExistException("The task already has the topic");
+        }
+
+        taskTopic = new TaskTopic(task, topic);
+        task.getTaskTopicList().add(taskTopic);
+        return taskRepository.save(task);
+    }
 
     //--Delete
 
@@ -183,30 +180,6 @@ public class TaskService {
 
         return taskRepository.save(task);
     }
-
-
-//    public Task deleteNoteFromTask(Long taskId, Long noteId) {
-//        User logInUser = serviceAll.getLogInUser();
-//
-//        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
-//        if (task == null) {
-//            throw new TaskNotFoundException("Task not found in your list");
-//        }
-//
-//        Note note = serviceAll.getNoteByIdAndUserId(noteId, logInUser.getId());
-//        if (note == null) {
-//            throw new NoteNotFoundException("Note not found");
-//        }
-//
-//        TaskNote taskNote = serviceAll.getTaskNote(taskId, noteId);
-//        if (taskNote == null) {
-//            throw new TaskNoteNotFoundException("The task don't has the note");
-//        }
-//
-//        task.getTaskNoteList().remove(taskNote);
-//
-//        return taskRepository.save(task);
-//    }
 
     public Task deleteTagFromTask(Long taskId, Long tagId) {
         User logInUser = serviceAll.getLogInUser();
@@ -250,6 +223,29 @@ public class TaskService {
         }
 
         task.getTaskReminderList().remove(taskReminder);
+
+        return taskRepository.save(task);
+    }
+
+    public Task deleteTopicFromTask(Long taskId, Long topicId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("Task not found in your list");
+        }
+
+        Topic topic = serviceAll.getTopicByIdAndUserId(topicId, logInUser.getId());
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found");
+        }
+
+        TaskTopic taskTopic = serviceAll.getTaskTopic(taskId, topicId);
+        if (taskTopic == null) {
+            throw new TaskTopicNotFoundException("The task don't has the topic");
+        }
+
+        task.getTaskTopicList().remove(taskTopic);
 
         return taskRepository.save(task);
     }
@@ -303,14 +299,6 @@ public class TaskService {
         return task;
     }
 
-//    public List<Task> getTaskListByNoteId(Long noteId) {
-//        User logInUser = serviceAll.getLogInUser();
-//        List<Task> taskList = taskRepository.getTaskListFromUserIdByNoteId(logInUser.getId(), noteId);
-//        if (taskList.isEmpty()) {
-//            throw new TaskNotFoundException("No task found");
-//        }
-//        return taskList;
-//    }
 
     public List<Task> getTaskListByTagId(Long tagId) {
         User logInUser = serviceAll.getLogInUser();
@@ -330,6 +318,14 @@ public class TaskService {
         return taskList;
     }
 
+    public List<Task> getTaskListByTopicId(Long topicId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Task> taskList = taskRepository.getTaskListFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (taskList.isEmpty()) {
+            throw new TaskNotFoundException("No task found");
+        }
+        return taskList;
+    }
 
     //-- Other
 

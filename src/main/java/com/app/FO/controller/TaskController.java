@@ -51,11 +51,11 @@ public class TaskController {
         return taskDTOMapper.taskToTaskDTO(task);
     }
 
-//    @PutMapping("/putNoteToTask")
-//    public TaskDTO putNoteToTask(@RequestParam Long taskId, @RequestParam Long noteId) {
-//        Task task = taskService.putNoteToTask(taskId, noteId);
-//        return taskDTOMapper.taskToTaskDTO(task);
-//    }
+    @PutMapping("/putTopicToTask")
+    public TaskDTO putTopicToTask(@RequestParam Long taskId, @RequestParam Long topicId) {
+        Task task = taskService.putTopicToTask(taskId, topicId);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
 
     @PutMapping("/putReminderToTask")
     public TaskDTO putReminderToTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
@@ -71,12 +71,6 @@ public class TaskController {
         return taskDTOMapper.taskToTaskDTO(task);
     }
 
-//    @DeleteMapping("/deleteNoteFromTask")
-//    public TaskDTO deleteNoteFromTask(@RequestParam Long taskId, @RequestParam Long noteId) {
-//        Task task = taskService.deleteNoteFromTask(taskId, noteId);
-//        return taskDTOMapper.taskToTaskDTO(task);
-//    }
-
     @DeleteMapping("/deleteTagFromTask")
     public TaskDTO deleteTagFromTask(@RequestParam Long taskId, @RequestParam Long tagId) {
         Task task = taskService.deleteTagFromTask(taskId, tagId);
@@ -86,6 +80,13 @@ public class TaskController {
     @DeleteMapping("/deleteReminderFromTask")
     public TaskDTO deleteReminderFromTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
         Task task = taskService.deleteReminderFromTask(taskId, reminderId);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
+
+    @DeleteMapping("/deleteTopicFromTask")
+    public TaskDTO deleteTopicFromTask(@RequestParam Long taskId, @RequestParam Long topicrId) {
+        Task task = taskService.deleteTopicFromTask(taskId, topicrId);
         return taskDTOMapper.taskToTaskDTO(task);
     }
 
@@ -123,11 +124,11 @@ public class TaskController {
     }
 
 
-//    @GetMapping("/getTaskListByNoteId")
-//    public List<TaskDTO> getTaskListByNoteId(@RequestParam Long noteId) {
-//        List<Task> taskList = taskService.getTaskListByNoteId(noteId);
-//        return taskDTOMapper.taskListToTaskDTOList(taskList);
-//    }
+    @GetMapping("/getTaskListByTopicId")
+    public List<TaskDTO> getTaskListByTopicId(@RequestParam Long topicId) {
+        List<Task> taskList = taskService.getTaskListByTopicId(topicId);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
 
     @GetMapping("/getTaskListByTagId")
     public List<TaskDTO> getTaskListByTagId(@RequestParam Long tagId) {

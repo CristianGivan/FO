@@ -32,7 +32,7 @@
 - startDate
 - endDate
 - taskStatus
-- topic
+- taskTopicList
 - userList
 - taskWorkList
 - taskTagList
@@ -96,24 +96,34 @@
 
 ### Post
 - [x] postTask
-  - [ ] getLogInUser (userService.getLogInUser())
-  - [ ] Check if record with the param1 already exist
-  - [ ] Create an entity adding creator
-  - [ ] Create an entityUser
-  - [ ] Save record
+  - [x] getLogInUser (userService.getLogInUser())
+  - [x] Check if record with the param1 already exist
+  - [x] Create an entity adding creator
+  - [x] Create an entityUser
+  - [x] Save record
+- topic
+- startDate
+- endDate
+- taskStatus
+- taskWorkList
 
 ### Put
 - [x] putSubjectToTask
 - [x] putUserToTask
 - [x] putTagToTask
 - [x] putReminderToTask
-- [ ] putTopicToTask
+- [x] putTopicToTask
+- [ ] putStartDateToTask
+- [ ] putEndDateToTask
+- [ ] putTaskStatusToTask
+- [ ] putTaskWorkToTask
 
 ### Delete
 - [x] deleteUserFromTask
 - [x] deleteTagFromTask
 - [x] deleteReminderFromTask
-- [ ] deleteTopicFromTask
+- [x] deleteTopicFromTask
+- [ ] deleteTaskWorkFromTask
 - [ ] deleteTask
 
 ### Get
@@ -123,7 +133,10 @@
 - [x] getTaskByTaskId
 - [x] getTaskListByTagId
 - [x] getTaskListByReminderId
-- [ ] getTaskListByTopicId
-
+- [x] getTaskListByTopicId
+- [ ] getTaskByStartDate
+- [ ] getTaskByEndDate
+- [ ] getTaskByTaskStatus
+- [ ] getTaskByTaskWork
 
 ## Other

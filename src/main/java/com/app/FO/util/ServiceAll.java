@@ -5,6 +5,7 @@ import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.TaskReminder;
 import com.app.FO.model.task.TaskTag;
+import com.app.FO.model.task.TaskTopic;
 import com.app.FO.model.task.TaskUser;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.user.Role;
@@ -14,11 +15,9 @@ import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.task.TaskReminderRepository;
 import com.app.FO.repository.task.TaskTagRepository;
+import com.app.FO.repository.task.TaskTopicRepository;
 import com.app.FO.repository.task.TaskUserRepository;
-import com.app.FO.repository.topic.TopicNoteRepository;
-import com.app.FO.repository.topic.TopicReminderRepository;
-import com.app.FO.repository.topic.TopicTagRepository;
-import com.app.FO.repository.topic.TopicUserRepository;
+import com.app.FO.repository.topic.*;
 import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
@@ -44,6 +43,8 @@ public class ServiceAll {
     private ReminderRepository reminderRepository;
 
     @Autowired
+    private TopicRepository topicRepository;
+    @Autowired
     private TopicUserRepository topicUserRepository;
     @Autowired
     private TopicTagRepository topicTagRepository;
@@ -62,9 +63,9 @@ public class ServiceAll {
     @Autowired
     private TaskReminderRepository taskReminderRepository;
 
-    //    @Autowired
-//    private TaskNoteRepository taskNoteRepository;
-//
+    @Autowired
+    private TaskTopicRepository taskTopicRepository;
+
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
         this.noteRepository = noteRepository;
@@ -200,9 +201,9 @@ public class ServiceAll {
         return taskReminderRepository.getTaskReminderByTaskIdAndReminderId(taskId, reminderId);
     }
 
-    //    public TaskNote getTaskNote(Long taskId, Long noteId) {
-    //        return taskNoteRepository.getTaskNoteByTaskIdAndNoteId(taskId, noteId);
-    //    }
+    public TaskTopic getTaskTopic(Long taskId, Long topicId) {
+        return taskTopicRepository.getTaskTopicByTaskIdAndTopicId(taskId, topicId);
+    }
 
     //--------------------------
 
@@ -223,14 +224,20 @@ public class ServiceAll {
         return tagRepository.getTagByUserIdAndTagId(tagId, userId);
     }
 
+
+    //-- getReminder
+    public Reminder getReminderByIdAndUserId(Long reminderId, Long userId) {
+        return reminderRepository.getReminderByIdAndUserId(reminderId, userId);
+    }
+
     //-- getNote
     public Note getNoteByIdAndUserId(Long noteId, Long userId) {
         return noteRepository.getNoteByIdAndUserId(noteId, userId);
     }
 
-    //-- getReminder
-    public Reminder getReminderByIdAndUserId(Long reminderId, Long userId) {
-        return reminderRepository.getReminderByIdAndUserId(reminderId, userId);
+    //-- getTopic
+    public Topic getTopicByIdAndUserId(Long topicId, Long userId) {
+        return topicRepository.getTopicByIdAndUserId(topicId, userId);
     }
 
 }

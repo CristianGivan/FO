@@ -2,12 +2,30 @@
 
 ## 230527
 
-- 3
+- 9
 - [x] deleteUserFromTopic
 - [x] deleteNoteFromTopic
 - [x] deleteTagFromTopic
 - [x] deleteReminderFromTopic
 - [x] deleteTopic
+- [x] postTask
+- [x] putSubjectToTask
+- [x] putUserToTask
+- [x] putTagToTask
+- [x] putReminderToTask
+- [x] deleteUserFromTask
+- [x] deleteTagFromTask
+- [x] deleteReminderFromTask
+- [x] getAllTask
+- [x] getTaskBySubject
+- [x] getTaskListBySubjectContains
+- [x] getTaskByTaskId
+- [x] getTaskListByTagId
+- [x] getTaskListByReminderId
+
+- [x] putTopicToTask
+- [x] deleteTopicFromTask
+- [x] getTaskListByTopicId
 
 ## 230526
 

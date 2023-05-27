@@ -4,7 +4,6 @@ import com.app.FO.model.event.EventTasks;
 import com.app.FO.model.task.TaskReminder;
 import com.app.FO.model.task.TaskStatus;
 import com.app.FO.model.task.TaskTag;
-import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,10 +45,8 @@ public class Tasks {
     private TaskStatus tasksStatus;
 
     //todo tbc
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "topic_id", referencedColumnName = "topic_id")
-    @JsonIgnore
-    private Topic topic;
+    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksTopic> tasksTopicList;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksTask> tasksTaskList;
@@ -82,9 +79,9 @@ public class Tasks {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", tasksStatus=" + tasksStatus +
-                ", topic=" + topic.getId() +
+                ", tasksTopicList=" + tasksTopicList +
                 ", tasksTaskList=" + tasksTaskList +
-                ", taskUserList=" + tasksUserList +
+                ", tasksUserList=" + tasksUserList +
                 ", taskTagList=" + taskTagList +
                 ", taskReminderList=" + taskReminderList +
                 ", tasksHistoryList=" + tasksHistoryList +
@@ -148,12 +145,15 @@ public class Tasks {
         this.tasksStatus = tasksStatus;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public List<TasksTopic> getTasksTopicList() {
+        if (tasksTopicList == null) {
+            tasksTopicList = new ArrayList<>();
+        }
+        return tasksTopicList;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setTasksTopicList(List<TasksTopic> tasksTopicList) {
+        this.tasksTopicList = tasksTopicList;
     }
 
     public List<TasksTask> getTasksTaskList() {
