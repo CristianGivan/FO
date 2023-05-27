@@ -60,14 +60,18 @@ public class Reminder {
     @JsonIgnore
     private Topic topic;
 
-
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "event_id")
     @JsonIgnore
     private Event event;
 
     public Reminder() {
+    }
+
+    public Reminder(String reminder, User creator) {
+        this.reminder = reminder;
+        this.createdDateTime = LocalDateTime.now();
+        this.creator = creator;
     }
 
     @Override
@@ -85,12 +89,6 @@ public class Reminder {
                 ", topicId=" + topic.getId() +
                 ", eventId=" + event.getId() +
                 '}';
-    }
-
-    public Reminder(String reminder, User creator) {
-        this.reminder = reminder;
-        this.createdDateTime = LocalDateTime.now();
-        this.creator=creator;
     }
 
     public Long getId() {

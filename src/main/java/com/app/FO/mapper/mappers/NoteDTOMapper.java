@@ -51,9 +51,9 @@ public abstract class NoteDTOMapper {
     @Mapping(target = "remainderDTOList", expression = "java(" +
             "reminderDTOMapper.ReminderListTOReminderDTOList(reminderService.getReminderListByNoteId(noteId))" +
             ")")
-    @Mapping(target = "topicDTOList", expression = "java(" +
-            "topicDTOMapper.TopicListToTopicDTOList(topicService.getTopicsByNote(noteId))" +
-            ")")
+//    @Mapping(target = "topicDTOList", expression = "java(" +
+//            "topicDTOMapper.TopicListToTopicDTOList(topicService.getTopicsByNote(noteId))" +
+//            ")")
     public abstract NoteFDTO NoteToNoteFDTO(Note note);
 
     public abstract List<NoteFDTO> NoteListToNoteFDTOList(List<Note> note);

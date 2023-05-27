@@ -1,5 +1,14 @@
 # Done
 
+## 230527
+
+- 3
+- [x] deleteUserFromTopic
+- [x] deleteNoteFromTopic
+- [x] deleteTagFromTopic
+- [x] deleteReminderFromTopic
+- [x] deleteTopic
+
 ## 230526
 
 - 10

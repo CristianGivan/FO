@@ -109,9 +109,38 @@ public class TopicController {
         return topicDTOMapper.TopicListToTopicDTOList(topicList);
     }
 
-
     //-- DeleteMapping
 
+
+    @DeleteMapping("/deleteUserFromTopic")
+    public TopicDTO deleteRoleFromTopic(@RequestParam Long topicId, @RequestParam Long userId) {
+        Topic topic = topicService.deleteUserFromTopic(topicId, userId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @DeleteMapping("/deleteNoteFromTopic")
+    public TopicDTO deleteNoteFromTopic(@RequestParam Long topicId, @RequestParam Long noteId) {
+        Topic topic = topicService.deleteNoteFromTopic(topicId, noteId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @DeleteMapping("/deleteTagFromTopic")
+    public TopicDTO deleteTagFromTopic(@RequestParam Long topicId, @RequestParam Long tagId) {
+        Topic topic = topicService.deleteTagFromTopic(topicId, tagId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @DeleteMapping("/deleteReminderFromTopic")
+    public TopicDTO deleteReminderFromTopic(@RequestParam Long topicId, @RequestParam Long reminderId) {
+        Topic topic = topicService.deleteReminderFromTopic(topicId, reminderId);
+        return topicDTOMapper.TopicToTopicDTO(topic);
+    }
+
+    @DeleteMapping("/deleteTopic")
+    public List<TopicDTO> deleteTopic(@RequestParam Long topicId) {
+        List<Topic> topicList = topicService.deleteTopic(topicId);
+        return topicDTOMapper.TopicListToTopicDTOList(topicList);
+    }
 
     //--- Other
 
