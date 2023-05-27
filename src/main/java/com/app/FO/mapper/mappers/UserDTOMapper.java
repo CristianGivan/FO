@@ -20,19 +20,19 @@ public abstract class UserDTOMapper {
 
     @Mapping(target = "userId", source = "id")
     @Mapping(target = "userRoleDTOList", source = "userRoleList")
-    public abstract UserDTO UserToUserDTO(User user);
+    public abstract UserDTO userToUserDTO(User user);
 
-    public abstract List<UserDTO> UserListToUserDTOList(List<User> user);
+    public abstract List<UserDTO> userListToUserDTOList(List<User> user);
 
     @Mapping(target = "userId", source = "id")
     @Mapping(target = "userRoleDTOList", source = "userRoleList")
     @Mapping(target = "userDTOList", expression = "java(" +
-            "UserListToUserDTOList(allServices.getUserListDTOByUser(user))" +
+            "userListToUserDTOList(allServices.getUserListDTOByUser(user))" +
             ")")
 //    @Mapping(target = "tagDTOList", expression = "java(" +
 //            "tagDTOMapper.tagListToTagDTOList(allServices.getTagListDTOByUser(user))" +
 //            ")")
-    public abstract UserFDTO UserToUserFDTO(User user);
+    public abstract UserFDTO userToUserFDTO(User user);
 
-    public abstract List<UserFDTO> UserListToUserFDTOList(List<User> user);
+    public abstract List<UserFDTO> userListToUserFDTOList(List<User> user);
 }

@@ -1,6 +1,9 @@
 package com.app.FO.model.topic;
 
 import com.app.FO.model.event.EventTopic;
+import com.app.FO.model.task.Task;
+import com.app.FO.model.task.TaskWork;
+import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,6 +34,18 @@ public class Topic {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
+
+    //todo tbc
+    @OneToOne(mappedBy = "topic")
+    private Task task;
+
+    //todo tbc
+    @OneToOne(mappedBy = "topic")
+    private Tasks tasks;
+
+    //todo tbc One to many or one to one?
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskWork> taskWorkList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicNote> topicNoteList;
@@ -67,6 +82,9 @@ public class Topic {
                 ", subject='" + subject + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator.getId() +
+                ", task=" + task.getId() +
+                ", tasks=" + tasks.getId() +
+                ", taskWorkList=" + taskWorkList +
                 ", topicNoteList=" + topicNoteList +
                 ", topicTagList=" + topicTagList +
                 ", topicUserList=" + topicUserList +
@@ -78,6 +96,10 @@ public class Topic {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSubject() {
@@ -166,5 +188,37 @@ public class Topic {
 
     public void setEventTopicList(List<EventTopic> eventTopics) {
         this.eventTopicList = eventTopics;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public Tasks getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Tasks tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<TaskWork> getTaskWorkList() {
+        return taskWorkList;
+    }
+
+    public void setTaskWorkList(List<TaskWork> taskWorkList) {
+        this.taskWorkList = taskWorkList;
     }
 }

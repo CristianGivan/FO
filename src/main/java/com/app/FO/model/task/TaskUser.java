@@ -1,21 +1,21 @@
-package com.app.FO.model.tasks;
+package com.app.FO.model.task;
 
-import com.app.FO.model.task.Task;
+import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tasks_task")
-public class TasksTask {
+@Table(name = "task_user")
+public class TaskUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_task_seq")
-    @SequenceGenerator(name = "tasks_task_seq",
-            sequenceName = "tasks_task_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_user_seq")
+    @SequenceGenerator(name = "task_user_seq",
+            sequenceName = "task_user_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "tasks_task_id")
+    @Column(name = "task_user_id")
     private Long id;
 
     @ManyToOne
@@ -24,22 +24,28 @@ public class TasksTask {
     private Task task;
 
     @ManyToOne
-    @JoinColumn(name = "tasks_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
-    private Tasks tasks;
+    private User user;
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public TasksTask() {
+    public TaskUser() {
+    }
+
+    public TaskUser(Task task, User user) {
+        this.task = task;
+        this.user = user;
+        this.linkDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "TasksTask{" +
+        return "TaskUser{" +
                 "id=" + id +
                 ", taskId=" + task.getId() +
-                ", tasks=" + tasks.getId() +
+                ", userId=" + user.getId() +
                 ", linkDate=" + linkDate +
                 '}';
     }
@@ -60,12 +66,12 @@ public class TasksTask {
         this.task = task;
     }
 
-    public Tasks getTasks() {
-        return tasks;
+    public User getUser() {
+        return user;
     }
 
-    public void setTasks(Tasks tasks) {
-        this.tasks = tasks;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getLinkDate() {

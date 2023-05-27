@@ -1,12 +1,16 @@
 package com.app.FO.model.tasks;
 
 import com.app.FO.model.event.EventTasks;
+import com.app.FO.model.task.TaskReminder;
 import com.app.FO.model.task.TaskStatus;
+import com.app.FO.model.task.TaskTag;
+import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,13 +25,13 @@ public class Tasks {
     @Column(name = "tasks_id")
     private Long id;
 
-    @Column(name = "name")
-    private String taskListName;
+    @Column(name = "subject")
+    private String subject;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private User creator;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
@@ -39,10 +43,25 @@ public class Tasks {
     private LocalDateTime endDate;
 
     @Column(name = "task_status")
-    private TaskStatus tasksStatusList;
+    private TaskStatus tasksStatus;
+
+    //todo tbc
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "topic_id", referencedColumnName = "topic_id")
+    @JsonIgnore
+    private Topic topic;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksTask> tasksTaskList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksUser> tasksUserList;
+
+    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskTag> taskTagList;
+
+    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskReminder> taskReminderList;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksHistory> tasksHistoryList;
@@ -57,15 +76,19 @@ public class Tasks {
     public String toString() {
         return "Tasks{" +
                 "id=" + id +
-                ", taskListName='" + taskListName + '\'' +
-                ", user=" + user +
+                ", subject='" + subject + '\'' +
+                ", creator=" + creator.getId() +
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", taskStatus=" + tasksStatusList +
-                ", tasksTasks=" + tasksTaskList +
-                ", TasksHistory=" + tasksHistoryList +
-                ", eventTaskLists=" + eventTasksList +
+                ", tasksStatus=" + tasksStatus +
+                ", topic=" + topic.getId() +
+                ", tasksTaskList=" + tasksTaskList +
+                ", taskUserList=" + tasksUserList +
+                ", taskTagList=" + taskTagList +
+                ", taskReminderList=" + taskReminderList +
+                ", tasksHistoryList=" + tasksHistoryList +
+                ", eventTasksList=" + eventTasksList +
                 '}';
     }
 
@@ -77,20 +100,20 @@ public class Tasks {
         this.id = id;
     }
 
-    public String getTaskListName() {
-        return taskListName;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setTaskListName(String taskListName) {
-        this.taskListName = taskListName;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public User getUser() {
-        return user;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -117,35 +140,70 @@ public class Tasks {
         this.endDate = endDate;
     }
 
-    public TaskStatus getTasksStatusList() {
-        return tasksStatusList;
+    public TaskStatus getTasksStatus() {
+        return tasksStatus;
     }
 
-    public void setTasksStatusList(TaskStatus taskStatus) {
-        this.tasksStatusList = taskStatus;
+    public void setTasksStatus(TaskStatus tasksStatus) {
+        this.tasksStatus = tasksStatus;
     }
 
-    public List<TasksTask> getTaskListTasks() {
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public List<TasksTask> getTasksTaskList() {
         return tasksTaskList;
     }
 
-    public void setTaskListTasks(List<TasksTask> tasksTasks) {
-        this.tasksTaskList = tasksTasks;
+    public void setTasksTaskList(List<TasksTask> tasksTaskList) {
+        this.tasksTaskList = tasksTaskList;
     }
 
-    public List<TasksHistory> getTaskListHistory() {
+    public List<TasksUser> getTasksUserList() {
+        if (tasksUserList == null) {
+            tasksUserList = new ArrayList<>();
+        }
+        return tasksUserList;
+    }
+
+    public void setTasksUserList(List<TasksUser> taskUserList) {
+        this.tasksUserList = taskUserList;
+    }
+
+    public List<TaskTag> getTaskTagList() {
+        return taskTagList;
+    }
+
+    public void setTaskTagList(List<TaskTag> taskTagList) {
+        this.taskTagList = taskTagList;
+    }
+
+    public List<TaskReminder> getTaskReminderList() {
+        return taskReminderList;
+    }
+
+    public void setTaskReminderList(List<TaskReminder> taskReminderList) {
+        this.taskReminderList = taskReminderList;
+    }
+
+    public List<TasksHistory> getTasksHistoryList() {
         return tasksHistoryList;
     }
 
-    public void setTaskListHistory(List<TasksHistory> tasksHistory) {
-        tasksHistoryList = tasksHistory;
+    public void setTasksHistoryList(List<TasksHistory> tasksHistoryList) {
+        this.tasksHistoryList = tasksHistoryList;
     }
 
     public List<EventTasks> getEventTasksList() {
         return eventTasksList;
     }
 
-    public void setEventTasksList(List<EventTasks> eventTaskLists) {
-        this.eventTasksList = eventTaskLists;
+    public void setEventTasksList(List<EventTasks> eventTasksList) {
+        this.eventTasksList = eventTasksList;
     }
 }

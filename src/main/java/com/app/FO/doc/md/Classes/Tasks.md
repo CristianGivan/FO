@@ -1,11 +1,15 @@
 # General
 
+- Tasks have a subject where is a short description of the task
+- Tasks have a topic where more details about it are present
+- When a task is created also the topic is crated
+
 
 # ToDo
 
 ## Entity
 
-- [x] Add creator (log in user)
+- [ ] Add creator (log in user)
 - [1] Add in entity and constructor, getter, setter, toString:
    ```
       @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -21,8 +25,21 @@
    
 
 ### Entity
+- subject
+- creator
+- createdDate
+- startDate
+- endDate
+- taskStatus
+- topic
+- tasksTaskList
+- userList
+- taskTagList
+- taskReminderList
+- tasksTaskList
+- taskHistoryList
 
-- [x] Add to all OneToMany the orphanRemoval and cascade
+- [ ] Add to all OneToMany the orphanRemoval and cascade
 ```
 , orphanRemoval = true,  cascade = {CascadeType.PERSIST, CascadeType.MERGE}
 ```
@@ -44,21 +61,21 @@
 
 
 ### Service
-- [x] post
-  - [x] getLogInUser (userService.getLogInUser())
-  - [x] Check if record with the param1 already exist
-  - [x] Create an entity adding creator
-  - [x] Create an entityUser
-  - [x] Save record
+- [ ] post
+  - [ ] getLogInUser (userService.getLogInUser())
+  - [ ] Check if record with the param1 already exist
+  - [ ] Create an entity adding creator
+  - [ ] Create an entityUser
+  - [ ] Save record
   
-- [x] putStringToId
+- [ ] putStringToId
   - [1] getLogInUser (userService.getLogInUser())
   - [2] Check if parameter1 (by id) exists (from log in user)
   - [3] Check if record with the parameter1 already exist
   - [4] Add parameter2 in parameter1
   - [5] Save record (entityRepository.save(entity))
 
-- [x] putIdToId
+- [ ] putIdToId
   - [1] getLogInUser (userService.getLogInUser())
   - [2] Check if parameter1 (by id) exists (from log in user)
   - [3] Check if parameter2 (by id) exists (from log in user)
@@ -67,7 +84,7 @@
   - [6] Add parameter2 in parameter1 list (.getParameter1Parameter2List.set)
   - [7] Save record (entityRepository.save(entity))
 
-- [x] deleteIdFromId
+- [ ] deleteIdFromId
   - [1] getLogInUser (userService.getLogInUser())
   - [2] Check if parameter1 (by id) exists (from log in user)
   - [3] Check if parameter2 (by id) exists (from log in user)
@@ -77,37 +94,35 @@
   - [7] Save record (entityRepository.save(entity))
 
 ### Post
-- [x] postTopic
+- [x] postTask
   - [x] getLogInUser (userService.getLogInUser())
   - [x] Check if record with the param1 already exist
   - [x] Create an entity adding creator
   - [x] Create an entityUser
   - [x] Save record
-  
 
 ### Put
-- [x] putSubjectToTopic
-- [x] putUserToTopic
-- [x] putNoteToTopic
-- [x] putTagToTopic
-- [x] putReminderToTopic
-
-
-### Get
-- [x] getAllTopic
-- [x] getTopicBySubject
-- [x] getTopicListBySubjectContains
-- [x] getTopicByTopicId
-- [x] getTopicListByNoteId
-- [x] getTopicListByTagId
-- [x] getTopicListByReminderId
-
+- [x] putSubjectToTask
+- [x] putUserToTask
+- [x] putTagToTask
+- [x] putReminderToTask
+- [ ] putTopicToTask
 
 ### Delete
-- [x] deleteUserFromTopic
-- [x] deleteNoteFromTopic
-- [x] deleteTagFromTopic
-- [x] deleteReminderFromTopic
-- [x] deleteTopic
+- [x] deleteUserFromTask
+- [x] deleteTagFromTask
+- [x] deleteReminderFromTask
+- [ ] deleteTopicFromTask
+- [ ] deleteTask
+
+### Get
+- [x] getAllTask
+- [x] getTaskBySubject
+- [x] getTaskListBySubjectContains
+- [x] getTaskByTaskId
+- [x] getTaskListByTagId
+- [x] getTaskListByReminderId
+- [ ] getTaskListByTopicId
+
 
 ## Other

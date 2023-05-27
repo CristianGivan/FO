@@ -1,4 +1,6 @@
 # Todo
+- [ ] Do Task
+- [ ] Do Tasks
 - [ ] Do Topic
 - [ ] Check User
 - [ ] Check Note
@@ -27,3 +29,4 @@
 - [ ] check that I will have for all the entities : orphanRemoval = true, cascade = {CascadeType.PERSIST,
   CascadeType.MERGE}
 - [ ] Understand better security in spring 
+

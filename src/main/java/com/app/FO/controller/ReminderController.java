@@ -29,26 +29,26 @@ public class ReminderController {
     @PostMapping("/addNewReminder")
     public ReminderDTO PostNewNote(@RequestBody TextDTO reminderText) {
         Reminder reminder = reminderService.postReminderText(reminderText.getText());
-        return reminderDTOMapper.ReminderTOReminderDTO(reminder);
+        return reminderDTOMapper.reminderTOReminderDTO(reminder);
     }
 
     // -- GetMapping
     @GetMapping("/getAllReminder")
     public List<ReminderDTO> getAllReminder() {
         List<Reminder> reminderList = reminderService.getAllReminder();
-        return reminderDTOMapper.ReminderListTOReminderDTOList(reminderList);
+        return reminderDTOMapper.reminderListTOReminderDTOList(reminderList);
     }
 
     @GetMapping("/getReminderByReminderId/{reminderId}")
     public ReminderDTO getReminderByReminderIdFromUser(@PathVariable Long reminderId) {
         Reminder reminder = reminderService.getReminderByReminderIdFromUser(reminderId);
-        return reminderDTOMapper.ReminderTOReminderDTO(reminder);
+        return reminderDTOMapper.reminderTOReminderDTO(reminder);
     }
 
     @GetMapping("/getReminderListByNoteId/{noteId}")
     public List<ReminderDTO> getReminderListByNoteId(@PathVariable Long noteId) {
         List<Reminder> reminderList = reminderService.getReminderListByNoteId(noteId);
-        return reminderDTOMapper.ReminderListTOReminderDTOList(reminderList);
+        return reminderDTOMapper.reminderListTOReminderDTOList(reminderList);
     }
 
     //-- PostMapping

@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UserTagDTOMapper.class, UserDTOMapper.class, TopicDTOMapper.class})
+@Mapper(componentModel = "spring", uses = {
+        UserDTOMapper.class, TopicDTOMapper.class})
 public abstract class TagDTOMapper {
     @Autowired
     protected AllServices allServices;
@@ -24,7 +25,7 @@ public abstract class TagDTOMapper {
 
     @Mapping(target = "tagId", source = "id")
     @Mapping(target = "userList", expression = "java(" +
-            "userDTOMapper.UserListToUserDTOList(allServices.getUserListDTOByTag(tag))" +
+            "userDTOMapper.userListToUserDTOList(allServices.getUserListDTOByTag(tag))" +
             ")")
     public abstract TagFDTO tagToTagFDTO(Tag tag);
 

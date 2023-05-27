@@ -159,73 +159,6 @@ public class TopicService {
     }
 
 
-    //-- GET
-
-
-    public List<Topic> getAllTopic() {
-        User logInUser = serviceAll.getLogInUser();
-        List<Topic> topicList = topicRepository.getTopicListFromUserId(logInUser.getId());
-        if (topicList.isEmpty()) {
-            throw new TopicNotFoundException("No topic found");
-        }
-        return topicList;
-    }
-
-    public Topic getTopicBySubject(String subject) {
-        User logInUser = serviceAll.getLogInUser();
-        Topic topic = topicRepository.getTopicFromUserIdBySubject(logInUser.getId(), subject);
-        if (topic == null) {
-            throw new TopicNotFoundException("No topic found");
-        }
-        return topic;
-    }
-
-    public List<Topic> getTopicListBySubjectContains(String subjectContains) {
-        User logInUser = serviceAll.getLogInUser();
-        List<Topic> topicList = topicRepository.getTopicListBySubjectContains(logInUser.getId(), subjectContains);
-        if (topicList.isEmpty()) {
-            throw new TopicNotFoundException("No topic found");
-        }
-        return topicList;
-    }
-
-    public Topic getTopicByTopicId(Long topicId) {
-        User logInUser = serviceAll.getLogInUser();
-        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
-        if (topic == null) {
-            throw new TopicNotFoundException("No topic found");
-        }
-        return topic;
-    }
-
-    public List<Topic> getTopicListByNoteId(Long noteId) {
-        User logInUser = serviceAll.getLogInUser();
-        List<Topic> topicList = topicRepository.getTopicListFromUserIdByNoteId(logInUser.getId(), noteId);
-        if (topicList.isEmpty()) {
-            throw new TopicNotFoundException("No topic found");
-        }
-        return topicList;
-    }
-
-    public List<Topic> getTopicListByTagId(Long tagId) {
-        User logInUser = serviceAll.getLogInUser();
-        List<Topic> topicList = topicRepository.getTopicListFromUserIdByTagId(logInUser.getId(), tagId);
-        if (topicList.isEmpty()) {
-            throw new TopicNotFoundException("No topic found");
-        }
-        return topicList;
-    }
-
-    public List<Topic> getTopicListByReminderId(Long reminderId) {
-        User logInUser = serviceAll.getLogInUser();
-        List<Topic> topicList = topicRepository.getTopicListFromUserIdByReminderId(logInUser.getId(), reminderId);
-        if (topicList.isEmpty()) {
-            throw new TopicNotFoundException("No topic found");
-        }
-        return topicList;
-    }
-
-
     //--Delete
 
 
@@ -331,6 +264,72 @@ public class TopicService {
         topicRepository.delete(topic);
         return getAllTopic();
     }
+    //-- GET
+
+
+    public List<Topic> getAllTopic() {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserId(logInUser.getId());
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
+    }
+
+    public Topic getTopicBySubject(String subject) {
+        User logInUser = serviceAll.getLogInUser();
+        Topic topic = topicRepository.getTopicFromUserIdBySubject(logInUser.getId(), subject);
+        if (topic == null) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topic;
+    }
+
+    public List<Topic> getTopicListBySubjectContains(String subjectContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListBySubjectContains(logInUser.getId(), subjectContains);
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
+    }
+
+    public Topic getTopicByTopicId(Long topicId) {
+        User logInUser = serviceAll.getLogInUser();
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topic;
+    }
+
+    public List<Topic> getTopicListByNoteId(Long noteId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserIdByNoteId(logInUser.getId(), noteId);
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
+    }
+
+    public List<Topic> getTopicListByTagId(Long tagId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserIdByTagId(logInUser.getId(), tagId);
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
+    }
+
+    public List<Topic> getTopicListByReminderId(Long reminderId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserIdByReminderId(logInUser.getId(), reminderId);
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
+    }
+
 
     //-- Other
 

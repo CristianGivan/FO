@@ -1,4 +1,4 @@
-package com.app.FO.model.task;
+package com.app.FO.model.tasks;
 
 import com.app.FO.model.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,21 +7,21 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_tag")
-public class TaskTag {
+@Table(name = "tasks_tag")
+public class TasksTag {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_tag_seq")
-    @SequenceGenerator(name = "task_tag_seq",
-            sequenceName = "task_tag_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_tag_seq")
+    @SequenceGenerator(name = "tasks_tag_seq",
+            sequenceName = "tasks_tag_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "task_tag_id")
+    @Column(name = "tasks_tag_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "tasks_id")
     @JsonIgnore
-    private Task task;
+    private Tasks tasks;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
@@ -31,20 +31,14 @@ public class TaskTag {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public TaskTag() {
-    }
-
-    public TaskTag(Task task, Tag tag) {
-        this.task = task;
-        this.tag = tag;
-        this.linkDate = LocalDateTime.now();
+    public TasksTag() {
     }
 
     @Override
     public String toString() {
-        return "TaskTag{" +
+        return "TasksTag{" +
                 "id=" + id +
-                ", taskId=" + task.getId() +
+                ", tasksId=" + tasks.getId() +
                 ", tagId=" + tag.getId() +
                 ", linkDate=" + linkDate +
                 '}';

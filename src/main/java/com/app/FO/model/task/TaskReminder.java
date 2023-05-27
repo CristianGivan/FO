@@ -1,21 +1,21 @@
 package com.app.FO.model.task;
 
-import com.app.FO.model.tag.Tag;
+import com.app.FO.model.reminder.Reminder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_tag")
-public class TaskTag {
+@Table(name = "task_reminder")
+public class TaskReminder {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_tag_seq")
-    @SequenceGenerator(name = "task_tag_seq",
-            sequenceName = "task_tag_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_reminder_seq")
+    @SequenceGenerator(name = "task_reminder_seq",
+            sequenceName = "task_reminder_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "task_tag_id")
+    @Column(name = "task_reminder_id")
     private Long id;
 
     @ManyToOne
@@ -24,28 +24,28 @@ public class TaskTag {
     private Task task;
 
     @ManyToOne
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "reminder_id")
     @JsonIgnore
-    private Tag tag;
+    private Reminder reminder;
 
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public TaskTag() {
+    public TaskReminder() {
     }
 
-    public TaskTag(Task task, Tag tag) {
+    public TaskReminder(Task task, Reminder reminder) {
         this.task = task;
-        this.tag = tag;
+        this.reminder = reminder;
         this.linkDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "TaskTag{" +
+        return "TaskReminder{" +
                 "id=" + id +
                 ", taskId=" + task.getId() +
-                ", tagId=" + tag.getId() +
+                ", reminderId=" + reminder.getId() +
                 ", linkDate=" + linkDate +
                 '}';
     }

@@ -14,8 +14,10 @@ import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tag.TagUser;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.task.TaskHistory;
+import com.app.FO.model.task.TaskUser;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.tasks.TasksHistory;
+import com.app.FO.model.tasks.TasksUser;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.topic.TopicUser;
@@ -69,13 +71,13 @@ public class User {
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Reminder> reminderList;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Task> taskList;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskHistory> taskHistoryList;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tasks> tasksList;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -109,6 +111,12 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteUser> noteUserList;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskUser> taskUserList;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksUser> tasksUserList;
+
     public User() {
     }
 
@@ -126,10 +134,10 @@ public class User {
                 ", email='" + email + '\'' +
                 ", userRoleList=" + userRoleList +
                 ", userUserList=" + userUserList +
-                ", topicList=" + topicList +
                 ", topicHistoryList=" + topicHistoryList +
                 ", noteList=" + noteList +
                 ", tagList=" + tagList +
+                ", topicList=" + topicList +
                 ", noteHistoryList=" + noteHistoryList +
                 ", reminderList=" + reminderList +
                 ", taskList=" + taskList +
@@ -145,6 +153,8 @@ public class User {
                 ", tagUserList=" + tagUserList +
                 ", topicUserList=" + topicUserList +
                 ", noteUserList=" + noteUserList +
+                ", taskUserList=" + taskUserList +
+                ", tasksUserList=" + tasksUserList +
                 '}';
     }
 
@@ -400,4 +410,19 @@ public class User {
         this.tagUserList = tagUsers;
     }
 
+    public List<TaskUser> getTaskUserList() {
+        return taskUserList;
+    }
+
+    public void setTaskUserList(List<TaskUser> taskUserList) {
+        this.taskUserList = taskUserList;
+    }
+
+    public List<TasksUser> getTasksUserList() {
+        return tasksUserList;
+    }
+
+    public void setTasksUserList(List<TasksUser> tasksUserList) {
+        this.tasksUserList = tasksUserList;
+    }
 }

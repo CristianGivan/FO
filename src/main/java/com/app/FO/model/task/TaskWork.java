@@ -1,22 +1,22 @@
 package com.app.FO.model.task;
 
-import com.app.FO.model.user.User;
+import com.app.FO.model.topic.Topic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-//effort
+//work
 @Entity
-@Table(name = "task_effort")
-public class TaskEffort {
+@Table(name = "task_work")
+public class TaskWork {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_effort_seq")
-    @SequenceGenerator(name = "task_effort_seq",
-            sequenceName = "task_effort_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_work_seq")
+    @SequenceGenerator(name = "task_work_seq",
+            sequenceName = "task_work_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "task_effort_id")
+    @Column(name = "task_work_id")
     private Long id;
 
     @Column(name = "working_date_time")
@@ -26,21 +26,27 @@ public class TaskEffort {
     @Column(name = "woking_time")
     private Double workingTime;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "task_id")
     @JsonIgnore
     private Task task;
 
-    public TaskEffort() {
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    @JsonIgnore
+    private Topic topic;
+
+    public TaskWork() {
     }
 
     @Override
     public String toString() {
-        return "TaskEffort{" +
+        return "TaskWork{" +
                 "id=" + id +
                 ", workingDate=" + workingDate +
                 ", workingTime=" + workingTime +
-                ", taskId=" + task.getId() +
+                ", task=" + task +
+                ", topic=" + topic +
                 '}';
     }
 
@@ -74,5 +80,13 @@ public class TaskEffort {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 }
