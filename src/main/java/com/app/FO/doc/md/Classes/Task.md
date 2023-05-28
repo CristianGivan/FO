@@ -3,8 +3,8 @@
 - Tasks have a subject where is a short description of the task
 - Tasks have a topic where more details about it are present
 - When a task is created also the topic is crated
-- TaskWork should be the work you apply to task
-  - TaskWork has topic where specified the work done
+- Work should be the work you apply to task
+  - Work has topic where specified the work done
 
 # ToDo
 
@@ -110,8 +110,8 @@
 - [x] putReminderToTask
 - [x] putTopicToTask
 - [x] putWorkToTask
-- [ ] putStartDateToTask
-- [ ] putEndDateToTask
+- [x] putStartDateToTask
+- [x] putEndDateToTask
 - [ ] putTaskStatusToTask
 
 ### Delete
@@ -131,8 +131,8 @@
 - [x] getTaskListByReminderId
 - [x] getTaskListByTopicId
 - [x] getTaskListByWorkId
-- [ ] getTaskByStartDate
-- [ ] getTaskByEndDate
+- [x] getTaskByStartDate
+- [x] getTaskByEndDate
 - [ ] getTaskByTaskStatus
 
 ## Other

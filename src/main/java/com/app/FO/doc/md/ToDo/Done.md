@@ -8,9 +8,15 @@
 - [x] deleteTask
 - [x] getTaskListByWorkId
 
+- [x] putStartDateToTask
+- [x] putEndDateToTask
+- [x] getTaskByStartDate
+- [x] getTaskByEndDate
+
 ## 230527
 
 - 9
+
 - [x] deleteUserFromTopic
 - [x] deleteNoteFromTopic
 - [x] deleteTagFromTopic

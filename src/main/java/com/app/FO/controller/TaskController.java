@@ -68,24 +68,24 @@ public class TaskController {
         Task task = taskService.putWorkToTask(taskId, workId);
         return taskDTOMapper.taskToTaskDTO(task);
     }
-//
-//    @PutMapping("/putStartDateToTask")
-//    public TaskDTO putStartDateToTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
-//        Task task = taskService.putStartDateToTask(taskId, reminderId);
-//        return taskDTOMapper.taskToTaskDTO(task);
-//    }
-//
-//    @PutMapping("/putEndDateToTask")
-//    public TaskDTO putEndDateToTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
-//        Task task = taskService.putEndDateToTask(taskId, reminderId);
-//        return taskDTOMapper.taskToTaskDTO(task);
-//    }
-//
-//    @PutMapping("/putTaskStatusToTask")
-//    public TaskDTO putTaskStatusToTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
-//        Task task = taskService.putTaskStatusToTask(taskId, reminderId);
-//        return taskDTOMapper.taskToTaskDTO(task);
-//    }
+
+    @PutMapping("/putStartDateToTask")
+    public TaskDTO putStartDateToTask(@RequestParam Long taskId, @RequestParam String startDate) {
+        Task task = taskService.putStartDateToTask(taskId, startDate);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
+    @PutMapping("/putEndDateToTask")
+    public TaskDTO putEndDateToTask(@RequestParam Long taskId, @RequestParam String endDate) {
+        Task task = taskService.putEndDateToTask(taskId, endDate);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
+    @PutMapping("/putTaskStatusToTask")
+    public TaskDTO putTaskStatusToTask(@RequestParam Long taskId, @RequestParam String taskStatus) {
+        Task task = taskService.putTaskStatusToTask(taskId, taskStatus);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
 
 
     //-- DeleteMapping
@@ -180,25 +180,25 @@ public class TaskController {
         List<Task> taskList = taskService.getTaskListByWorkId(workId);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
-//
-//
-//    @GetMapping("/getTaskByStartDate")
-//    public List<TaskDTO> getTaskByStartDate(@RequestParam Long reminderId) {
-//        List<Task> taskList = taskService.getTaskByStartDate(reminderId);
-//        return taskDTOMapper.taskListToTaskDTOList(taskList);
-//    }
-//
-//    @GetMapping("/getTaskByEndDate")
-//    public List<TaskDTO> getTaskByEndDate(@RequestParam Long reminderId) {
-//        List<Task> taskList = taskService.getTaskByEndDate(reminderId);
-//        return taskDTOMapper.taskListToTaskDTOList(taskList);
-//    }
-//
-//    @GetMapping("/getTaskByTaskStatus")
-//    public List<TaskDTO> getTaskByTaskStatus(@RequestParam Long reminderId) {
-//        List<Task> taskList = taskService.getTaskByTaskStatus(reminderId);
-//        return taskDTOMapper.taskListToTaskDTOList(taskList);
-//    }
+
+
+    @GetMapping("/getTaskByStartDate")
+    public List<TaskDTO> getTaskByStartDate(@RequestParam String startDate) {
+        List<Task> taskList = taskService.getTaskByStartDate(startDate);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskByEndDate")
+    public List<TaskDTO> getTaskByEndDate(@RequestParam String endDate) {
+        List<Task> taskList = taskService.getTaskByEndDate(endDate);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskByTaskStatus")
+    public List<TaskDTO> getTaskByTaskStatus(@RequestParam String taskStatus) {
+        List<Task> taskList = taskService.getTaskByTaskStatus(taskStatus);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
 
 
     //--- Other

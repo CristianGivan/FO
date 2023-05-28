@@ -1,5 +1,6 @@
 package com.app.FO.service.task;
 
+import com.app.FO.config.DateTime;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
@@ -12,6 +13,7 @@ import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -180,6 +182,52 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public Task putStartDateToTask(Long taskId, String startDateText) {
+/*      Formatter "yyyy.MM.dd HH:mm:ss"
+2023.06.01 13:14:15
+*/
+        LocalDateTime startDate = DateTime.textToLocalDateTime(startDateText);
+        User logInUser = serviceAll.getLogInUser();
+
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("Task not found in your list");
+        }
+
+        task.setStartDate(startDate);
+        return taskRepository.save(task);
+    }
+
+    public Task putEndDateToTask(Long taskId, String endDateText) {
+/*      Formatter "yyyy.MM.dd HH:mm:ss"
+2023.06.01 13:14:15
+*/
+        LocalDateTime endDate = DateTime.textToLocalDateTime(endDateText);
+        User logInUser = serviceAll.getLogInUser();
+
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("Task not found in your list");
+        }
+
+        task.setEndDate(endDate);
+        return taskRepository.save(task);
+    }
+
+    public Task putTaskStatusToTask(Long taskId, String taskStatusText) {
+
+        TaskStatus taskStatus = serviceAll.convertTextToTaskStatus(taskStatusText);
+
+        User logInUser = serviceAll.getLogInUser();
+
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("Task not found in your list");
+        }
+
+        task.setTaskStatus(taskStatus);
+        return taskRepository.save(task);
+    }
 
     //--Delete
 
@@ -384,6 +432,48 @@ public class TaskService {
         return taskList;
     }
 
+    public List<Task> getTaskByStartDate(String startDateText) {
+/*      Formatter "yyyy.MM.dd HH:mm:ss"
+2023.06.01 13:14:15
+*/
+        LocalDateTime startDate = DateTime.textToLocalDateTime(startDateText);
+        User logInUser = serviceAll.getLogInUser();
+
+        List<Task> taskList = taskRepository.getTaskListFromUserIdByStartDate(logInUser.getId(), startDate);
+        if (taskList.isEmpty()) {
+            throw new TaskNotFoundException("No task found");
+        }
+        return taskList;
+    }
+
+    public List<Task> getTaskByEndDate(String endDateText) {
+/*      Formatter "yyyy.MM.dd HH:mm:ss"
+2023.06.01 13:14:15
+*/
+        LocalDateTime endDate = DateTime.textToLocalDateTime(endDateText);
+        User logInUser = serviceAll.getLogInUser();
+
+        List<Task> taskList = taskRepository.getTaskListFromUserIdByEndDate(logInUser.getId(), endDate);
+        if (taskList.isEmpty()) {
+            throw new TaskNotFoundException("No task found");
+        }
+        return taskList;
+    }
+
+    public List<Task> getTaskByTaskStatus(String taskStatusText) {
+
+        TaskStatus taskStatus = serviceAll.convertTextToTaskStatus(taskStatusText);
+
+        User logInUser = serviceAll.getLogInUser();
+        List<Task> taskList = taskRepository.getTaskListFromUserIdByTaskStatus(logInUser.getId(), taskStatus);
+        if (taskList.isEmpty()) {
+            throw new TaskNotFoundException("No task found");
+        }
+        return taskList;
+    }
+
+
     //-- Other
+
 
 }

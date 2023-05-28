@@ -2,8 +2,12 @@ package com.app.FO.config;
 
 import org.springframework.stereotype.Component;
 
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+
 @Component
 public class DateTime {
 
@@ -89,19 +93,19 @@ public class DateTime {
     }
 
     public static LocalDateTime textToLocalDateTime(String textDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(textDateTime, formatter);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return LocalDateTime.parse(textDateTime, dateTimeFormatter);
     }
 
     public static ZonedDateTime textToZoneDateTime(String textDateTime, String zone) {
         ZoneId zoneId = ZoneId.of(zone);
-        LocalDateTime localDateTime= textToLocalDateTime(textDateTime);
+        LocalDateTime localDateTime = textToLocalDateTime(textDateTime);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of("GMT"));
         return zonedDateTime;
     }
 
-    public static ZonedDateTime textToZoneDateTimeGMT(String textDateTime){
-        return textToZoneDateTime(textDateTime,"GMT");
+    public static ZonedDateTime textToZoneDateTimeGMT(String textDateTime) {
+        return textToZoneDateTime(textDateTime, "GMT");
     }
 
     public static long textToCenturyMills(String textDate) {
@@ -109,7 +113,7 @@ public class DateTime {
         return convertDateToCenturyMills(localDateTime);
     }
 
-    public static String dataTimeToString(LocalDateTime dateTime){
+    public static String dataTimeToString(LocalDateTime dateTime) {
         return dateTime.toString();
     }
 }

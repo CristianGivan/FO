@@ -252,4 +252,29 @@ public class ServiceAll {
         return workRepository.getWorkFromUserIdByWorkId(userId, workId);
     }
 
+    //-- Other
+
+    public TaskStatus convertTextToTaskStatus(String taskStatusText) {
+        TaskStatus taskStatus;
+        switch (taskStatusText) {
+            case "Started":
+                taskStatus = TaskStatus.Started;
+                break;
+            case "Working":
+                taskStatus = TaskStatus.Working;
+                break;
+            case "Pending":
+                taskStatus = TaskStatus.Pending;
+                break;
+            case "Completed":
+                taskStatus = TaskStatus.Completed;
+                break;
+            default:
+                taskStatus = TaskStatus.Undefine;
+                break;
+
+        }
+        return taskStatus;
+    }
+
 }
