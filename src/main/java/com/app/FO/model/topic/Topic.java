@@ -2,9 +2,9 @@ package com.app.FO.model.topic;
 
 import com.app.FO.model.event.EventTopic;
 import com.app.FO.model.task.TaskTopic;
-import com.app.FO.model.task.TaskWork;
 import com.app.FO.model.tasks.TasksTopic;
 import com.app.FO.model.user.User;
+import com.app.FO.model.work.Work;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -44,8 +44,8 @@ public class Topic {
     private List<TasksTopic> tasksTopicList;
 
     //todo tbc One to many or one to one?
-    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskWork> taskWorkList;
+    @OneToOne(mappedBy = "topic", cascade = CascadeType.ALL)
+    private Work work;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicNote> topicNoteList;
@@ -84,7 +84,7 @@ public class Topic {
                 ", creator=" + creator.getId() +
                 ", taskTopicList=" + taskTopicList +
                 ", tasksTopicList=" + tasksTopicList +
-                ", taskWorkList=" + taskWorkList +
+                ", work=" + work.getId() +
                 ", topicNoteList=" + topicNoteList +
                 ", topicTagList=" + topicTagList +
                 ", topicUserList=" + topicUserList +
@@ -214,11 +214,11 @@ public class Topic {
         this.tasksTopicList = tasksTopicList;
     }
 
-    public List<TaskWork> getTaskWorkList() {
-        return taskWorkList;
+    public Work getWork() {
+        return work;
     }
 
-    public void setTaskWorkList(List<TaskWork> taskWorkList) {
-        this.taskWorkList = taskWorkList;
+    public void setWork(Work work) {
+        this.work = work;
     }
 }

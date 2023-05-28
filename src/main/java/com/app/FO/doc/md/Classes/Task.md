@@ -101,11 +101,7 @@
   - [x] Create an entity adding creator
   - [x] Create an entityUser
   - [x] Save record
-- topic
-- startDate
-- endDate
-- taskStatus
-- taskWorkList
+
 
 ### Put
 - [x] putSubjectToTask
@@ -113,18 +109,18 @@
 - [x] putTagToTask
 - [x] putReminderToTask
 - [x] putTopicToTask
+- [x] putWorkToTask
 - [ ] putStartDateToTask
 - [ ] putEndDateToTask
 - [ ] putTaskStatusToTask
-- [ ] putTaskWorkToTask
 
 ### Delete
 - [x] deleteUserFromTask
 - [x] deleteTagFromTask
 - [x] deleteReminderFromTask
 - [x] deleteTopicFromTask
-- [ ] deleteTaskWorkFromTask
-- [ ] deleteTask
+- [x] deleteWorkFromTask
+- [x] deleteTask
 
 ### Get
 - [x] getAllTask
@@ -134,9 +130,9 @@
 - [x] getTaskListByTagId
 - [x] getTaskListByReminderId
 - [x] getTaskListByTopicId
+- [x] getTaskListByWorkId
 - [ ] getTaskByStartDate
 - [ ] getTaskByEndDate
 - [ ] getTaskByTaskStatus
-- [ ] getTaskByTaskWork
 
 ## Other

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tasks_task")
+@Table(name = "tasks_user")
 public class TasksUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_user_seq")

@@ -62,6 +62,32 @@ public class TaskController {
         Task task = taskService.putReminderToTask(taskId, reminderId);
         return taskDTOMapper.taskToTaskDTO(task);
     }
+
+    @PutMapping("/putWorkToTask")
+    public TaskDTO putWorkToTask(@RequestParam Long taskId, @RequestParam Long workId) {
+        Task task = taskService.putWorkToTask(taskId, workId);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+//
+//    @PutMapping("/putStartDateToTask")
+//    public TaskDTO putStartDateToTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
+//        Task task = taskService.putStartDateToTask(taskId, reminderId);
+//        return taskDTOMapper.taskToTaskDTO(task);
+//    }
+//
+//    @PutMapping("/putEndDateToTask")
+//    public TaskDTO putEndDateToTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
+//        Task task = taskService.putEndDateToTask(taskId, reminderId);
+//        return taskDTOMapper.taskToTaskDTO(task);
+//    }
+//
+//    @PutMapping("/putTaskStatusToTask")
+//    public TaskDTO putTaskStatusToTask(@RequestParam Long taskId, @RequestParam Long reminderId) {
+//        Task task = taskService.putTaskStatusToTask(taskId, reminderId);
+//        return taskDTOMapper.taskToTaskDTO(task);
+//    }
+
+
     //-- DeleteMapping
 
 
@@ -85,8 +111,14 @@ public class TaskController {
 
 
     @DeleteMapping("/deleteTopicFromTask")
-    public TaskDTO deleteTopicFromTask(@RequestParam Long taskId, @RequestParam Long topicrId) {
-        Task task = taskService.deleteTopicFromTask(taskId, topicrId);
+    public TaskDTO deleteTopicFromTask(@RequestParam Long taskId, @RequestParam Long topicId) {
+        Task task = taskService.deleteTopicFromTask(taskId, topicId);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
+    @DeleteMapping("/deleteWorkFromTask")
+    public TaskDTO deleteWorkFromTask(@RequestParam Long taskId, @RequestParam Long workId) {
+        Task task = taskService.deleteWorkFromTask(taskId, workId);
         return taskDTOMapper.taskToTaskDTO(task);
     }
 
@@ -95,6 +127,7 @@ public class TaskController {
         List<Task> taskList = taskService.deleteTask(taskId);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
+
 
     //---GetMapping
 
@@ -141,6 +174,31 @@ public class TaskController {
         List<Task> taskList = taskService.getTaskListByReminderId(reminderId);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
+
+    @GetMapping("/getTaskListByWorkId")
+    public List<TaskDTO> getTaskListByWorkId(@RequestParam Long workId) {
+        List<Task> taskList = taskService.getTaskListByWorkId(workId);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+//
+//
+//    @GetMapping("/getTaskByStartDate")
+//    public List<TaskDTO> getTaskByStartDate(@RequestParam Long reminderId) {
+//        List<Task> taskList = taskService.getTaskByStartDate(reminderId);
+//        return taskDTOMapper.taskListToTaskDTOList(taskList);
+//    }
+//
+//    @GetMapping("/getTaskByEndDate")
+//    public List<TaskDTO> getTaskByEndDate(@RequestParam Long reminderId) {
+//        List<Task> taskList = taskService.getTaskByEndDate(reminderId);
+//        return taskDTOMapper.taskListToTaskDTOList(taskList);
+//    }
+//
+//    @GetMapping("/getTaskByTaskStatus")
+//    public List<TaskDTO> getTaskByTaskStatus(@RequestParam Long reminderId) {
+//        List<Task> taskList = taskService.getTaskByTaskStatus(reminderId);
+//        return taskDTOMapper.taskListToTaskDTOList(taskList);
+//    }
 
 
     //--- Other

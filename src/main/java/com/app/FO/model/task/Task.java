@@ -204,6 +204,9 @@ public class Task {
     }
 
     public List<TaskWork> getTaskWorkList() {
+        if (taskWorkList == null) {
+            taskWorkList = new ArrayList<>();
+        }
         return taskWorkList;
     }
 

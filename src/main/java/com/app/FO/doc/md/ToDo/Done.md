@@ -1,5 +1,13 @@
 # Done
 
+## 230528
+- 6
+
+- [x] putWorkToTask
+- [x] deleteWorkFromTask
+- [x] deleteTask
+- [x] getTaskListByWorkId
+
 ## 230527
 
 - 9

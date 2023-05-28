@@ -1,4 +1,6 @@
 # Todo
+- [ ] Refactoring all methods to have the same naming conventions
+- [ ] Do Work
 - [ ] Do Task
 - [ ] Do Tasks
 - [ ] Do Topic

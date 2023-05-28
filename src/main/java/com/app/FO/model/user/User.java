@@ -22,6 +22,8 @@ import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.topic.TopicUser;
 import com.app.FO.model.transaction.Transaction;
+import com.app.FO.model.work.Work;
+import com.app.FO.model.work.WorkUser;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -62,6 +64,9 @@ public class User {
     private List<Note> noteList;
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tag> tagList;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Work> workList;
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Topic> topicList;
 
@@ -115,6 +120,9 @@ public class User {
     private List<TaskUser> taskUserList;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkUser> workUserList;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksUser> tasksUserList;
 
     public User() {
@@ -137,6 +145,7 @@ public class User {
                 ", topicHistoryList=" + topicHistoryList +
                 ", noteList=" + noteList +
                 ", tagList=" + tagList +
+                ", workList=" + workList +
                 ", topicList=" + topicList +
                 ", noteHistoryList=" + noteHistoryList +
                 ", reminderList=" + reminderList +
@@ -154,6 +163,7 @@ public class User {
                 ", topicUserList=" + topicUserList +
                 ", noteUserList=" + noteUserList +
                 ", taskUserList=" + taskUserList +
+                ", workUserList=" + workUserList +
                 ", tasksUserList=" + tasksUserList +
                 '}';
     }
@@ -424,5 +434,21 @@ public class User {
 
     public void setTasksUserList(List<TasksUser> tasksUserList) {
         this.tasksUserList = tasksUserList;
+    }
+
+    public List<Work> getWorkList() {
+        return workList;
+    }
+
+    public void setWorkList(List<Work> workList) {
+        this.workList = workList;
+    }
+
+    public List<WorkUser> getWorkUserList() {
+        return workUserList;
+    }
+
+    public void setWorkUserList(List<WorkUser> workUserList) {
+        this.workUserList = workUserList;
     }
 }

@@ -53,6 +53,18 @@ public class TagController {
     }
 
 
+    //-- DeleteMapping
+    @DeleteMapping("/deleteTag/{tagId}")
+    public String deleteTag(@RequestParam Long tagId) {
+        String message = tagService.deleteTag(tagId);
+        return message;
+    }
+
+    @DeleteMapping("/deleteUserFromTag")
+    public TagDTO deleteUserFromTag(@RequestParam Long tagId, @RequestParam Long userId) {
+        Tag tag = tagService.deleteUserFromTag(tagId, userId);
+        return tagDTOMapper.tagToTagDTO(tag);
+    }
     //-- GetMapping
 
     @GetMapping("/getTagById/{tagId}")
@@ -103,22 +115,6 @@ public class TagController {
         List<Tag> tagList = tagService.getTagsByTopicId(topicId);
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
-
-
-    //-- DeleteMapping
-    @DeleteMapping("/deleteTag/{tagId}")
-    public String deleteTag(@RequestParam Long tagId) {
-        String message = tagService.deleteTag(tagId);
-        return message;
-    }
-
-    @DeleteMapping("/deleteUserFromTag")
-    public TagDTO deleteUserFromTag(@RequestParam Long tagId, @RequestParam Long userId) {
-        Tag tag = tagService.deleteUserFromTag(tagId, userId);
-        return tagDTOMapper.tagToTagDTO(tag);
-    }
-
-    //-- Converter
 
     //--- Other
 

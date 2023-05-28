@@ -1,51 +1,51 @@
-package com.app.FO.model.task;
+package com.app.FO.model.work;
 
-import com.app.FO.model.work.Work;
+import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-//work
 @Entity
-@Table(name = "task_work")
-public class TaskWork {
+@Table(name = "work_user")
+public class WorkUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_work_seq")
-    @SequenceGenerator(name = "task_work_seq",
-            sequenceName = "task_work_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_user_seq")
+    @SequenceGenerator(name = "work_user_seq",
+            sequenceName = "work_user_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "task_work_id")
+    @Column(name = "work_user_id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    @JsonIgnore
-    private Task task;
 
     @ManyToOne
     @JoinColumn(name = "work_id")
     @JsonIgnore
     private Work work;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public TaskWork() {
+    public WorkUser() {
     }
 
-    public TaskWork(Task task, Work work) {
-        this.task = task;
+    public WorkUser(Work work, User user) {
         this.work = work;
+        this.user = user;
         this.linkDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "TaskWork{" +
+        return "WorkUser{" +
                 "id=" + id +
-                ", task=" + task +
-                ", work=" + work +
+                ", workId=" + work.getId() +
+                ", userId=" + user.getId() +
                 ", linkDate=" + linkDate +
                 '}';
     }
@@ -58,20 +58,20 @@ public class TaskWork {
         this.id = id;
     }
 
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
     public Work getWork() {
         return work;
     }
 
     public void setWork(Work work) {
         this.work = work;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getLinkDate() {
@@ -81,4 +81,5 @@ public class TaskWork {
     public void setLinkDate(LocalDateTime linkDate) {
         this.linkDate = linkDate;
     }
+
 }

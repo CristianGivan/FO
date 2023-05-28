@@ -3,24 +3,20 @@ package com.app.FO.util;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
-import com.app.FO.model.task.TaskReminder;
-import com.app.FO.model.task.TaskTag;
-import com.app.FO.model.task.TaskTopic;
-import com.app.FO.model.task.TaskUser;
+import com.app.FO.model.task.*;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
+import com.app.FO.model.work.Work;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.tag.TagRepository;
-import com.app.FO.repository.task.TaskReminderRepository;
-import com.app.FO.repository.task.TaskTagRepository;
-import com.app.FO.repository.task.TaskTopicRepository;
-import com.app.FO.repository.task.TaskUserRepository;
+import com.app.FO.repository.task.*;
 import com.app.FO.repository.topic.*;
 import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
+import com.app.FO.repository.work.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,6 +61,12 @@ public class ServiceAll {
 
     @Autowired
     private TaskTopicRepository taskTopicRepository;
+
+    @Autowired
+    private TaskWorkRepository taskWorkRepository;
+
+    @Autowired
+    private WorkRepository workRepository;
 
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -205,6 +207,10 @@ public class ServiceAll {
         return taskTopicRepository.getTaskTopicByTaskIdAndTopicId(taskId, topicId);
     }
 
+    public TaskWork getTaskWork(Long taskId, Long topicId) {
+        return taskWorkRepository.getTaskWorkByTaskIdAndWorkId(taskId, topicId);
+    }
+
     //--------------------------
 
     //-- getUser
@@ -238,6 +244,12 @@ public class ServiceAll {
     //-- getTopic
     public Topic getTopicByIdAndUserId(Long topicId, Long userId) {
         return topicRepository.getTopicByIdAndUserId(topicId, userId);
+    }
+
+    //-- getWork
+
+    public Work getWorkByUserIdAndWorkId(Long workId, Long userId) {
+        return workRepository.getWorkFromUserIdByWorkId(userId, workId);
     }
 
 }

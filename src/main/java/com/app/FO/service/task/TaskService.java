@@ -6,6 +6,7 @@ import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.*;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
+import com.app.FO.model.work.Work;
 import com.app.FO.repository.task.TaskRepository;
 import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,6 +157,30 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public Task putWorkToTask(Long taskId, Long workId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("Task not found in your list");
+        }
+
+        Work work = serviceAll.getWorkByUserIdAndWorkId(logInUser.getId(), workId);
+        if (work == null) {
+            throw new WorkNotFoundException("Work not found");
+        }
+
+        TaskWork taskWork = serviceAll.getTaskWork(taskId, workId);
+        if (taskWork != null) {
+            throw new TaskTopicAlreadyExistException("The task already has the work");
+        }
+
+        taskWork = new TaskWork(task, work);
+        task.getTaskWorkList().add(taskWork);
+        return taskRepository.save(task);
+    }
+
+
     //--Delete
 
 
@@ -250,6 +275,29 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public Task deleteWorkFromTask(Long taskId, Long workId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("Task not found in your list");
+        }
+
+        Work work = serviceAll.getWorkByUserIdAndWorkId(workId, logInUser.getId());
+        if (work == null) {
+            throw new WorkNotFoundException("Work not found");
+        }
+
+        TaskWork taskWork = serviceAll.getTaskWork(taskId, workId);
+        if (taskWork == null) {
+            throw new TaskWorkNotFoundException("The task don't has the work");
+        }
+
+        task.getTaskWorkList().remove(taskWork);
+
+        return taskRepository.save(task);
+    }
+
     public List<Task> deleteTask(Long taskId) {
         User logInUser = serviceAll.getLogInUser();
 
@@ -321,6 +369,15 @@ public class TaskService {
     public List<Task> getTaskListByTopicId(Long topicId) {
         User logInUser = serviceAll.getLogInUser();
         List<Task> taskList = taskRepository.getTaskListFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (taskList.isEmpty()) {
+            throw new TaskNotFoundException("No task found");
+        }
+        return taskList;
+    }
+
+    public List<Task> getTaskListByWorkId(Long workId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Task> taskList = taskRepository.getTaskListFromUserIdByWorkId(logInUser.getId(), workId);
         if (taskList.isEmpty()) {
             throw new TaskNotFoundException("No task found");
         }
