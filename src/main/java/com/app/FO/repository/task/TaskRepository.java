@@ -1,7 +1,6 @@
 package com.app.FO.repository.task;
 
 import com.app.FO.model.task.Task;
-import com.app.FO.model.task.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -56,5 +55,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.task_status=?2")
-    List<Task> getTaskListFromUserIdByTaskStatus(Long userId, TaskStatus taskStatus);
+    List<Task> getTaskListFromUserIdByTaskStatus(Long userId, int taskStatus);
 }

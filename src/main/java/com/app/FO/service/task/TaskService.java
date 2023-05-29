@@ -216,7 +216,7 @@ public class TaskService {
 
     public Task putTaskStatusToTask(Long taskId, String taskStatusText) {
 
-        TaskStatus taskStatus = serviceAll.convertTextToTaskStatus(taskStatusText);
+        TaskStatus taskStatus = serviceAll.convertTaskStatusTextToTaskStatus(taskStatusText);
 
         User logInUser = serviceAll.getLogInUser();
 
@@ -462,10 +462,10 @@ public class TaskService {
 
     public List<Task> getTaskByTaskStatus(String taskStatusText) {
 
-        TaskStatus taskStatus = serviceAll.convertTextToTaskStatus(taskStatusText);
+        TaskStatus taskStatus = serviceAll.convertTaskStatusTextToTaskStatus(taskStatusText);
 
         User logInUser = serviceAll.getLogInUser();
-        List<Task> taskList = taskRepository.getTaskListFromUserIdByTaskStatus(logInUser.getId(), taskStatus);
+        List<Task> taskList = taskRepository.getTaskListFromUserIdByTaskStatus(logInUser.getId(), taskStatus.getValue());
         if (taskList.isEmpty()) {
             throw new TaskNotFoundException("No task found");
         }

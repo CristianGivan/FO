@@ -1,5 +1,13 @@
 # Done
 
+## 230529
+
+- 2
+
+- [x] putTaskStatusToTask
+- [x] getTaskByTaskStatus
+
+
 ## 230528
 - 6
 

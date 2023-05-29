@@ -112,7 +112,7 @@
 - [x] putWorkToTask
 - [x] putStartDateToTask
 - [x] putEndDateToTask
-- [ ] putTaskStatusToTask
+- [x] putTaskStatusToTask
 
 ### Delete
 - [x] deleteUserFromTask
@@ -133,6 +133,6 @@
 - [x] getTaskListByWorkId
 - [x] getTaskByStartDate
 - [x] getTaskByEndDate
-- [ ] getTaskByTaskStatus
+- [x] getTaskByTaskStatus
 
 ## Other
