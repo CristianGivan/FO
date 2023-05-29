@@ -35,6 +35,10 @@
 - [x] getTasksByEndDate
 - [x] getTasksByTasksStatus
 
+- [x] getTasksByUserId
+- [x] getTasksByUserId
+
+
 ## 230528
 - 6
 

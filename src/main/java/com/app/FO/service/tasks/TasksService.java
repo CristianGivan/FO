@@ -396,6 +396,14 @@ public class TasksService {
         return tasks;
     }
 
+    public List<Tasks> getTasksListByUserId(Long userId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByUserId(logInUser.getId(), userId);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
 
     public List<Tasks> getTasksListByTagId(Long tagId) {
         User logInUser = serviceAll.getLogInUser();

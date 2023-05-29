@@ -163,6 +163,12 @@ public class TasksController {
         return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
     }
 
+    @GetMapping("/getTasksListByUserId")
+    public List<TasksDTO> getTasksListByUserId(@RequestParam Long userId) {
+        List<Tasks> tasksList = tasksService.getTasksListByUserId(userId);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
     @GetMapping("/getTasksListByTagId")
     public List<TasksDTO> getTasksListByTagId(@RequestParam Long tagId) {
         List<Tasks> tasksList = tasksService.getTasksListByTagId(tagId);

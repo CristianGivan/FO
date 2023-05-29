@@ -125,7 +125,7 @@
 - [x] getTasksBySubject
 - [x] getTasksListBySubjectContains
 - [x] getTasksByTasksId
-- [ ] getTasksByUserId
+- [x] getTasksByUserId
 - [x] getTasksListByTagId
 - [x] getTasksListByReminderId
 - [x] getTasksListByTopicId

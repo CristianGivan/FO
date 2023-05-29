@@ -38,6 +38,10 @@ public interface TasksRepository extends JpaRepository<Tasks, Long> {
     List<Tasks> getTasksListFromUserIdByTaskId(Long userId, Long taskId);
 
     @Query(nativeQuery = true, value =
+            "SELECT * FROM tasks as t inner join (SELECT ti.tasks_id FROM (SELECT t.tasks_id FROM tasks as t inner join tasks_user tu on t.tasks_id = tu.tasks_id where tu.user_id=?1) as ti inner join tasks_user tu on ti.tasks_id = tu.tasks_id where tu.user_id=?2)as tr on tr.tasks_id=t.tasks_id")
+    List<Tasks> getTasksListFromUserIdByUserId(Long logInUserId, Long userId);
+
+    @Query(nativeQuery = true, value =
             "SELECT * FROM tasks as t inner join tasks_tag as tt on t.tasks_id = tt.tasks_id inner join tasks_user tu on t.tasks_id = tu.tasks_id where tu.user_id=?1 and tt.tag_id=?2")
     List<Tasks> getTasksListFromUserIdByTagId(Long userId, Long tagId);
 
