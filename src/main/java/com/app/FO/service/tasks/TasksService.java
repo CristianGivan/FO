@@ -226,7 +226,7 @@ public class TasksService {
             throw new TasksNotFoundException("Tasks not found in your list");
         }
 
-        tasks.setTasksStatus(taskStatus);
+        tasks.setTaskStatus(taskStatus);
         return tasksRepository.save(tasks);
     }
 
@@ -332,7 +332,7 @@ public class TasksService {
             throw new TasksNotFoundException("Tasks not found in your list");
         }
 
-        Task task = serviceAll.getTaskByUserIdAndTaskId(taskId, logInUser.getId());
+        Task task = serviceAll.getTaskByUserIdAndTaskId(logInUser.getId(), taskId);
         if (task == null) {
             throw new TaskNotFoundException("Task not found");
         }

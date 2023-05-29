@@ -233,7 +233,7 @@ public class ServiceAll {
     //-- getTasksAnd
 
 
-    public Task getTaskByUserIdAndTaskId(Long taskId, Long userId) {
+    public Task getTaskByUserIdAndTaskId(Long userId, Long taskId) {
         return taskRepository.getTaskFromUserIdByTaskId(userId, taskId);
     }
 

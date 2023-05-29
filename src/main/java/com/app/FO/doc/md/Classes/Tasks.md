@@ -94,42 +94,43 @@
   - [7] Save record (entityRepository.save(entity))
 
 ### Post
-- [ ] postTasks
-  - [ ] getLogInUser (userService.getLogInUser())
-  - [ ] Check if record with the param1 already exist
-  - [ ] Create an entity adding creator
-  - [ ] Create an entityUser
-  - [ ] Save record
+- [x] postTasks
+  - [x] getLogInUser (userService.getLogInUser())
+  - [x] Check if record with the param1 already exist
+  - [x] Create an entity adding creator
+  - [x] Create an entityUser
+  - [x] Save record
 
 ### Put
-- [ ] putSubjectToTasks
-- [ ] putUserToTasks
-- [ ] putTagToTasks
-- [ ] putReminderToTasks
-- [ ] putTopicToTasks
-- [ ] putTaskToTasks
-- [ ] putStartDateToTasks
-- [ ] putEndDateToTasks
-- [ ] putTasksStatusToTasks
+- [x] putSubjectToTasks
+- [x] putUserToTasks
+- [x] putTagToTasks
+- [x] putReminderToTasks
+- [x] putTopicToTasks
+- [x] putTaskToTasks
+- [x] putStartDateToTasks
+- [x] putEndDateToTasks
+- [x] putTasksStatusToTasks
 
 ### Delete
-- [ ] deleteUserFromTasks
-- [ ] deleteTagFromTasks
-- [ ] deleteReminderFromTasks
-- [ ] deleteTopicFromTasks
-- [ ] deleteTaskFromTasks
-- [ ] deleteTasks
+- [x] deleteUserFromTasks
+- [x] deleteTagFromTasks
+- [x] deleteReminderFromTasks
+- [x] deleteTopicFromTasks
+- [x] deleteTaskFromTasks
+- [x] deleteTasks
 
 ### Get
-- [ ] getAllTasks
-- [ ] getTasksBySubject
-- [ ] getTasksListBySubjectContains
-- [ ] getTasksByTasksId
-- [ ] getTasksListByTagId
-- [ ] getTasksListByReminderId
-- [ ] getTasksListByTopicId
-- [ ] getTasksListByTaskId
-- [ ] getTasksByStartDate
-- [ ] getTasksByEndDate
-- [ ] getTasksByTasksStatus
+- [x] getAllTasks
+- [x] getTasksBySubject
+- [x] getTasksListBySubjectContains
+- [x] getTasksByTasksId
+- [ ] getTasksByUserId
+- [x] getTasksListByTagId
+- [x] getTasksListByReminderId
+- [x] getTasksListByTopicId
+- [x] getTasksListByTaskId
+- [x] getTasksByStartDate
+- [x] getTasksByEndDate
+- [x] getTasksByTasksStatus
 ## Other

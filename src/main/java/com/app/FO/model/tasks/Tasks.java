@@ -39,14 +39,14 @@ public class Tasks {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @Column(name = "task_status")
-    private TaskStatus tasksStatus;
+    @Column(name = "tasks_status")
+    private TaskStatus taskStatus;
 
     //todo tbc
-    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksTopic> tasksTopicList;
 
-    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksTask> tasksTaskList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -58,10 +58,10 @@ public class Tasks {
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksReminder> tasksReminderList;
 
-    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksHistory> tasksHistoryList;
 
-    @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTasks> eventTasksList;
 
     public Tasks() {
@@ -82,7 +82,7 @@ public class Tasks {
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", tasksStatus=" + tasksStatus +
+                ", tasksStatus=" + taskStatus +
                 ", tasksTopicList=" + tasksTopicList +
                 ", tasksTaskList=" + tasksTaskList +
                 ", tasksUserList=" + tasksUserList +
@@ -141,12 +141,12 @@ public class Tasks {
         this.endDate = endDate;
     }
 
-    public TaskStatus getTasksStatus() {
-        return tasksStatus;
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setTasksStatus(TaskStatus tasksStatus) {
-        this.tasksStatus = tasksStatus;
+    public void setTaskStatus(TaskStatus tasksStatus) {
+        this.taskStatus = tasksStatus;
     }
 
     public List<TasksTopic> getTasksTopicList() {

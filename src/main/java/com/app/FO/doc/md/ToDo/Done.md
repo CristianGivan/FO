@@ -7,6 +7,33 @@
 - [x] putTaskStatusToTask
 - [x] getTaskByTaskStatus
 
+- [x] postTasks
+- [x] putSubjectToTasks
+- [x] putUserToTasks
+- [x] putTagToTasks
+- [x] putReminderToTasks
+- [x] putTopicToTasks
+- [x] putTaskToTasks
+- [x] putStartDateToTasks
+- [x] putEndDateToTasks
+- [x] putTasksStatusToTasks
+- [x] deleteUserFromTasks
+- [x] deleteTagFromTasks
+- [x] deleteReminderFromTasks
+- [x] deleteTopicFromTasks
+- [x] deleteTaskFromTasks
+- [x] deleteTasks
+- [x] getAllTasks
+- [x] getTasksBySubject
+- [x] getTasksListBySubjectContains
+- [x] getTasksByTasksId
+- [x] getTasksListByTagId
+- [x] getTasksListByReminderId
+- [x] getTasksListByTopicId
+- [x] getTasksListByTaskId
+- [x] getTasksByStartDate
+- [x] getTasksByEndDate
+- [x] getTasksByTasksStatus
 
 ## 230528
 - 6
