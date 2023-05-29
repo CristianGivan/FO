@@ -1,7 +1,6 @@
 package com.app.FO.model.tasks;
 
 import com.app.FO.model.reminder.Reminder;
-import com.app.FO.model.tasks.Tasks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -33,6 +32,12 @@ public class TasksReminder {
     private LocalDateTime linkDate;
 
     public TasksReminder() {
+    }
+
+    public TasksReminder(Tasks tasks, Reminder reminder) {
+        this.tasks = tasks;
+        this.reminder = reminder;
+        this.linkDate = LocalDateTime.now();
     }
 
     @Override

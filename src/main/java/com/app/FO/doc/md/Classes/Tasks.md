@@ -94,7 +94,7 @@
   - [7] Save record (entityRepository.save(entity))
 
 ### Post
-- [ ] postTask
+- [ ] postTasks
   - [ ] getLogInUser (userService.getLogInUser())
   - [ ] Check if record with the param1 already exist
   - [ ] Create an entity adding creator
@@ -102,27 +102,34 @@
   - [ ] Save record
 
 ### Put
-- [ ] putSubjectToTask
-- [ ] putUserToTask
-- [ ] putTagToTask
-- [ ] putReminderToTask
-- [ ] putTopicToTask
+- [ ] putSubjectToTasks
+- [ ] putUserToTasks
+- [ ] putTagToTasks
+- [ ] putReminderToTasks
+- [ ] putTopicToTasks
+- [ ] putTaskToTasks
+- [ ] putStartDateToTasks
+- [ ] putEndDateToTasks
+- [ ] putTasksStatusToTasks
 
 ### Delete
-- [ ] deleteUserFromTask
-- [ ] deleteTagFromTask
-- [ ] deleteReminderFromTask
-- [ ] deleteTopicFromTask
-- [ ] deleteTask
+- [ ] deleteUserFromTasks
+- [ ] deleteTagFromTasks
+- [ ] deleteReminderFromTasks
+- [ ] deleteTopicFromTasks
+- [ ] deleteTaskFromTasks
+- [ ] deleteTasks
 
 ### Get
-- [ ] getAllTask
-- [ ] getTaskBySubject
-- [ ] getTaskListBySubjectContains
-- [ ] getTaskByTaskId
-- [ ] getTaskListByTagId
-- [ ] getTaskListByReminderId
-- [ ] getTaskListByTopicId
-
-
+- [ ] getAllTasks
+- [ ] getTasksBySubject
+- [ ] getTasksListBySubjectContains
+- [ ] getTasksByTasksId
+- [ ] getTasksListByTagId
+- [ ] getTasksListByReminderId
+- [ ] getTasksListByTopicId
+- [ ] getTasksListByTaskId
+- [ ] getTasksByStartDate
+- [ ] getTasksByEndDate
+- [ ] getTasksByTasksStatus
 ## Other

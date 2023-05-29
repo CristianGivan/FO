@@ -4,6 +4,7 @@ import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.*;
+import com.app.FO.model.tasks.*;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
@@ -12,6 +13,7 @@ import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.task.*;
+import com.app.FO.repository.tasks.*;
 import com.app.FO.repository.topic.*;
 import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
@@ -52,6 +54,8 @@ public class ServiceAll {
     private TopicNoteRepository topicNoteRepository;
 
     @Autowired
+    private TaskRepository taskRepository;
+    @Autowired
     private TaskUserRepository taskUserRepository;
     @Autowired
     private TaskTagRepository taskTagRepository;
@@ -67,6 +71,21 @@ public class ServiceAll {
 
     @Autowired
     private WorkRepository workRepository;
+
+    @Autowired
+    private TasksUserRepository tasksUserRepository;
+    @Autowired
+    private TasksTagRepository tasksTagRepository;
+
+    @Autowired
+    private TasksReminderRepository tasksReminderRepository;
+
+    @Autowired
+    private TasksTopicRepository tasksTopicRepository;
+
+    @Autowired
+    private TasksTaskRepository tasksTaskRepository;
+
 
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -211,6 +230,34 @@ public class ServiceAll {
         return taskWorkRepository.getTaskWorkByTaskIdAndWorkId(taskId, topicId);
     }
 
+    //-- getTasksAnd
+
+
+    public Task getTaskByUserIdAndTaskId(Long taskId, Long userId) {
+        return taskRepository.getTaskFromUserIdByTaskId(userId, taskId);
+    }
+
+    public TasksUser getTasksUser(Long tasksId, Long userId) {
+        return tasksUserRepository.getTasksUserByTasksIdAndUserId(tasksId, userId);
+    }
+
+    public TasksTag getTasksTag(Long tasksId, Long tagId) {
+        return tasksTagRepository.getTasksTagByTasksIdAndTagId(tasksId, tagId);
+    }
+
+    public TasksReminder getTasksReminder(Long tasksId, Long reminderId) {
+        return tasksReminderRepository.getTasksReminderByTasksIdAndReminderId(tasksId, reminderId);
+    }
+
+    public TasksTopic getTasksTopic(Long tasksId, Long topicId) {
+        return tasksTopicRepository.getTasksTopicByTasksIdAndTopicId(tasksId, topicId);
+    }
+
+    public TasksTask getTasksTask(Long tasksId, Long topicId) {
+        return tasksTaskRepository.getTasksTaskByTasksIdAndTaskId(tasksId, topicId);
+    }
+
+
     //--------------------------
 
     //-- getUser
@@ -276,6 +323,6 @@ public class ServiceAll {
         }
         return taskStatus;
     }
-    
+
 
 }

@@ -34,6 +34,12 @@ public class TasksTopic {
     public TasksTopic() {
     }
 
+    public TasksTopic(Tasks tasks, Topic topic) {
+        this.tasks = tasks;
+        this.topic = topic;
+        this.linkDate = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "TasksTopic{" +

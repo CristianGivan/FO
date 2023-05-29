@@ -1,9 +1,7 @@
 package com.app.FO.model.tasks;
 
 import com.app.FO.model.event.EventTasks;
-import com.app.FO.model.task.TaskReminder;
 import com.app.FO.model.task.TaskStatus;
-import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -54,11 +52,11 @@ public class Tasks {
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksUser> tasksUserList;
 
-    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskTag> taskTagList;
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksTag> tasksTagList;
 
-    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskReminder> taskReminderList;
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksReminder> tasksReminderList;
 
     @OneToMany(mappedBy = "tasks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksHistory> tasksHistoryList;
@@ -67,6 +65,12 @@ public class Tasks {
     private List<EventTasks> eventTasksList;
 
     public Tasks() {
+    }
+
+    public Tasks(String subject, User creator) {
+        this.subject = subject;
+        this.creator = creator;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
@@ -82,8 +86,8 @@ public class Tasks {
                 ", tasksTopicList=" + tasksTopicList +
                 ", tasksTaskList=" + tasksTaskList +
                 ", tasksUserList=" + tasksUserList +
-                ", taskTagList=" + taskTagList +
-                ", taskReminderList=" + taskReminderList +
+                ", tasksTagList=" + tasksTagList +
+                ", tasksReminderList=" + tasksReminderList +
                 ", tasksHistoryList=" + tasksHistoryList +
                 ", eventTasksList=" + eventTasksList +
                 '}';
@@ -175,20 +179,20 @@ public class Tasks {
         this.tasksUserList = taskUserList;
     }
 
-    public List<TaskTag> getTaskTagList() {
-        return taskTagList;
+    public List<TasksTag> getTasksTagList() {
+        return tasksTagList;
     }
 
-    public void setTaskTagList(List<TaskTag> taskTagList) {
-        this.taskTagList = taskTagList;
+    public void setTasksTagList(List<TasksTag> tasksTagList) {
+        this.tasksTagList = tasksTagList;
     }
 
-    public List<TaskReminder> getTaskReminderList() {
-        return taskReminderList;
+    public List<TasksReminder> getTasksReminderList() {
+        return tasksReminderList;
     }
 
-    public void setTaskReminderList(List<TaskReminder> taskReminderList) {
-        this.taskReminderList = taskReminderList;
+    public void setTasksReminderList(List<TasksReminder> tasksReminderList) {
+        this.tasksReminderList = tasksReminderList;
     }
 
     public List<TasksHistory> getTasksHistoryList() {
