@@ -25,19 +25,21 @@
    
 
 ### Entity
-- subject
-- creator
-- createdDate
-- startDate
-- endDate
-- taskStatus
-- taskTopicList
-- tasksTaskList
-- userList
-- taskTagList
-- taskReminderList
-- tasksTaskList
-- taskHistoryList
+- [x] subject
+- [x] creator
+- [x] createdDate
+- [x] startDate
+- [x] endDate
+- [x] taskStatus
+- [x] taskTopicList
+- [x] tasksTaskList
+- [x] userList
+- [x] taskTagList
+- [x] taskReminderList
+- [x] taskHistoryList
+- [ ] estimatedTime
+- [ ] workingTime
+- [ ] tasksProgress
 
 - [ ] Add to all OneToMany the orphanRemoval and cascade
 ```
@@ -111,6 +113,9 @@
 - [x] putStartDateToTasks
 - [x] putEndDateToTasks
 - [x] putTasksStatusToTasks
+- [ ] putEstimatedTimeToTask
+- [ ] putWorkingTimeTimeToTask
+- [ ] putWorkingProgressToTask
 
 ### Delete
 - [x] deleteUserFromTasks

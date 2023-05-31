@@ -5,6 +5,9 @@
 - When a task is created also the topic is crated
 - Work should be the work you apply to task
   - Work has topic where specified the work done
+- estimatedTime is the time estimated to work on this task
+- workingTime is the time worked at the task is sum of all work done
+- workingProgress is the work done to complete the task
 
 # ToDo
 
@@ -39,6 +42,9 @@
 - taskReminderList
 - tasksTaskList
 - taskHistoryList
+- estimatedTime
+- workingTime
+- workingProgress
 
 - [ ] Add to all OneToMany the orphanRemoval and cascade
 ```
@@ -113,6 +119,9 @@
 - [x] putStartDateToTask
 - [x] putEndDateToTask
 - [x] putTaskStatusToTask
+- [ ] putEstimatedTimeToTask
+- [ ] putWorkingTimeTimeToTask
+- [ ] putWorkingProgressToTask
 
 ### Delete
 - [x] deleteUserFromTask
