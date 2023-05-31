@@ -88,8 +88,3 @@
 - [ ] getLinkListByTask
 
 ## Other
-
-
-    @Query(nativeQuery = true, value =
-            "SELECT * FROM reminder as t inner join reminder_user tu on t.reminder_id = tu.reminder_id where tu.user_id=?1,t.reminder_id=?2")
-    Reminder getReminderFromUserIdAndReminderId(Long UserId, Long reminderId);
