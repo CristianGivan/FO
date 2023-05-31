@@ -86,7 +86,7 @@ public class TagService {
     //-- GET
 
     public Tag getTagByTagId(Long tagId) {
-        Tag tag = tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(), tagId);
+        Tag tag = tagRepository.getTagFromUserIdAndTagId(userService.getLogInUser().getId(), tagId);
         checksTag.checkIsTag(tag);
         return tag;
     }
@@ -116,7 +116,7 @@ public class TagService {
         1. Find user by Id and userID
         3 save tag
         */
-        Tag tag = tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(), tagId);
+        Tag tag = tagRepository.getTagFromUserIdAndTagId(userService.getLogInUser().getId(), tagId);
         checksTag.checkIsTag(tag);
         tagRepository.delete(tag);
         return "the tag with Id: " + tagId + " was deleted";
@@ -129,7 +129,7 @@ public class TagService {
         3. delete the user form userList
         3 save tag
         */
-        Tag tag = tagRepository.getTagByUserIdAndTagId(userService.getLogInUser().getId(), tagId);
+        Tag tag = tagRepository.getTagFromUserIdAndTagId(userService.getLogInUser().getId(), tagId);
         User user = userService.getUserByUserId(userId);
         checksTag.checkIsTagAndTheCreatorAndAreLinked(tag, userService.getLogInUser());
         checksTag.checkIsTagAndUserAndAreLinked(tag, user);// todo to be optimized

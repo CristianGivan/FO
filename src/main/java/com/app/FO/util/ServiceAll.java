@@ -190,6 +190,9 @@ public class ServiceAll {
         return false;
     }
 
+
+    //--------------------------
+
     //-- getTopicAnd
 
     public TopicUser getTopicUser(Long topicId, Long userId) {
@@ -233,7 +236,7 @@ public class ServiceAll {
     //-- getTasksAnd
 
 
-    public Task getTaskByUserIdAndTaskId(Long userId, Long taskId) {
+    public Task getTaskFromUserIdAndTaskId(Long userId, Long taskId) {
         return taskRepository.getTaskFromUserIdByTaskId(userId, taskId);
     }
 
@@ -273,14 +276,14 @@ public class ServiceAll {
 
     //-- getTag
 
-    public Tag getTagByUserIdAndTagId(Long tagId, Long userId) {
-        return tagRepository.getTagByUserIdAndTagId(tagId, userId);
+    public Tag getTagFromUserIdAndTagId(Long userId, Long tagId) {
+        return tagRepository.getTagFromUserIdAndTagId(userId, tagId);
     }
 
 
     //-- getReminder
-    public Reminder getReminderByIdAndUserId(Long reminderId, Long userId) {
-        return reminderRepository.getReminderByIdAndUserId(reminderId, userId);
+    public Reminder getReminderFromUserIdByReminderId(Long userId, Long reminderId) {
+        return reminderRepository.getReminderFromUserIdByReminderId(userId, reminderId);
     }
 
     //-- getNote
@@ -289,8 +292,8 @@ public class ServiceAll {
     }
 
     //-- getTopic
-    public Topic getTopicByIdAndUserId(Long topicId, Long userId) {
-        return topicRepository.getTopicByIdAndUserId(topicId, userId);
+    public Topic getTopicFromUserIdByTopicId(Long userId, Long topicId) {
+        return topicRepository.getTopicFromUserIdByTopicId(userId, topicId);
     }
 
     //-- getWork

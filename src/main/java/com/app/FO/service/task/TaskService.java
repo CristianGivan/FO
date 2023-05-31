@@ -95,7 +95,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Tag tag = serviceAll.getTagByUserIdAndTagId(tagId, logInUser.getId());
+        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -120,7 +120,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Reminder reminder = serviceAll.getReminderByIdAndUserId(reminderId, logInUser.getId());
+        Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
             throw new ReminderNotFoundException("Reminder not found");
         }
@@ -144,7 +144,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Topic topic = serviceAll.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = serviceAll.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found");
         }
@@ -262,7 +262,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Tag tag = serviceAll.getTagByUserIdAndTagId(tagId, logInUser.getId());
+        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -285,7 +285,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Reminder reminder = serviceAll.getReminderByIdAndUserId(reminderId, logInUser.getId());
+        Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
             throw new ReminderNotFoundException("Reminder not found");
         }
@@ -308,7 +308,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Topic topic = serviceAll.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = serviceAll.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found");
         }

@@ -38,7 +38,7 @@ public class ReminderService {
     }
 
     public Reminder getReminderByReminderIdFromUser(Long reminderId) {
-        return reminderRepository.getReminderByIdAndUserId(reminderId, userService.getLogInUser().getId());
+        return reminderRepository.getReminderFromUserIdByReminderId(userService.getLogInUser().getId(), reminderId);
     }
 
     public List<Reminder> getReminderListByNoteId(Long noteId) {

@@ -1,5 +1,4 @@
 # General
-Only topic has a link
 
 # ToDo
 
@@ -45,53 +44,52 @@ Only topic has a link
 ### Attributes
 
 - [ ] subject
-- [ ] workingDate
-- [ ] workingTime
 - [ ] createdDate
 - [ ] creator
 - [ ] userList
-- [ ] workTagList
-- [ ] workReminderList
-- [ ] workTopicList
-- [ ] workTaskList
-- [ ] workHistoryList
+- [ ] linkTagList
+- [ ] linkReminderList
+- [ ] linkTopicList
+- [ ] linkTaskList
+- [ ] linkHistoryList
 
 ### Post
 
-- [ ] postWork
+- [ ] postLink
 
 ### Put
 
-- [ ] putSubjectToWork
-- [ ] putWorkingDateToWork
-- [ ] putWorkingTimeToWork
-- [ ] putUserToWork
-- [ ] putTagToWork
-- [ ] putReminderToWork
-- [ ] putTopicToWork
-- [ ] putTaskToWork
+- [ ] putSubjectToLink
+- [ ] putUserToLink
+- [ ] putTagToLink
+- [ ] putReminderToLink
+- [ ] putTopicToLink
+- [ ] putTaskToLink
 
 ### Delete
 
-- [ ] deleteUserFromWork
-- [ ] deleteTagFromWork
-- [ ] deleteReminderFromWork
-- [ ] deleteTopicFromWork
-- [ ] deleteTaskFromWork
-- [ ] deleteWork
+- [ ] deleteUserFromLink
+- [ ] deleteTagFromLink
+- [ ] deleteReminderFromLink
+- [ ] deleteTopicFromLink
+- [ ] deleteTaskFromLink
+- [ ] deleteLink
 
 ### Get
 
-- [ ] getAllWork
-- [ ] getWorkBySubject
-- [ ] getWorkListBySubjectContains
-- [ ] getWorkById
-- [ ] getWorkByWorkingDate
-- [ ] getWorkByWorkingTime
-- [ ] getWorkByUser
-- [ ] getWorkListByTag
-- [ ] getWorkListByReminder
-- [ ] getWorkListByTopic
-- [ ] getWorkListByTask
+- [ ] getAllLink
+- [ ] getLinkById
+- [ ] getLinkByLinkingDate
+- [ ] getLinkByLinkingTime
+- [ ] getLinkByUser
+- [ ] getLinkListByTag
+- [ ] getLinkListByReminder
+- [ ] getLinkListByTopic
+- [ ] getLinkListByTask
 
 ## Other
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM reminder as t inner join reminder_user tu on t.reminder_id = tu.reminder_id where tu.user_id=?1,t.reminder_id=?2")
+    Reminder getReminderFromUserIdAndReminderId(Long UserId, Long reminderId);

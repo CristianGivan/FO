@@ -48,7 +48,7 @@ public class TopicService {
     //-- Put
     public Topic putSubjectToTopic(Long topicId, String subject) {
         User logInUser = serviceAll.getLogInUser();
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
@@ -65,7 +65,7 @@ public class TopicService {
     public Topic putUserToTopic(Long topicId, Long userId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
@@ -89,12 +89,12 @@ public class TopicService {
     public Topic putTagToTopic(Long topicId, Long tagId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
 
-        Tag tag = serviceAll.getTagByUserIdAndTagId(tagId, logInUser.getId());
+        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -113,7 +113,7 @@ public class TopicService {
     public Topic putNoteToTopic(Long topicId, Long noteId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
@@ -137,12 +137,12 @@ public class TopicService {
     public Topic putReminderToTopic(Long topicId, Long reminderId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
 
-        Reminder reminder = serviceAll.getReminderByIdAndUserId(reminderId, logInUser.getId());
+        Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
             throw new ReminderNotFoundException("Reminder not found");
         }
@@ -165,7 +165,7 @@ public class TopicService {
     public Topic deleteUserFromTopic(Long topicId, Long userId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
@@ -188,7 +188,7 @@ public class TopicService {
     public Topic deleteNoteFromTopic(Long topicId, Long noteId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
@@ -211,12 +211,12 @@ public class TopicService {
     public Topic deleteTagFromTopic(Long topicId, Long tagId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
 
-        Tag tag = serviceAll.getTagByUserIdAndTagId(tagId, logInUser.getId());
+        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -234,12 +234,12 @@ public class TopicService {
     public Topic deleteReminderFromTopic(Long topicId, Long reminderId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
 
-        Reminder reminder = serviceAll.getReminderByIdAndUserId(reminderId, logInUser.getId());
+        Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
             throw new ReminderNotFoundException("Reminder not found");
         }
@@ -257,7 +257,7 @@ public class TopicService {
     public List<Topic> deleteTopic(Long topicId) {
         User logInUser = serviceAll.getLogInUser();
 
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("Topic not found in your list");
         }
@@ -296,7 +296,7 @@ public class TopicService {
 
     public Topic getTopicByTopicId(Long topicId) {
         User logInUser = serviceAll.getLogInUser();
-        Topic topic = topicRepository.getTopicByIdAndUserId(topicId, logInUser.getId());
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
             throw new TopicNotFoundException("No topic found");
         }
