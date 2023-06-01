@@ -55,7 +55,7 @@
 - [x] taskStatus
 - [x] createdDate
 - [x] creator
-- [x] userList
+- [x] tasksUserList
 - [x] tasksTagList
 - [x] tasksReminderList
 - [x] tasksTopicList
@@ -99,7 +99,7 @@
 - [x] getTasksBySubject
 - [x] getTasksListBySubjectContains
 - [x] getTasksByTasksId
-- [x] getTasksByUserId
+- [x] getTasksListByUserId
 - [x] getTasksListByTagId
 - [x] getTasksListByReminderId
 - [x] getTasksListByTopicId

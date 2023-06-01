@@ -49,7 +49,7 @@ Only topic has a link
 - [ ] workingEfort
 - [ ] createdDate
 - [ ] creator
-- [ ] userList
+- [ ] workUserList
 - [ ] workTagList
 - [ ] workReminderList
 - [ ] workTopicList
@@ -86,7 +86,7 @@ Only topic has a link
 - [ ] getWorkBySubject
 - [ ] getWorkListBySubjectContains
 - [ ] getWorkById
-- [ ] getWorkByUser
+- [ ] getWorkListByUser
 - [ ] getWorkListByTag
 - [ ] getWorkListByReminder
 - [ ] getWorkListByTopic

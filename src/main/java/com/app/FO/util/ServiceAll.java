@@ -2,6 +2,7 @@ package com.app.FO.util;
 
 import com.app.FO.model.link.*;
 import com.app.FO.model.note.Note;
+import com.app.FO.model.person.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.*;
@@ -12,6 +13,7 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.work.*;
 import com.app.FO.repository.link.*;
 import com.app.FO.repository.note.NoteRepository;
+import com.app.FO.repository.person.*;
 import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.task.*;
@@ -117,6 +119,22 @@ public class ServiceAll {
     @Autowired
     private WorkTopicRepository workTopicRepository;
 
+
+    @Autowired
+    private PersonRepository personRepository;
+    @Autowired
+    private PersonUserRepository personUserRepository;
+    @Autowired
+    private PersonTagRepository personTagRepository;
+
+    @Autowired
+    private PersonReminderRepository personReminderRepository;
+
+    @Autowired
+    private PersonTopicRepository personTopicRepository;
+
+    @Autowired
+    private PersonTasksRepository personTasksRepository;
 
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -344,6 +362,32 @@ public class ServiceAll {
         return workTopicRepository.getWorkTopicByWorkIdAndTopicId(workId, topicId);
     }
 
+    //-- getPersonAnd
+
+
+    public Person getPersonFromUserIdAndPersonId(Long userId, Long personId) {
+        return personRepository.getPersonFromUserIdByPersonId(userId, personId);
+    }
+
+    public PersonUser getPersonUser(Long personId, Long userId) {
+        return personUserRepository.getPersonUserByPersonIdAndUserId(personId, userId);
+    }
+
+    public PersonTag getPersonTag(Long personId, Long tagId) {
+        return personTagRepository.getPersonTagByPersonIdAndTagId(personId, tagId);
+    }
+
+    public PersonReminder getPersonReminder(Long personId, Long reminderId) {
+        return personReminderRepository.getPersonReminderByPersonIdAndReminderId(personId, reminderId);
+    }
+
+    public PersonTopic getPersonTopic(Long personId, Long topicId) {
+        return personTopicRepository.getPersonTopicByPersonIdAndTopicId(personId, topicId);
+    }
+
+    public PersonTasks getPersonTasks(Long personId, Long taskId) {
+        return personTasksRepository.getPersonTasksByPersonIdAndTasksId(personId, taskId);
+    }
 
     //--------------------------
 
@@ -410,6 +454,5 @@ public class ServiceAll {
         }
         return taskStatus;
     }
-
 
 }

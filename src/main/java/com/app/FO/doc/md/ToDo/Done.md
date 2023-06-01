@@ -1,8 +1,22 @@
 # Done
+## 230601
+
+- 8
+- Person
+
+## 230531
+
+- 6
+- Work
+
+## 230530
+
+- 6
+- Link
 
 ## 230529
 
-- 2
+- 8
 
 - [x] putTaskStatusToTask
 - [x] getTaskByTaskStatus

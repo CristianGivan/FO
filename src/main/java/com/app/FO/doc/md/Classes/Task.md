@@ -61,7 +61,7 @@
 - workingProgress
 - createdDate
 - creator
-- userList
+- taskUserList
 - taskWorkList
 - taskTagList
 - taskReminderList
@@ -99,7 +99,7 @@
 - [x] getTaskBySubject
 - [x] getTaskListBySubjectContains
 - [x] getTaskByTaskId
-- [x] getTasksByUserId
+- [x] getTasksListByUserId
 - [x] getTaskListByTagId
 - [x] getTaskListByReminderId
 - [x] getTaskListByTopicId
