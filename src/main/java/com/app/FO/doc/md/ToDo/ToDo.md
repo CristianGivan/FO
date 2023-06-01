@@ -1,6 +1,6 @@
 # Todo
 
-- [ ] theDay and phoneNumber theDay and number type
+- [ ] dates and phoneNumber dates and number type
 - [x] crete entity for address shop document
 - [ ] include in accountTransaction and all linked tables als the user for query:  query by user account transaction all
   three

@@ -1,6 +1,7 @@
 package com.app.FO.model.tasks;
 
 import com.app.FO.model.account.AccountTasks;
+import com.app.FO.model.dates.DatesTasks;
 import com.app.FO.model.email.EmailTasks;
 import com.app.FO.model.event.EventTasks;
 import com.app.FO.model.expense.ExpenseTasks;
@@ -9,7 +10,6 @@ import com.app.FO.model.link.LinkTasks;
 import com.app.FO.model.person.PersonTasks;
 import com.app.FO.model.phoneNumber.PhoneNumberTasks;
 import com.app.FO.model.task.TaskStatus;
-import com.app.FO.model.theDay.TheDayTasks;
 import com.app.FO.model.transaction.TransactionTasks;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -95,7 +95,7 @@ public class Tasks {
     private List<EmailTasks> emailTasksList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TheDayTasks> theDayTasksList;
+    private List<DatesTasks> datesTasksList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PhoneNumberTasks> phoneNumberTasksList;
@@ -133,7 +133,7 @@ public class Tasks {
                 ", accountTasksList=" + accountTasksList +
                 ", tasksHistoryList=" + tasksHistoryList +
                 ", emailTasksList=" + emailTasksList +
-                ", theDayTasksList=" + theDayTasksList +
+                ", datesTasksList=" + datesTasksList +
                 ", phoneNumberTasksList=" + phoneNumberTasksList +
                 '}';
     }
@@ -312,12 +312,12 @@ public class Tasks {
         this.emailTasksList = emailTasksList;
     }
 
-    public List<TheDayTasks> getTheDayTasksList() {
-        return theDayTasksList;
+    public List<DatesTasks> getDatesTasksList() {
+        return datesTasksList;
     }
 
-    public void setTheDayTasksList(List<TheDayTasks> theDayTasksList) {
-        this.theDayTasksList = theDayTasksList;
+    public void setDatesTasksList(List<DatesTasks> datesTasksList) {
+        this.datesTasksList = datesTasksList;
     }
 
     public List<PhoneNumberTasks> getPhoneNumberTasksList() {

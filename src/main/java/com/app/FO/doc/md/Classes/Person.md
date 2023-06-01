@@ -66,7 +66,7 @@
 - [x] personAddressList
 - [x] personEmailList
 - [x] personPhoneNumberList
-- [x] personTheDayList
+- [x] personDatesList
 - [x] expensesPersonList
 - [x] relatedPersonList
 - [x] personHistoryList
@@ -92,14 +92,14 @@
 - [ ] putAddressToPerson
 - [ ] putEmailToPerson
 - [ ] putPhoneNumberToPerson
-- [ ] putTheDayToPerson
+- [ ] putDatesToPerson
 - [ ] putRelatedPersonToPerson
 
 ### Delete
 
 - [ ] deleteEmailFromPerson
 - [ ] deletePhoneNumberFromPerson
-- [ ] deleteAnniversaryFromPerson
+- [ ] deleteDatesFromPerson
 - [ ] deleteUserFromPerson
 - [ ] deleteTagFromPerson
 - [ ] deleteReminderFromPerson
@@ -109,7 +109,7 @@
 - [ ] deleteAddressFromPerson
 - [ ] deleteEmailFromPerson
 - [ ] deletePhoneNumberFromPerson
-- [ ] deleteTheDayFromPerson
+- [ ] deleteDatesFromPerson
 - [ ] deleteRelatedPersonFromPerson
 - [ ] deletePerson
 
@@ -146,8 +146,8 @@
 - [ ] getPersonListByAddress
 - [ ] getPersonListByEmail
 - [ ] getPersonListByPhoneNumber
-- [ ] getPersonListByTheDay
-- [ ] getPersonListByTheDayBetween
+- [ ] getPersonListByDates
+- [ ] getPersonListByDatesBetween
 - [ ] getPersonListByExpenses
 - [ ] getPersonListByRelatedPerson
 

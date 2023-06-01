@@ -73,7 +73,7 @@ public class Person {
     private List<PersonPhoneNumber> personPhoneNumberList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<PersonTheDay> personTheDayList;
+    private List<PersonDates> personDatesList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesPerson> expensesPayerList;
@@ -114,7 +114,7 @@ public class Person {
                 ", personAddressList=" + personAddressList +
                 ", personEmailList=" + personEmailList +
                 ", personPhoneNumberList=" + personPhoneNumberList +
-                ", personTheDayList=" + personTheDayList +
+                ", personDatesList=" + personDatesList +
                 ", expensesPayerList=" + expensesPayerList +
                 ", relatedPersonList=" + relatedPersonList +
                 ", personHistoryList=" + personHistoryList +
@@ -305,12 +305,12 @@ public class Person {
         this.personPhoneNumberList = personPhoneNumberList;
     }
 
-    public List<PersonTheDay> getPersonTheDayList() {
-        return personTheDayList;
+    public List<PersonDates> getPersonDatesList() {
+        return personDatesList;
     }
 
-    public void setPersonTheDayList(List<PersonTheDay> personTheDayList) {
-        this.personTheDayList = personTheDayList;
+    public void setPersonDatesList(List<PersonDates> personDatesList) {
+        this.personDatesList = personDatesList;
     }
 
     public List<ExpensesPerson> getExpensesPayerList() {

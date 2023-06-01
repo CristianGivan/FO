@@ -123,9 +123,9 @@ public class PersonController {
         return personDTOMapper.personToPersonDTO(person);
     }
 
-    @PutMapping("/putTheDayToPerson")
-    public PersonDTO putTheDayToPerson(@RequestParam Long personId, @RequestParam Long theDayId) {
-        Person person = personService.putTheDayToPerson(personId, theDayId);
+    @PutMapping("/putDatesToPerson")
+    public PersonDTO putDatesToPerson(@RequestParam Long personId, @RequestParam Long datesId) {
+        Person person = personService.putDatesToPerson(personId, datesId);
         return personDTOMapper.personToPersonDTO(person);
     }
 

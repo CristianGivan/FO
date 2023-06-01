@@ -1,6 +1,7 @@
 package com.app.FO.model.topic;
 
 import com.app.FO.model.account.AccountTopic;
+import com.app.FO.model.dates.DatesTopic;
 import com.app.FO.model.email.EmailTopic;
 import com.app.FO.model.event.EventTopic;
 import com.app.FO.model.expense.ExpenseTopic;
@@ -10,7 +11,6 @@ import com.app.FO.model.person.PersonTopic;
 import com.app.FO.model.phoneNumber.PhoneNumberTopic;
 import com.app.FO.model.task.TaskTopic;
 import com.app.FO.model.tasks.TasksTopic;
-import com.app.FO.model.theDay.TheDayTopic;
 import com.app.FO.model.transaction.TransactionTopic;
 import com.app.FO.model.user.User;
 import com.app.FO.model.work.WorkTopic;
@@ -93,7 +93,7 @@ public class Topic {
     private List<EmailTopic> emailTopicList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TheDayTopic> theDayTopicList;
+    private List<DatesTopic> datesTopicList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PhoneNumberTopic> phoneNumberTopicList;
@@ -131,7 +131,7 @@ public class Topic {
                 ", accountTopicList=" + accountTopicList +
                 ", topicHistoryList=" + topicHistoryList +
                 ", emailTopicList=" + emailTopicList +
-                ", theDayTopicList=" + theDayTopicList +
+                ", datesTopicList=" + datesTopicList +
                 ", phoneNumberTopicList=" + phoneNumberTopicList +
                 '}';
     }
@@ -323,12 +323,12 @@ public class Topic {
         this.emailTopicList = emailTopicList;
     }
 
-    public List<TheDayTopic> getTheDayTopicList() {
-        return theDayTopicList;
+    public List<DatesTopic> getDatesTopicList() {
+        return datesTopicList;
     }
 
-    public void setTheDayTopicList(List<TheDayTopic> theDayTopicList) {
-        this.theDayTopicList = theDayTopicList;
+    public void setDatesTopicList(List<DatesTopic> datesTopicList) {
+        this.datesTopicList = datesTopicList;
     }
 
     public List<PhoneNumberTopic> getPhoneNumberTopicList() {

@@ -24,7 +24,7 @@ public class UserUser {
     private User user;
 
     @Column(name = "date")
-    private LocalDateTime allocatedTheDay;
+    private LocalDateTime allocatedDates;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "userLinked_id")
     @JsonIgnore
@@ -36,7 +36,7 @@ public class UserUser {
     public UserUser(User user, User userLinked) {
         this.user = user;
         this.userLinked = userLinked;
-        this.allocatedTheDay = LocalDateTime.now();
+        this.allocatedDates = LocalDateTime.now();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class UserUser {
         return "UserUser{" +
                 "id=" + id +
                 ", user=" + user +
-                ", allocatedTheDay=" + allocatedTheDay +
+                ", allocatedDates=" + allocatedDates +
                 ", userLinked=" + userLinked +
                 '}';
     }
@@ -65,12 +65,12 @@ public class UserUser {
         this.user = user;
     }
 
-    public LocalDateTime getAllocatedTheDay() {
-        return allocatedTheDay;
+    public LocalDateTime getAllocatedDates() {
+        return allocatedDates;
     }
 
-    public void setAllocatedTheDay(LocalDateTime allocatedTheDay) {
-        this.allocatedTheDay = allocatedTheDay;
+    public void setAllocatedDates(LocalDateTime allocatedDates) {
+        this.allocatedDates = allocatedDates;
     }
 
     public User getUserLinked() {

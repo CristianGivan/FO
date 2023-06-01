@@ -24,7 +24,7 @@ public class UserRole {
     private Role role;
 
     @Column(name = "date")
-    private LocalDateTime allocatedTheDay;
+    private LocalDateTime allocatedDates;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
@@ -38,7 +38,7 @@ public class UserRole {
     public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
-        this.allocatedTheDay = LocalDateTime.now();
+        this.allocatedDates = LocalDateTime.now();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UserRole {
                 "id=" + id +
                 ", user_id=" + user.getId() +
                 ", role_id =" + role.getId() +
-                ", allocatedTheDay=" + allocatedTheDay +
+                ", allocatedDates=" + allocatedDates +
                 '}';
     }
 
@@ -67,12 +67,12 @@ public class UserRole {
         this.role = role;
     }
 
-    public LocalDateTime getAllocatedTheDay() {
-        return allocatedTheDay;
+    public LocalDateTime getAllocatedDates() {
+        return allocatedDates;
     }
 
-    public void setAllocatedTheDay(LocalDateTime allocatedTheDay) {
-        this.allocatedTheDay = allocatedTheDay;
+    public void setAllocatedDates(LocalDateTime allocatedDates) {
+        this.allocatedDates = allocatedDates;
     }
 
     public User getUser() {

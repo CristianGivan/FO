@@ -15,7 +15,7 @@ public abstract class UserRoleDTOMapper {
     @Mapping(target = "roleType", expression = "java(" +
             "userRole.getRole().getRoleType().toString())")
     @Mapping(target = "allocatedDate", expression = "java(" +
-            " userRole.getAllocatedTheDay().toString())")
+            " userRole.getAllocatedDates().toString())")
     public abstract UserRoleDTO userRoleToUserRoleDTO(UserRole userRole);
 
     public abstract List<UserRoleDTO> userRolesToUserRolesDTO(List<UserRole> userRoleList);

@@ -2,6 +2,7 @@ package com.app.FO.util;
 
 import com.app.FO.model.account.*;
 import com.app.FO.model.address.*;
+import com.app.FO.model.dates.*;
 import com.app.FO.model.document.*;
 import com.app.FO.model.email.*;
 import com.app.FO.model.event.*;
@@ -16,7 +17,6 @@ import com.app.FO.model.shop.*;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.*;
 import com.app.FO.model.tasks.*;
-import com.app.FO.model.theDay.*;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.transaction.*;
 import com.app.FO.model.user.Role;
@@ -24,6 +24,7 @@ import com.app.FO.model.user.User;
 import com.app.FO.model.work.*;
 import com.app.FO.repository.account.*;
 import com.app.FO.repository.address.*;
+import com.app.FO.repository.dates.*;
 import com.app.FO.repository.document.*;
 import com.app.FO.repository.email.*;
 import com.app.FO.repository.event.*;
@@ -38,7 +39,6 @@ import com.app.FO.repository.shop.*;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.task.*;
 import com.app.FO.repository.tasks.*;
-import com.app.FO.repository.theDay.*;
 import com.app.FO.repository.topic.*;
 import com.app.FO.repository.transaction.*;
 import com.app.FO.repository.user.RoleRepository;
@@ -223,7 +223,7 @@ public class ServiceAll {
     private PersonPhoneNumberRepository personPhoneNumberRepository;
 
     @Autowired
-    private PersonTheDayRepository personTheDayRepository;
+    private PersonDatesRepository personDatesRepository;
 
     @Autowired
     private EventRepository eventRepository;
@@ -312,20 +312,20 @@ public class ServiceAll {
     private EmailTasksRepository emailTasksRepository;
 
     @Autowired
-    private TheDayRepository theDayRepository;
+    private DatesRepository datesRepository;
     @Autowired
-    private TheDayUserRepository theDayUserRepository;
+    private DatesUserRepository datesUserRepository;
     @Autowired
-    private TheDayTagRepository theDayTagRepository;
+    private DatesTagRepository datesTagRepository;
 
     @Autowired
-    private TheDayReminderRepository theDayReminderRepository;
+    private DatesReminderRepository datesReminderRepository;
 
     @Autowired
-    private TheDayTopicRepository theDayTopicRepository;
+    private DatesTopicRepository datesTopicRepository;
 
     @Autowired
-    private TheDayTasksRepository theDayTasksRepository;
+    private DatesTasksRepository datesTasksRepository;
 
     @Autowired
     private PhoneNumberRepository phoneNumberRepository;
@@ -715,8 +715,8 @@ public class ServiceAll {
         return personPhoneNumberRepository.getPersonPhoneNumberByPersonIdAndPhoneNumberId(personId, phoneNumberId);
     }
 
-    public PersonTheDay getPersonTheDay(Long personId, Long theDayId) {
-        return personTheDayRepository.getPersonTheDayByPersonIdAndTheDayId(personId, theDayId);
+    public PersonDates getPersonDates(Long personId, Long datesId) {
+        return personDatesRepository.getPersonDatesByPersonIdAndDatesId(personId, datesId);
     }
     //-- getEventAnd
 
@@ -862,31 +862,31 @@ public class ServiceAll {
         return emailTasksRepository.getEmailTasksByEmailIdAndTasksId(emailId, tasksId);
     }
 
-    //-- getTheDayAnd
+    //-- getDatesAnd
 
 
-    public TheDay getTheDayFromUserIdAndTheDayId(Long userId, Long theDayId) {
-        return theDayRepository.getTheDayFromUserIdByTheDayId(userId, theDayId);
+    public Dates getDatesFromUserIdAndDatesId(Long userId, Long datesId) {
+        return datesRepository.getDatesFromUserIdByDatesId(userId, datesId);
     }
 
-    public TheDayUser getTheDayUser(Long theDayId, Long userId) {
-        return theDayUserRepository.getTheDayUserByTheDayIdAndUserId(theDayId, userId);
+    public DatesUser getDatesUser(Long datesId, Long userId) {
+        return datesUserRepository.getDatesUserByDatesIdAndUserId(datesId, userId);
     }
 
-    public TheDayTag getTheDayTag(Long theDayId, Long tagId) {
-        return theDayTagRepository.getTheDayTagByTheDayIdAndTagId(theDayId, tagId);
+    public DatesTag getDatesTag(Long datesId, Long tagId) {
+        return datesTagRepository.getDatesTagByDatesIdAndTagId(datesId, tagId);
     }
 
-    public TheDayReminder getTheDayReminder(Long theDayId, Long reminderId) {
-        return theDayReminderRepository.getTheDayReminderByTheDayIdAndReminderId(theDayId, reminderId);
+    public DatesReminder getDatesReminder(Long datesId, Long reminderId) {
+        return datesReminderRepository.getDatesReminderByDatesIdAndReminderId(datesId, reminderId);
     }
 
-    public TheDayTopic getTheDayTopic(Long theDayId, Long topicId) {
-        return theDayTopicRepository.getTheDayTopicByTheDayIdAndTopicId(theDayId, topicId);
+    public DatesTopic getDatesTopic(Long datesId, Long topicId) {
+        return datesTopicRepository.getDatesTopicByDatesIdAndTopicId(datesId, topicId);
     }
 
-    public TheDayTasks getTheDayTasks(Long theDayId, Long tasksId) {
-        return theDayTasksRepository.getTheDayTasksByTheDayIdAndTasksId(theDayId, tasksId);
+    public DatesTasks getDatesTasks(Long datesId, Long tasksId) {
+        return datesTasksRepository.getDatesTasksByDatesIdAndTasksId(datesId, tasksId);
     }
 
 

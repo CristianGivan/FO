@@ -1,6 +1,7 @@
 package com.app.FO.model.reminder;
 
 import com.app.FO.model.account.Account;
+import com.app.FO.model.dates.Dates;
 import com.app.FO.model.email.Email;
 import com.app.FO.model.event.Event;
 import com.app.FO.model.expense.Expense;
@@ -11,7 +12,6 @@ import com.app.FO.model.person.Person;
 import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.tasks.Tasks;
-import com.app.FO.model.theDay.TheDay;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.transaction.Transaction;
 import com.app.FO.model.user.User;
@@ -128,9 +128,9 @@ public class Reminder {
     private PhoneNumber phoneNumber;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "theDay_id")
+    @JoinColumn(name = "dates_id")
     @JsonIgnore
-    private TheDay theDay;
+    private Dates dates;
 
     public Reminder() {
     }
@@ -166,7 +166,7 @@ public class Reminder {
                 ", account=" + account +
                 ", email=" + email +
                 ", phoneNumber=" + phoneNumber +
-                ", theDay=" + theDay +
+                ", dates=" + dates +
                 '}';
     }
 
@@ -338,11 +338,11 @@ public class Reminder {
         this.phoneNumber = phoneNumber;
     }
 
-    public TheDay getTheDay() {
-        return theDay;
+    public Dates getDates() {
+        return dates;
     }
 
-    public void setTheDay(TheDay theDay) {
-        this.theDay = theDay;
+    public void setDates(Dates dates) {
+        this.dates = dates;
     }
 }

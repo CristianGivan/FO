@@ -2,6 +2,7 @@ package com.app.FO.service.person;
 
 import com.app.FO.exceptions.*;
 import com.app.FO.model.address.Address;
+import com.app.FO.model.dates.Dates;
 import com.app.FO.model.document.Document;
 import com.app.FO.model.email.Email;
 import com.app.FO.model.person.*;
@@ -9,7 +10,6 @@ import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
-import com.app.FO.model.theDay.TheDay;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.person.PersonRepository;
@@ -364,7 +364,7 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public Person putTheDayToPerson(Long personId, Long theDayId) {
+    public Person putDatesToPerson(Long personId, Long datesId) {
         User logInUser = serviceAll.getLogInUser();
 
         Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
@@ -372,18 +372,18 @@ public class PersonService {
             throw new PersonNotFoundException("Person not found in your list");
         }
 
-        TheDay theDay = serviceAll.getTheDayFromUserIdAndTheDayId(logInUser.getId(), theDayId);
-        if (theDay == null) {
-            throw new TheDayNotFoundException("TheDay not found");
+        Dates dates = serviceAll.getDatesFromUserIdAndDatesId(logInUser.getId(), datesId);
+        if (dates == null) {
+            throw new DatesNotFoundException("Dates not found");
         }
 
-        PersonTheDay personTheDay = serviceAll.getPersonTheDay(personId, theDayId);
-        if (personTheDay != null) {
-            throw new com.app.FO.exceptions.PersonTheDayAlreadyExistException("The person already has the theDay");
+        PersonDates personDates = serviceAll.getPersonDates(personId, datesId);
+        if (personDates != null) {
+            throw new com.app.FO.exceptions.PersonDatesAlreadyExistException("The person already has the dates");
         }
 
-        personTheDay = new PersonTheDay(person, theDay);
-        person.getPersonTheDayList().add(personTheDay);
+        personDates = new PersonDates(person, dates);
+        person.getPersonDatesList().add(personDates);
         return personRepository.save(person);
     }
 

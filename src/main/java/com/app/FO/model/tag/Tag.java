@@ -1,6 +1,7 @@
 package com.app.FO.model.tag;
 
 import com.app.FO.model.account.AccountTag;
+import com.app.FO.model.dates.DatesTag;
 import com.app.FO.model.email.EmailTag;
 import com.app.FO.model.event.EventTag;
 import com.app.FO.model.expense.ExpenseTag;
@@ -11,7 +12,6 @@ import com.app.FO.model.person.PersonTag;
 import com.app.FO.model.phoneNumber.PhoneNumberTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.tasks.TasksTag;
-import com.app.FO.model.theDay.TheDayTag;
 import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.transaction.TransactionTag;
 import com.app.FO.model.user.User;
@@ -88,7 +88,7 @@ public class Tag {
     private List<EmailTag> emailTagList;
 
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TheDayTag> theDayTagList;
+    private List<DatesTag> datesTagList;
 
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PhoneNumberTag> phoneNumberTagList;
@@ -127,7 +127,7 @@ public class Tag {
                 ", transactionTagList=" + transactionTagList +
                 ", accountTagList=" + accountTagList +
                 ", emailTagList=" + emailTagList +
-                ", theDayTagList=" + theDayTagList +
+                ", datesTagList=" + datesTagList +
                 ", phoneNumberTagList=" + phoneNumberTagList +
                 ", tagHistoryList=" + tagHistoryList +
                 '}';
@@ -288,12 +288,12 @@ public class Tag {
         this.emailTagList = emailTagList;
     }
 
-    public List<TheDayTag> getTheDayTagList() {
-        return theDayTagList;
+    public List<DatesTag> getDatesTagList() {
+        return datesTagList;
     }
 
-    public void setTheDayTagList(List<TheDayTag> theDayTagList) {
-        this.theDayTagList = theDayTagList;
+    public void setDatesTagList(List<DatesTag> datesTagList) {
+        this.datesTagList = datesTagList;
     }
 
     public List<PhoneNumberTag> getPhoneNumberTagList() {

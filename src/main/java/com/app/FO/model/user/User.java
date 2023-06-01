@@ -4,6 +4,8 @@ package com.app.FO.model.user;
 import com.app.FO.model.account.Account;
 import com.app.FO.model.account.AccountHistory;
 import com.app.FO.model.account.AccountUser;
+import com.app.FO.model.dates.Dates;
+import com.app.FO.model.dates.DatesUser;
 import com.app.FO.model.email.Email;
 import com.app.FO.model.email.EmailUser;
 import com.app.FO.model.event.Event;
@@ -38,8 +40,6 @@ import com.app.FO.model.task.TaskUser;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.tasks.TasksHistory;
 import com.app.FO.model.tasks.TasksUser;
-import com.app.FO.model.theDay.TheDay;
-import com.app.FO.model.theDay.TheDayUser;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.topic.TopicUser;
@@ -196,10 +196,10 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EmailUser> emailUserList;
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TheDay> theDayList;
+    private List<Dates> datesList;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TheDayUser> theDayUserList;
+    private List<DatesUser> datesUserList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PhoneNumber> phoneNumberList;
@@ -269,8 +269,8 @@ public class User {
                 ", accountHistoryList=" + accountHistoryList +
                 ", emailList=" + emailList +
                 ", emailUserList=" + emailUserList +
-                ", theDayList=" + theDayList +
-                ", theDayUserList=" + theDayUserList +
+                ", datesList=" + datesList +
+                ", datesUserList=" + datesUserList +
                 ", phoneNumberList=" + phoneNumberList +
                 ", phoneNumberUserList=" + phoneNumberUserList +
                 '}';
@@ -696,20 +696,20 @@ public class User {
         this.emailUserList = emailUserList;
     }
 
-    public List<TheDay> getTheDayList() {
-        return theDayList;
+    public List<Dates> getDatesList() {
+        return datesList;
     }
 
-    public void setTheDayList(List<TheDay> theDayList) {
-        this.theDayList = theDayList;
+    public void setDatesList(List<Dates> datesList) {
+        this.datesList = datesList;
     }
 
-    public List<TheDayUser> getTheDayUserList() {
-        return theDayUserList;
+    public List<DatesUser> getDatesUserList() {
+        return datesUserList;
     }
 
-    public void setTheDayUserList(List<TheDayUser> theDayUserList) {
-        this.theDayUserList = theDayUserList;
+    public void setDatesUserList(List<DatesUser> datesUserList) {
+        this.datesUserList = datesUserList;
     }
 
     public List<PhoneNumber> getPhoneNumberList() {

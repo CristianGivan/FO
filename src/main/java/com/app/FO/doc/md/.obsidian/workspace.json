@@ -152,7 +152,7 @@
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
-      "daily-notes:Open totheDay's daily note": false,
+      "daily-notes:Open todates's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false
     }
