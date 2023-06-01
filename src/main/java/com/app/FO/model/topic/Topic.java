@@ -4,7 +4,7 @@ import com.app.FO.model.event.EventTopic;
 import com.app.FO.model.task.TaskTopic;
 import com.app.FO.model.tasks.TasksTopic;
 import com.app.FO.model.user.User;
-import com.app.FO.model.work.Work;
+import com.app.FO.model.work.WorkTopic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -35,29 +35,29 @@ public class Topic {
     @JsonIgnore
     private User creator;
 
-    //todo tbc
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskTopic> taskTopicList;
+    private List<TopicUser> topicUserList;
 
-    //todo tbc
-    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TasksTopic> tasksTopicList;
-
-    //todo tbc One to many or one to one?
-    @OneToOne(mappedBy = "topic", cascade = CascadeType.ALL)
-    private Work work;
-
-    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TopicNote> topicNoteList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicTag> topicTagList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TopicUser> topicUserList;
+    private List<TopicReminder> topicReminderList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TopicReminder> topicReminderList;
+    private List<TopicNote> topicNoteList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkTopic> workTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskTopic> taskTopicList;
+
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksTopic> tasksTopicList;
+
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTopic> eventTopicList;
@@ -84,7 +84,7 @@ public class Topic {
                 ", creator=" + creator.getId() +
                 ", taskTopicList=" + taskTopicList +
                 ", tasksTopicList=" + tasksTopicList +
-                ", work=" + work.getId() +
+                ", workTopicList=" + workTopicList +
                 ", topicNoteList=" + topicNoteList +
                 ", topicTagList=" + topicTagList +
                 ", topicUserList=" + topicUserList +
@@ -214,11 +214,14 @@ public class Topic {
         this.tasksTopicList = tasksTopicList;
     }
 
-    public Work getWork() {
-        return work;
+    public List<WorkTopic> getWorkTopicList() {
+        if (workTopicList == null) {
+            workTopicList = new ArrayList<>();
+        }
+        return workTopicList;
     }
 
-    public void setWork(Work work) {
-        this.work = work;
+    public void setWorkTopicList(List<WorkTopic> workTopicList) {
+        this.workTopicList = workTopicList;
     }
 }

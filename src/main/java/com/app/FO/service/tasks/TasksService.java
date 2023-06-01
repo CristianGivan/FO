@@ -175,7 +175,7 @@ public class TasksService {
 
         TasksTask tasksTask = serviceAll.getTasksTask(tasksId, taskId);
         if (tasksTask != null) {
-            throw new TasksTopicAlreadyExistException("The tasks already has the task");
+            throw new TasksTaskAlreadyExistException("The tasks already has the task");
         }
 
         tasksTask = new TasksTask(tasks, task);

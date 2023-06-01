@@ -45,8 +45,8 @@ Only topic has a link
 ### Attributes
 
 - [ ] subject
-- [ ] workingDate
-- [ ] workingTime
+- [ ] workingDateTime
+- [ ] workingEfort
 - [ ] createdDate
 - [ ] creator
 - [ ] userList
@@ -63,13 +63,13 @@ Only topic has a link
 ### Put
 
 - [ ] putSubjectToWork
-- [ ] putWorkingDateToWork
-- [ ] putWorkingTimeToWork
 - [ ] putUserToWork
 - [ ] putTagToWork
 - [ ] putReminderToWork
 - [ ] putTopicToWork
 - [ ] putTaskToWork
+- [ ] putWorkingDateTimeToWork
+- [ ] putWorkingEfortToWork
 
 ### Delete
 
@@ -86,12 +86,12 @@ Only topic has a link
 - [ ] getWorkBySubject
 - [ ] getWorkListBySubjectContains
 - [ ] getWorkById
-- [ ] getWorkByWorkingDate
-- [ ] getWorkByWorkingTime
 - [ ] getWorkByUser
 - [ ] getWorkListByTag
 - [ ] getWorkListByReminder
 - [ ] getWorkListByTopic
 - [ ] getWorkListByTask
-
+- [ ] getWorkByWorkingDateTime
+- [ ] getWorkByWorkingEfort
+- 
 ## Other

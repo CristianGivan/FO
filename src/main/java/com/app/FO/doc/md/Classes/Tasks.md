@@ -25,21 +25,7 @@
    
 
 ### Entity
-- [x] subject
-- [x] creator
-- [x] createdDate
-- [x] startDate
-- [x] endDate
-- [x] taskStatus
-- [x] taskTopicList
-- [x] tasksTaskList
-- [x] userList
-- [x] taskTagList
-- [x] taskReminderList
-- [x] taskHistoryList
-- [ ] estimatedTime
-- [ ] workingTime
-- [ ] tasksProgress
+
 
 - [ ] Add to all OneToMany the orphanRemoval and cascade
 ```
@@ -61,49 +47,30 @@
      protected UserDTOMapper userDTOMapper;
     ```
 
+### Attributes
 
-### Service
-- [ ] post
-  - [ ] getLogInUser (userService.getLogInUser())
-  - [ ] Check if record with the param1 already exist
-  - [ ] Create an entity adding creator
-  - [ ] Create an entityUser
-  - [ ] Save record
-  
-- [ ] putStringToId
-  - [1] getLogInUser (userService.getLogInUser())
-  - [2] Check if parameter1 (by id) exists (from log in user)
-  - [3] Check if record with the parameter1 already exist
-  - [4] Add parameter2 in parameter1
-  - [5] Save record (entityRepository.save(entity))
-
-- [ ] putIdToId
-  - [1] getLogInUser (userService.getLogInUser())
-  - [2] Check if parameter1 (by id) exists (from log in user)
-  - [3] Check if parameter2 (by id) exists (from log in user)
-  - [4] Check if parameter1 has parameter2 (serviceAll.getParameter1Parameter2)
-  - [5] Create a parameter1Parameter2 record in linking table
-  - [6] Add parameter2 in parameter1 list (.getParameter1Parameter2List.set)
-  - [7] Save record (entityRepository.save(entity))
-
-- [ ] deleteIdFromId
-  - [1] getLogInUser (userService.getLogInUser())
-  - [2] Check if parameter1 (by id) exists (from log in user)
-  - [3] Check if parameter2 (by id) exists (from log in user)
-  - [4] Check if parameter1 has parameter2 (serviceAll.getParameter1Parameter2)
-  - [5] Create a parameter1Parameter2 record in linking table
-  - [6] Delete parameter2 in parameter1 list (.getParameter1Parameter2List.set)
-  - [7] Save record (entityRepository.save(entity))
+- [x] subject
+- [x] startDate
+- [x] endDate
+- [x] taskStatus
+- [x] createdDate
+- [x] creator
+- [x] userList
+- [x] tasksTagList
+- [x] tasksReminderList
+- [x] tasksTopicList
+- [x] tasksTaskList
+- [x] taskHistoryList
+- [ ] estimatedTime
+- [ ] workingTime
+- [ ] tasksProgress
 
 ### Post
+
 - [x] postTasks
-  - [x] getLogInUser (userService.getLogInUser())
-  - [x] Check if record with the param1 already exist
-  - [x] Create an entity adding creator
-  - [x] Create an entityUser
-  - [x] Save record
 
 ### Put
+
 - [x] putSubjectToTasks
 - [x] putUserToTasks
 - [x] putTagToTasks
@@ -112,12 +79,13 @@
 - [x] putTaskToTasks
 - [x] putStartDateToTasks
 - [x] putEndDateToTasks
-- [x] putTasksStatusToTasks
+- [x] putTaskStatusToTasks
 - [ ] putEstimatedTimeToTask
 - [ ] putWorkingTimeTimeToTask
 - [ ] putWorkingProgressToTask
 
 ### Delete
+
 - [x] deleteUserFromTasks
 - [x] deleteTagFromTasks
 - [x] deleteReminderFromTasks
@@ -126,6 +94,7 @@
 - [x] deleteTasks
 
 ### Get
+
 - [x] getAllTasks
 - [x] getTasksBySubject
 - [x] getTasksListBySubjectContains
@@ -137,5 +106,5 @@
 - [x] getTasksListByTaskId
 - [x] getTasksByStartDate
 - [x] getTasksByEndDate
-- [x] getTasksByTasksStatus
+- [x] getTasksByTaskStatus
 ## Other

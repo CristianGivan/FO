@@ -49,4 +49,36 @@ public class TasksReminder {
                 ", linkDate=" + linkDate +
                 '}';
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Tasks getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Tasks tasks) {
+        this.tasks = tasks;
+    }
+
+    public Reminder getReminder() {
+        return reminder;
+    }
+
+    public void setReminder(Reminder reminder) {
+        this.reminder = reminder;
+    }
+
+    public LocalDateTime getLinkDate() {
+        return linkDate;
+    }
+
+    public void setLinkDate(LocalDateTime linkDate) {
+        this.linkDate = linkDate;
+    }
 }

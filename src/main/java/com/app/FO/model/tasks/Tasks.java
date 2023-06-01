@@ -42,12 +42,6 @@ public class Tasks {
     @Column(name = "tasks_status")
     private TaskStatus taskStatus;
 
-    //todo tbc
-    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TasksTopic> tasksTopicList;
-
-    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TasksTask> tasksTaskList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksUser> tasksUserList;
@@ -58,6 +52,11 @@ public class Tasks {
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksReminder> tasksReminderList;
 
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksTopic> tasksTopicList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksTask> tasksTaskList;
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksHistory> tasksHistoryList;
 

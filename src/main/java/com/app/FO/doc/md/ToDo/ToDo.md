@@ -1,8 +1,9 @@
 # Todo
+- [ ] link_date to created_date
 
-- [ ] get by user (user is a user from UserList)
+- [x] get by user (user is a user from UserList)
 - [ ] Refactoring all methods to have the same naming conventions
-- [ ] Do Work
+- [ ] Check Work
 - [ ] Check Tasks
 - [ ] Check Task
 - [ ] Check Topic

@@ -50,7 +50,7 @@
 - [ ] linkTagList
 - [ ] linkReminderList
 - [ ] linkTopicList
-- [ ] linkTaskList
+- [ ] linkTasksList
 - [ ] linkHistoryList
 
 ### Post
@@ -64,7 +64,7 @@
 - [ ] putTagToLink
 - [ ] putReminderToLink
 - [ ] putTopicToLink
-- [ ] putTaskToLink
+- [ ] putTasksToLink
 
 ### Delete
 
@@ -72,7 +72,7 @@
 - [ ] deleteTagFromLink
 - [ ] deleteReminderFromLink
 - [ ] deleteTopicFromLink
-- [ ] deleteTaskFromLink
+- [ ] deleteTasksFromLink
 - [ ] deleteLink
 
 ### Get
@@ -85,6 +85,6 @@
 - [ ] getLinkListByTag
 - [ ] getLinkListByReminder
 - [ ] getLinkListByTopic
-- [ ] getLinkListByTask
+- [ ] getLinkListByTasks
 
 ## Other

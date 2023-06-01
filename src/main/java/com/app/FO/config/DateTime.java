@@ -2,10 +2,7 @@ package com.app.FO.config;
 
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 @Component
@@ -95,6 +92,11 @@ public class DateTime {
     public static LocalDateTime textToLocalDateTime(String textDateTime) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         return LocalDateTime.parse(textDateTime, dateTimeFormatter);
+    }
+
+    public static LocalTime textToLocalTime(String textDateTime) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        return LocalTime.parse(textDateTime, dateTimeFormatter);
     }
 
     public static ZonedDateTime textToZoneDateTime(String textDateTime, String zone) {

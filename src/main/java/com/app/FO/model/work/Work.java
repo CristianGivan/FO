@@ -1,12 +1,12 @@
 package com.app.FO.model.work;
 
 import com.app.FO.model.task.TaskWork;
-import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,32 +26,42 @@ public class Work {
     @Column(name = "subject")
     private String subject;
     @Column(name = "working_date_time")
-    private LocalDateTime workingDate;
+    private LocalDateTime workingDateTime;
 
     //todo time or double what should be?
-    @Column(name = "woking_time")
-    private Double workingTime;
+    @Column(name = "working_efort")
+    private LocalTime workingEfort;
 
     @Column(name = "link_date")
     private LocalDateTime createdDate;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "topic_id", referencedColumnName = "topic_id")
-    private Topic topic;
+
+    @OneToMany(mappedBy = "work", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkUser> workUserList;
+
+    @OneToMany(mappedBy = "work", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkTag> workTagList;
+
+    @OneToMany(mappedBy = "work", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkReminder> workReminderList;
+
+    @OneToMany(mappedBy = "work", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkTopic> workTopicList;
     @OneToMany(mappedBy = "work", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskWork> taskWorkList;
 
     @OneToMany(mappedBy = "work", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<WorkUser> workUserList;
+    private List<WorkHistory> workHistoryList;
+
 
     public Work(String subject, User creator) {
         this.subject = subject;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
-
     }
 
     public Work() {
@@ -62,13 +72,16 @@ public class Work {
         return "Work{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", workingDate=" + workingDate +
-                ", workingTime=" + workingTime +
+                ", workingDate=" + workingDateTime +
+                ", workingTime=" + workingEfort +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator +
-                ", topic=" + topic +
-                ", taskWorkList=" + taskWorkList +
+                ", creator=" + creator.getId() +
                 ", workUserList=" + workUserList +
+                ", workTagList=" + workTagList +
+                ", workReminderList=" + workReminderList +
+                ", workTopicList=" + workTopicList +
+                ", taskWorkList=" + taskWorkList +
+                ", workHistoryList=" + workHistoryList +
                 '}';
     }
 
@@ -88,20 +101,20 @@ public class Work {
         this.subject = subject;
     }
 
-    public LocalDateTime getWorkingDate() {
-        return workingDate;
+    public LocalDateTime getWorkingDateTime() {
+        return workingDateTime;
     }
 
-    public void setWorkingDate(LocalDateTime workingDate) {
-        this.workingDate = workingDate;
+    public void setWorkingDateTime(LocalDateTime workingDate) {
+        this.workingDateTime = workingDate;
     }
 
-    public Double getWorkingTime() {
-        return workingTime;
+    public LocalTime getWorkingEfort() {
+        return workingEfort;
     }
 
-    public void setWorkingTime(Double workingTime) {
-        this.workingTime = workingTime;
+    public void setWorkingEfort(LocalTime workingEfort) {
+        this.workingEfort = workingEfort;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -120,22 +133,6 @@ public class Work {
         this.creator = creator;
     }
 
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
-
-    public List<TaskWork> getTaskWorkList() {
-        return taskWorkList;
-    }
-
-    public void setTaskWorkList(List<TaskWork> taskWorkList) {
-        this.taskWorkList = taskWorkList;
-    }
-
     public List<WorkUser> getWorkUserList() {
         if (workUserList == null) {
             workUserList = new ArrayList<>();
@@ -146,4 +143,60 @@ public class Work {
     public void setWorkUserList(List<WorkUser> workUserList) {
         this.workUserList = workUserList;
     }
+
+    public List<WorkTag> getWorkTagList() {
+        if (workUserList == null) {
+            workUserList = new ArrayList<>();
+        }
+        return workTagList;
+    }
+
+    public void setWorkTagList(List<WorkTag> workTagList) {
+        this.workTagList = workTagList;
+    }
+
+    public List<WorkReminder> getWorkReminderList() {
+        if (workReminderList == null) {
+            workReminderList = new ArrayList<>();
+        }
+        return workReminderList;
+    }
+
+    public void setWorkReminderList(List<WorkReminder> workReminderList) {
+        this.workReminderList = workReminderList;
+    }
+
+    public List<WorkTopic> getWorkTopicList() {
+        if (workTopicList == null) {
+            workTopicList = new ArrayList<>();
+        }
+        return workTopicList;
+    }
+
+    public void setWorkTopicList(List<WorkTopic> topicList) {
+        this.workTopicList = topicList;
+    }
+
+    public List<TaskWork> getTaskWorkList() {
+        if (taskWorkList == null) {
+            taskWorkList = new ArrayList<>();
+        }
+        return taskWorkList;
+    }
+
+    public void setTaskWorkList(List<TaskWork> taskWorkList) {
+        this.taskWorkList = taskWorkList;
+    }
+
+    public List<WorkHistory> getWorkHistoryList() {
+        if (workHistoryList == null) {
+            workHistoryList = new ArrayList<>();
+        }
+        return workHistoryList;
+    }
+
+    public void setWorkHistoryList(List<WorkHistory> workHistoryList) {
+        this.workHistoryList = workHistoryList;
+    }
+
 }

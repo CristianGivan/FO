@@ -29,22 +29,7 @@
    
 
 ### Entity
-- subject
-- creator
-- createdDate
-- startDate
-- endDate
-- taskStatus
-- taskTopicList
-- userList
-- taskWorkList
-- taskTagList
-- taskReminderList
-- tasksTaskList
-- taskHistoryList
-- estimatedTime
-- workingTime
-- workingProgress
+
 
 - [ ] Add to all OneToMany the orphanRemoval and cascade
 ```
@@ -66,48 +51,26 @@
      protected UserDTOMapper userDTOMapper;
     ```
 
-
-### Service
-- [ ] post
-  - [ ] getLogInUser (userService.getLogInUser())
-  - [ ] Check if record with the param1 already exist
-  - [ ] Create an entity adding creator
-  - [ ] Create an entityUser
-  - [ ] Save record
-  
-- [ ] putStringToId
-  - [1] getLogInUser (userService.getLogInUser())
-  - [2] Check if parameter1 (by id) exists (from log in user)
-  - [3] Check if record with the parameter1 already exist
-  - [4] Add parameter2 in parameter1
-  - [5] Save record (entityRepository.save(entity))
-
-- [ ] putIdToId
-  - [1] getLogInUser (userService.getLogInUser())
-  - [2] Check if parameter1 (by id) exists (from log in user)
-  - [3] Check if parameter2 (by id) exists (from log in user)
-  - [4] Check if parameter1 has parameter2 (serviceAll.getParameter1Parameter2)
-  - [5] Create a parameter1Parameter2 record in linking table
-  - [6] Add parameter2 in parameter1 list (.getParameter1Parameter2List.set)
-  - [7] Save record (entityRepository.save(entity))
-
-- [ ] deleteIdFromId
-  - [1] getLogInUser (userService.getLogInUser())
-  - [2] Check if parameter1 (by id) exists (from log in user)
-  - [3] Check if parameter2 (by id) exists (from log in user)
-  - [4] Check if parameter1 has parameter2 (serviceAll.getParameter1Parameter2)
-  - [5] Create a parameter1Parameter2 record in linking table
-  - [6] Delete parameter2 in parameter1 list (.getParameter1Parameter2List.set)
-  - [7] Save record (entityRepository.save(entity))
+### Attributes
+- subject
+- startDate
+- endDate
+- taskStatus
+- estimatedTime
+- workingTime
+- workingProgress
+- createdDate
+- creator
+- userList
+- taskWorkList
+- taskTagList
+- taskReminderList
+- taskTopicList
+- tasksTaskList
+- taskHistoryList
 
 ### Post
 - [x] postTask
-  - [x] getLogInUser (userService.getLogInUser())
-  - [x] Check if record with the param1 already exist
-  - [x] Create an entity adding creator
-  - [x] Create an entityUser
-  - [x] Save record
-
 
 ### Put
 - [x] putSubjectToTask

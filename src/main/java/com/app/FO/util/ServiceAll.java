@@ -1,5 +1,6 @@
 package com.app.FO.util;
 
+import com.app.FO.model.link.*;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
@@ -8,7 +9,8 @@ import com.app.FO.model.tasks.*;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
-import com.app.FO.model.work.Work;
+import com.app.FO.model.work.*;
+import com.app.FO.repository.link.*;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.tag.TagRepository;
@@ -18,7 +20,7 @@ import com.app.FO.repository.topic.*;
 import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
-import com.app.FO.repository.work.WorkRepository;
+import com.app.FO.repository.work.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,6 +75,8 @@ public class ServiceAll {
     private WorkRepository workRepository;
 
     @Autowired
+    private TasksRepository tasksRepository;
+    @Autowired
     private TasksUserRepository tasksUserRepository;
     @Autowired
     private TasksTagRepository tasksTagRepository;
@@ -85,6 +89,33 @@ public class ServiceAll {
 
     @Autowired
     private TasksTaskRepository tasksTaskRepository;
+
+    @Autowired
+    private LinkRepository linkRepository;
+    @Autowired
+    private LinkUserRepository linkUserRepository;
+    @Autowired
+    private LinkTagRepository linkTagRepository;
+
+    @Autowired
+    private LinkReminderRepository linkReminderRepository;
+
+    @Autowired
+    private LinkTopicRepository linkTopicRepository;
+
+    @Autowired
+    private LinkTasksRepository linkTasksRepository;
+
+    @Autowired
+    private WorkUserRepository workUserRepository;
+    @Autowired
+    private WorkTagRepository workTagRepository;
+
+    @Autowired
+    private WorkReminderRepository workReminderRepository;
+
+    @Autowired
+    private WorkTopicRepository workTopicRepository;
 
 
     @Autowired
@@ -213,6 +244,11 @@ public class ServiceAll {
 
     //-- getTaskAnd
 
+
+    public Task getTaskFromUserIdAndTaskId(Long userId, Long taskId) {
+        return taskRepository.getTaskFromUserIdByTaskId(userId, taskId);
+    }
+
     public TaskUser getTaskUser(Long taskId, Long userId) {
         return taskUserRepository.getTaskUserByTaskIdAndUserId(taskId, userId);
     }
@@ -235,9 +271,8 @@ public class ServiceAll {
 
     //-- getTasksAnd
 
-
-    public Task getTaskFromUserIdAndTaskId(Long userId, Long taskId) {
-        return taskRepository.getTaskFromUserIdByTaskId(userId, taskId);
+    public Tasks getTasksFromUserIdAndTasksId(Long userId, Long tasksId) {
+        return tasksRepository.getTasksFromUserIdByTasksId(userId, tasksId);
     }
 
     public TasksUser getTasksUser(Long tasksId, Long userId) {
@@ -256,8 +291,57 @@ public class ServiceAll {
         return tasksTopicRepository.getTasksTopicByTasksIdAndTopicId(tasksId, topicId);
     }
 
-    public TasksTask getTasksTask(Long tasksId, Long topicId) {
-        return tasksTaskRepository.getTasksTaskByTasksIdAndTaskId(tasksId, topicId);
+    public TasksTask getTasksTask(Long tasksId, Long taskId) {
+        return tasksTaskRepository.getTasksTaskByTasksIdAndTaskId(tasksId, taskId);
+    }
+
+    //-- getLinkAnd
+
+
+    public Link getLinkFromUserIdAndLinkId(Long userId, Long linkId) {
+        return linkRepository.getLinkFromUserIdByLinkId(userId, linkId);
+    }
+
+    public LinkUser getLinkUser(Long linkId, Long userId) {
+        return linkUserRepository.getLinkUserByLinkIdAndUserId(linkId, userId);
+    }
+
+    public LinkTag getLinkTag(Long linkId, Long tagId) {
+        return linkTagRepository.getLinkTagByLinkIdAndTagId(linkId, tagId);
+    }
+
+    public LinkReminder getLinkReminder(Long linkId, Long reminderId) {
+        return linkReminderRepository.getLinkReminderByLinkIdAndReminderId(linkId, reminderId);
+    }
+
+    public LinkTopic getLinkTopic(Long linkId, Long topicId) {
+        return linkTopicRepository.getLinkTopicByLinkIdAndTopicId(linkId, topicId);
+    }
+
+    public LinkTasks getLinkTasks(Long linkId, Long taskId) {
+        return linkTasksRepository.getLinkTasksByLinkIdAndTasksId(linkId, taskId);
+    }
+
+//-- getWorkAnd
+
+    public Work getWorkFromUserIdAndWorkId(Long userId, Long workId) {
+        return workRepository.getWorkFromUserIdByWorkId(userId, workId);
+    }
+
+    public WorkUser getWorkUser(Long workId, Long userId) {
+        return workUserRepository.getWorkUserByWorkIdAndUserId(workId, userId);
+    }
+
+    public WorkTag getWorkTag(Long workId, Long tagId) {
+        return workTagRepository.getWorkTagByWorkIdAndTagId(workId, tagId);
+    }
+
+    public WorkReminder getWorkReminder(Long workId, Long reminderId) {
+        return workReminderRepository.getWorkReminderByWorkIdAndReminderId(workId, reminderId);
+    }
+
+    public WorkTopic getWorkTopic(Long workId, Long topicId) {
+        return workTopicRepository.getWorkTopicByWorkIdAndTopicId(workId, topicId);
     }
 
 

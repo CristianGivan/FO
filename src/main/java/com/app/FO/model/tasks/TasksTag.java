@@ -49,4 +49,36 @@ public class TasksTag {
                 ", linkDate=" + linkDate +
                 '}';
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Tasks getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Tasks tasks) {
+        this.tasks = tasks;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
+    public LocalDateTime getLinkDate() {
+        return linkDate;
+    }
+
+    public void setLinkDate(LocalDateTime linkDate) {
+        this.linkDate = linkDate;
+    }
 }

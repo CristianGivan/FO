@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("tasks")
+@RequestMapping("/tasks")
 public class TasksController {
     private TasksService tasksService;
 
@@ -51,15 +51,16 @@ public class TasksController {
         return tasksDTOMapper.tasksToTasksDTO(tasks);
     }
 
-    @PutMapping("/putTopicToTasks")
-    public TasksDTO putTopicToTasks(@RequestParam Long tasksId, @RequestParam Long topicId) {
-        Tasks tasks = tasksService.putTopicToTasks(tasksId, topicId);
-        return tasksDTOMapper.tasksToTasksDTO(tasks);
-    }
 
     @PutMapping("/putReminderToTasks")
     public TasksDTO putReminderToTasks(@RequestParam Long tasksId, @RequestParam Long reminderId) {
         Tasks tasks = tasksService.putReminderToTasks(tasksId, reminderId);
+        return tasksDTOMapper.tasksToTasksDTO(tasks);
+    }
+
+    @PutMapping("/putTopicToTasks")
+    public TasksDTO putTopicToTasks(@RequestParam Long tasksId, @RequestParam Long topicId) {
+        Tasks tasks = tasksService.putTopicToTasks(tasksId, topicId);
         return tasksDTOMapper.tasksToTasksDTO(tasks);
     }
 
@@ -156,13 +157,6 @@ public class TasksController {
         return tasksDTOMapper.tasksToTasksDTO(tasks);
     }
 
-
-    @GetMapping("/getTasksListByTopicId")
-    public List<TasksDTO> getTasksListByTopicId(@RequestParam Long topicId) {
-        List<Tasks> tasksList = tasksService.getTasksListByTopicId(topicId);
-        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
-    }
-
     @GetMapping("/getTasksListByUserId")
     public List<TasksDTO> getTasksListByUserId(@RequestParam Long userId) {
         List<Tasks> tasksList = tasksService.getTasksListByUserId(userId);
@@ -178,6 +172,13 @@ public class TasksController {
     @GetMapping("/getTasksListByReminderId")
     public List<TasksDTO> getTasksListByReminderId(@RequestParam Long reminderId) {
         List<Tasks> tasksList = tasksService.getTasksListByReminderId(reminderId);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+
+    @GetMapping("/getTasksListByTopicId")
+    public List<TasksDTO> getTasksListByTopicId(@RequestParam Long topicId) {
+        List<Tasks> tasksList = tasksService.getTasksListByTopicId(topicId);
         return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
     }
 
