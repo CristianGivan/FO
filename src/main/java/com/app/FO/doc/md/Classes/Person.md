@@ -1,8 +1,9 @@
 # Person
 
-- tags colegue, busnisx 
+- tags colegue, busnisx
 - reminder: call him in x
-- 
+- if there are 2 persons with the same full name than the CNP can be added to make to distinguish (is not necessarily a
+  real CNP)
 
 # ToDo
 
@@ -47,9 +48,11 @@
 
 ### Attributes
 
+- [ ] CNP
 - [ ] firstName
 - [ ] middleName
 - [ ] lastName
+- [ ] fullName
 - [ ] emailList
 - [ ] phoneNumberList
 - [ ] anniversaryList
@@ -69,6 +72,7 @@
 
 ### Put
 
+- [ ] putCNPToPerson
 - [ ] putFirstNameToPerson
 - [ ] putMiddleNameToPerson
 - [ ] putLastNameToPerson
@@ -85,6 +89,12 @@
 
 ### Delete
 
+- [ ] deleteFirstNameFromPerson
+- [ ] deleteMiddleNameToPerson
+- [ ] deleteLastNameToFromPerson
+- [ ] deleteEmailListFromPerson
+- [ ] deletePhoneNumberFromPerson
+- [ ] deleteAnniversaryFromPerson
 - [ ] deleteUserFromPerson
 - [ ] deleteTagFromPerson
 - [ ] deleteReminderFromPerson
@@ -96,14 +106,26 @@
 
 - [ ] getAllPerson
 - [ ] getPersonById
+- [ ] getTaskBySubject
+- [ ] getTaskListBySubjectContains
+- [ ] getPersonListByCNP
+- [ ] getTaskListByCNPContains
 - [ ] getPersonListByFirstName
+- [ ] getTaskListByFirstNameContains
 - [ ] getPersonListByMiddleName
+- [ ] getTaskListByMiddleNameContains
 - [ ] getPersonListByLastName
+- [ ] getTaskListByLastNameContains
+- [ ] getPersonListByFullName
+- [ ] getTaskListByFullNameContains
 - [ ] getPersonListByEmail
+- [ ] getTaskListByEmailContains
 - [ ] getPersonListByPhoneNumber
 - [ ] getPersonListByAnniversary
 - [ ] getPersonListByAddress
 - [ ] getPersonListByRelatedPerson
+- [ ] getPersonListByCreatedDate
+- [ ] getLinkByCreatedDate
 - [ ] getPersonListByUser
 - [ ] getPersonListByTag
 - [ ] getPersonListByReminder

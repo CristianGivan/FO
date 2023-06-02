@@ -1,5 +1,7 @@
 # General
 
+- type is if is a shopping list, wish list
+
 # ToDo
 
 ## Entity
@@ -44,6 +46,10 @@
 ### Attributes
 
 - [ ] subject
+- [ ] type
+- [ ] markedPrice
+- [ ] totalPrice
+- [ ] shop
 - [ ] createdDate
 - [ ] creator
 - [ ] linkUserList
@@ -51,6 +57,7 @@
 - [ ] linkReminderList
 - [ ] linkTopicList
 - [ ] linkTasksList
+- [ ] account
 - [ ] linkHistoryList
 
 ### Post
@@ -60,11 +67,16 @@
 ### Put
 
 - [ ] putSubjectToLink
+- [ ] putTypeToLink
+- [ ] putMarkedPriceToLink
+- [ ] putTotalPriceToLink
+- [ ] putShopToLink
 - [ ] putUserToLink
 - [ ] putTagToLink
 - [ ] putReminderToLink
 - [ ] putTopicToLink
 - [ ] putTasksToLink
+- [ ] putAccountToLink
 
 ### Delete
 
@@ -81,11 +93,16 @@
 - [ ] getLinkById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
+- [ ] getLinkByType
+- [ ] getLinkByMarkedPrice
+- [ ] getLinkByTotalPrice
+- [ ] getLinkByShop
 - [ ] getLinkByCreatedDate
 - [ ] getLinkListByUser
 - [ ] getLinkListByTag
 - [ ] getLinkListByReminder
 - [ ] getLinkListByTopic
 - [ ] getLinkListByTasks
+- [ ] getLinkListByAccount
 
 ## Other

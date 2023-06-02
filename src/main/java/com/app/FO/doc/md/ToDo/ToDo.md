@@ -1,8 +1,16 @@
 # Todo
+
 - [ ] link_date to created_date
 
 - [x] get by user (user is a user from UserList)
 - [ ] Refactoring all methods to have the same naming conventions
+- [ ] todo Account
+- [ ] todo Transaction
+- [ ] todo Expenses
+- [ ] todo Expense
+- [ ] todo Event
+- [ ] todo Person
+- [ ] todo Link
 - [ ] Check Work
 - [ ] Check Tasks
 - [ ] Check Task
@@ -33,5 +41,8 @@
 - [ ] check JsonIgnore from creators for classes like tag
 - [ ] check that I will have for all the entities : orphanRemoval = true, cascade = {CascadeType.PERSIST,
   CascadeType.MERGE}
-- [ ] Understand better security in spring 
+- [ ] Understand better security in spring
 
+# Feature
+
+- [ ] brodcast message (check the shopping list I added an item)

@@ -1,5 +1,7 @@
 # General
 
+- type buy sell borrow receive
+
 # ToDo
 
 ## Entity
@@ -44,6 +46,10 @@
 ### Attributes
 
 - [ ] subject
+- [ ] type
+- [ ] balance
+- [ ] transactionList
+- [ ] expensesList
 - [ ] createdDate
 - [ ] creator
 - [ ] linkUserList
@@ -60,11 +66,15 @@
 ### Put
 
 - [ ] putSubjectToLink
+- [ ] putTypeToLink
 - [ ] putUserToLink
 - [ ] putTagToLink
 - [ ] putReminderToLink
 - [ ] putTopicToLink
 - [ ] putTasksToLink
+- [ ] putBalanceToLink
+- [ ] putTransactionToLink
+- [ ] putExpensesToLink
 
 ### Delete
 
@@ -81,11 +91,15 @@
 - [ ] getLinkById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
+- [ ] getLinkByType
 - [ ] getLinkByCreatedDate
 - [ ] getLinkListByUser
 - [ ] getLinkListByTag
 - [ ] getLinkListByReminder
 - [ ] getLinkListByTopic
 - [ ] getLinkListByTasks
+- [ ] getLinkListByBalance
+- [ ] getLinkListByTransaction
+- [ ] getLinkListByExpenses
 
 ## Other

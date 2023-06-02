@@ -4,7 +4,7 @@
 - Tasks have a topic where more details about it are present
 - When a task is created also the topic is crated
 - Work should be the work you apply to task
-  - Work has topic where specified the work done
+    - Work has topic where specified the work done
 - estimatedTime is the time estimated to work on this task
 - workingTime is the time worked at the task is sum of all work done
 - workingProgress is the work done to complete the task
@@ -26,32 +26,32 @@
       @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
       private List<Entity> entityList;
   ```
-   
 
 ### Entity
 
-
 - [ ] Add to all OneToMany the orphanRemoval and cascade
+
 ```
 , orphanRemoval = true,  cascade = {CascadeType.PERSIST, CascadeType.MERGE}
 ```
 
-
 ### DTO
+
 - [ ] Create DTO
 - [ ] Create FDTO
 - [ ] Create Mapper
-  - Add in uses the mappers needed:
-    ```
-    uses = {UserDTOMapper.class}
-    ```
-  - Add @Autowired DTOMapper for the list is needed to be created
-    ```
-     @Autowired
-     protected UserDTOMapper userDTOMapper;
-    ```
+    - Add in uses the mappers needed:
+      ```
+      uses = {UserDTOMapper.class}
+      ```
+    - Add @Autowired DTOMapper for the list is needed to be created
+      ```
+       @Autowired
+       protected UserDTOMapper userDTOMapper;
+      ```
 
 ### Attributes
+
 - subject
 - startDate
 - endDate
@@ -70,9 +70,11 @@
 - taskHistoryList
 
 ### Post
+
 - [x] postTask
 
 ### Put
+
 - [x] putSubjectToTask
 - [x] putUserToTask
 - [x] putTagToTask
@@ -87,6 +89,7 @@
 - [ ] putWorkingProgressToTask
 
 ### Delete
+
 - [x] deleteUserFromTask
 - [x] deleteTagFromTask
 - [x] deleteReminderFromTask
@@ -95,9 +98,11 @@
 - [x] deleteTask
 
 ### Get
+
 - [x] getAllTask
 - [x] getTaskBySubject
 - [x] getTaskListBySubjectContains
+- [ ] getTaskListByCreatedDate
 - [x] getTaskByTaskId
 - [x] getTasksListByUserId
 - [x] getTaskListByTagId

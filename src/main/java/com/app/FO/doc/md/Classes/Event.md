@@ -51,6 +51,8 @@
 - [ ] linkReminderList
 - [ ] linkTopicList
 - [ ] linkTasksList
+- [ ] linkExpensesList
+- [ ] linkPersonList
 - [ ] linkHistoryList
 
 ### Post
@@ -64,6 +66,8 @@
 - [ ] putTagToLink
 - [ ] putReminderToLink
 - [ ] putTopicToLink
+- [ ] putToExpensesLink
+- [ ] putPersonToLink
 - [ ] putTasksToLink
 
 ### Delete
@@ -73,6 +77,8 @@
 - [ ] deleteReminderFromLink
 - [ ] deleteTopicFromLink
 - [ ] deleteTasksFromLink
+- [ ] deleteExpensesFromLink
+- [ ] deletePersonFromLink
 - [ ] deleteLink
 
 ### Get
@@ -87,5 +93,7 @@
 - [ ] getLinkListByReminder
 - [ ] getLinkListByTopic
 - [ ] getLinkListByTasks
+- [ ] getLinkListByExpenses
+- [ ] getLinkListByPerson
 
 ## Other

@@ -44,6 +44,11 @@
 ### Attributes
 
 - [ ] subject
+- [ ] category
+- [ ] quantity
+- [ ] unitPrice
+- [ ] totalPrice
+- [ ] shop
 - [ ] createdDate
 - [ ] creator
 - [ ] linkUserList
@@ -51,6 +56,7 @@
 - [ ] linkReminderList
 - [ ] linkTopicList
 - [ ] linkTasksList
+- [ ] account
 - [ ] linkHistoryList
 
 ### Post
@@ -60,11 +66,17 @@
 ### Put
 
 - [ ] putSubjectToLink
+- [ ] putCategoryToLink
+- [ ] putQuantityToLink
+- [ ] putUnitPriceToLink
+- [ ] putTotalPriceToLink
+- [ ] putShopToLink
 - [ ] putUserToLink
 - [ ] putTagToLink
 - [ ] putReminderToLink
 - [ ] putTopicToLink
 - [ ] putTasksToLink
+- [ ] putAccountToLink
 
 ### Delete
 
@@ -81,11 +93,17 @@
 - [ ] getLinkById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
+- [ ] getLinkByCategory
+- [ ] getLinkByQuantity
+- [ ] getLinkByUnitPrice
+- [ ] getLinkByTotalPrice
+- [ ] getLinkByShop
 - [ ] getLinkByCreatedDate
 - [ ] getLinkListByUser
 - [ ] getLinkListByTag
 - [ ] getLinkListByReminder
 - [ ] getLinkListByTopic
 - [ ] getLinkListByTasks
+- [ ] getLinkListByAccount
 
 ## Other
