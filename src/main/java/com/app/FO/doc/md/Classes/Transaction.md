@@ -52,54 +52,54 @@
 - [ ] toAccount
 - [ ] createdDate
 - [ ] creator
-- [ ] linkUserList
-- [ ] linkTagList
-- [ ] linkReminderList
-- [ ] linkTopicList
-- [ ] linkTasksList
-- [ ] linkHistoryList
+- [ ] transactionUserList
+- [ ] transactionTagList
+- [ ] transactionReminderList
+- [ ] transactionTopicList
+- [ ] transactionTasksList
+- [ ] transactionHistoryList
 
 ### Post
 
-- [ ] postLink
+- [ ] postTransaction
 
 ### Put
 
-- [ ] putSubjectToLink
-- [ ] putTypeToLink
-- [ ] putUserToLink
-- [ ] putTagToLink
-- [ ] putReminderToLink
-- [ ] putTopicToLink
-- [ ] putTasksToLink
-- [ ] putSumToLink
-- [ ] putFromAccountToLink
-- [ ] putToAccountToLink
+- [ ] putSubjectToTransaction
+- [ ] putTypeToTransaction
+- [ ] putUserToTransaction
+- [ ] putTagToTransaction
+- [ ] putReminderToTransaction
+- [ ] putTopicToTransaction
+- [ ] putTasksToTransaction
+- [ ] putSumToTransaction
+- [ ] putFromAccountToTransaction
+- [ ] putToAccountToTransaction
 
 ### Delete
 
-- [ ] deleteUserFromLink
-- [ ] deleteTagFromLink
-- [ ] deleteReminderFromLink
-- [ ] deleteTopicFromLink
-- [ ] deleteTasksFromLink
-- [ ] deleteLink
+- [ ] deleteUserFromTransaction
+- [ ] deleteTagFromTransaction
+- [ ] deleteReminderFromTransaction
+- [ ] deleteTopicFromTransaction
+- [ ] deleteTasksFromTransaction
+- [ ] deleteTransaction
 
 ### Get
 
-- [ ] getAllLink
-- [ ] getLinkById
+- [ ] getAllTransaction
+- [ ] getTransactionById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
-- [ ] getLinkByType
-- [ ] getLinkByCreatedDate
-- [ ] getLinkListByUser
-- [ ] getLinkListByTag
-- [ ] getLinkListByReminder
-- [ ] getLinkListByTopic
-- [ ] getLinkListByTasks
-- [ ] getLinkListBySum
-- [ ] getLinkListByFromAccount
-- [ ] getLinkListByToAccount
+- [ ] getTransactionByType
+- [ ] getTransactionByCreatedDate
+- [ ] getTransactionListByUser
+- [ ] getTransactionListByTag
+- [ ] getTransactionListByReminder
+- [ ] getTransactionListByTopic
+- [ ] getTransactionListByTasks
+- [ ] getTransactionListBySum
+- [ ] getTransactionListByFromAccount
+- [ ] getTransactionListByToAccount
 
 ## Other

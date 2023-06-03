@@ -51,59 +51,59 @@
 - [ ] shop
 - [ ] createdDate
 - [ ] creator
-- [ ] linkUserList
-- [ ] linkTagList
-- [ ] linkReminderList
-- [ ] linkTopicList
-- [ ] linkTasksList
+- [ ] expenseUserList
+- [ ] expenseTagList
+- [ ] expenseReminderList
+- [ ] expenseTopicList
+- [ ] expenseTasksList
 - [ ] account
-- [ ] linkHistoryList
+- [ ] expenseHistoryList
 
 ### Post
 
-- [ ] postLink
+- [ ] postExpense
 
 ### Put
 
-- [ ] putSubjectToLink
-- [ ] putCategoryToLink
-- [ ] putQuantityToLink
-- [ ] putUnitPriceToLink
-- [ ] putTotalPriceToLink
-- [ ] putShopToLink
-- [ ] putUserToLink
-- [ ] putTagToLink
-- [ ] putReminderToLink
-- [ ] putTopicToLink
-- [ ] putTasksToLink
-- [ ] putAccountToLink
+- [ ] putSubjectToExpense
+- [ ] putCategoryToExpense
+- [ ] putQuantityToExpense
+- [ ] putUnitPriceToExpense
+- [ ] putTotalPriceToExpense
+- [ ] putShopToExpense
+- [ ] putUserToExpense
+- [ ] putTagToExpense
+- [ ] putReminderToExpense
+- [ ] putTopicToExpense
+- [ ] putTasksToExpense
+- [ ] putAccountToExpense
 
 ### Delete
 
-- [ ] deleteUserFromLink
-- [ ] deleteTagFromLink
-- [ ] deleteReminderFromLink
-- [ ] deleteTopicFromLink
-- [ ] deleteTasksFromLink
-- [ ] deleteLink
+- [ ] deleteUserFromExpense
+- [ ] deleteTagFromExpense
+- [ ] deleteReminderFromExpense
+- [ ] deleteTopicFromExpense
+- [ ] deleteTasksFromExpense
+- [ ] deleteExpense
 
 ### Get
 
-- [ ] getAllLink
-- [ ] getLinkById
+- [ ] getAllExpense
+- [ ] getExpenseById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
-- [ ] getLinkByCategory
-- [ ] getLinkByQuantity
-- [ ] getLinkByUnitPrice
-- [ ] getLinkByTotalPrice
-- [ ] getLinkByShop
-- [ ] getLinkByCreatedDate
-- [ ] getLinkListByUser
-- [ ] getLinkListByTag
-- [ ] getLinkListByReminder
-- [ ] getLinkListByTopic
-- [ ] getLinkListByTasks
-- [ ] getLinkListByAccount
+- [ ] getExpenseByCategory
+- [ ] getExpenseByQuantity
+- [ ] getExpenseByUnitPrice
+- [ ] getExpenseByTotalPrice
+- [ ] getExpenseByShop
+- [ ] getExpenseByCreatedDate
+- [ ] getExpenseListByUser
+- [ ] getExpenseListByTag
+- [ ] getExpenseListByReminder
+- [ ] getExpenseListByTopic
+- [ ] getExpenseListByTasks
+- [ ] getExpenseListByAccount
 
 ## Other

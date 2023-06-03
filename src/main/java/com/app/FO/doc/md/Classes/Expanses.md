@@ -52,57 +52,57 @@
 - [ ] shop
 - [ ] createdDate
 - [ ] creator
-- [ ] linkUserList
-- [ ] linkTagList
-- [ ] linkReminderList
-- [ ] linkTopicList
-- [ ] linkTasksList
+- [ ] expensesUserList
+- [ ] expensesTagList
+- [ ] expensesReminderList
+- [ ] expensesTopicList
+- [ ] expensesTasksList
 - [ ] account
-- [ ] linkHistoryList
+- [ ] expensesHistoryList
 
 ### Post
 
-- [ ] postLink
+- [ ] postExpenses
 
 ### Put
 
-- [ ] putSubjectToLink
-- [ ] putTypeToLink
-- [ ] putMarkedPriceToLink
-- [ ] putTotalPriceToLink
-- [ ] putShopToLink
-- [ ] putUserToLink
-- [ ] putTagToLink
-- [ ] putReminderToLink
-- [ ] putTopicToLink
-- [ ] putTasksToLink
-- [ ] putAccountToLink
+- [ ] putSubjectToExpenses
+- [ ] putTypeToExpenses
+- [ ] putMarkedPriceToExpenses
+- [ ] putTotalPriceToExpenses
+- [ ] putShopToExpenses
+- [ ] putUserToExpenses
+- [ ] putTagToExpenses
+- [ ] putReminderToExpenses
+- [ ] putTopicToExpenses
+- [ ] putTasksToExpenses
+- [ ] putAccountToExpenses
 
 ### Delete
 
-- [ ] deleteUserFromLink
-- [ ] deleteTagFromLink
-- [ ] deleteReminderFromLink
-- [ ] deleteTopicFromLink
-- [ ] deleteTasksFromLink
-- [ ] deleteLink
+- [ ] deleteUserFromExpenses
+- [ ] deleteTagFromExpenses
+- [ ] deleteReminderFromExpenses
+- [ ] deleteTopicFromExpenses
+- [ ] deleteTasksFromExpenses
+- [ ] deleteExpenses
 
 ### Get
 
-- [ ] getAllLink
-- [ ] getLinkById
+- [ ] getAllExpenses
+- [ ] getExpensesById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
-- [ ] getLinkByType
-- [ ] getLinkByMarkedPrice
-- [ ] getLinkByTotalPrice
-- [ ] getLinkByShop
-- [ ] getLinkByCreatedDate
-- [ ] getLinkListByUser
-- [ ] getLinkListByTag
-- [ ] getLinkListByReminder
-- [ ] getLinkListByTopic
-- [ ] getLinkListByTasks
-- [ ] getLinkListByAccount
+- [ ] getExpensesByType
+- [ ] getExpensesByMarkedPrice
+- [ ] getExpensesByTotalPrice
+- [ ] getExpensesByShop
+- [ ] getExpensesByCreatedDate
+- [ ] getExpensesListByUser
+- [ ] getExpensesListByTag
+- [ ] getExpensesListByReminder
+- [ ] getExpensesListByTopic
+- [ ] getExpensesListByTasks
+- [ ] getExpensesListByAccount
 
 ## Other

@@ -46,54 +46,54 @@
 - [ ] subject
 - [ ] createdDate
 - [ ] creator
-- [ ] linkUserList
-- [ ] linkTagList
-- [ ] linkReminderList
-- [ ] linkTopicList
-- [ ] linkTasksList
-- [ ] linkExpensesList
-- [ ] linkPersonList
-- [ ] linkHistoryList
+- [ ] eventUserList
+- [ ] eventTagList
+- [ ] eventReminderList
+- [ ] eventTopicList
+- [ ] eventTasksList
+- [ ] eventExpensesList
+- [ ] eventPersonList
+- [ ] eventHistoryList
 
 ### Post
 
-- [ ] postLink
+- [ ] postEvent
 
 ### Put
 
-- [ ] putSubjectToLink
-- [ ] putUserToLink
-- [ ] putTagToLink
-- [ ] putReminderToLink
-- [ ] putTopicToLink
-- [ ] putToExpensesLink
-- [ ] putPersonToLink
-- [ ] putTasksToLink
+- [ ] putSubjectToEvent
+- [ ] putUserToEvent
+- [ ] putTagToEvent
+- [ ] putReminderToEvent
+- [ ] putTopicToEvent
+- [ ] putToExpensesEvent
+- [ ] putPersonToEvent
+- [ ] putTasksToEvent
 
 ### Delete
 
-- [ ] deleteUserFromLink
-- [ ] deleteTagFromLink
-- [ ] deleteReminderFromLink
-- [ ] deleteTopicFromLink
-- [ ] deleteTasksFromLink
-- [ ] deleteExpensesFromLink
-- [ ] deletePersonFromLink
-- [ ] deleteLink
+- [ ] deleteUserFromEvent
+- [ ] deleteTagFromEvent
+- [ ] deleteReminderFromEvent
+- [ ] deleteTopicFromEvent
+- [ ] deleteTasksFromEvent
+- [ ] deleteExpensesFromEvent
+- [ ] deletePersonFromEvent
+- [ ] deleteEvent
 
 ### Get
 
-- [ ] getAllLink
-- [ ] getLinkById
+- [ ] getAllEvent
+- [ ] getEventById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
-- [ ] getLinkByCreatedDate
-- [ ] getLinkListByUser
-- [ ] getLinkListByTag
-- [ ] getLinkListByReminder
-- [ ] getLinkListByTopic
-- [ ] getLinkListByTasks
-- [ ] getLinkListByExpenses
-- [ ] getLinkListByPerson
+- [ ] getEventByCreatedDate
+- [ ] getEventListByUser
+- [ ] getEventListByTag
+- [ ] getEventListByReminder
+- [ ] getEventListByTopic
+- [ ] getEventListByTasks
+- [ ] getEventListByExpenses
+- [ ] getEventListByPerson
 
 ## Other

@@ -1,6 +1,7 @@
 # General
 
 - type buy sell borrow receive
+- the balance will be updated when a transaction si added or when an expence is added
 
 # ToDo
 
@@ -52,54 +53,54 @@
 - [ ] expensesList
 - [ ] createdDate
 - [ ] creator
-- [ ] linkUserList
-- [ ] linkTagList
-- [ ] linkReminderList
-- [ ] linkTopicList
-- [ ] linkTasksList
-- [ ] linkHistoryList
+- [ ] accontUserList
+- [ ] accontTagList
+- [ ] accontReminderList
+- [ ] accontTopicList
+- [ ] accontTasksList
+- [ ] accontHistoryList
 
 ### Post
 
-- [ ] postLink
+- [ ] postAccont
 
 ### Put
 
-- [ ] putSubjectToLink
-- [ ] putTypeToLink
-- [ ] putUserToLink
-- [ ] putTagToLink
-- [ ] putReminderToLink
-- [ ] putTopicToLink
-- [ ] putTasksToLink
-- [ ] putBalanceToLink
-- [ ] putTransactionToLink
-- [ ] putExpensesToLink
+- [ ] putSubjectToAccont
+- [ ] putTypeToAccont
+- [ ] putUserToAccont
+- [ ] putTagToAccont
+- [ ] putReminderToAccont
+- [ ] putTopicToAccont
+- [ ] putTasksToAccont
+- [ ] putBalanceToAccont
+- [ ] putTransactionToAccont
+- [ ] putExpensesToAccont
 
 ### Delete
 
-- [ ] deleteUserFromLink
-- [ ] deleteTagFromLink
-- [ ] deleteReminderFromLink
-- [ ] deleteTopicFromLink
-- [ ] deleteTasksFromLink
-- [ ] deleteLink
+- [ ] deleteUserFromAccont
+- [ ] deleteTagFromAccont
+- [ ] deleteReminderFromAccont
+- [ ] deleteTopicFromAccont
+- [ ] deleteTasksFromAccont
+- [ ] deleteAccont
 
 ### Get
 
-- [ ] getAllLink
-- [ ] getLinkById
+- [ ] getAllAccont
+- [ ] getAccontById
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
-- [ ] getLinkByType
-- [ ] getLinkByCreatedDate
-- [ ] getLinkListByUser
-- [ ] getLinkListByTag
-- [ ] getLinkListByReminder
-- [ ] getLinkListByTopic
-- [ ] getLinkListByTasks
-- [ ] getLinkListByBalance
-- [ ] getLinkListByTransaction
-- [ ] getLinkListByExpenses
+- [ ] getAccontByType
+- [ ] getAccontByCreatedDate
+- [ ] getAccontListByUser
+- [ ] getAccontListByTag
+- [ ] getAccontListByReminder
+- [ ] getAccontListByTopic
+- [ ] getAccontListByTasks
+- [ ] getAccontListByBalance
+- [ ] getAccontListByTransaction
+- [ ] getAccontListByExpenses
 
 ## Other
