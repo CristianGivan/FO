@@ -1,14 +1,11 @@
 package com.app.FO.model.transaction;
 
-import com.app.FO.model.account.AccountTransaction;
-import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Entity
 @Table(name = "transaction")
@@ -22,42 +19,57 @@ public class Transaction {
     @Column(name = "transaction_id")
     private Long id;
 
-    @Column(name = "details")
-    private String details;
-
-    @Column(name = "amount")
-    private Double amount;
-
-    private LocalDateTime dateTime;
-    @OneToMany(mappedBy = "account",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountTransaction> fromAccount;
-
-    @OneToMany(mappedBy = "account",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountTransaction> toAccount;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "expenses_id", referencedColumnName = "expenses_id")
-    private Expenses expenses;
-
+    @Column(name = "subject")
+    private String subject;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private User creator;
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionUser> transactionUserList;
+
+
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionTopic> transactionTopicList;
+
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionTasks> transactionTasksList;
+
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionTag> transactionTagList;
+
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionReminder> transactionReminderList;
+
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionHistory> transactionHistoryList;
+
 
     public Transaction() {
+    }
+
+    public Transaction(String subject, User creator) {
+        this.subject = subject;
+        this.creator = creator;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", details='" + details + '\'' +
-                ", amount=" + amount +
-                ", dateTime=" + dateTime +
-                ", fromAccount=" + fromAccount +
-                ", toAccount=" + toAccount +
-                ", expensesId=" + expenses.getId() +
-                ", userId=" + user.getId() +
+                ", subject='" + subject + '\'' +
+                ", createdDate=" + createdDate +
+                ", creator=" + creator +
+                ", transactionUserList=" + transactionUserList +
+                ", transactionTopicList=" + transactionTopicList +
+                ", transactionTasksList=" + transactionTasksList +
+                ", transactionUserList=" + transactionUserList +
+                ", transactionTagList=" + transactionTagList +
+                ", transactionReminderList=" + transactionReminderList +
+                ", transactionHistoryList=" + transactionHistoryList +
                 '}';
     }
 
@@ -69,59 +81,75 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getDetails() {
-        return details;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public Double getAmount() {
-        return amount;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
-    public List<AccountTransaction> getFromAccount() {
-        return fromAccount;
+    public List<TransactionUser> getTransactionUserList() {
+        return transactionUserList;
     }
 
-    public void setFromAccount(List<AccountTransaction> fromAccount) {
-        this.fromAccount = fromAccount;
+    public void setTransactionUserList(List<TransactionUser> transactionUserList) {
+        this.transactionUserList = transactionUserList;
     }
 
-    public List<AccountTransaction> getToAccount() {
-        return toAccount;
+    public List<TransactionTag> getTransactionTagList() {
+        return transactionTagList;
     }
 
-    public void setToAccount(List<AccountTransaction> toAccount) {
-        this.toAccount = toAccount;
+    public void setTransactionTagList(List<TransactionTag> transactionTagList) {
+        this.transactionTagList = transactionTagList;
     }
 
-    public Expenses getExpensesList() {
-        return expenses;
+    public List<TransactionReminder> getTransactionReminderList() {
+        return transactionReminderList;
     }
 
-    public void setExpensesList(Expenses expenses) {
-        this.expenses = expenses;
+    public void setTransactionReminderList(List<TransactionReminder> transactionReminderList) {
+        this.transactionReminderList = transactionReminderList;
     }
 
-    public User getUser() {
-        return user;
+    public List<TransactionHistory> getTransactionHistoryList() {
+        return transactionHistoryList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTransactionHistoryList(List<TransactionHistory> transactionHistoryList) {
+        this.transactionHistoryList = transactionHistoryList;
+    }
+
+    public List<TransactionTopic> getTransactionTopicList() {
+        return transactionTopicList;
+    }
+
+    public void setTransactionTopicList(List<TransactionTopic> transactionTopicList) {
+        this.transactionTopicList = transactionTopicList;
+    }
+
+    public List<TransactionTasks> getTransactionTasksList() {
+        return transactionTasksList;
+    }
+
+    public void setTransactionTasksList(List<TransactionTasks> transactionTasksList) {
+        this.transactionTasksList = transactionTasksList;
     }
 }

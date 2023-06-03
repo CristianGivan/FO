@@ -1,51 +1,51 @@
 package com.app.FO.model.account;
 
-import com.app.FO.model.user.User;
+import com.app.FO.model.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_user")
-public class AccountUser {
+@Table(name = "account_tag")
+public class AccountTag {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_user_seq")
-    @SequenceGenerator(name = "account_user_seq",
-            sequenceName = "account_user_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_tag_seq")
+    @SequenceGenerator(name = "account_tag_seq",
+            sequenceName = "account_tag_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_user_id")
+    @Column(name = "account_tag_id")
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
 
+    @ManyToOne
+    @JoinColumn(name = "tag_id")
+    @JsonIgnore
+    private Tag tag;
+
     @Column(name = "account_date")
     private LocalDateTime accountDate;
 
-    public AccountUser() {
+    public AccountTag() {
     }
 
-    public AccountUser(Account account, User user) {
-        this.user = user;
+    public AccountTag(Account account, Tag tag) {
         this.account = account;
+        this.tag = tag;
         this.accountDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "AccountTasks{" +
+        return "AccountTag{" +
                 "id=" + id +
-                ", taskId=" + user.getId() +
-                ", account=" + account.getId() +
+                ", accountId=" + account.getId() +
+                ", tagId=" + tag.getId() +
                 ", accountDate=" + accountDate +
                 '}';
     }
@@ -58,20 +58,20 @@ public class AccountUser {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Account getAccount() {
         return account;
     }
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 
     public LocalDateTime getAccountDate() {

@@ -4,6 +4,7 @@ import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -18,35 +19,57 @@ public class Account {
     @Column(name = "account_id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "details")
-    private String details;
+    @Column(name = "subject")
+    private String subject;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountUser> accountUserList;
 
-    //todo cum ar trebui sa fac aici  sa fac dou coloane de tranzactii una d din care se cumpara si una din care se vande
-    @OneToMany(mappedBy = "account")
-    private List<AccountUser> accountUsers;
 
-    @OneToMany(mappedBy = "account")
-    private List<AccountTransaction> accountTransactionList;
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountTopic> accountTopicList;
+
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountTasks> accountTasksList;
+
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountTag> accountTagList;
+
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountReminder> accountReminderList;
+
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountHistory> accountHistoryList;
+
 
     public Account() {
+    }
+
+    public Account(String subject, User creator) {
+        this.subject = subject;
+        this.creator = creator;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", details='" + details + '\'' +
-                ", creatorId=" + creator.getId() +
-                ", accountUsers=" + accountUsers +
-                ", accountTransactions=" + accountTransactionList +
+                ", subject='" + subject + '\'' +
+                ", createdDate=" + createdDate +
+                ", creator=" + creator +
+                ", accountUserList=" + accountUserList +
+                ", accountTopicList=" + accountTopicList +
+                ", accountTasksList=" + accountTasksList +
+                ", accountUserList=" + accountUserList +
+                ", accountTagList=" + accountTagList +
+                ", accountReminderList=" + accountReminderList +
+                ", accountHistoryList=" + accountHistoryList +
                 '}';
     }
 
@@ -58,20 +81,20 @@ public class Account {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public String getDetails() {
-        return details;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public User getCreator() {
@@ -82,19 +105,51 @@ public class Account {
         this.creator = creator;
     }
 
-    public List<AccountUser> getAccountUsers() {
-        return accountUsers;
+    public List<AccountUser> getAccountUserList() {
+        return accountUserList;
     }
 
-    public void setAccountUsers(List<AccountUser> accountUsers) {
-        this.accountUsers = accountUsers;
+    public void setAccountUserList(List<AccountUser> accountUserList) {
+        this.accountUserList = accountUserList;
     }
 
-    public List<AccountTransaction> getAccountTransactionList() {
-        return accountTransactionList;
+    public List<AccountTag> getAccountTagList() {
+        return accountTagList;
     }
 
-    public void setAccountTransactionList(List<AccountTransaction> accountTransactions) {
-        this.accountTransactionList = accountTransactions;
+    public void setAccountTagList(List<AccountTag> accountTagList) {
+        this.accountTagList = accountTagList;
+    }
+
+    public List<AccountReminder> getAccountReminderList() {
+        return accountReminderList;
+    }
+
+    public void setAccountReminderList(List<AccountReminder> accountReminderList) {
+        this.accountReminderList = accountReminderList;
+    }
+
+    public List<AccountHistory> getAccountHistoryList() {
+        return accountHistoryList;
+    }
+
+    public void setAccountHistoryList(List<AccountHistory> accountHistoryList) {
+        this.accountHistoryList = accountHistoryList;
+    }
+
+    public List<AccountTopic> getAccountTopicList() {
+        return accountTopicList;
+    }
+
+    public void setAccountTopicList(List<AccountTopic> accountTopicList) {
+        this.accountTopicList = accountTopicList;
+    }
+
+    public List<AccountTasks> getAccountTasksList() {
+        return accountTasksList;
+    }
+
+    public void setAccountTasksList(List<AccountTasks> accountTasksList) {
+        this.accountTasksList = accountTasksList;
     }
 }

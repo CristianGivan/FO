@@ -1,27 +1,27 @@
 package com.app.FO.model.account;
 
-import com.app.FO.model.user.User;
+import com.app.FO.model.tasks.Tasks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_user")
-public class AccountUser {
+@Table(name = "account_tasks")
+public class AccountTasks {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_user_seq")
-    @SequenceGenerator(name = "account_user_seq",
-            sequenceName = "account_user_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_tasks_seq")
+    @SequenceGenerator(name = "account_tasks_seq",
+            sequenceName = "account_tasks_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_user_id")
+    @Column(name = "account_tasks_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "tasks_id")
     @JsonIgnore
-    private User user;
+    private Tasks tasks;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -31,20 +31,20 @@ public class AccountUser {
     @Column(name = "account_date")
     private LocalDateTime accountDate;
 
-    public AccountUser() {
+    public AccountTasks() {
     }
 
-    public AccountUser(Account account, User user) {
-        this.user = user;
+    public AccountTasks(Account account, Tasks tasks) {
         this.account = account;
+        this.tasks = tasks;
         this.accountDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "AccountTasks{" +
+        return "AccountTaskss{" +
                 "id=" + id +
-                ", taskId=" + user.getId() +
+                ", tasksId=" + tasks.getId() +
                 ", account=" + account.getId() +
                 ", accountDate=" + accountDate +
                 '}';
@@ -58,12 +58,12 @@ public class AccountUser {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Tasks getTasks() {
+        return tasks;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTasks(Tasks tasks) {
+        this.tasks = tasks;
     }
 
     public Account getAccount() {

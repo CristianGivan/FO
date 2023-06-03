@@ -7,16 +7,19 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_user")
-public class AccountUser {
+@Table(name = "task_history")
+public class AccountHistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_user_seq")
-    @SequenceGenerator(name = "account_user_seq",
-            sequenceName = "account_user_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_history_seq")
+    @SequenceGenerator(name = "account_history_seq",
+            sequenceName = "account_history_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_user_id")
+    @Column(name = "account_history_id")
     private Long id;
+
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,25 +31,16 @@ public class AccountUser {
     @JsonIgnore
     private Account account;
 
-    @Column(name = "account_date")
-    private LocalDateTime accountDate;
-
-    public AccountUser() {
-    }
-
-    public AccountUser(Account account, User user) {
-        this.user = user;
-        this.account = account;
-        this.accountDate = LocalDateTime.now();
+    public AccountHistory() {
     }
 
     @Override
     public String toString() {
-        return "AccountTasks{" +
+        return "AccountHistory{" +
                 "id=" + id +
-                ", taskId=" + user.getId() +
-                ", account=" + account.getId() +
-                ", accountDate=" + accountDate +
+                ", modifiedDate=" + modifiedDate +
+                ", userId=" + user.getId() +
+                ", taskListId=" + account.getId() +
                 '}';
     }
 
@@ -56,6 +50,14 @@ public class AccountUser {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public User getUser() {
@@ -72,13 +74,5 @@ public class AccountUser {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public LocalDateTime getAccountDate() {
-        return accountDate;
-    }
-
-    public void setAccountDate(LocalDateTime accountDate) {
-        this.accountDate = accountDate;
     }
 }
