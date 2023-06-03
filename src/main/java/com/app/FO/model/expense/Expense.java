@@ -1,6 +1,5 @@
 package com.app.FO.model.expense;
 
-import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,67 +19,57 @@ public class Expense {
     @Column(name = "expense_id")
     private Long id;
 
-    @Column(name = "name")
-    private String expanseName;
-
-    @Column(name = "details")
-    private String details;
-
-    @Column(name = "quantity")
-    private double quantity;
-
-    @Column(name = "unit")
-    private String unit;
-
-    @Column(name = "unit_price")
-    private double unitPrice;
-
+    @Column(name = "subject")
+    private String subject;
     @Column(name = "created_date")
-    private LocalDateTime createDate;
-
-    @Column(name = "paid_date")
-    private LocalDateTime paidDate;
-
-    @Column(name = "market")
-    private String market;
-
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "creator_id")
+    private LocalDateTime createdDate;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseUser> expenseUserList;
 
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "payer_id")
-    @JsonIgnore
-    private User payer;
 
-    @OneToMany(mappedBy = "expense", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpenseTag> expenseTags;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTopic> expenseTopicList;
 
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "expenses_id")
-    @JsonIgnore
-    private Expenses expenses;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTasks> expenseTasksList;
+
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTag> expenseTagList;
+
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseReminder> expenseReminderList;
+
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseHistory> expenseHistoryList;
+
 
     public Expense() {
+    }
+
+    public Expense(String subject, User creator) {
+        this.subject = subject;
+        this.creator = creator;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Expense{" +
                 "id=" + id +
-                ", expanseName='" + expanseName + '\'' +
-                ", details='" + details + '\'' +
-                ", quantity=" + quantity +
-                ", unit='" + unit + '\'' +
-                ", unitPrice=" + unitPrice +
-                ", createDate=" + createDate +
-                ", paidDate=" + paidDate +
-                ", market='" + market + '\'' +
-                ", creatorId=" + creator.getId() +
-                ", payerId=" + payer.getId() +
-                ", expenseTags=" + expenseTags +
-                ", expensesId=" + expenses.getId() +
+                ", subject='" + subject + '\'' +
+                ", createdDate=" + createdDate +
+                ", creator=" + creator +
+                ", expenseUserList=" + expenseUserList +
+                ", expenseTopicList=" + expenseTopicList +
+                ", expenseTasksList=" + expenseTasksList +
+                ", expenseUserList=" + expenseUserList +
+                ", expenseTagList=" + expenseTagList +
+                ", expenseReminderList=" + expenseReminderList +
+                ", expenseHistoryList=" + expenseHistoryList +
                 '}';
     }
 
@@ -92,68 +81,20 @@ public class Expense {
         this.id = id;
     }
 
-    public String getExpanseName() {
-        return expanseName;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setExpanseName(String expanseName) {
-        this.expanseName = expanseName;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public String getDetails() {
-        return details;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getPaidDate() {
-        return paidDate;
-    }
-
-    public void setPaidDate(LocalDateTime paidDate) {
-        this.paidDate = paidDate;
-    }
-
-    public String getMarket() {
-        return market;
-    }
-
-    public void setMarket(String market) {
-        this.market = market;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public User getCreator() {
@@ -164,27 +105,51 @@ public class Expense {
         this.creator = creator;
     }
 
-    public User getPayer() {
-        return payer;
+    public List<ExpenseUser> getExpenseUserList() {
+        return expenseUserList;
     }
 
-    public void setPayer(User payer) {
-        this.payer = payer;
+    public void setExpenseUserList(List<ExpenseUser> expenseUserList) {
+        this.expenseUserList = expenseUserList;
     }
 
-    public List<ExpenseTag> getExpenseTags() {
-        return expenseTags;
+    public List<ExpenseTag> getExpenseTagList() {
+        return expenseTagList;
     }
 
-    public void setExpenseTags(List<ExpenseTag> expenseTags) {
-        this.expenseTags = expenseTags;
+    public void setExpenseTagList(List<ExpenseTag> expenseTagList) {
+        this.expenseTagList = expenseTagList;
     }
 
-    public Expenses getExpensesList() {
-        return expenses;
+    public List<ExpenseReminder> getExpenseReminderList() {
+        return expenseReminderList;
     }
 
-    public void setExpensesList(Expenses expenses) {
-        this.expenses = expenses;
+    public void setExpenseReminderList(List<ExpenseReminder> expenseReminderList) {
+        this.expenseReminderList = expenseReminderList;
+    }
+
+    public List<ExpenseHistory> getExpenseHistoryList() {
+        return expenseHistoryList;
+    }
+
+    public void setExpenseHistoryList(List<ExpenseHistory> expenseHistoryList) {
+        this.expenseHistoryList = expenseHistoryList;
+    }
+
+    public List<ExpenseTopic> getExpenseTopicList() {
+        return expenseTopicList;
+    }
+
+    public void setExpenseTopicList(List<ExpenseTopic> expenseTopicList) {
+        this.expenseTopicList = expenseTopicList;
+    }
+
+    public List<ExpenseTasks> getExpenseTasksList() {
+        return expenseTasksList;
+    }
+
+    public void setExpenseTasksList(List<ExpenseTasks> expenseTasksList) {
+        this.expenseTasksList = expenseTasksList;
     }
 }

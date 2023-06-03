@@ -7,16 +7,19 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expenses_user")
-public class ExpensesUser {
+@Table(name = "task_history")
+public class ExpensesHistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_user_seq")
-    @SequenceGenerator(name = "expenses_user_seq",
-            sequenceName = "expenses_user_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_history_seq")
+    @SequenceGenerator(name = "expenses_history_seq",
+            sequenceName = "expenses_history_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "expenses_user_id")
+    @Column(name = "expenses_history_id")
     private Long id;
+
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,25 +31,16 @@ public class ExpensesUser {
     @JsonIgnore
     private Expenses expenses;
 
-    @Column(name = "expenses_date")
-    private LocalDateTime expensesDate;
-
-    public ExpensesUser() {
-    }
-
-    public ExpensesUser(Expenses expenses, User user) {
-        this.user = user;
-        this.expenses = expenses;
-        this.expensesDate = LocalDateTime.now();
+    public ExpensesHistory() {
     }
 
     @Override
     public String toString() {
-        return "ExpensesTasks{" +
+        return "ExpensesHistory{" +
                 "id=" + id +
-                ", taskId=" + user.getId() +
-                ", expenses=" + expenses.getId() +
-                ", expensesDate=" + expensesDate +
+                ", modifiedDate=" + modifiedDate +
+                ", userId=" + user.getId() +
+                ", taskListId=" + expenses.getId() +
                 '}';
     }
 
@@ -56,6 +50,14 @@ public class ExpensesUser {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public User getUser() {
@@ -72,13 +74,5 @@ public class ExpensesUser {
 
     public void setExpenses(Expenses expenses) {
         this.expenses = expenses;
-    }
-
-    public LocalDateTime getExpensesDate() {
-        return expensesDate;
-    }
-
-    public void setExpensesDate(LocalDateTime expensesDate) {
-        this.expensesDate = expensesDate;
     }
 }

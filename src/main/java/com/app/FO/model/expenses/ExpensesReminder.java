@@ -1,21 +1,21 @@
 package com.app.FO.model.expenses;
 
-import com.app.FO.model.tag.Tag;
+import com.app.FO.model.reminder.Reminder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expenses_tag")
-public class ExpensesTag {
+@Table(name = "expenses_reminder")
+public class ExpensesReminder {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_tag_seq")
-    @SequenceGenerator(name = "expenses_tag_seq",
-            sequenceName = "expenses_tag_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_reminder_seq")
+    @SequenceGenerator(name = "expenses_reminder_seq",
+            sequenceName = "expenses_reminder_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "expenses_tag_id")
+    @Column(name = "expenses_reminder_id")
     private Long id;
 
     @ManyToOne
@@ -24,28 +24,28 @@ public class ExpensesTag {
     private Expenses expenses;
 
     @ManyToOne
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "reminder_id")
     @JsonIgnore
-    private Tag tag;
+    private Reminder reminder;
 
     @Column(name = "expenses_date")
     private LocalDateTime expensesDate;
 
-    public ExpensesTag() {
+    public ExpensesReminder() {
     }
 
-    public ExpensesTag(Expenses expenses, Tag tag) {
+    public ExpensesReminder(Expenses expenses, Reminder reminder) {
         this.expenses = expenses;
-        this.tag = tag;
+        this.reminder = reminder;
         this.expensesDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "ExpensesTag{" +
+        return "ExpensesReminder{" +
                 "id=" + id +
                 ", expensesId=" + expenses.getId() +
-                ", tagId=" + tag.getId() +
+                ", reminderId=" + reminder.getId() +
                 ", expensesDate=" + expensesDate +
                 '}';
     }
@@ -66,12 +66,12 @@ public class ExpensesTag {
         this.expenses = expenses;
     }
 
-    public Tag getTag() {
-        return tag;
+    public Reminder getReminder() {
+        return reminder;
     }
 
-    public void setTag(Tag tag) {
-        this.tag = tag;
+    public void setReminder(Reminder reminder) {
+        this.reminder = reminder;
     }
 
     public LocalDateTime getExpensesDate() {
