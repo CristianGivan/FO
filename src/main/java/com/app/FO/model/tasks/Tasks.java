@@ -1,7 +1,13 @@
 package com.app.FO.model.tasks;
 
+import com.app.FO.model.account.AccountTasks;
 import com.app.FO.model.event.EventTasks;
+import com.app.FO.model.expense.ExpenseTasks;
+import com.app.FO.model.expenses.ExpensesTasks;
+import com.app.FO.model.link.LinkTasks;
+import com.app.FO.model.person.PersonTasks;
 import com.app.FO.model.task.TaskStatus;
+import com.app.FO.model.transaction.TransactionTasks;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -56,12 +62,31 @@ public class Tasks {
     private List<TasksTopic> tasksTopicList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TasksTask> tasksTaskList;
+    private List<LinkTasks> linkTasksList;
+
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TasksHistory> tasksHistoryList;
+    private List<PersonTasks> personTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksTask> tasksTaskList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTasks> eventTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTasks> expenseTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesTasks> expensesTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionTasks> transactionTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountTasks> accountTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksHistory> tasksHistoryList;
 
     public Tasks() {
     }
@@ -77,18 +102,24 @@ public class Tasks {
         return "Tasks{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", creator=" + creator.getId() +
+                ", creator=" + creator +
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", tasksStatus=" + taskStatus +
-                ", tasksTopicList=" + tasksTopicList +
-                ", tasksTaskList=" + tasksTaskList +
+                ", taskStatus=" + taskStatus +
                 ", tasksUserList=" + tasksUserList +
                 ", tasksTagList=" + tasksTagList +
                 ", tasksReminderList=" + tasksReminderList +
-                ", tasksHistoryList=" + tasksHistoryList +
+                ", tasksTopicList=" + tasksTopicList +
+                ", linkTasksList=" + linkTasksList +
+                ", personTasksList=" + personTasksList +
+                ", tasksTaskList=" + tasksTaskList +
                 ", eventTasksList=" + eventTasksList +
+                ", expenseTasksList=" + expenseTasksList +
+                ", expensesTasksList=" + expensesTasksList +
+                ", transactionTasksList=" + transactionTasksList +
+                ", accountTasksList=" + accountTasksList +
+                ", tasksHistoryList=" + tasksHistoryList +
                 '}';
     }
 
@@ -144,27 +175,8 @@ public class Tasks {
         return taskStatus;
     }
 
-    public void setTaskStatus(TaskStatus tasksStatus) {
-        this.taskStatus = tasksStatus;
-    }
-
-    public List<TasksTopic> getTasksTopicList() {
-        if (tasksTopicList == null) {
-            tasksTopicList = new ArrayList<>();
-        }
-        return tasksTopicList;
-    }
-
-    public void setTasksTopicList(List<TasksTopic> tasksTopicList) {
-        this.tasksTopicList = tasksTopicList;
-    }
-
-    public List<TasksTask> getTasksTaskList() {
-        return tasksTaskList;
-    }
-
-    public void setTasksTaskList(List<TasksTask> tasksTaskList) {
-        this.tasksTaskList = tasksTaskList;
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
     public List<TasksUser> getTasksUserList() {
@@ -174,8 +186,8 @@ public class Tasks {
         return tasksUserList;
     }
 
-    public void setTasksUserList(List<TasksUser> taskUserList) {
-        this.tasksUserList = taskUserList;
+    public void setTasksUserList(List<TasksUser> tasksUserList) {
+        this.tasksUserList = tasksUserList;
     }
 
     public List<TasksTag> getTasksTagList() {
@@ -194,12 +206,39 @@ public class Tasks {
         this.tasksReminderList = tasksReminderList;
     }
 
-    public List<TasksHistory> getTasksHistoryList() {
-        return tasksHistoryList;
+    public List<TasksTopic> getTasksTopicList() {
+        if (tasksTopicList == null) {
+            tasksTopicList = new ArrayList<>();
+        }
+        return tasksTopicList;
     }
 
-    public void setTasksHistoryList(List<TasksHistory> tasksHistoryList) {
-        this.tasksHistoryList = tasksHistoryList;
+    public void setTasksTopicList(List<TasksTopic> tasksTopicList) {
+        this.tasksTopicList = tasksTopicList;
+    }
+
+    public List<LinkTasks> getLinkTasksList() {
+        return linkTasksList;
+    }
+
+    public void setLinkTasksList(List<LinkTasks> linkTasksList) {
+        this.linkTasksList = linkTasksList;
+    }
+
+    public List<PersonTasks> getPersonTasksList() {
+        return personTasksList;
+    }
+
+    public void setPersonTasksList(List<PersonTasks> personTasksList) {
+        this.personTasksList = personTasksList;
+    }
+
+    public List<TasksTask> getTasksTaskList() {
+        return tasksTaskList;
+    }
+
+    public void setTasksTaskList(List<TasksTask> tasksTaskList) {
+        this.tasksTaskList = tasksTaskList;
     }
 
     public List<EventTasks> getEventTasksList() {
@@ -208,5 +247,45 @@ public class Tasks {
 
     public void setEventTasksList(List<EventTasks> eventTasksList) {
         this.eventTasksList = eventTasksList;
+    }
+
+    public List<ExpenseTasks> getExpenseTasksList() {
+        return expenseTasksList;
+    }
+
+    public void setExpenseTasksList(List<ExpenseTasks> expenseTasksList) {
+        this.expenseTasksList = expenseTasksList;
+    }
+
+    public List<ExpensesTasks> getExpensesTasksList() {
+        return expensesTasksList;
+    }
+
+    public void setExpensesTasksList(List<ExpensesTasks> expensesTasksList) {
+        this.expensesTasksList = expensesTasksList;
+    }
+
+    public List<TransactionTasks> getTransactionTasksList() {
+        return transactionTasksList;
+    }
+
+    public void setTransactionTasksList(List<TransactionTasks> transactionTasksList) {
+        this.transactionTasksList = transactionTasksList;
+    }
+
+    public List<AccountTasks> getAccountTasksList() {
+        return accountTasksList;
+    }
+
+    public void setAccountTasksList(List<AccountTasks> accountTasksList) {
+        this.accountTasksList = accountTasksList;
+    }
+
+    public List<TasksHistory> getTasksHistoryList() {
+        return tasksHistoryList;
+    }
+
+    public void setTasksHistoryList(List<TasksHistory> tasksHistoryList) {
+        this.tasksHistoryList = tasksHistoryList;
     }
 }
