@@ -64,7 +64,7 @@ public class Tag {
     private List<LinkTag> linkTagList;
 
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<PersonTag> personTafList;
+    private List<PersonTag> personTagList;
 
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTag> eventTagList;
@@ -80,6 +80,10 @@ public class Tag {
 
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountTag> accountTagList;
+
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TagHistory> tagHistoryList;
+
 
     public Tag() {
     }
@@ -104,12 +108,13 @@ public class Tag {
                 ", workTagList=" + workTagList +
                 ", tasksTagList=" + tasksTagList +
                 ", linkTagList=" + linkTagList +
-                ", personTafList=" + personTafList +
+                ", personTafList=" + personTagList +
                 ", eventTagList=" + eventTagList +
                 ", expenseTagList=" + expenseTagList +
                 ", expensesTagList=" + expensesTagList +
                 ", transactionTagList=" + transactionTagList +
                 ", accountTagList=" + accountTagList +
+                ", tagHistoryList=" + tagHistoryList +
                 '}';
     }
 
@@ -204,12 +209,12 @@ public class Tag {
         this.linkTagList = linkTagList;
     }
 
-    public List<PersonTag> getPersonTafList() {
-        return personTafList;
+    public List<PersonTag> getPersonTagList() {
+        return personTagList;
     }
 
-    public void setPersonTafList(List<PersonTag> personTafList) {
-        this.personTafList = personTafList;
+    public void setPersonTagList(List<PersonTag> personTafList) {
+        this.personTagList = personTafList;
     }
 
     public List<EventTag> getEventTagList() {
@@ -250,5 +255,13 @@ public class Tag {
 
     public void setAccountTagList(List<AccountTag> accountTagList) {
         this.accountTagList = accountTagList;
+    }
+
+    public List<TagHistory> getTagHistoryList() {
+        return tagHistoryList;
+    }
+
+    public void setTagHistoryList(List<TagHistory> tagHistoryList) {
+        this.tagHistoryList = tagHistoryList;
     }
 }

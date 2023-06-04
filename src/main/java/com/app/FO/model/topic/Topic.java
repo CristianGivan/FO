@@ -1,8 +1,14 @@
 package com.app.FO.model.topic;
 
+import com.app.FO.model.account.AccountTopic;
 import com.app.FO.model.event.EventTopic;
+import com.app.FO.model.expense.ExpenseTopic;
+import com.app.FO.model.expenses.ExpensesTopic;
+import com.app.FO.model.link.LinkTopic;
+import com.app.FO.model.person.PersonTopic;
 import com.app.FO.model.task.TaskTopic;
 import com.app.FO.model.tasks.TasksTopic;
+import com.app.FO.model.transaction.TransactionTopic;
 import com.app.FO.model.user.User;
 import com.app.FO.model.work.WorkTopic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,7 +44,6 @@ public class Topic {
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicUser> topicUserList;
 
-
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicTag> topicTagList;
 
@@ -54,16 +59,33 @@ public class Topic {
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskTopic> taskTopicList;
 
-
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksTopic> tasksTopicList;
 
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<LinkTopic> linkTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonTopic> personTafList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTopic> eventTopicList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTopic> expenseTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesTopic> expensesTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionTopic> transactionTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountTopic> accountTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicHistory> topicHistoryList;
+
 
     public Topic() {
     }
@@ -82,14 +104,20 @@ public class Topic {
                 ", subject='" + subject + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator.getId() +
+                ", topicUserList=" + topicUserList +
+                ", topicTagList=" + topicTagList +
+                ", topicReminderList=" + topicReminderList +
+                ", topicNoteList=" + topicNoteList +
+                ", workTopicList=" + workTopicList +
                 ", taskTopicList=" + taskTopicList +
                 ", tasksTopicList=" + tasksTopicList +
-                ", workTopicList=" + workTopicList +
-                ", topicNoteList=" + topicNoteList +
-                ", topicTagList=" + topicTagList +
-                ", topicUserList=" + topicUserList +
-                ", topicReminderList=" + topicReminderList +
+                ", linkTopicList=" + linkTopicList +
+                ", personTafList=" + personTafList +
                 ", eventTopicList=" + eventTopicList +
+                ", expenseTopicList=" + expenseTopicList +
+                ", expensesTopicList=" + expensesTopicList +
+                ", transactionTopicList=" + transactionTopicList +
+                ", accountTopicList=" + accountTopicList +
                 ", topicHistoryList=" + topicHistoryList +
                 '}';
     }
@@ -223,5 +251,53 @@ public class Topic {
 
     public void setWorkTopicList(List<WorkTopic> workTopicList) {
         this.workTopicList = workTopicList;
+    }
+
+    public List<LinkTopic> getLinkTopicList() {
+        return linkTopicList;
+    }
+
+    public void setLinkTopicList(List<LinkTopic> linkTopicList) {
+        this.linkTopicList = linkTopicList;
+    }
+
+    public List<PersonTopic> getPersonTafList() {
+        return personTafList;
+    }
+
+    public void setPersonTafList(List<PersonTopic> personTafList) {
+        this.personTafList = personTafList;
+    }
+
+    public List<ExpenseTopic> getExpenseTopicList() {
+        return expenseTopicList;
+    }
+
+    public void setExpenseTopicList(List<ExpenseTopic> expenseTopicList) {
+        this.expenseTopicList = expenseTopicList;
+    }
+
+    public List<ExpensesTopic> getExpensesTopicList() {
+        return expensesTopicList;
+    }
+
+    public void setExpensesTopicList(List<ExpensesTopic> expensesTopicList) {
+        this.expensesTopicList = expensesTopicList;
+    }
+
+    public List<TransactionTopic> getTransactionTopicList() {
+        return transactionTopicList;
+    }
+
+    public void setTransactionTopicList(List<TransactionTopic> transactionTopicList) {
+        this.transactionTopicList = transactionTopicList;
+    }
+
+    public List<AccountTopic> getAccountTopicList() {
+        return accountTopicList;
+    }
+
+    public void setAccountTopicList(List<AccountTopic> accountTopicList) {
+        this.accountTopicList = accountTopicList;
     }
 }

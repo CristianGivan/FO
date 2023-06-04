@@ -31,7 +31,6 @@ public class Link {
     @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LinkUser> linkUserList;
 
-
     @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LinkTopic> linkTopicList;
 
