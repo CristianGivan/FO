@@ -1,10 +1,11 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.account.AccountDTO;
+import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.mappers.AccountDTOMapper;
 import com.app.FO.model.account.Account;
 import com.app.FO.service.account.AccountService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,19 @@ public class AccountController {
         return accountDTOMapper.accountToAccountDTO(account);
     }
 
+    @PutMapping("/putTypeToAccount")
+    public AccountDTO putTypeToAccount(@RequestParam Long accountId, @RequestParam String type) {
+        Account account = accountService.putTypeToAccount(accountId, type);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+    @PutMapping("/putCreatedDateToAccount")
+    @ApiOperation(value = "Formatter yyyy.MM.dd HH:mm:ss 2023.06.01 13:14:15")
+    public AccountDTO putCreatedDateToAccount(@RequestParam Long accountId, @RequestParam String createdData) {
+        Account account = accountService.putCreatedDateToAccount(accountId, createdData);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
     @PutMapping("/putUserToAccount")
     public AccountDTO putUserToAccount(@RequestParam Long accountId, @RequestParam Long userId) {
         Account account = accountService.putUserToAccount(accountId, userId);
@@ -67,6 +81,18 @@ public class AccountController {
     @PutMapping("/putTasksToAccount")
     public AccountDTO putTasksToAccount(@RequestParam Long accountId, @RequestParam Long tasksId) {
         Account account = accountService.putTasksToAccount(accountId, tasksId);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+    @PutMapping("/putExpensesToAccount")
+    public AccountDTO putExpensesToAccount(@RequestParam Long accountId, @RequestParam Long expensesId) {
+        Account account = accountService.putExpensesToAccount(accountId, expensesId);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+    @PutMapping("/putTransactionToAccount")
+    public AccountDTO putTransactionToAccount(@RequestParam Long accountId, @RequestParam Long transactionId) {
+        Account account = accountService.putTransactionToAccount(accountId, transactionId);
         return accountDTOMapper.accountToAccountDTO(account);
     }
 
@@ -105,6 +131,21 @@ public class AccountController {
         return accountDTOMapper.accountToAccountDTO(account);
     }
 
+
+    @DeleteMapping("/deleteExpensesFromAccount")
+    public AccountDTO deleteExpensesFromAccount(@RequestParam Long accountId, @RequestParam Long tasksId) {
+        Account account = accountService.deleteExpensesFromAccount(accountId, tasksId);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+
+    @DeleteMapping("/deleteTransactionFromAccount")
+    public AccountDTO deleteTransactionFromAccount(@RequestParam Long accountId, @RequestParam Long tasksId) {
+        Account account = accountService.deleteTransactionFromAccount(accountId, tasksId);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+
     @DeleteMapping("/deleteAccount")
     public List<AccountDTO> deleteAccount(@RequestParam Long accountId) {
         List<Account> accountList = accountService.deleteAccount(accountId);
@@ -121,6 +162,12 @@ public class AccountController {
     }
 
 
+    @GetMapping("/getAccountById")
+    public AccountDTO getAccountById(@RequestParam Long accountId) {
+        Account account = accountService.getAccountByAccountId(accountId);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
     @GetMapping("/getAccountBySubject")
     public AccountDTO getAccountBySubject(@RequestParam String subject) {
         Account account = accountService.getAccountBySubject(subject);
@@ -133,10 +180,42 @@ public class AccountController {
         return accountDTOMapper.accountListToAccountDTOList(accountList);
     }
 
-    @GetMapping("/getAccountById")
-    public AccountDTO getAccountById(@RequestParam Long accountId) {
-        Account account = accountService.getAccountByAccountId(accountId);
+    @GetMapping("/getAccountByType")
+    public AccountDTO getAccountByType(@RequestParam String type) {
+        Account account = accountService.getAccountByType(type);
         return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+    @GetMapping("/getAccountByTypeContains")
+    public List<AccountDTO> getAccountByTypeContains(@RequestParam String typeContain) {
+        List<Account> accountList = accountService.getAccountByTypeContains(typeContain);
+        return accountDTOMapper.accountListToAccountDTOList(accountList);
+    }
+
+    @GetMapping("/getAccountByBalance")
+    public AccountDTO getAccountByBalance(@RequestParam Double balance) {
+        Account account = accountService.getAccountByBalance(balance);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+    @GetMapping("/getAccountByBalanceBetween")
+    public List<AccountDTO> getAccountByBalanceBetween(@RequestParam Double rangeMin, @RequestParam Double rangeMax) {
+        List<Account> accountList = accountService.getAccountByBalanceBetween(rangeMin, rangeMax);
+        return accountDTOMapper.accountListToAccountDTOList(accountList);
+    }
+
+
+    @GetMapping("/getAccountByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy.MM.dd HH:mm:ss 2023.06.01 13:14:15")
+    public AccountDTO getAccountByCreatedDate(@RequestParam String createdDate) {
+        Account account = accountService.getAccountByCreatedDate(createdDate);
+        return accountDTOMapper.accountToAccountDTO(account);
+    }
+
+    @GetMapping("/getAccountByCreatedDateBetween")
+    public List<AccountDTO> getAccountByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Account> accountList = accountService.getAccountByCreatedDateBetween(createdDateMin, createdDateMax);
+        return accountDTOMapper.accountListToAccountDTOList(accountList);
     }
 
 
@@ -167,6 +246,18 @@ public class AccountController {
     @GetMapping("/getAccountListByTasksId")
     public List<AccountDTO> getAccountListByTasksId(@RequestParam Long tasksId) {
         List<Account> accountList = accountService.getAccountListByTasksId(tasksId);
+        return accountDTOMapper.accountListToAccountDTOList(accountList);
+    }
+
+    @GetMapping("/getAccountListByExpenses")
+    public List<AccountDTO> getAccountListByExpenses(@RequestParam Long expensesId) {
+        List<Account> accountList = accountService.getAccountListByExpenses(expensesId);
+        return accountDTOMapper.accountListToAccountDTOList(accountList);
+    }
+
+    @GetMapping("/getAccountListByTransaction")
+    public List<AccountDTO> getAccountListByTransaction(@RequestParam Long transactionId) {
+        List<Account> accountList = accountService.getAccountListByTransaction(transactionId);
         return accountDTOMapper.accountListToAccountDTOList(accountList);
     }
 

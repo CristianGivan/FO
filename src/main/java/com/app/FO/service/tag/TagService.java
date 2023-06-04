@@ -39,7 +39,7 @@ public class TagService {
 
 
     //-- Post
-
+//todo tbc
     public Tag postTag(String tagText) {
         User user = userService.getLogInUser();
         checksTag.checkIsTagWithTagText(user, tagText);
@@ -97,7 +97,7 @@ public class TagService {
     }
 
     public List<Tag> getTagListByContainingText(String containingText) {
-        return tagRepository.getTagListByUserIdAndContainingTagText(userService.getLogInUser().getId(), containingText);
+        return tagRepository.getTagListByUserIdAndContainingTagSubject(userService.getLogInUser().getId(), containingText);
     }
 
 

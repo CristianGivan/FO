@@ -12,12 +12,15 @@ import com.app.FO.model.user.RoleType;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
 import com.app.FO.repository.note.NoteTagRepository;
+import com.app.FO.repository.user.RoleRepository;
+import com.app.FO.repository.user.UserRepository;
 import com.app.FO.service.note.NoteService;
 import com.app.FO.service.tag.TagService;
 import com.app.FO.service.topic.TopicService;
 import com.app.FO.service.user.RoleService;
 import com.app.FO.service.user.UserRoleService;
 import com.app.FO.service.user.UserService;
+import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -40,6 +43,13 @@ public class Runner implements CommandLineRunner {
     @Autowired
     private NoteTagRepository noteTagRepository;
 
+    @Autowired
+    private ServiceAll serviceAll;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+
 
     @Autowired
     public Runner(UserService userService, RoleService roleService, UserRoleService userRoleService,
@@ -56,11 +66,62 @@ public class Runner implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
 //        dbInit();
+//        dbUsers();
 
     }
 
 
+    public void dbUsers() {
+        User user1;
+        User user2;
+        User user3;
+        Role admin;
+        Role standard;
+
+        if (roleService.findRoleByType(RoleType.ROLE_ADMIN) == null) {
+            admin = roleService.saveRole(new Role(RoleType.ROLE_ADMIN));
+        } else {
+            admin = roleService.findRoleByType(RoleType.ROLE_ADMIN);
+        }
+
+        if (roleService.findRoleByType(RoleType.ROLE_STANDARD) == null) {
+            standard = roleService.saveRole(new Role(RoleType.ROLE_STANDARD));
+        } else {
+            standard = roleService.findRoleByType(RoleType.ROLE_STANDARD);
+        }
+// Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5Njg4MTg3NX0.fBU-cMbgrvQMJeI2FQ4rbLQkVQBNX5OlycIJ04F8msQWsC-LfB7gq_UddQIIIy1K5DvgEg1uyOnw8OHYPGw0yA
+        if (userService.getUserByUserId(1L) == null) {
+            user1 = new User("User1",
+                    "$2a$12$sJZ7/SZpCOTSeMg1jos87ulm.OcN31uQKnYisY/5r5XlNXSoQKPRi");//pas1
+            UserRole userRole1 = new UserRole(user1, admin);
+            UserRole userRole2 = new UserRole(user1, standard);
+            user1.getUserRoleList().add(userRole1);
+            user1.getUserRoleList().add(userRole2);
+            userRepository.save(user1);
+        }
+
+        if (userService.getUserByUserId(2L) == null) {
+            user2 = new User("User2",
+                    "$2a$12$gaUsXx4r4JlzHYXomu/XguBgQZbj2XXOWq5h683u7KCOPUozoRy56");//pas2
+            UserRole userRole2 = new UserRole(user2, standard);
+            user2.getUserRoleList().add(userRole2);
+            userRepository.save(user2);
+
+        }
+
+        if (userService.getUserByUserId(3L) == null) {
+            user3 = new User("User3",
+                    "$2a$12$b/jcMc9LC8sTk.8mV6Mzv.0GFCqgD7O/oK6m96nojFVKuGj8LlJv2");//pas3
+            UserRole userRole1 = new UserRole(user3, admin);
+            user3.getUserRoleList().add(userRole1);
+            userRepository.save(user3);
+        }
+
+
+    }
+
     public void dbInit() {
+
 
         User user1 = new User("User1",
                 "$2a$12$sJZ7/SZpCOTSeMg1jos87ulm.OcN31uQKnYisY/5r5XlNXSoQKPRi");//pas1
@@ -74,14 +135,14 @@ public class Runner implements CommandLineRunner {
         User savedUser3 = userService.saveUser(user3);
 
         Role admin = new Role(RoleType.ROLE_ADMIN);
-        Role client = new Role(RoleType.ROLE_STANDARD);
+        Role standard = new Role(RoleType.ROLE_STANDARD);
 
         Role savedAdmin = roleService.saveRole(admin);
-        Role savedClient = roleService.saveRole(client);
+        Role savedStandard = roleService.saveRole(standard);
 
         UserRole userRole1 = new UserRole(savedUser1, savedAdmin);
-        UserRole userRole2 = new UserRole(savedUser2, savedClient);
-        UserRole userRole3 = new UserRole(savedUser3, savedClient);
+        UserRole userRole2 = new UserRole(savedUser2, savedStandard);
+        UserRole userRole3 = new UserRole(savedUser3, savedStandard);
         UserRole userRole4 = new UserRole(savedUser3, savedAdmin);
 
         savedUser1.getUserRoleList().add(userRole1);
@@ -91,8 +152,8 @@ public class Runner implements CommandLineRunner {
 
         savedAdmin.getUserRoleList().add(userRole1);
         savedAdmin.getUserRoleList().add(userRole3);
-        savedClient.getUserRoleList().add(userRole2);
-        savedClient.getUserRoleList().add(userRole3);
+        savedStandard.getUserRoleList().add(userRole2);
+        savedStandard.getUserRoleList().add(userRole3);
 
         userRoleService.saveUserRole(userRole1);
         userRoleService.saveUserRole(userRole2);

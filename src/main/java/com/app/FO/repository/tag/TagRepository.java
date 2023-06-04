@@ -30,16 +30,16 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
     List<Tag> getTagListByUserId(Long UserId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM tag as t inner join tag_user tu on t.tag_id = tu.tag_id where tu.user_id=?1,t.tag_id=?2")
+            "SELECT * FROM tag as t inner join tag_user tu on t.tag_id = tu.tag_id where tu.user_id=?1 and t.tag_id=?2")
     Tag getTagFromUserIdAndTagId(Long UserId, Long tagId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM tag as t inner join tag_user ut on t.tag_id = ut.tag_id where ut.user_id=?1 and t.tag_text=?2")
-    Tag getTagsByUserIdAndTagText(Long UserId, String tagName);
+            "SELECT * FROM tag as t inner join tag_user ut on t.tag_id = ut.tag_id where ut.user_id=?1 and t.subject=?2")
+    Tag getTagsByUserIdAndTagText(Long UserId, String subject);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM tag as t inner join tag_user ut on t.tag_id = ut.tag_id where ut.user_id=:userId and t.tag_text like %:containingText%")
-    List<Tag> getTagListByUserIdAndContainingTagText(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM tag as t inner join tag_user ut on t.tag_id = ut.tag_id where ut.user_id=:userId and t.subject like %:subject%")
+    List<Tag> getTagListByUserIdAndContainingTagSubject(@Param("userId") Long UserId, @Param("subject") String subject);
 
     @Query(nativeQuery = true, value =
             "SELECT IF(EXISTS(SELECT * FROM tag_user as tu where tu.tag_id = ?1 and tu.user_id = ?2), 'True', 'False')")

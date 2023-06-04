@@ -2,6 +2,9 @@
 
 - type buy sell borrow receive
 - the balance will be updated when a transaction si added or when an expence is added
+- [ ] putBalanceToAccount is done by expenses and transaction
+- [ ] putExpensesToAccount is done at expenses
+- [ ] putTransactionToAccount is done at transaction
 
 # ToDo
 
@@ -46,61 +49,66 @@
 
 ### Attributes
 
-- [ ] subject
-- [ ] type
-- [ ] balance
-- [ ] transactionList
-- [ ] expensesList
-- [ ] createdDate
-- [ ] creator
-- [ ] accontUserList
-- [ ] accontTagList
-- [ ] accontReminderList
-- [ ] accontTopicList
-- [ ] accontTasksList
-- [ ] accontHistoryList
+- [x] subject
+- [x] type
+- [x] balance
+- [x] expensesList
+- [x] transactionList
+- [x] createdDate
+- [x] creator
+- [x] accountUserList
+- [x] accountTagList
+- [x] accountReminderList
+- [x] accountTopicList
+- [x] accountTasksList
+- [x] accountHistoryList
 
 ### Post
 
-- [ ] postAccont
+- [x] postAccount
 
 ### Put
 
-- [ ] putSubjectToAccont
-- [ ] putTypeToAccont
-- [ ] putUserToAccont
-- [ ] putTagToAccont
-- [ ] putReminderToAccont
-- [ ] putTopicToAccont
-- [ ] putTasksToAccont
-- [ ] putBalanceToAccont
-- [ ] putTransactionToAccont
-- [ ] putExpensesToAccont
+- [x] putSubjectToAccount
+- [x] putTypeToAccount
+- [x] putCreatedDateToAccount
+- [x] putUserToAccount
+- [x] putTagToAccount
+- [x] putReminderToAccount
+- [x] putTopicToAccount
+- [x] putTasksToAccount
+- [] putExpensesToAccount
+- [] putTransactionToAccount
 
 ### Delete
 
-- [ ] deleteUserFromAccont
-- [ ] deleteTagFromAccont
-- [ ] deleteReminderFromAccont
-- [ ] deleteTopicFromAccont
-- [ ] deleteTasksFromAccont
-- [ ] deleteAccont
+- [] deleteUserFromAccount
+- [] deleteTagFromAccount
+- [] deleteReminderFromAccount
+- [] deleteTopicFromAccount
+- [] deleteTasksFromAccount
+- [] deleteExpensesFromAccount
+- [] deleteTransactionFromAccount
+- [] deleteAccount
 
 ### Get
 
-- [ ] getAllAccont
-- [ ] getAccontById
-- [ ] getTaskBySubject
-- [ ] getTaskListBySubjectContains
-- [ ] getAccontByType
-- [ ] getAccontByCreatedDate
-- [ ] getAccontListByUser
-- [ ] getAccontListByTag
-- [ ] getAccontListByReminder
-- [ ] getAccontListByTopic
-- [ ] getAccontListByTasks
-- [ ] getAccontListByBalance
-- [ ] getAccontListByTransaction
-- [ ] getAccontListByExpenses
+- [x] getAllAccount
+- [x] getAccountById
+- [x] getTaskBySubject
+- [x] getTaskListBySubjectContains
+- [x] getAccountByType
+- [x] getAccountByTypeContains
+- [x] getAccountByBalance
+- [x] getAccountByBalanceBetween
+- [x] getAccountByCreatedDate
+- [x] getAccountByCreatedDateBetween
+- [x] getAccountListByUser
+- [x] getAccountListByTag
+- [x] getAccountListByReminder
+- [x] getAccountListByTopic
+- [x] getAccountListByTasks
+- [] getAccountListByExpenses
+- [] getAccountListByTransaction
 
 ## Other

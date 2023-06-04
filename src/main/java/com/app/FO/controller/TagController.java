@@ -46,8 +46,8 @@ public class TagController {
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
-    @PutMapping("/putTextToTag/")
-    public TagDTO putTextToTag(@RequestParam Long tagId, @RequestParam String tagText) {
+    @PutMapping("/putSubbjectToTag/")
+    public TagDTO putSubjectToTag(@RequestParam Long tagId, @RequestParam String tagText) {
         Tag tag = tagService.putTextToTag(tagId, tagText);
         return tagDTOMapper.tagToTagDTO(tag);
     }

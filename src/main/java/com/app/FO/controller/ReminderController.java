@@ -24,13 +24,17 @@ public class ReminderController {
     }
 
 
-    //-- PutMapping
+    //-- PostMapping
 
-    @PostMapping("/addNewReminder")
+    @PostMapping("/postNewReminder")
     public ReminderDTO PostNewNote(@RequestBody TextDTO reminderText) {
         Reminder reminder = reminderService.postReminderText(reminderText.getText());
         return reminderDTOMapper.reminderTOReminderDTO(reminder);
     }
+
+
+    //-- PutMapping
+
 
     // -- GetMapping
     @GetMapping("/getAllReminder")
@@ -50,8 +54,6 @@ public class ReminderController {
         List<Reminder> reminderList = reminderService.getReminderListByNoteId(noteId);
         return reminderDTOMapper.reminderListTOReminderDTOList(reminderList);
     }
-
-    //-- PostMapping
 
 
     //-- DeleteMapping

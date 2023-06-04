@@ -119,8 +119,8 @@ public class Reminder {
 
     public Reminder(String reminder, User creator) {
         this.reminder = reminder;
-        this.createdDateTime = LocalDateTime.now();
         this.creator = creator;
+        this.createdDateTime = LocalDateTime.now();
     }
 
 

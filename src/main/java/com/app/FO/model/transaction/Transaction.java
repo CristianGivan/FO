@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -106,6 +107,9 @@ public class Transaction {
     }
 
     public List<TransactionUser> getTransactionUserList() {
+        if (transactionUserList == null) {
+            transactionUserList = new ArrayList<>();
+        }
         return transactionUserList;
     }
 

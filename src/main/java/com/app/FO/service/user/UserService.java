@@ -68,6 +68,7 @@ public class UserService {
         }
         user = new User(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
 
+        //todo tbc it coud receive more roles a list
         Role role;
         if (newUser.getRole().equals("admin")) {
             role = roleService.findRoleByType(RoleType.ROLE_ADMIN);

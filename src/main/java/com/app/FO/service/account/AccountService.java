@@ -1,17 +1,21 @@
 package com.app.FO.service.account;
 
+import com.app.FO.config.DateTime;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.account.*;
+import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.transaction.Transaction;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.account.AccountRepository;
 import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -61,9 +65,37 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    public Account putTypeToAccount(Long accountId, String type) {
+        User logInUser = serviceAll.getLogInUser();
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+
+        account.setType(type);
+
+        return accountRepository.save(account);
+    }
+
+    public Account putCreatedDateToAccount(Long accountId, String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
+        User logInUser = serviceAll.getLogInUser();
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+
+        if (account.getCreatedDate().equals(createdDateTime)) {
+            throw new AccountAlreadyExistException("Account has already the same created date");
+        }
+
+        account.setCreatedDate(createdDateTime);
+
+        return accountRepository.save(account);
+    }
+
     public Account putUserToAccount(Long accountId, Long userId) {
         User logInUser = serviceAll.getLogInUser();
-
         Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
         if (account == null) {
             throw new AccountNotFoundException("Account not found in your list");
@@ -180,6 +212,51 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    public Account putExpensesToAccount(Long accountId, Long expensesId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+
+        Expenses expenses = serviceAll.getExpensesFromUserIdAndExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found");
+        }
+
+        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(accountId, expensesId);
+        if (accountExpenses != null) {
+            throw new AccountExpensesAlreadyExistException("The account already has the expenses");
+        }
+
+        accountExpenses = new AccountExpenses(account, expenses);
+        account.getAccountExpensesList().add(accountExpenses);
+        return accountRepository.save(account);
+    }
+
+    public Account putTransactionToAccount(Long accountId, Long transactionId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+
+        Transaction transaction = serviceAll.getTransactionFromUserIdAndTransactionId(logInUser.getId(), transactionId);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("Transaction not found");
+        }
+
+        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
+        if (accountTransaction != null) {
+            throw new AccountTransactionAlreadyExistException("The account already has the transaction");
+        }
+
+        accountTransaction = new AccountTransaction(account, transaction);
+        account.getAccountTransactionList().add(accountTransaction);
+        return accountRepository.save(account);
+    }
 
     //--Delete
 
@@ -298,6 +375,54 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    public Account deleteExpensesFromAccount(Long accountId, Long expensesId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+
+        Expenses expenses = serviceAll.getExpensesFromUserIdAndExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found");
+        }
+
+        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(accountId, expensesId);
+        if (accountExpenses == null) {
+            throw new AccountExpensesNotFoundException("The account don't has the expenses");
+        }
+        // todo tbc
+//        Double sum  =expenses.total
+
+        account.getAccountExpensesList().remove(accountExpenses);
+
+        return accountRepository.save(account);
+    }
+
+    public Account deleteTransactionFromAccount(Long accountId, Long transactionId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+
+        Transaction transaction = serviceAll.getTransactionFromUserIdAndTransactionId(logInUser.getId(), transactionId);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("Transaction not found");
+        }
+
+        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
+        if (accountTransaction == null) {
+            throw new AccountTransactionNotFoundException("The account don't has the transaction");
+        }
+
+        account.getAccountTransactionList().remove(accountTransaction);
+
+        return accountRepository.save(account);
+    }
+
     public List<Account> deleteAccount(Long accountId) {
         User logInUser = serviceAll.getLogInUser();
 
@@ -308,6 +433,8 @@ public class AccountService {
         accountRepository.delete(account);
         return getAllAccount();
     }
+
+
     //-- GET
 
 
@@ -331,7 +458,64 @@ public class AccountService {
 
     public List<Account> getAccountListBySubjectContains(String subjectContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<Account> accountList = accountRepository.getAccountListBySubjectContains(logInUser.getId(), subjectContains);
+        List<Account> accountList = accountRepository.getAccountListFromUserIdBySubjectContains(logInUser.getId(), subjectContains);
+        if (accountList.isEmpty()) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return accountList;
+    }
+
+    public Account getAccountByType(String type) {
+        User logInUser = serviceAll.getLogInUser();
+        Account account = accountRepository.getAccountFromUserIdByType(logInUser.getId(), type);
+        if (account == null) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return account;
+    }
+
+    public List<Account> getAccountByTypeContains(String typeContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Account> accountList = accountRepository.getAccountListFromUserIdByTypeContains(logInUser.getId(), typeContains);
+        if (accountList.isEmpty()) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return accountList;
+    }
+
+    public Account getAccountByBalance(Double balance) {
+        User logInUser = serviceAll.getLogInUser();
+        Account account = accountRepository.getAccountFromUserIdByBalance(logInUser.getId(), balance);
+        if (account == null) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return account;
+    }
+
+    public List<Account> getAccountByBalanceBetween(Double balanceMin, Double balanceMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Account> accountList = accountRepository.getAccountListFromUserIdByBalanceBetween(logInUser.getId(), balanceMin, balanceMax);
+        if (accountList.isEmpty()) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return accountList;
+    }
+
+    public Account getAccountByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
+        User logInUser = serviceAll.getLogInUser();
+        Account account = accountRepository.getAccountFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+        if (account == null) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return account;
+    }
+
+    public List<Account> getAccountByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Account> accountList = accountRepository.getAccountListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
         if (accountList.isEmpty()) {
             throw new AccountNotFoundException("No account found");
         }
@@ -386,6 +570,24 @@ public class AccountService {
     public List<Account> getAccountListByTasksId(Long tasksId) {
         User logInUser = serviceAll.getLogInUser();
         List<Account> accountList = accountRepository.getAccountListFromUserIdByTasksId(logInUser.getId(), tasksId);
+        if (accountList.isEmpty()) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return accountList;
+    }
+
+    public List<Account> getAccountListByExpenses(Long tasksId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Account> accountList = accountRepository.getAccountListFromUserIdByExpensesId(logInUser.getId(), tasksId);
+        if (accountList.isEmpty()) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return accountList;
+    }
+
+    public List<Account> getAccountListByTransaction(Long transactionId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Account> accountList = accountRepository.getAccountListFromUserIdByTransactionId(logInUser.getId(), transactionId);
         if (accountList.isEmpty()) {
             throw new AccountNotFoundException("No account found");
         }

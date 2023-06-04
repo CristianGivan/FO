@@ -1,0 +1,1 @@
+SELECT * FROM fo_db.account;

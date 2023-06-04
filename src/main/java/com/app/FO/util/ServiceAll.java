@@ -226,6 +226,10 @@ public class ServiceAll {
     @Autowired
     private AccountTasksRepository accountTasksRepository;
 
+    @Autowired
+    private AccountExpensesRepository accountExpensesRepository;
+    @Autowired
+    private AccountTransactionRepository accountTransactionRepository;
 
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -427,8 +431,8 @@ public class ServiceAll {
         return linkTopicRepository.getLinkTopicByLinkIdAndTopicId(linkId, topicId);
     }
 
-    public LinkTasks getLinkTasks(Long linkId, Long taskId) {
-        return linkTasksRepository.getLinkTasksByLinkIdAndTasksId(linkId, taskId);
+    public LinkTasks getLinkTasks(Long linkId, Long tasksId) {
+        return linkTasksRepository.getLinkTasksByLinkIdAndTasksId(linkId, tasksId);
     }
 
 //-- getWorkAnd
@@ -476,8 +480,8 @@ public class ServiceAll {
         return personTopicRepository.getPersonTopicByPersonIdAndTopicId(personId, topicId);
     }
 
-    public PersonTasks getPersonTasks(Long personId, Long taskId) {
-        return personTasksRepository.getPersonTasksByPersonIdAndTasksId(personId, taskId);
+    public PersonTasks getPersonTasks(Long personId, Long tasksId) {
+        return personTasksRepository.getPersonTasksByPersonIdAndTasksId(personId, tasksId);
     }
 
     //-- getEventAnd
@@ -503,8 +507,8 @@ public class ServiceAll {
         return eventTopicRepository.getEventTopicByEventIdAndTopicId(eventId, topicId);
     }
 
-    public EventTasks getEventTasks(Long eventId, Long taskId) {
-        return eventTasksRepository.getEventTasksByEventIdAndTasksId(eventId, taskId);
+    public EventTasks getEventTasks(Long eventId, Long tasksId) {
+        return eventTasksRepository.getEventTasksByEventIdAndTasksId(eventId, tasksId);
     }
 
     //-- getExpenseAnd
@@ -530,8 +534,8 @@ public class ServiceAll {
         return expenseTopicRepository.getExpenseTopicByExpenseIdAndTopicId(expenseId, topicId);
     }
 
-    public ExpenseTasks getExpenseTasks(Long expenseId, Long taskId) {
-        return expenseTasksRepository.getExpenseTasksByExpenseIdAndTasksId(expenseId, taskId);
+    public ExpenseTasks getExpenseTasks(Long expenseId, Long tasksId) {
+        return expenseTasksRepository.getExpenseTasksByExpenseIdAndTasksId(expenseId, tasksId);
     }
 
     //-- getExpensesAnd
@@ -557,8 +561,8 @@ public class ServiceAll {
         return expensesTopicRepository.getExpensesTopicByExpensesIdAndTopicId(expensesId, topicId);
     }
 
-    public ExpensesTasks getExpensesTasks(Long expensesId, Long taskId) {
-        return expensesTasksRepository.getExpensesTasksByExpensesIdAndTasksId(expensesId, taskId);
+    public ExpensesTasks getExpensesTasks(Long expensesId, Long tasksId) {
+        return expensesTasksRepository.getExpensesTasksByExpensesIdAndTasksId(expensesId, tasksId);
     }
 
     //-- getTransactionAnd
@@ -584,8 +588,8 @@ public class ServiceAll {
         return transactionTopicRepository.getTransactionTopicByTransactionIdAndTopicId(transactionId, topicId);
     }
 
-    public TransactionTasks getTransactionTasks(Long transactionId, Long taskId) {
-        return transactionTasksRepository.getTransactionTasksByTransactionIdAndTasksId(transactionId, taskId);
+    public TransactionTasks getTransactionTasks(Long transactionId, Long tasksId) {
+        return transactionTasksRepository.getTransactionTasksByTransactionIdAndTasksId(transactionId, tasksId);
     }
 
     //-- getAccountAnd
@@ -611,8 +615,16 @@ public class ServiceAll {
         return accountTopicRepository.getAccountTopicByAccountIdAndTopicId(accountId, topicId);
     }
 
-    public AccountTasks getAccountTasks(Long accountId, Long taskId) {
-        return accountTasksRepository.getAccountTasksByAccountIdAndTasksId(accountId, taskId);
+    public AccountTasks getAccountTasks(Long accountId, Long tasksId) {
+        return accountTasksRepository.getAccountTasksByAccountIdAndTasksId(accountId, tasksId);
+    }
+
+    public AccountExpenses getAccountExpenses(Long accountId, Long expensesId) {
+        return accountExpensesRepository.getAccountExpensesByAccountIdAndExpensesId(accountId, expensesId);
+    }
+
+    public AccountTransaction getAccountTransaction(Long accountId, Long transactionId) {
+        return accountTransactionRepository.getAccountTransactionByAccountIdAndTransactionId(accountId, transactionId);
     }
 
     //--------------------------

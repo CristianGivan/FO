@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,13 @@ public class Account {
 
     @Column(name = "subject")
     private String subject;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "balance")
+    private Double balance;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -29,7 +37,6 @@ public class Account {
     private User creator;
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountUser> accountUserList;
-
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountTopic> accountTopicList;
@@ -42,6 +49,12 @@ public class Account {
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountReminder> accountReminderList;
+
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountExpenses> accountExpensesList;
+
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountTransaction> accountTransactionList;
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountHistory> accountHistoryList;
@@ -61,14 +74,17 @@ public class Account {
         return "Account{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
+                ", type='" + type + '\'' +
+                ", balance=" + balance +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", accountUserList=" + accountUserList +
                 ", accountTopicList=" + accountTopicList +
                 ", accountTasksList=" + accountTasksList +
-                ", accountUserList=" + accountUserList +
                 ", accountTagList=" + accountTagList +
                 ", accountReminderList=" + accountReminderList +
+                ", accountExpensesList=" + accountExpensesList +
+                ", accountTransactionList=" + accountTransactionList +
                 ", accountHistoryList=" + accountHistoryList +
                 '}';
     }
@@ -89,6 +105,22 @@ public class Account {
         this.subject = subject;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
@@ -106,11 +138,30 @@ public class Account {
     }
 
     public List<AccountUser> getAccountUserList() {
+        if (accountUserList == null) {
+            accountUserList = new ArrayList<>();
+        }
         return accountUserList;
     }
 
     public void setAccountUserList(List<AccountUser> accountUserList) {
         this.accountUserList = accountUserList;
+    }
+
+    public List<AccountTopic> getAccountTopicList() {
+        return accountTopicList;
+    }
+
+    public void setAccountTopicList(List<AccountTopic> accountTopicList) {
+        this.accountTopicList = accountTopicList;
+    }
+
+    public List<AccountTasks> getAccountTasksList() {
+        return accountTasksList;
+    }
+
+    public void setAccountTasksList(List<AccountTasks> accountTasksList) {
+        this.accountTasksList = accountTasksList;
     }
 
     public List<AccountTag> getAccountTagList() {
@@ -129,27 +180,27 @@ public class Account {
         this.accountReminderList = accountReminderList;
     }
 
+    public List<AccountExpenses> getAccountExpensesList() {
+        return accountExpensesList;
+    }
+
+    public void setAccountExpensesList(List<AccountExpenses> accountExpensesList) {
+        this.accountExpensesList = accountExpensesList;
+    }
+
+    public List<AccountTransaction> getAccountTransactionList() {
+        return accountTransactionList;
+    }
+
+    public void setAccountTransactionList(List<AccountTransaction> accountTransactionList) {
+        this.accountTransactionList = accountTransactionList;
+    }
+
     public List<AccountHistory> getAccountHistoryList() {
         return accountHistoryList;
     }
 
     public void setAccountHistoryList(List<AccountHistory> accountHistoryList) {
         this.accountHistoryList = accountHistoryList;
-    }
-
-    public List<AccountTopic> getAccountTopicList() {
-        return accountTopicList;
-    }
-
-    public void setAccountTopicList(List<AccountTopic> accountTopicList) {
-        this.accountTopicList = accountTopicList;
-    }
-
-    public List<AccountTasks> getAccountTasksList() {
-        return accountTasksList;
-    }
-
-    public void setAccountTasksList(List<AccountTasks> accountTasksList) {
-        this.accountTasksList = accountTasksList;
     }
 }

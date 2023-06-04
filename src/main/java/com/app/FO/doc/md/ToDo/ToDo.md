@@ -3,14 +3,14 @@
 - [ ] link_date to created_date
 
 - [x] get by user (user is a user from UserList)
-- [ ] Refactoring all methods to have the same naming conventions
-- [ ] todo Account
-- [ ] todo Transaction
-- [ ] todo Expenses
-- [ ] todo Expense
-- [ ] todo Event
-- [ ] todo Person
-- [ ] todo Link
+- [x] Refactoring all methods to have the same naming conventions
+- [ ] Check Account
+- [ ] Check Transaction
+- [ ] Check Expenses
+- [ ] Check Expense
+- [ ] Check Event
+- [ ] Check Person
+- [ ] Check Link
 - [ ] Check Work
 - [ ] Check Tasks
 - [ ] Check Task

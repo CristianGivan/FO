@@ -22,7 +22,7 @@ public class AccountTransaction {
     @ManyToOne
     @JoinColumn(name = "transaction_id")
     @JsonIgnore
-    private Transaction  transaction;
+    private Transaction transaction;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -33,6 +33,12 @@ public class AccountTransaction {
     private LocalDateTime linkDate;
 
     public AccountTransaction() {
+    }
+
+    public AccountTransaction(Account account, Transaction transaction) {
+        this.transaction = transaction;
+        this.account = account;
+        this.linkDate = LocalDateTime.now();
     }
 
     @Override
