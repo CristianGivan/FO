@@ -70,12 +70,12 @@ public class Reminder {
     private Task task;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "work_id")
     @JsonIgnore
     private Work work;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "tasks_id")
     @JsonIgnore
     private Tasks tasks;
 
@@ -85,32 +85,32 @@ public class Reminder {
     private Event event;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "link_id")
     @JsonIgnore
     private Link link;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "person_id")
     @JsonIgnore
     private Person person;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "expense_id")
     @JsonIgnore
     private Expense expense;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "expenses_id")
     @JsonIgnore
     private Expenses expenses;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "transaction_id")
     @JsonIgnore
     private Transaction transaction;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
 
@@ -122,6 +122,7 @@ public class Reminder {
         this.createdDateTime = LocalDateTime.now();
         this.creator = creator;
     }
+
 
     @Override
     public String toString() {
