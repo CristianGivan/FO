@@ -78,7 +78,7 @@ public class TagService {
          */
         Tag tag = getTagByTagId(tagId);
         checksTag.checkIsTag(tag);
-        tag.setTagText(tagText);
+        tag.setSubject(tagText);
         return tagRepository.save(tag);
     }
 

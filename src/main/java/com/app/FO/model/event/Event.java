@@ -1,10 +1,11 @@
 package com.app.FO.model.event;
 
-import com.app.FO.model.reminder.Reminder;
+import com.app.FO.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Entity
 @Table(name = "event")
@@ -18,41 +19,57 @@ public class Event {
     @Column(name = "event_id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "subject")
+    private String subject;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventUser> eventUserList;
 
-    @OneToMany(mappedBy = "event")
-    private List<EventTag> tagList;
 
-    @OneToMany(mappedBy = "event")
-    private List<EventUser> userList;
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventTopic> eventTopicList;
 
-    @OneToMany(mappedBy = "event")
-    private List<EventTopic> topicList;
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventTasks> eventTasksList;
 
-    @OneToMany(mappedBy = "event")
-    private List<EventTasks> taskList;
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventTag> eventTagList;
 
-    @OneToMany(mappedBy = "event")
-    private List<EventExpense> expenseList;
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventReminder> eventReminderList;
 
-    @OneToMany(mappedBy = "event")
-    private List<Reminder> reminderList;
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventHistory> eventHistoryList;
+
 
     public Event() {
+    }
+
+    public Event(String subject, User creator) {
+        this.subject = subject;
+        this.creator = creator;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Event{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", tags=" + tagList +
-                ", users=" + userList +
-                ", topics=" + topicList +
-                ", taskLists=" + taskList +
-                ", expenses=" + expenseList +
-                ", remainders=" + reminderList +
+                ", subject='" + subject + '\'' +
+                ", createdDate=" + createdDate +
+                ", creator=" + creator +
+                ", eventUserList=" + eventUserList +
+                ", eventTopicList=" + eventTopicList +
+                ", eventTasksList=" + eventTasksList +
+                ", eventUserList=" + eventUserList +
+                ", eventTagList=" + eventTagList +
+                ", eventReminderList=" + eventReminderList +
+                ", eventHistoryList=" + eventHistoryList +
                 '}';
     }
 
@@ -64,59 +81,75 @@ public class Event {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public List<EventTag> getTagList() {
-        return tagList;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setTagList(List<EventTag> tags) {
-        this.tagList = tags;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public List<EventUser> getUserList() {
-        return userList;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUserList(List<EventUser> users) {
-        this.userList = users;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
-    public List<EventTopic> getTopicList() {
-        return topicList;
+    public List<EventUser> getEventUserList() {
+        return eventUserList;
     }
 
-    public void setTopicList(List<EventTopic> topics) {
-        this.topicList = topics;
+    public void setEventUserList(List<EventUser> eventUserList) {
+        this.eventUserList = eventUserList;
     }
 
-    public List<EventTasks> getTaskList() {
-        return taskList;
+    public List<EventTag> getEventTagList() {
+        return eventTagList;
     }
 
-    public void setTaskList(List<EventTasks> taskLists) {
-        this.taskList = taskLists;
+    public void setEventTagList(List<EventTag> eventTagList) {
+        this.eventTagList = eventTagList;
     }
 
-    public List<EventExpense> getExpenseList() {
-        return expenseList;
+    public List<EventReminder> getEventReminderList() {
+        return eventReminderList;
     }
 
-    public void setExpenseList(List<EventExpense> expenses) {
-        this.expenseList = expenses;
+    public void setEventReminderList(List<EventReminder> eventReminderList) {
+        this.eventReminderList = eventReminderList;
     }
 
-    public List<Reminder> getRemainderList() {
-        return reminderList;
+    public List<EventHistory> getEventHistoryList() {
+        return eventHistoryList;
     }
 
-    public void setRemainderList(List<Reminder> reminders) {
-        this.reminderList = reminders;
+    public void setEventHistoryList(List<EventHistory> eventHistoryList) {
+        this.eventHistoryList = eventHistoryList;
+    }
+
+    public List<EventTopic> getEventTopicList() {
+        return eventTopicList;
+    }
+
+    public void setEventTopicList(List<EventTopic> eventTopicList) {
+        this.eventTopicList = eventTopicList;
+    }
+
+    public List<EventTasks> getEventTasksList() {
+        return eventTasksList;
+    }
+
+    public void setEventTasksList(List<EventTasks> eventTasksList) {
+        this.eventTasksList = eventTasksList;
     }
 }

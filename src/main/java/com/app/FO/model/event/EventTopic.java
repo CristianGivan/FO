@@ -28,10 +28,16 @@ public class EventTopic {
     @JsonIgnore
     private Topic topic;
 
-    @Column(name = "link_date")
-    private LocalDateTime linkDate;
+    @Column(name = "event_date")
+    private LocalDateTime eventDate;
 
     public EventTopic() {
+    }
+
+    public EventTopic(Event event, Topic topic) {
+        this.event = event;
+        this.topic = topic;
+        this.eventDate = LocalDateTime.now();
     }
 
     @Override
@@ -40,7 +46,7 @@ public class EventTopic {
                 "id=" + id +
                 ", eventId=" + event.getId() +
                 ", topicId=" + topic.getId() +
-                ", linkDate=" + linkDate +
+                ", eventDate=" + eventDate +
                 '}';
     }
 }

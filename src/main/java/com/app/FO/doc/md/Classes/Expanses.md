@@ -1,6 +1,7 @@
 # General
 
 - type is if is a shopping list, wish list
+- think more how shall be done in user
 
 # ToDo
 
@@ -53,6 +54,7 @@
 - [ ] createdDate
 - [ ] creator
 - [ ] expensesUserList
+- [ ] expensesPayerList
 - [ ] expensesTagList
 - [ ] expensesReminderList
 - [ ] expensesTopicList
@@ -77,6 +79,7 @@
 - [ ] putTopicToExpenses
 - [ ] putTasksToExpenses
 - [ ] putAccountToExpenses
+- [ ] putPayerToExpenses
 
 ### Delete
 
@@ -86,6 +89,7 @@
 - [ ] deleteTopicFromExpenses
 - [ ] deleteTasksFromExpenses
 - [ ] deleteExpenses
+- [ ] deletePayerFromExpenses
 
 ### Get
 
@@ -104,5 +108,6 @@
 - [ ] getExpensesListByTopic
 - [ ] getExpensesListByTasks
 - [ ] getExpensesListByAccount
+- [ ] getExpensesListByPayer
 
 ## Other

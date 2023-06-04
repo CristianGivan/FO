@@ -1,5 +1,9 @@
 package com.app.FO.util;
 
+import com.app.FO.model.account.*;
+import com.app.FO.model.event.*;
+import com.app.FO.model.expense.*;
+import com.app.FO.model.expenses.*;
 import com.app.FO.model.link.*;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.person.*;
@@ -8,9 +12,14 @@ import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.*;
 import com.app.FO.model.tasks.*;
 import com.app.FO.model.topic.*;
+import com.app.FO.model.transaction.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
 import com.app.FO.model.work.*;
+import com.app.FO.repository.account.*;
+import com.app.FO.repository.event.*;
+import com.app.FO.repository.expense.*;
+import com.app.FO.repository.expenses.*;
 import com.app.FO.repository.link.*;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.person.*;
@@ -19,6 +28,7 @@ import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.task.*;
 import com.app.FO.repository.tasks.*;
 import com.app.FO.repository.topic.*;
+import com.app.FO.repository.transaction.*;
 import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
@@ -135,6 +145,87 @@ public class ServiceAll {
 
     @Autowired
     private PersonTasksRepository personTasksRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
+    @Autowired
+    private EventUserRepository eventUserRepository;
+    @Autowired
+    private EventTagRepository eventTagRepository;
+
+    @Autowired
+    private EventReminderRepository eventReminderRepository;
+
+    @Autowired
+    private EventTopicRepository eventTopicRepository;
+
+    @Autowired
+    private EventTasksRepository eventTasksRepository;
+
+    @Autowired
+    private ExpenseRepository expenseRepository;
+    @Autowired
+    private ExpenseUserRepository expenseUserRepository;
+    @Autowired
+    private ExpenseTagRepository expenseTagRepository;
+
+    @Autowired
+    private ExpenseReminderRepository expenseReminderRepository;
+
+    @Autowired
+    private ExpenseTopicRepository expenseTopicRepository;
+
+    @Autowired
+    private ExpenseTasksRepository expenseTasksRepository;
+
+    @Autowired
+    private ExpensesRepository expensesRepository;
+    @Autowired
+    private ExpensesUserRepository expensesUserRepository;
+    @Autowired
+    private ExpensesTagRepository expensesTagRepository;
+
+    @Autowired
+    private ExpensesReminderRepository expensesReminderRepository;
+
+    @Autowired
+    private ExpensesTopicRepository expensesTopicRepository;
+
+    @Autowired
+    private ExpensesTasksRepository expensesTasksRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+    @Autowired
+    private TransactionUserRepository transactionUserRepository;
+    @Autowired
+    private TransactionTagRepository transactionTagRepository;
+
+    @Autowired
+    private TransactionReminderRepository transactionReminderRepository;
+
+    @Autowired
+    private TransactionTopicRepository transactionTopicRepository;
+
+    @Autowired
+    private TransactionTasksRepository transactionTasksRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+    @Autowired
+    private AccountUserRepository accountUserRepository;
+    @Autowired
+    private AccountTagRepository accountTagRepository;
+
+    @Autowired
+    private AccountReminderRepository accountReminderRepository;
+
+    @Autowired
+    private AccountTopicRepository accountTopicRepository;
+
+    @Autowired
+    private AccountTasksRepository accountTasksRepository;
+
 
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -387,6 +478,141 @@ public class ServiceAll {
 
     public PersonTasks getPersonTasks(Long personId, Long taskId) {
         return personTasksRepository.getPersonTasksByPersonIdAndTasksId(personId, taskId);
+    }
+
+    //-- getEventAnd
+
+
+    public Event getEventFromUserIdAndEventId(Long userId, Long eventId) {
+        return eventRepository.getEventFromUserIdByEventId(userId, eventId);
+    }
+
+    public EventUser getEventUser(Long eventId, Long userId) {
+        return eventUserRepository.getEventUserByEventIdAndUserId(eventId, userId);
+    }
+
+    public EventTag getEventTag(Long eventId, Long tagId) {
+        return eventTagRepository.getEventTagByEventIdAndTagId(eventId, tagId);
+    }
+
+    public EventReminder getEventReminder(Long eventId, Long reminderId) {
+        return eventReminderRepository.getEventReminderByEventIdAndReminderId(eventId, reminderId);
+    }
+
+    public EventTopic getEventTopic(Long eventId, Long topicId) {
+        return eventTopicRepository.getEventTopicByEventIdAndTopicId(eventId, topicId);
+    }
+
+    public EventTasks getEventTasks(Long eventId, Long taskId) {
+        return eventTasksRepository.getEventTasksByEventIdAndTasksId(eventId, taskId);
+    }
+
+    //-- getExpenseAnd
+
+
+    public Expense getExpenseFromUserIdAndExpenseId(Long userId, Long expenseId) {
+        return expenseRepository.getExpenseFromUserIdByExpenseId(userId, expenseId);
+    }
+
+    public ExpenseUser getExpenseUser(Long expenseId, Long userId) {
+        return expenseUserRepository.getExpenseUserByExpenseIdAndUserId(expenseId, userId);
+    }
+
+    public ExpenseTag getExpenseTag(Long expenseId, Long tagId) {
+        return expenseTagRepository.getExpenseTagByExpenseIdAndTagId(expenseId, tagId);
+    }
+
+    public ExpenseReminder getExpenseReminder(Long expenseId, Long reminderId) {
+        return expenseReminderRepository.getExpenseReminderByExpenseIdAndReminderId(expenseId, reminderId);
+    }
+
+    public ExpenseTopic getExpenseTopic(Long expenseId, Long topicId) {
+        return expenseTopicRepository.getExpenseTopicByExpenseIdAndTopicId(expenseId, topicId);
+    }
+
+    public ExpenseTasks getExpenseTasks(Long expenseId, Long taskId) {
+        return expenseTasksRepository.getExpenseTasksByExpenseIdAndTasksId(expenseId, taskId);
+    }
+
+    //-- getExpensesAnd
+
+
+    public Expenses getExpensesFromUserIdAndExpensesId(Long userId, Long expensesId) {
+        return expensesRepository.getExpensesFromUserIdByExpensesId(userId, expensesId);
+    }
+
+    public ExpensesUser getExpensesUser(Long expensesId, Long userId) {
+        return expensesUserRepository.getExpensesUserByExpensesIdAndUserId(expensesId, userId);
+    }
+
+    public ExpensesTag getExpensesTag(Long expensesId, Long tagId) {
+        return expensesTagRepository.getExpensesTagByExpensesIdAndTagId(expensesId, tagId);
+    }
+
+    public ExpensesReminder getExpensesReminder(Long expensesId, Long reminderId) {
+        return expensesReminderRepository.getExpensesReminderByExpensesIdAndReminderId(expensesId, reminderId);
+    }
+
+    public ExpensesTopic getExpensesTopic(Long expensesId, Long topicId) {
+        return expensesTopicRepository.getExpensesTopicByExpensesIdAndTopicId(expensesId, topicId);
+    }
+
+    public ExpensesTasks getExpensesTasks(Long expensesId, Long taskId) {
+        return expensesTasksRepository.getExpensesTasksByExpensesIdAndTasksId(expensesId, taskId);
+    }
+
+    //-- getTransactionAnd
+
+
+    public Transaction getTransactionFromUserIdAndTransactionId(Long userId, Long transactionId) {
+        return transactionRepository.getTransactionFromUserIdByTransactionId(userId, transactionId);
+    }
+
+    public TransactionUser getTransactionUser(Long transactionId, Long userId) {
+        return transactionUserRepository.getTransactionUserByTransactionIdAndUserId(transactionId, userId);
+    }
+
+    public TransactionTag getTransactionTag(Long transactionId, Long tagId) {
+        return transactionTagRepository.getTransactionTagByTransactionIdAndTagId(transactionId, tagId);
+    }
+
+    public TransactionReminder getTransactionReminder(Long transactionId, Long reminderId) {
+        return transactionReminderRepository.getTransactionReminderByTransactionIdAndReminderId(transactionId, reminderId);
+    }
+
+    public TransactionTopic getTransactionTopic(Long transactionId, Long topicId) {
+        return transactionTopicRepository.getTransactionTopicByTransactionIdAndTopicId(transactionId, topicId);
+    }
+
+    public TransactionTasks getTransactionTasks(Long transactionId, Long taskId) {
+        return transactionTasksRepository.getTransactionTasksByTransactionIdAndTasksId(transactionId, taskId);
+    }
+
+    //-- getAccountAnd
+
+
+    public Account getAccountFromUserIdAndAccountId(Long userId, Long accountId) {
+        return accountRepository.getAccountFromUserIdByAccountId(userId, accountId);
+    }
+
+    public AccountUser getAccountUser(Long accountId, Long userId) {
+        return accountUserRepository.getAccountUserByAccountIdAndUserId(accountId, userId);
+    }
+
+    public AccountTag getAccountTag(Long accountId, Long tagId) {
+        return accountTagRepository.getAccountTagByAccountIdAndTagId(accountId, tagId);
+    }
+
+    public AccountReminder getAccountReminder(Long accountId, Long reminderId) {
+        return accountReminderRepository.getAccountReminderByAccountIdAndReminderId(accountId, reminderId);
+    }
+
+    public AccountTopic getAccountTopic(Long accountId, Long topicId) {
+        return accountTopicRepository.getAccountTopicByAccountIdAndTopicId(accountId, topicId);
+    }
+
+    public AccountTasks getAccountTasks(Long accountId, Long taskId) {
+        return accountTasksRepository.getAccountTasksByAccountIdAndTasksId(accountId, taskId);
     }
 
     //--------------------------

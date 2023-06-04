@@ -27,6 +27,7 @@ public class Link {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
+
     @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LinkUser> linkUserList;
 

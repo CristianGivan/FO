@@ -1,5 +1,6 @@
 package com.app.FO.mapper.dto.reminder;
 
+import com.app.FO.mapper.dto.event.EventDTO;
 import com.app.FO.mapper.dto.note.NoteDTO;
 import com.app.FO.mapper.dto.snooze.SnoozeDTO;
 import com.app.FO.mapper.dto.task.TaskDTO;

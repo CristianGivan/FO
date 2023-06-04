@@ -28,10 +28,16 @@ public class EventTag {
     @JsonIgnore
     private Tag tag;
 
-    @Column(name = "link_date")
-    private LocalDateTime linkDate;
+    @Column(name = "event_date")
+    private LocalDateTime eventDate;
 
     public EventTag() {
+    }
+
+    public EventTag(Event event, Tag tag) {
+        this.event = event;
+        this.tag = tag;
+        this.eventDate = LocalDateTime.now();
     }
 
     @Override
@@ -40,7 +46,7 @@ public class EventTag {
                 "id=" + id +
                 ", eventId=" + event.getId() +
                 ", tagId=" + tag.getId() +
-                ", linkDate=" + linkDate +
+                ", eventDate=" + eventDate +
                 '}';
     }
 
@@ -68,11 +74,11 @@ public class EventTag {
         this.tag = tag;
     }
 
-    public LocalDateTime getLinkDate() {
-        return linkDate;
+    public LocalDateTime getEventDate() {
+        return eventDate;
     }
 
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
+    public void setEventDate(LocalDateTime eventDate) {
+        this.eventDate = eventDate;
     }
 }

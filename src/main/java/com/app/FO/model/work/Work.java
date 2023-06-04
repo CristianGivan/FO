@@ -25,12 +25,12 @@ public class Work {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "working_date_time")
+    @Column(name = "working_date")
     private LocalDateTime workingDateTime;
 
     //todo time or double what should be?
     @Column(name = "working_efort")
-    private LocalTime workingEfort;
+    private LocalTime workingEfFort;
 
     @Column(name = "link_date")
     private LocalDateTime createdDate;
@@ -73,7 +73,7 @@ public class Work {
                 "id=" + id +
                 ", subject='" + subject + '\'' +
                 ", workingDate=" + workingDateTime +
-                ", workingTime=" + workingEfort +
+                ", workingTime=" + workingEfFort +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator.getId() +
                 ", workUserList=" + workUserList +
@@ -109,12 +109,12 @@ public class Work {
         this.workingDateTime = workingDate;
     }
 
-    public LocalTime getWorkingEfort() {
-        return workingEfort;
+    public LocalTime getWorkingEfFort() {
+        return workingEfFort;
     }
 
-    public void setWorkingEfort(LocalTime workingEfort) {
-        this.workingEfort = workingEfort;
+    public void setWorkingEfFort(LocalTime workingEfort) {
+        this.workingEfFort = workingEfort;
     }
 
     public LocalDateTime getCreatedDate() {

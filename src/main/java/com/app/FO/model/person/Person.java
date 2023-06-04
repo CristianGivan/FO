@@ -27,6 +27,7 @@ public class Person {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
+
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PersonUser> personUserList;
 

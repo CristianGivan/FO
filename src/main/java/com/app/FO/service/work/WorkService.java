@@ -212,7 +212,7 @@ public class WorkService {
             throw new WorkNotFoundException("Work not found in your list");
         }
 
-        work.setWorkingEfort(workingEfort);
+        work.setWorkingEfFort(workingEfort);
         return workRepository.save(work);
     }
 
