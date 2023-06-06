@@ -28,6 +28,9 @@ public class AccountExpenses {
     @JsonIgnore
     private Expenses expenses;
 
+    @Column(name = "sum")
+    private Double sum;
+
     @Column(name = "account_date")
     private LocalDateTime accountDate;
 

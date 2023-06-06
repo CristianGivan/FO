@@ -1,5 +1,7 @@
 # General
 
+- from time to time the mean can be calculated as ponderat mean for a more relabel mean
+
 # ToDo
 
 ## Entity
@@ -45,18 +47,17 @@
 
 - [ ] subject
 - [ ] category
-- [ ] quantity
-- [ ] unitPrice
-- [ ] totalPrice
-- [ ] shop
-- [ ] createdDate
+- [ ] numberOfBuys
+- [ ] numberForMean
+- [ ] meanQuantity
+- [ ] meanUnitPrice
 - [ ] creator
 - [ ] expenseUserList
 - [ ] expenseTagList
 - [ ] expenseReminderList
 - [ ] expenseTopicList
 - [ ] expenseTasksList
-- [ ] account
+- [ ] expensesExpenseList
 - [ ] expenseHistoryList
 
 ### Post
@@ -70,13 +71,11 @@
 - [ ] putQuantityToExpense
 - [ ] putUnitPriceToExpense
 - [ ] putTotalPriceToExpense
-- [ ] putShopToExpense
 - [ ] putUserToExpense
 - [ ] putTagToExpense
 - [ ] putReminderToExpense
 - [ ] putTopicToExpense
 - [ ] putTasksToExpense
-- [ ] putAccountToExpense
 
 ### Delete
 
@@ -97,13 +96,11 @@
 - [ ] getExpenseByQuantity
 - [ ] getExpenseByUnitPrice
 - [ ] getExpenseByTotalPrice
-- [ ] getExpenseByShop
 - [ ] getExpenseByCreatedDate
 - [ ] getExpenseListByUser
 - [ ] getExpenseListByTag
 - [ ] getExpenseListByReminder
 - [ ] getExpenseListByTopic
 - [ ] getExpenseListByTasks
-- [ ] getExpenseListByAccount
 
 ## Other

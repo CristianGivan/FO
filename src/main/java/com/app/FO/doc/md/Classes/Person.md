@@ -1,9 +1,9 @@
 # Person
 
 - tags colegue, busnisx
-- reminder: call him in x
-- if there are 2 persons with the same full name than the CNP can be added to make to distinguish (is not necessarily a
-  real CNP)
+- shortDescription something that can distinguish by other person with the same name and also to have a better reference
+  about that peron like is a mechanic has a business he presented x person is sister of
+- description had the name concatenated with short description shall be done uniq by the short description
 
 # ToDo
 
@@ -48,11 +48,13 @@
 
 ### Attributes
 
-- [ ] CNP
 - [ ] firstName
 - [ ] middleName
 - [ ] lastName
 - [ ] fullName
+- [ ] shortDescription
+- [ ] description
+- [ ] documentList
 - [ ] emailList
 - [ ] phoneNumberList
 - [ ] anniversaryList

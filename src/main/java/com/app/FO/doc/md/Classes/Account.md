@@ -3,10 +3,11 @@
 - type buy sell borrow receive
 - the balance will be updated when a transaction si added or when an expence is added
 - [ ] putBalanceToAccount is done by expenses and transaction
-- [ ] putExpensesToAccount is done at expenses
-- [ ] putTransactionToAccount is done at transaction
 
 # ToDo
+
+- [ ] putExpensesToAccount is done at expenses?
+- [ ] putTransactionToAccount is done at transaction?
 
 ## Entity
 
@@ -77,8 +78,8 @@
 - [x] putReminderToAccount
 - [x] putTopicToAccount
 - [x] putTasksToAccount
-- [] putExpensesToAccount
-- [] putTransactionToAccount
+- [x] putExpensesToAccount
+- [x] putTransactionToAccount
 
 ### Delete
 
@@ -95,8 +96,8 @@
 
 - [x] getAllAccount
 - [x] getAccountById
-- [x] getTaskBySubject
-- [x] getTaskListBySubjectContains
+- [x] getAccountBySubject
+- [x] getAccountListBySubjectContains
 - [x] getAccountByType
 - [x] getAccountByTypeContains
 - [x] getAccountByBalance
@@ -108,7 +109,7 @@
 - [x] getAccountListByReminder
 - [x] getAccountListByTopic
 - [x] getAccountListByTasks
-- [] getAccountListByExpenses
-- [] getAccountListByTransaction
+- [x] getAccountListByExpenses
+- [x] getAccountListByTransaction
 
 ## Other

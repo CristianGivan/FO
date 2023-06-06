@@ -1,5 +1,6 @@
 package com.app.FO.model.person;
 
+import com.app.FO.model.expenses.ExpensesPerson;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,6 +46,10 @@ public class Person {
     private List<PersonReminder> personReminderList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesPerson> expensesPayerList;
+
+
+    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PersonHistory> personHistoryList;
 
 
@@ -70,6 +75,7 @@ public class Person {
                 ", personUserList=" + personUserList +
                 ", personTagList=" + personTagList +
                 ", personReminderList=" + personReminderList +
+                ", expensesPayerList=" + expensesPayerList +
                 ", personHistoryList=" + personHistoryList +
                 '}';
     }
@@ -152,5 +158,13 @@ public class Person {
 
     public void setPersonTasksList(List<PersonTasks> personTasksList) {
         this.personTasksList = personTasksList;
+    }
+
+    public List<ExpensesPerson> getExpensesPayerList() {
+        return expensesPayerList;
+    }
+
+    public void setExpensesPayerList(List<ExpensesPerson> expensesPayerList) {
+        this.expensesPayerList = expensesPayerList;
     }
 }
