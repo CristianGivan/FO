@@ -1,7 +1,5 @@
 # General
 
-- from time to time the mean can be calculated as ponderat mean for a more relabel mean
-
 # ToDo
 
 ## Entity
@@ -47,17 +45,17 @@
 
 - [ ] subject
 - [ ] category
-- [ ] numberOfBuys
-- [ ] numberForMean
 - [ ] meanQuantity
 - [ ] meanUnitPrice
+- [ ] quantityList
+- [ ] unitPriceList
+- [ ] createdDate
 - [ ] creator
 - [ ] expenseUserList
 - [ ] expenseTagList
 - [ ] expenseReminderList
 - [ ] expenseTopicList
 - [ ] expenseTasksList
-- [ ] expensesExpenseList
 - [ ] expenseHistoryList
 
 ### Post

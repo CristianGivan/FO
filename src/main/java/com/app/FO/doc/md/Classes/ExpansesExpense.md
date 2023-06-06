@@ -1,23 +1,9 @@
 # General
 
-- type is if is a shopping list, wish list
-- the user is a person that use the application
-- the payer is a person that can have a user or not
 - in linking table shall be also the check
-- the list is close when the paymentDate is set
-- after closing the list if the quantity and unit price is fill the numberForMean is increased otherwise only the
-  numberOfBuys
-- After the list is closed the another list with expenses that were not checked shall be created
-- tag reminder and other are not from expense to dont confuse with the one addes only for expenses but them can be seen
-  in front end from expense
-- tag reminder and other when a new expanses is created after closing it should be asked if the other shall be puted to
-  new list
+- the estimationPrice is unit price * quantity but if there are not found it toked the mean values
 
 # ToDo
-
-## Feature
-
-- [ ] check how to treat the if the list is reopened to adjustments
 
 ## FrontEnd
 
@@ -64,24 +50,16 @@
 
 ### Attributes
 
-- [x] subject
-- [x] type
-- [x] shop
-- [x] estimatedTotalPrice
-- [x] checkedPrice
+- [x] expenses
+- [x] expense
+- [x] check
+- [x] unit
+- [x] quantity
+- [x] unitPrice
 - [x] totalPrice
-- [x] payedDate
+- [x] estimatedPrice
 - [x] createdDate
 - [x] creator
-- [x] expensesUserList
-- [x] expensesTagList
-- [x] expensesReminderList
-- [x] expensesTopicList
-- [x] expensesTasksList
-- [x] expensesExpenseList
-- [x] expensesPayerList
-- [x] accountExpensesList
-- [x] expensesHistoryList
 
 ### Post
 
@@ -91,16 +69,16 @@
 
 - [ ] putSubjectToExpenses
 - [ ] putTypeToExpenses
+- [ ] putMarkedPriceToExpenses
+- [ ] putTotalPriceToExpenses
 - [ ] putShopToExpenses
-- [ ] putPayedDateToExpenses
 - [ ] putUserToExpenses
 - [ ] putTagToExpenses
 - [ ] putReminderToExpenses
 - [ ] putTopicToExpenses
 - [ ] putTasksToExpenses
-- [ ] putExpenseToExpenses
-- [ ] putPayerToExpenses
 - [ ] putAccountToExpenses
+- [ ] putPayerToExpenses
 
 ### Delete
 
@@ -109,33 +87,25 @@
 - [ ] deleteReminderFromExpenses
 - [ ] deleteTopicFromExpenses
 - [ ] deleteTasksFromExpenses
-- [ ] deleteExpenseFromExpenses
-- [ ] deletePayerFromExpenses
-- [ ] deleteAccountFromExpenses
 - [ ] deleteExpenses
+- [ ] deletePayerFromExpenses
 
 ### Get
 
 - [ ] getAllExpenses
 - [ ] getExpensesById
-- [ ] getExpensesBySubject
-- [ ] getExpensesListBySubjectContains
+- [ ] getTaskBySubject
+- [ ] getTaskListBySubjectContains
 - [ ] getExpensesByType
-- [ ] getExpensesListByTypeContains
-- [ ] getExpensesByCheckedPrice
-- [ ] getExpensesListByCheckedPriceBetween
+- [ ] getExpensesByMarkedPrice
 - [ ] getExpensesByTotalPrice
-- [ ] getExpensesListByTotalPriceBetween
 - [ ] getExpensesByShop
-- [ ] getExpensesByShopContains
 - [ ] getExpensesByCreatedDate
-- [ ] getExpensesListByCreatedDateBetween
 - [ ] getExpensesListByUser
 - [ ] getExpensesListByTag
 - [ ] getExpensesListByReminder
 - [ ] getExpensesListByTopic
 - [ ] getExpensesListByTasks
-- [ ] getExpensesListByExpense
 - [ ] getExpensesListByAccount
 - [ ] getExpensesListByPayer
 

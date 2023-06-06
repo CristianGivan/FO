@@ -1,10 +1,10 @@
 # Todo
 
 - [ ] link_date to created_date
-
+- [ ] controller for expensesExpense?
 - [x] get by user (user is a user from UserList)
 - [x] Refactoring all methods to have the same naming conventions
-- [ ] Check Account
+- [x] Check Account
 - [ ] Check Transaction
 - [ ] Check Expenses
 - [ ] Check Expense

@@ -11,6 +11,7 @@ import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expense.ExpenseHistory;
 import com.app.FO.model.expense.ExpenseUser;
 import com.app.FO.model.expenses.Expenses;
+import com.app.FO.model.expenses.ExpensesExpense;
 import com.app.FO.model.expenses.ExpensesHistory;
 import com.app.FO.model.expenses.ExpensesUser;
 import com.app.FO.model.link.Link;
@@ -74,7 +75,6 @@ public class User {
     //    @JsonIgnore
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserUser> userUserList;
-
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tag> tagList;
@@ -163,6 +163,8 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesHistory> expensesHistoryList;
 
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesExpense> expensesExpenseList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Transaction> transactionList;
@@ -235,6 +237,7 @@ public class User {
                 ", expensesUserList=" + expensesUserList +
                 ", expensesPayedList=" + expensesPayedList +
                 ", expensesHistoryList=" + expensesHistoryList +
+                ", expensesExpenseList=" + expensesExpenseList +
                 ", transactionList=" + transactionList +
                 ", transactionUserList=" + transactionUserList +
                 ", transactionHistoryList=" + transactionHistoryList +
@@ -590,6 +593,14 @@ public class User {
 
     public void setExpensesHistoryList(List<ExpensesHistory> expensesHistoryList) {
         this.expensesHistoryList = expensesHistoryList;
+    }
+
+    public List<ExpensesExpense> getExpensesExpenseList() {
+        return expensesExpenseList;
+    }
+
+    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
+        this.expensesExpenseList = expensesExpenseList;
     }
 
     public List<Transaction> getTransactionList() {

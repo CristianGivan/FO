@@ -1,5 +1,6 @@
 package com.app.FO.model.expenses;
 
+import com.app.FO.model.account.AccountExpenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,6 +23,25 @@ public class Expenses {
 
     @Column(name = "subject")
     private String subject;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "shop")
+    private String shop;
+
+    @Column(name = "estimatedTotalPrice")
+    private Double estimatedTotalPrice;
+
+    @Column(name = "checkedPrice")
+    private Double checkedPrice;
+
+    @Column(name = "totalPrice")
+    private Double totalPrice;
+
+    @Column(name = "payedDate")
+    private LocalDateTime payedDate;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -32,7 +52,10 @@ public class Expenses {
     private List<ExpensesUser> expensesUserList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesUser> expensesPayerList;
+    private List<ExpensesTag> expensesTagList;
+
+    @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesReminder> expensesReminderList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesTopic> expensesTopicList;
@@ -41,11 +64,13 @@ public class Expenses {
     private List<ExpensesTasks> expensesTasksList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesTag> expensesTagList;
+    private List<ExpensesExpense> expensesExpenseList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesReminder> expensesReminderList;
+    private List<ExpensesPerson> expensesPayerList;
 
+    @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountExpenses> accountExpensesList;
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesHistory> expensesHistoryList;
 
