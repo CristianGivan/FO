@@ -47,7 +47,7 @@ public class AccountController {
     }
 
     @PutMapping("/putCreatedDateToAccount")
-    @ApiOperation(value = "Formatter yyyy.MM.dd HH:mm:ss 2023.06.01 13:14:15")
+    @ApiOperation(value = "Formatter yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
     public AccountDTO putCreatedDateToAccount(@RequestParam Long accountId, @RequestParam String createdData) {
         Account account = accountService.putCreatedDateToAccount(accountId, createdData);
         return accountDTOMapper.accountToAccountDTO(account);
@@ -206,7 +206,7 @@ public class AccountController {
 
 
     @GetMapping("/getAccountByCreatedDate")
-    @ApiOperation(value = "Formatter    yyyy.MM.dd HH:mm:ss 2023.06.01 13:14:15")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
     public AccountDTO getAccountByCreatedDate(@RequestParam String createdDate) {
         Account account = accountService.getAccountByCreatedDate(createdDate);
         return accountDTOMapper.accountToAccountDTO(account);

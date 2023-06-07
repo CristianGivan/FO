@@ -183,8 +183,8 @@ public class TaskService {
     }
 
     public Task putStartDateToTask(Long taskId, String startDateText) {
-/*      Formatter "yyyy.MM.dd HH:mm:ss"
-2023.06.01 13:14:15
+/*
+Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
 */
         LocalDateTime startDate = DateTime.textToLocalDateTime(startDateText);
         User logInUser = serviceAll.getLogInUser();
@@ -199,9 +199,8 @@ public class TaskService {
     }
 
     public Task putEndDateToTask(Long taskId, String endDateText) {
-/*      Formatter "yyyy.MM.dd HH:mm:ss"
-2023.06.01 13:14:15
-*/
+        /*      Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
+         */
         LocalDateTime endDate = DateTime.textToLocalDateTime(endDateText);
         User logInUser = serviceAll.getLogInUser();
 
@@ -442,9 +441,8 @@ public class TaskService {
     }
 
     public List<Task> getTaskByStartDate(String startDateText) {
-/*      Formatter "yyyy.MM.dd HH:mm:ss"
-2023.06.01 13:14:15
-*/
+        /*      Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
+         */
         LocalDateTime startDate = DateTime.textToLocalDateTime(startDateText);
         User logInUser = serviceAll.getLogInUser();
 
@@ -456,9 +454,8 @@ public class TaskService {
     }
 
     public List<Task> getTaskByEndDate(String endDateText) {
-/*      Formatter "yyyy.MM.dd HH:mm:ss"
-2023.06.01 13:14:15
-*/
+        /*      Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
+         */
         LocalDateTime endDate = DateTime.textToLocalDateTime(endDateText);
         User logInUser = serviceAll.getLogInUser();
 

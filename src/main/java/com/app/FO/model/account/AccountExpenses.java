@@ -37,10 +37,12 @@ public class AccountExpenses {
     public AccountExpenses() {
     }
 
-    public AccountExpenses(Account account, Expenses expenses) {
+    public AccountExpenses(Account account, Expenses expenses, Double sum) {
         this.account = account;
         this.expenses = expenses;
+        this.sum = sum;
         this.accountDate = LocalDateTime.now();
+        this.account.setBalance(this.account.getBalance() + sum);
     }
 
     @Override

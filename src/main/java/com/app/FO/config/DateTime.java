@@ -90,7 +90,7 @@ public class DateTime {
     }
 
     public static LocalDateTime textToLocalDateTime(String textDateTime) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(textDateTime, dateTimeFormatter);
     }
 

@@ -1,6 +1,7 @@
 # Todo
 
 - [ ] link_date to created_date
+- [ ] clarify total price checked price and estimated price how is updated
 - [ ] controller for expensesExpense?
 - [x] get by user (user is a user from UserList)
 - [x] Refactoring all methods to have the same naming conventions

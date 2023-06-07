@@ -230,7 +230,7 @@ public class AccountService {
             throw new AccountExpensesAlreadyExistException("The account already has the expenses");
         }
 
-        accountExpenses = new AccountExpenses(account, expenses);
+        accountExpenses = new AccountExpenses(account, expenses, expenses.getCheckedPrice());
         account.getAccountExpensesList().add(accountExpenses);
         return accountRepository.save(account);
     }

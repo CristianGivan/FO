@@ -195,6 +195,12 @@ public class ServiceAll {
     private ExpensesTasksRepository expensesTasksRepository;
 
     @Autowired
+    private ExpensesExpenseRepository expensesExpenseRepository;
+
+    @Autowired
+    private ExpensesPersonRepository expensesPersonRepository;
+
+    @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
     private TransactionUserRepository transactionUserRepository;
@@ -563,6 +569,15 @@ public class ServiceAll {
 
     public ExpensesTasks getExpensesTasks(Long expensesId, Long tasksId) {
         return expensesTasksRepository.getExpensesTasksByExpensesIdAndTasksId(expensesId, tasksId);
+    }
+
+    public ExpensesExpense getExpensesExpense(Long expensesId, Long expenseId) {
+        return expensesExpenseRepository.getExpensesExpenseByExpensesIdAndExpenseId(expensesId, expenseId);
+    }
+
+
+    public ExpensesPerson getExpensesPerson(Long expensesId, Long personId) {
+        return expensesPersonRepository.getExpensesPersonByExpensesIdAndPersonId(expensesId, personId);
     }
 
     //-- getTransactionAnd

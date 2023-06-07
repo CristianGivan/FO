@@ -47,6 +47,7 @@
 
 - [ ] subject
 - [ ] category
+- [ ] producer
 - [ ] numberOfBuys
 - [ ] numberForMean
 - [ ] meanQuantity
@@ -68,6 +69,7 @@
 
 - [ ] putSubjectToExpense
 - [ ] putCategoryToExpense
+- [ ] putProducerToExpense
 - [ ] putQuantityToExpense
 - [ ] putUnitPriceToExpense
 - [ ] putTotalPriceToExpense
@@ -93,6 +95,9 @@
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
 - [ ] getExpenseByCategory
+- [ ] getTaskListByCategoryContains
+- [ ] getExpenseByProducer
+- [ ] getTaskListByProducerContains
 - [ ] getExpenseByQuantity
 - [ ] getExpenseByUnitPrice
 - [ ] getExpenseByTotalPrice

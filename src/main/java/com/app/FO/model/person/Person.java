@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -113,6 +114,9 @@ public class Person {
     }
 
     public List<PersonUser> getPersonUserList() {
+        if (personUserList == null) {
+            personUserList = new ArrayList<>();
+        }
         return personUserList;
     }
 

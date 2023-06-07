@@ -85,22 +85,23 @@
 
 ### Post
 
-- [ ] postExpenses
+- [x] postExpenses
 
 ### Put
 
-- [ ] putSubjectToExpenses
-- [ ] putTypeToExpenses
-- [ ] putShopToExpenses
-- [ ] putPayedDateToExpenses
-- [ ] putUserToExpenses
-- [ ] putTagToExpenses
-- [ ] putReminderToExpenses
-- [ ] putTopicToExpenses
-- [ ] putTasksToExpenses
-- [ ] putExpenseToExpenses
-- [ ] putPayerToExpenses
-- [ ] putAccountToExpenses
+- [x] putSubjectToExpenses
+- [x] putTypeToExpenses
+- [x] putShopToExpenses
+- [x] putPayedDateToExpenses
+- [x] putUserToExpenses
+- [x] putTagToExpenses
+- [x] putReminderToExpenses
+- [x] putTopicToExpenses
+- [x] putTasksToExpenses
+- [x] putExpenseToExpenses
+- [x] putAccountToExpenses
+- [x] putAccountToExpensesWithAmount
+- [x] putPayerToExpenses
 
 ### Delete
 
@@ -110,8 +111,8 @@
 - [ ] deleteTopicFromExpenses
 - [ ] deleteTasksFromExpenses
 - [ ] deleteExpenseFromExpenses
-- [ ] deletePayerFromExpenses
 - [ ] deleteAccountFromExpenses
+- [ ] deletePayerFromExpenses
 - [ ] deleteExpenses
 
 ### Get
@@ -122,12 +123,14 @@
 - [ ] getExpensesListBySubjectContains
 - [ ] getExpensesByType
 - [ ] getExpensesListByTypeContains
+- [ ] getExpensesByShop
+- [ ] getExpensesListByShopContains
 - [ ] getExpensesByCheckedPrice
 - [ ] getExpensesListByCheckedPriceBetween
 - [ ] getExpensesByTotalPrice
 - [ ] getExpensesListByTotalPriceBetween
-- [ ] getExpensesByShop
-- [ ] getExpensesByShopContains
+- [ ] getExpensesByPayedDate
+- [ ] getExpensesListByPayedDateBetween
 - [ ] getExpensesByCreatedDate
 - [ ] getExpensesListByCreatedDateBetween
 - [ ] getExpensesListByUser

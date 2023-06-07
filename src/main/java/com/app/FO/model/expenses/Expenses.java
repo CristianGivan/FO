@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -67,7 +66,7 @@ public class Expenses {
     private List<ExpensesExpense> expensesExpenseList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesPerson> expensesPayerList;
+    private List<ExpensesPerson> expensesPersonList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountExpenses> accountExpensesList;
@@ -89,14 +88,22 @@ public class Expenses {
         return "Expenses{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
+                ", type='" + type + '\'' +
+                ", shop='" + shop + '\'' +
+                ", estimatedTotalPrice=" + estimatedTotalPrice +
+                ", checkedPrice=" + checkedPrice +
+                ", totalPrice=" + totalPrice +
+                ", payedDate=" + payedDate +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator +
-                ", expensesUserList=" + expensesUserList +
-                ", expensesTopicList=" + expensesTopicList +
-                ", expensesTasksList=" + expensesTasksList +
+                ", creator=" + creator.getId() +
                 ", expensesUserList=" + expensesUserList +
                 ", expensesTagList=" + expensesTagList +
                 ", expensesReminderList=" + expensesReminderList +
+                ", expensesTopicList=" + expensesTopicList +
+                ", expensesTasksList=" + expensesTasksList +
+                ", expensesExpenseList=" + expensesExpenseList +
+                ", expensesPayerList=" + expensesPersonList +
+                ", accountExpensesList=" + accountExpensesList +
                 ", expensesHistoryList=" + expensesHistoryList +
                 '}';
     }
@@ -117,6 +124,54 @@ public class Expenses {
         this.subject = subject;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getShop() {
+        return shop;
+    }
+
+    public void setShop(String shop) {
+        this.shop = shop;
+    }
+
+    public Double getEstimatedTotalPrice() {
+        return estimatedTotalPrice;
+    }
+
+    public void setEstimatedTotalPrice(Double estimatedTotalPrice) {
+        this.estimatedTotalPrice = estimatedTotalPrice;
+    }
+
+    public Double getCheckedPrice() {
+        return checkedPrice;
+    }
+
+    public void setCheckedPrice(Double checkedPrice) {
+        this.checkedPrice = checkedPrice;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public LocalDateTime getPayedDate() {
+        return payedDate;
+    }
+
+    public void setPayedDate(LocalDateTime payedDate) {
+        this.payedDate = payedDate;
+    }
+
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
@@ -134,9 +189,6 @@ public class Expenses {
     }
 
     public List<ExpensesUser> getExpensesUserList() {
-        if (expensesUserList == null) {
-            expensesUserList = new ArrayList<>();
-        }
         return expensesUserList;
     }
 
@@ -160,14 +212,6 @@ public class Expenses {
         this.expensesReminderList = expensesReminderList;
     }
 
-    public List<ExpensesHistory> getExpensesHistoryList() {
-        return expensesHistoryList;
-    }
-
-    public void setExpensesHistoryList(List<ExpensesHistory> expensesHistoryList) {
-        this.expensesHistoryList = expensesHistoryList;
-    }
-
     public List<ExpensesTopic> getExpensesTopicList() {
         return expensesTopicList;
     }
@@ -182,5 +226,37 @@ public class Expenses {
 
     public void setExpensesTasksList(List<ExpensesTasks> expensesTasksList) {
         this.expensesTasksList = expensesTasksList;
+    }
+
+    public List<ExpensesExpense> getExpensesExpenseList() {
+        return expensesExpenseList;
+    }
+
+    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
+        this.expensesExpenseList = expensesExpenseList;
+    }
+
+    public List<ExpensesPerson> getExpensesPersonList() {
+        return expensesPersonList;
+    }
+
+    public void setExpensesPersonList(List<ExpensesPerson> expensesPayerList) {
+        this.expensesPersonList = expensesPayerList;
+    }
+
+    public List<AccountExpenses> getAccountExpensesList() {
+        return accountExpensesList;
+    }
+
+    public void setAccountExpensesList(List<AccountExpenses> accountExpensesList) {
+        this.accountExpensesList = accountExpensesList;
+    }
+
+    public List<ExpensesHistory> getExpensesHistoryList() {
+        return expensesHistoryList;
+    }
+
+    public void setExpensesHistoryList(List<ExpensesHistory> expensesHistoryList) {
+        this.expensesHistoryList = expensesHistoryList;
     }
 }

@@ -24,11 +24,11 @@ DROP TABLE IF EXISTS `account`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
   `account_id` bigint NOT NULL,
-  `balance` double DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `subject` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
+  `balance` double DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`account_id`),
   KEY `FK7m8ru44m93ukyb61dfxw0apf6` (`user_id`),
   CONSTRAINT `FK7m8ru44m93ukyb61dfxw0apf6` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
@@ -41,7 +41,6 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,10,'2023-06-01 13:14:15','account1','type1',1),(2,20,'2023-06-04 15:44:15','account2','type2',1),(3,30,'2023-06-04 15:44:18','account3','type3',1),(4,40,'2023-06-04 15:44:21','account33','type33',1),(5,50,'2023-06-04 15:44:26','account333','type333',1);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-05 10:58:46
+-- Dump completed on 2023-06-04 13:46:22
