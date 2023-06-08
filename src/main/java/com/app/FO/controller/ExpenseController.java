@@ -1,6 +1,5 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.expense.ExpenseDTO;
 import com.app.FO.mapper.mappers.ExpenseDTOMapper;
 import com.app.FO.model.expense.Expense;
@@ -26,18 +25,33 @@ public class ExpenseController {
     //-- PostMapping
 
     @PostMapping("/postNewExpense")
-    public ExpenseDTO postNewExpense(@RequestBody TextDTO noteText) {
-        Expense expense = expenseService.postExpense(noteText.getText());
+    public ExpenseDTO postNewExpense(@RequestParam String name, @RequestParam String producer) {
+        Expense expense = expenseService.postExpense(name, producer);
         return expenseDTOMapper.expenseToExpenseDTO(expense);
     }
 
 
     //-- PutMapping
-    @PutMapping("/putSubjectToExpense")
-    public ExpenseDTO putSubjectToExpense(@RequestParam Long expenseId, @RequestParam String subject) {
-        Expense expense = expenseService.putSubjectToExpense(expenseId, subject);
+
+    @PutMapping("/putNameToExpense")
+    public ExpenseDTO putNameToExpense(@RequestParam Long expenseId, @RequestParam String name) {
+        Expense expense = expenseService.putNameToExpense(expenseId, name);
         return expenseDTOMapper.expenseToExpenseDTO(expense);
     }
+
+    @PutMapping("/putProducerToExpense")
+    public ExpenseDTO putProducerToExpense(@RequestParam Long expenseId, @RequestParam String producer) {
+        Expense expense = expenseService.putProducerToExpense(expenseId, producer);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+
+    @PutMapping("/putCategoryToExpense")
+    public ExpenseDTO putCategoryToExpense(@RequestParam Long expenseId, @RequestParam String category) {
+        Expense expense = expenseService.putCategoryToExpense(expenseId, category);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
 
     @PutMapping("/putUserToExpense")
     public ExpenseDTO putUserToExpense(@RequestParam Long expenseId, @RequestParam Long userId) {
@@ -120,6 +134,37 @@ public class ExpenseController {
         return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
     }
 
+    @GetMapping("/getExpenseById")
+    public ExpenseDTO getExpenseById(@RequestParam Long expenseId) {
+        Expense expense = expenseService.getExpenseByExpenseId(expenseId);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseByName")
+    public ExpenseDTO getExpenseByName(@RequestParam String name) {
+        Expense expense = expenseService.getExpenseByName(name);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseListByNameContains")
+    public List<ExpenseDTO> getExpenseListByNameContains(@RequestParam String nameContain) {
+        List<Expense> expenseList = expenseService.getExpenseListByNameContains(nameContain);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
+
+
+    @GetMapping("/getExpenseByProducer")
+    public ExpenseDTO getExpenseByProducer(@RequestParam String producer) {
+        Expense expense = expenseService.getExpenseByProducer(producer);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseListByProducerContains")
+    public List<ExpenseDTO> getExpenseListByProducerContains(@RequestParam String producerContain) {
+        List<Expense> expenseList = expenseService.getExpenseListByProducerContains(producerContain);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
+
 
     @GetMapping("/getExpenseBySubject")
     public ExpenseDTO getExpenseBySubject(@RequestParam String subject) {
@@ -133,12 +178,77 @@ public class ExpenseController {
         return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
     }
 
-    @GetMapping("/getExpenseById")
-    public ExpenseDTO getExpenseById(@RequestParam Long expenseId) {
-        Expense expense = expenseService.getExpenseByExpenseId(expenseId);
+    @GetMapping("/getExpenseByCategory")
+    public ExpenseDTO getExpenseByCategory(@RequestParam String category) {
+        Expense expense = expenseService.getExpenseByCategory(category);
         return expenseDTOMapper.expenseToExpenseDTO(expense);
     }
 
+    @GetMapping("/getExpenseListByCategoryContains")
+    public List<ExpenseDTO> getExpenseListByCategoryContains(@RequestParam String categoryContain) {
+        List<Expense> expenseList = expenseService.getExpenseListByCategoryContains(categoryContain);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
+
+    @GetMapping("/getExpenseByNumberOfBuys")
+    public ExpenseDTO getExpenseByNumberOfBuys(@RequestParam Integer numberOfBuys) {
+        Expense expense = expenseService.getExpenseByNumberOfBuys(numberOfBuys);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseListByNumberOfBuysBetween")
+    public List<ExpenseDTO> getExpenseListByNumberOfBuysBetween(@RequestParam Integer numberOfBuysMin, @RequestParam Integer numberOfBuysMax) {
+        List<Expense> expenseList = expenseService.getExpenseListByNumberOfBuysBetween(numberOfBuysMin, numberOfBuysMax);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
+
+    @GetMapping("/getExpenseByNumberForMean")
+    public ExpenseDTO getExpenseByNumberForMean(@RequestParam Integer numberForMean) {
+        Expense expense = expenseService.getExpenseByNumberForMean(numberForMean);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseListByNumberForMeanBetween")
+    public List<ExpenseDTO> getExpenseListByNumberForMeanBetween(@RequestParam Integer numberForMeanMin, @RequestParam Integer numberForMeanMax) {
+        List<Expense> expenseList = expenseService.getExpenseListByNumberForMeanBetween(numberForMeanMin, numberForMeanMax);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
+
+    @GetMapping("/getExpenseByMeanQuantity")
+    public ExpenseDTO getExpenseByMeanQuantity(@RequestParam Double meanQuantity) {
+        Expense expense = expenseService.getExpenseByMeanQuantity(meanQuantity);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseListByMeanQuantityBetween")
+    public List<ExpenseDTO> getExpenseListByMeanQuantityBetween(@RequestParam Double meanQuantityMin, @RequestParam Double meanQuantityMax) {
+        List<Expense> expenseList = expenseService.getExpenseListByMeanQuantityBetween(meanQuantityMin, meanQuantityMax);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
+
+    @GetMapping("/getExpenseByMeanUnitPrice")
+    public ExpenseDTO getExpenseByMeanUnitPrice(@RequestParam Double meanUnitPrice) {
+        Expense expense = expenseService.getExpenseByMeanUnitPrice(meanUnitPrice);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseListByMeanUnitPriceBetween")
+    public List<ExpenseDTO> getExpenseListByMeanUnitPriceBetween(@RequestParam Double meanUnitPriceMin, @RequestParam Double meanUnitPriceMax) {
+        List<Expense> expenseList = expenseService.getExpenseListByMeanUnitPriceBetween(meanUnitPriceMin, meanUnitPriceMax);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
+
+    @GetMapping("/getExpenseByCreatedDate")
+    public ExpenseDTO getExpenseByCreatedDate(@RequestParam String createdDate) {
+        Expense expense = expenseService.getExpenseByCreatedDate(createdDate);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
+
+    @GetMapping("/getExpenseListByCreatedDateBetween")
+    public List<ExpenseDTO> getExpenseListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Expense> expenseList = expenseService.getExpenseListByCreatedDateBetween(createdDateMin, createdDateMax);
+        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
+    }
 
     @GetMapping("/getExpenseListByUserId")
     public List<ExpenseDTO> getExpenseListByUserId(@RequestParam Long userId) {

@@ -7,7 +7,7 @@
 - [x] Refactoring all methods to have the same naming conventions
 - [x] Check Account
 - [ ] Check Transaction
-- [ ] Check Expenses
+- [x] Check Expenses
 - [ ] Check Expense
 - [ ] Check Event
 - [ ] Check Person

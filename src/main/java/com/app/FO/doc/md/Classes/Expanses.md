@@ -117,29 +117,29 @@
 
 ### Get
 
-- [ ] getAllExpenses
-- [ ] getExpensesById
-- [ ] getExpensesBySubject
-- [ ] getExpensesListBySubjectContains
-- [ ] getExpensesByType
-- [ ] getExpensesListByTypeContains
-- [ ] getExpensesByShop
-- [ ] getExpensesListByShopContains
+- [x] getAllExpenses
+- [x] getExpensesById
+- [x] getExpensesBySubject
+- [x] getExpensesListBySubjectContains
+- [x] getExpensesByType
+- [x] getExpensesListByTypeContains
+- [x] getExpensesByShop
+- [x] getExpensesListByShopContains
 - [ ] getExpensesByCheckedPrice
 - [ ] getExpensesListByCheckedPriceBetween
 - [ ] getExpensesByTotalPrice
 - [ ] getExpensesListByTotalPriceBetween
-- [ ] getExpensesByPayedDate
-- [ ] getExpensesListByPayedDateBetween
-- [ ] getExpensesByCreatedDate
-- [ ] getExpensesListByCreatedDateBetween
-- [ ] getExpensesListByUser
-- [ ] getExpensesListByTag
-- [ ] getExpensesListByReminder
-- [ ] getExpensesListByTopic
-- [ ] getExpensesListByTasks
-- [ ] getExpensesListByExpense
-- [ ] getExpensesListByAccount
-- [ ] getExpensesListByPayer
+- [x] getExpensesByPayedDate
+- [x] getExpensesListByPayedDateBetween
+- [x] getExpensesByCreatedDate
+- [x] getExpensesListByCreatedDateBetween
+- [x] getExpensesListByUser
+- [x] getExpensesListByTag
+- [x] getExpensesListByReminder
+- [x] getExpensesListByTopic
+- [x] getExpensesListByTasks
+- [x] getExpensesListByExpense
+- [x] getExpensesListByAccount
+- [x] getExpensesListByPayer
 
 ## Other

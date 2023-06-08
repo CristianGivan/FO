@@ -1,5 +1,6 @@
 package com.app.FO.service.expense;
 
+import com.app.FO.config.DateTime;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.expense.*;
 import com.app.FO.model.reminder.Reminder;
@@ -12,6 +13,7 @@ import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,15 +30,15 @@ public class ExpenseService {
 
 //-- Post
 
-    public Expense postExpense(String subject) {
+    public Expense postExpense(String name, String producer) {
         User logInUser = serviceAll.getLogInUser();
-
+        String subject = name + " from " + producer;
         Expense expense = expenseRepository.getExpenseFromUserIdBySubject(logInUser.getId(), subject);
         if (expense != null) {
             throw new ExpenseAlreadyExistException("Expense with this subject already exist");
         }
 
-        expense = expenseRepository.save(new Expense(subject, logInUser));
+        expense = expenseRepository.save(new Expense(name, producer, logInUser));
 
         ExpenseUser expenseUser = new ExpenseUser(expense, logInUser);
         expense.getExpenseUserList().add(expenseUser);
@@ -45,21 +47,54 @@ public class ExpenseService {
     }
 
     //-- Put
-    public Expense putSubjectToExpense(Long expenseId, String subject) {
+    public Expense putNameToExpense(Long expenseId, String name) {
         User logInUser = serviceAll.getLogInUser();
         Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found in your list");
         }
 
+        String subject = name + " from " + expense.getProducer();
         if (expense.getSubject().equals(subject)) {
             throw new ExpenseAlreadyExistException("Expense has already the same subject");
         }
 
+        expense.setName(name);
         expense.setSubject(subject);
 
         return expenseRepository.save(expense);
     }
+
+    public Expense putProducerToExpense(Long expenseId, String producer) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("Expense not found in your list");
+        }
+
+        String subject = expense.getName() + " from " + producer;
+        if (expense.getSubject().equals(subject)) {
+            throw new ExpenseAlreadyExistException("Expense has already the same subject");
+        }
+
+        expense.setProducer(producer);
+        expense.setSubject(subject);
+
+        return expenseRepository.save(expense);
+    }
+
+    public Expense putCategoryToExpense(Long expenseId, String category) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("Expense not found in your list");
+        }
+
+        expense.setCategory(category);
+
+        return expenseRepository.save(expense);
+    }
+
 
     public Expense putUserToExpense(Long expenseId, Long userId) {
         User logInUser = serviceAll.getLogInUser();
@@ -320,6 +355,52 @@ public class ExpenseService {
         return expenseList;
     }
 
+    public Expense getExpenseByExpenseId(Long expenseId) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+
+    public Expense getExpenseByName(String name) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByName(logInUser.getId(), name);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+    public List<Expense> getExpenseListByNameContains(String nameContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListByNameContains(logInUser.getId(), nameContains);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
+    public Expense getExpenseByProducer(String producer) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByProducer(logInUser.getId(), producer);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+    public List<Expense> getExpenseListByProducerContains(String producerContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListByProducerContains(logInUser.getId(), producerContains);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
     public Expense getExpenseBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();
         Expense expense = expenseRepository.getExpenseFromUserIdBySubject(logInUser.getId(), subject);
@@ -338,14 +419,121 @@ public class ExpenseService {
         return expenseList;
     }
 
-    public Expense getExpenseByExpenseId(Long expenseId) {
+
+    public Expense getExpenseByCategory(String category) {
         User logInUser = serviceAll.getLogInUser();
-        Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
+        Expense expense = expenseRepository.getExpenseFromUserIdByCategory(logInUser.getId(), category);
         if (expense == null) {
             throw new ExpenseNotFoundException("No expense found");
         }
         return expense;
     }
+
+    public List<Expense> getExpenseListByCategoryContains(String categoryContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListByCategoryContains(logInUser.getId(), categoryContains);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
+    public Expense getExpenseByNumberOfBuys(Integer numberOfBuys) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByNumberOfBuys(logInUser.getId(), numberOfBuys);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+    public List<Expense> getExpenseListByNumberOfBuysBetween(Integer numberOfBuysMin, Integer numberOfBuysMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListFromUserIdByNumberOfBuysBetween(logInUser.getId(), numberOfBuysMin, numberOfBuysMax);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
+
+    public Expense getExpenseByNumberForMean(Integer numberForMean) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByNumberForMean(logInUser.getId(), numberForMean);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+    public List<Expense> getExpenseListByNumberForMeanBetween(Integer numberForMeanMin, Integer numberForMeanMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListFromUserIdByNumberForMeanBetween(logInUser.getId(), numberForMeanMin, numberForMeanMax);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
+    public Expense getExpenseByMeanQuantity(Double meanQuantity) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByMeanQuantity(logInUser.getId(), meanQuantity);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+    public List<Expense> getExpenseListByMeanQuantityBetween(Double meanQuantityMin, Double meanQuantityMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListFromUserIdByMeanQuantityBetween(logInUser.getId(), meanQuantityMin, meanQuantityMax);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
+
+    public Expense getExpenseByMeanUnitPrice(Double meanUnitPrice) {
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByMeanUnitPrice(logInUser.getId(), meanUnitPrice);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+    public List<Expense> getExpenseListByMeanUnitPriceBetween(Double meanUnitPriceMin, Double meanUnitPriceMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListFromUserIdByMeanUnitPriceBetween(logInUser.getId(), meanUnitPriceMin, meanUnitPriceMax);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
+
+    public Expense getExpenseByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
+        User logInUser = serviceAll.getLogInUser();
+        Expense expense = expenseRepository.getExpenseFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expense;
+    }
+
+    public List<Expense> getExpenseListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Expense> expenseList = expenseRepository.getExpenseListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
+        if (expenseList.isEmpty()) {
+            throw new ExpenseNotFoundException("No expense found");
+        }
+        return expenseList;
+    }
+
 
     public List<Expense> getExpenseListByUserId(Long userId) {
         User logInUser = serviceAll.getLogInUser();
