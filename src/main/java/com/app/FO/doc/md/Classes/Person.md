@@ -1,9 +1,9 @@
 # Person
 
 - tags colegue, busnisx
-- shortDescription something that can distinguish by other person with the same name and also to have a better reference
+- description something that can distinguish by other person with the same name and also to have a better reference
   about that peron like is a mechanic has a business he presented x person is sister of
-- description had the name concatenated with short description shall be done uniq by the short description
+- subject had the name concatenated with description shall be done uniq by the short description
 
 # ToDo
 
@@ -48,18 +48,17 @@
 
 ### Attributes
 
+- [ ] nickName
 - [ ] firstName
 - [ ] middleName
 - [ ] lastName
 - [ ] fullName
-- [ ] shortDescription
 - [ ] description
-- [ ] documentList
 - [ ] emailList
 - [ ] phoneNumberList
 - [ ] anniversaryList
-- [ ] addressList
 - [ ] relatedPersonList
+- [ ] subject
 - [ ] creator
 - [ ] userList
 - [ ] personTagList
@@ -67,6 +66,8 @@
 - [ ] personTopicList
 - [ ] personTasksList
 - [ ] personHistoryList
+- [ ] documentList
+- [ ] addressList
 
 ### Post
 
@@ -74,27 +75,29 @@
 
 ### Put
 
-- [ ] putCNPToPerson
+- [ ] putNickNameToPerson
 - [ ] putFirstNameToPerson
 - [ ] putMiddleNameToPerson
 - [ ] putLastNameToPerson
-- [ ] putEmailListToPerson
-- [ ] putPhoneNumberListToPerson
-- [ ] putAnniversaryListToPerson
-- [ ] putAddressListToPerson
-- [ ] putRelatedPersonListToPerson
+- [ ] putDescriptionToPerson
+- [ ] putEmailToPerson
+- [ ] putPhoneNumberToPerson
+- [ ] putAnniversaryToPerson
+- [ ] putRelatedPersonToPerson
+- [ ] putSubjectToPerson
 - [ ] putUserToPerson
 - [ ] putTagToPerson
 - [ ] putReminderToPerson
 - [ ] putTopicToPerson
 - [ ] putTasksToPerson
+- [ ] putDocumentToPerson
+- [ ] putAddressToPerson
+
 
 ### Delete
 
-- [ ] deleteFirstNameFromPerson
-- [ ] deleteMiddleNameToPerson
-- [ ] deleteLastNameToFromPerson
-- [ ] deleteEmailListFromPerson
+- [ ] deleteDocumentFromPerson
+- [ ] deleteEmailFromPerson
 - [ ] deletePhoneNumberFromPerson
 - [ ] deleteAnniversaryFromPerson
 - [ ] deleteUserFromPerson
@@ -108,20 +111,20 @@
 
 - [ ] getAllPerson
 - [ ] getPersonById
-- [ ] getTaskBySubject
-- [ ] getTaskListBySubjectContains
+- [ ] getPersonBySubject
+- [ ] getPersonListBySubjectContains
 - [ ] getPersonListByCNP
-- [ ] getTaskListByCNPContains
+- [ ] getPersonListByCNPContains
 - [ ] getPersonListByFirstName
-- [ ] getTaskListByFirstNameContains
+- [ ] getPersonListByFirstNameContains
 - [ ] getPersonListByMiddleName
-- [ ] getTaskListByMiddleNameContains
+- [ ] getPersonListByMiddleNameContains
 - [ ] getPersonListByLastName
-- [ ] getTaskListByLastNameContains
+- [ ] getPersonListByLastNameContains
 - [ ] getPersonListByFullName
-- [ ] getTaskListByFullNameContains
+- [ ] getPersonListByFullNameContains
 - [ ] getPersonListByEmail
-- [ ] getTaskListByEmailContains
+- [ ] getPersonListByEmailContains
 - [ ] getPersonListByPhoneNumber
 - [ ] getPersonListByAnniversary
 - [ ] getPersonListByAddress

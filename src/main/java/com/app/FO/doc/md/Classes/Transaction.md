@@ -4,6 +4,9 @@
 
 # ToDo
 
+- [ ] putSum update also the balance from accounts
+- [ ] putaccount update deleted the accountTransaction to be moved to history
+
 ## Entity
 
 - [ ] Add creator (log in user)
@@ -45,36 +48,35 @@
 
 ### Attributes
 
-- [ ] subject
-- [ ] type
-- [ ] sum
-- [ ] fromAccount
-- [ ] toAccount
-- [ ] createdDate
-- [ ] creator
-- [ ] transactionUserList
-- [ ] transactionTagList
-- [ ] transactionReminderList
-- [ ] transactionTopicList
-- [ ] transactionTasksList
-- [ ] transactionHistoryList
+- [x] subject
+- [x] type
+- [x] sum
+- [x] createdDate
+- [x] creator
+- [x] transactionUserList
+- [x] transactionTagList
+- [x] transactionReminderList
+- [x] transactionTopicList
+- [x] transactionTasksList
+- [x] accountTransactionList
+- [x] transactionHistoryList
 
+- 
 ### Post
 
-- [ ] postTransaction
+- [x] postTransaction
 
 ### Put
 
-- [ ] putSubjectToTransaction
-- [ ] putTypeToTransaction
-- [ ] putUserToTransaction
-- [ ] putTagToTransaction
-- [ ] putReminderToTransaction
-- [ ] putTopicToTransaction
-- [ ] putTasksToTransaction
-- [ ] putSumToTransaction
-- [ ] putFromAccountToTransaction
-- [ ] putToAccountToTransaction
+- [x] putSubjectToTransaction
+- [x] putTypeToTransaction
+- [x] putSumToTransaction
+- [x] putUserToTransaction
+- [x] putTagToTransaction
+- [x] putReminderToTransaction
+- [x] putTopicToTransaction
+- [x] putTasksToTransaction
+- [x] putAccountToTransaction
 
 ### Delete
 
@@ -87,19 +89,21 @@
 
 ### Get
 
-- [ ] getAllTransaction
-- [ ] getTransactionById
-- [ ] getTaskBySubject
-- [ ] getTaskListBySubjectContains
-- [ ] getTransactionByType
-- [ ] getTransactionByCreatedDate
-- [ ] getTransactionListByUser
-- [ ] getTransactionListByTag
-- [ ] getTransactionListByReminder
-- [ ] getTransactionListByTopic
-- [ ] getTransactionListByTasks
-- [ ] getTransactionListBySum
-- [ ] getTransactionListByFromAccount
-- [ ] getTransactionListByToAccount
+- [x] getAllTransaction
+- [x] getTransactionById
+- [x] getTransactionBySubject
+- [x] getTransactionListBySubjectContains
+- [x] getTransactionByType
+- [x] getTransactionListByTypeContains
+- [x] getTransactionBySum
+- [x] getTransactionListBySumBetween
+- [x] getTransactionByCreatedDate
+- [x] getTransactionListByCreatedDateBetween
+- [x] getTransactionListByUser
+- [x] getTransactionListByTag
+- [x] getTransactionListByReminder
+- [x] getTransactionListByTopic
+- [x] getTransactionListByTasks
+- [x] getTransactionListByAccountByDirection
 
 ## Other

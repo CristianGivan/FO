@@ -29,15 +29,23 @@ public class AccountTransaction {
     @JsonIgnore
     private Account account;
 
+    @Column(name = "sum")
+    private Double sum;
+
+    @Column(name = "direction")
+    private String direction;
+
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
     public AccountTransaction() {
     }
 
-    public AccountTransaction(Account account, Transaction transaction) {
+    public AccountTransaction(Account account, Transaction transaction, Double sum, String direction) {
         this.transaction = transaction;
         this.account = account;
+        this.sum = sum;
+        this.direction = direction;
         this.linkDate = LocalDateTime.now();
     }
 
@@ -47,6 +55,8 @@ public class AccountTransaction {
                 "id=" + id +
                 ", transactionId=" + transaction.getId() +
                 ", accountId=" + account.getId() +
+                ", sum=" + sum +
+                ", direction=" + direction +
                 ", linkDate=" + linkDate +
                 '}';
     }
@@ -73,6 +83,22 @@ public class AccountTransaction {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Double getSum() {
+        return sum;
+    }
+
+    public void setSum(Double sum) {
+        this.sum = sum;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public LocalDateTime getLinkDate() {

@@ -235,28 +235,28 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account putTransactionToAccount(Long accountId, Long transactionId) {
-        User logInUser = serviceAll.getLogInUser();
-
-        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
-        if (account == null) {
-            throw new AccountNotFoundException("Account not found in your list");
-        }
-
-        Transaction transaction = serviceAll.getTransactionFromUserIdAndTransactionId(logInUser.getId(), transactionId);
-        if (transaction == null) {
-            throw new TransactionNotFoundException("Transaction not found");
-        }
-
-        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
-        if (accountTransaction != null) {
-            throw new AccountTransactionAlreadyExistException("The account already has the transaction");
-        }
-
-        accountTransaction = new AccountTransaction(account, transaction);
-        account.getAccountTransactionList().add(accountTransaction);
-        return accountRepository.save(account);
-    }
+//    public Account putTransactionToAccount(Long accountId, Long transactionId) {
+//        User logInUser = serviceAll.getLogInUser();
+//
+//        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+//        if (account == null) {
+//            throw new AccountNotFoundException("Account not found in your list");
+//        }
+//
+//        Transaction transaction = serviceAll.getTransactionFromUserIdAndTransactionId(logInUser.getId(), transactionId);
+//        if (transaction == null) {
+//            throw new TransactionNotFoundException("Transaction not found");
+//        }
+//
+//        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
+//        if (accountTransaction != null) {
+//            throw new AccountTransactionAlreadyExistException("The account already has the transaction");
+//        }
+//
+//        accountTransaction = new AccountTransaction(account, transaction, transaction.getSum());
+//        account.getAccountTransactionList().add(accountTransaction);
+//        return accountRepository.save(account);
+//    }
 
     //--Delete
 

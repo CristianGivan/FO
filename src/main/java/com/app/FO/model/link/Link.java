@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,8 @@ public class Link {
 
     @Column(name = "subject")
     private String subject;
+    @Column(name = "reference")
+    private String reference;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -32,17 +35,16 @@ public class Link {
     private List<LinkUser> linkUserList;
 
     @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<LinkTopic> linkTopicList;
-
-    @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<LinkTasks> linkTasksList;
-
-    @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LinkTag> linkTagList;
 
     @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LinkReminder> linkReminderList;
 
+    @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<LinkTopic> linkTopicList;
+
+    @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<LinkTasks> linkTasksList;
     @OneToMany(mappedBy = "link", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LinkHistory> linkHistoryList;
 
@@ -52,6 +54,7 @@ public class Link {
 
     public Link(String subject, User creator) {
         this.subject = subject;
+        this.reference = reference;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -61,6 +64,7 @@ public class Link {
         return "Link{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
+                ", reference='" + reference + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", linkUserList=" + linkUserList +
@@ -82,11 +86,25 @@ public class Link {
     }
 
     public String getSubject() {
+        if (reference == null) {
+            reference = "";
+        }
         return subject;
     }
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getReference() {
+        if (reference == null) {
+            reference = "";
+        }
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -106,6 +124,9 @@ public class Link {
     }
 
     public List<LinkUser> getLinkUserList() {
+        if (linkUserList == null) {
+            linkUserList = new ArrayList<>();
+        }
         return linkUserList;
     }
 
@@ -114,6 +135,9 @@ public class Link {
     }
 
     public List<LinkTag> getLinkTagList() {
+        if (linkTagList == null) {
+            linkTagList = new ArrayList<>();
+        }
         return linkTagList;
     }
 
@@ -122,6 +146,9 @@ public class Link {
     }
 
     public List<LinkReminder> getLinkReminderList() {
+        if (linkReminderList == null) {
+            linkReminderList = new ArrayList<>();
+        }
         return linkReminderList;
     }
 
@@ -129,15 +156,11 @@ public class Link {
         this.linkReminderList = linkReminderList;
     }
 
-    public List<LinkHistory> getLinkHistoryList() {
-        return linkHistoryList;
-    }
-
-    public void setLinkHistoryList(List<LinkHistory> linkHistoryList) {
-        this.linkHistoryList = linkHistoryList;
-    }
 
     public List<LinkTopic> getLinkTopicList() {
+        if (linkTopicList == null) {
+            linkTopicList = new ArrayList<>();
+        }
         return linkTopicList;
     }
 
@@ -146,10 +169,24 @@ public class Link {
     }
 
     public List<LinkTasks> getLinkTasksList() {
+        if (linkTasksList == null) {
+            linkTasksList = new ArrayList<>();
+        }
         return linkTasksList;
     }
 
     public void setLinkTasksList(List<LinkTasks> linkTasksList) {
         this.linkTasksList = linkTasksList;
+    }
+
+    public List<LinkHistory> getLinkHistoryList() {
+        if (linkHistoryList == null) {
+            linkHistoryList = new ArrayList<>();
+        }
+        return linkHistoryList;
+    }
+
+    public void setLinkHistoryList(List<LinkHistory> linkHistoryList) {
+        this.linkHistoryList = linkHistoryList;
     }
 }

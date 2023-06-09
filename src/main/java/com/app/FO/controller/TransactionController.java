@@ -26,8 +26,8 @@ public class TransactionController {
     //-- PostMapping
 
     @PostMapping("/postNewTransaction")
-    public TransactionDTO postNewTransaction(@RequestBody TextDTO noteText) {
-        Transaction transaction = transactionService.postTransaction(noteText.getText());
+    public TransactionDTO postNewTransaction(@RequestParam TextDTO noteText, @RequestParam Double sum, @RequestParam Long fromAccountId, @RequestParam Long toAccountId) {
+        Transaction transaction = transactionService.postTransaction(noteText.getText(), sum, fromAccountId, toAccountId);
         return transactionDTOMapper.transactionToTransactionDTO(transaction);
     }
 
@@ -36,6 +36,18 @@ public class TransactionController {
     @PutMapping("/putSubjectToTransaction")
     public TransactionDTO putSubjectToTransaction(@RequestParam Long transactionId, @RequestParam String subject) {
         Transaction transaction = transactionService.putSubjectToTransaction(transactionId, subject);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @PutMapping("/putTypeToTransaction")
+    public TransactionDTO putTypeToTransaction(@RequestParam Long transactionId, @RequestParam String type) {
+        Transaction transaction = transactionService.putTypeToTransaction(transactionId, type);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @PutMapping("/putSumToTransaction")
+    public TransactionDTO putSumToTransaction(@RequestParam Long transactionId, @RequestParam Double sum) {
+        Transaction transaction = transactionService.putSumToTransaction(transactionId, sum);
         return transactionDTOMapper.transactionToTransactionDTO(transaction);
     }
 
@@ -67,6 +79,12 @@ public class TransactionController {
     @PutMapping("/putTasksToTransaction")
     public TransactionDTO putTasksToTransaction(@RequestParam Long transactionId, @RequestParam Long tasksId) {
         Transaction transaction = transactionService.putTasksToTransaction(transactionId, tasksId);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @PutMapping("/putAccountToTransaction")
+    public TransactionDTO putAccountToTransaction(@RequestParam Long transactionId, @RequestParam Long accountId, @RequestParam String direction) {
+        Transaction transaction = transactionService.putAccountToTransaction(transactionId, accountId, direction);
         return transactionDTOMapper.transactionToTransactionDTO(transaction);
     }
 
@@ -133,6 +151,42 @@ public class TransactionController {
         return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
     }
 
+    @GetMapping("/getTransactionByType")
+    public TransactionDTO getTransactionByType(@RequestParam String type) {
+        Transaction transaction = transactionService.getTransactionByType(type);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @GetMapping("/getTransactionListByTypeContains")
+    public List<TransactionDTO> getTransactionListByTypeContains(@RequestParam String typeContain) {
+        List<Transaction> transactionList = transactionService.getTransactionListByTypeContains(typeContain);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
+
+    @GetMapping("/getTransactionBySum")
+    public TransactionDTO getTransactionBySum(@RequestParam Double sum) {
+        Transaction transaction = transactionService.getTransactionBySum(sum);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @GetMapping("/getTransactionListBySumBetween")
+    public List<TransactionDTO> getTransactionListBySumBetween(@RequestParam Double sumMin, @RequestParam Double sumMax) {
+        List<Transaction> transactionList = transactionService.getTransactionListBySumBetween(sumMin, sumMax);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
+
+    @GetMapping("/getTransactionByCreatedDate")
+    public TransactionDTO getTransactionByCreatedDate(@RequestParam String createdDate) {
+        Transaction transaction = transactionService.getTransactionByCreatedDate(createdDate);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @GetMapping("/getTransactionListByCreatedDateBetween")
+    public List<TransactionDTO> getTransactionListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Transaction> transactionList = transactionService.getTransactionListByCreatedDateBetween(createdDateMin, createdDateMax);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
+
     @GetMapping("/getTransactionById")
     public TransactionDTO getTransactionById(@RequestParam Long transactionId) {
         Transaction transaction = transactionService.getTransactionByTransactionId(transactionId);
@@ -167,6 +221,12 @@ public class TransactionController {
     @GetMapping("/getTransactionListByTasksId")
     public List<TransactionDTO> getTransactionListByTasksId(@RequestParam Long tasksId) {
         List<Transaction> transactionList = transactionService.getTransactionListByTasksId(tasksId);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
+
+    @GetMapping("/getTransactionListByAccountByDirection")
+    public List<TransactionDTO> getTransactionListByAccountByDirection(@RequestParam Long accountId, @RequestParam String direction) {
+        List<Transaction> transactionList = transactionService.getTransactionListByAccountByDirection(accountId, direction);
         return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
     }
 

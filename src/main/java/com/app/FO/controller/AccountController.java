@@ -90,11 +90,11 @@ public class AccountController {
         return accountDTOMapper.accountToAccountDTO(account);
     }
 
-    @PutMapping("/putTransactionToAccount")
-    public AccountDTO putTransactionToAccount(@RequestParam Long accountId, @RequestParam Long transactionId) {
-        Account account = accountService.putTransactionToAccount(accountId, transactionId);
-        return accountDTOMapper.accountToAccountDTO(account);
-    }
+//    @PutMapping("/putTransactionToAccount")
+//    public AccountDTO putTransactionToAccount(@RequestParam Long accountId, @RequestParam Long transactionId) {
+//        Account account = accountService.putTransactionToAccount(accountId, transactionId);
+//        return accountDTOMapper.accountToAccountDTO(account);
+//    }
 
 
     //-- DeleteMapping

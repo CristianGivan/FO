@@ -1,14 +1,18 @@
 # Todo
 
+- [ ] crete entity for address shop document 
+- [ ] include in accountTransaction and all linked tables als the user for query:  query by user account transaction all three
+- [ ] when putSubject make sure that there are no other same subject in table 
+- [ ] when get a value treat the case when more values are possible
 - [ ] link_date to created_date
 - [ ] clarify total price checked price and estimated price how is updated
 - [ ] controller for expensesExpense?
 - [x] get by user (user is a user from UserList)
 - [x] Refactoring all methods to have the same naming conventions
 - [x] Check Account
-- [ ] Check Transaction
+- [x] Check Transaction
 - [x] Check Expenses
-- [ ] Check Expense
+- [x] Check Expense
 - [ ] Check Event
 - [ ] Check Person
 - [ ] Check Link

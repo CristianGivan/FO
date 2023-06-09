@@ -14,7 +14,7 @@
   new list
 
 # ToDo
-
+- create and link shop entity
 ## Feature
 
 - [ ] check how to treat the if the list is reopened to adjustments

@@ -5,6 +5,7 @@ import com.app.FO.mapper.dto.link.LinkDTO;
 import com.app.FO.mapper.mappers.LinkDTOMapper;
 import com.app.FO.model.link.Link;
 import com.app.FO.service.link.LinkService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,14 @@ public class LinkController {
     @PutMapping("/putSubjectToLink")
     public LinkDTO putSubjectToLink(@RequestParam Long linkId, @RequestParam String subject) {
         Link link = linkService.putSubjectToLink(linkId, subject);
+        return linkDTOMapper.linkToLinkDTO(link);
+    }
+
+
+    //-- PutMapping
+    @PutMapping("/putReferenceToLink")
+    public LinkDTO putReferenceToLink(@RequestParam Long linkId, @RequestParam String reference) {
+        Link link = linkService.putReferenceToLink(linkId, reference);
         return linkDTOMapper.linkToLinkDTO(link);
     }
 
@@ -120,6 +129,11 @@ public class LinkController {
         return linkDTOMapper.linkListToLinkDTOList(linkList);
     }
 
+    @GetMapping("/getLinkById")
+    public LinkDTO getLinkById(@RequestParam Long linkId) {
+        Link link = linkService.getLinkByLinkId(linkId);
+        return linkDTOMapper.linkToLinkDTO(link);
+    }
 
     @GetMapping("/getLinkBySubject")
     public LinkDTO getLinkBySubject(@RequestParam String subject) {
@@ -133,12 +147,30 @@ public class LinkController {
         return linkDTOMapper.linkListToLinkDTOList(linkList);
     }
 
-    @GetMapping("/getLinkById")
-    public LinkDTO getLinkById(@RequestParam Long linkId) {
-        Link link = linkService.getLinkByLinkId(linkId);
+    @GetMapping("/getLinkByReference")
+    public LinkDTO getLinkByReference(@RequestParam String reference) {
+        Link link = linkService.getLinkByReference(reference);
         return linkDTOMapper.linkToLinkDTO(link);
     }
 
+    @GetMapping("/getLinkListByReferenceContains")
+    public List<LinkDTO> getLinkListByReferenceContains(@RequestParam String referenceContain) {
+        List<Link> linkList = linkService.getLinkListByReferenceContains(referenceContain);
+        return linkDTOMapper.linkListToLinkDTOList(linkList);
+    }
+
+    @GetMapping("/getLinkByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public LinkDTO getLinkByCreatedDate(@RequestParam String createdDate) {
+        Link link = linkService.getLinkByCreatedDate(createdDate);
+        return linkDTOMapper.linkToLinkDTO(link);
+    }
+
+    @GetMapping("/getLinkListByCreatedDateBetween")
+    public List<LinkDTO> getLinkListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Link> linkList = linkService.getLinkListByCreatedDateBetween(createdDateMin, createdDateMax);
+        return linkDTOMapper.linkListToLinkDTOList(linkList);
+    }
 
     @GetMapping("/getLinkListByUserId")
     public List<LinkDTO> getLinkListByUserId(@RequestParam Long userId) {

@@ -1,5 +1,6 @@
 package com.app.FO.service.link;
 
+import com.app.FO.config.DateTime;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.link.*;
 import com.app.FO.model.reminder.Reminder;
@@ -12,6 +13,7 @@ import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -57,6 +59,22 @@ public class LinkService {
         }
 
         link.setSubject(subject);
+
+        return linkRepository.save(link);
+    }
+
+    public Link putReferenceToLink(Long linkId, String reference) {
+        User logInUser = serviceAll.getLogInUser();
+        Link link = linkRepository.getLinkFromUserIdByLinkId(logInUser.getId(), linkId);
+        if (link == null) {
+            throw new LinkNotFoundException("Link not found in your list");
+        }
+
+        if (link.getReference().equals(reference)) {
+            throw new LinkAlreadyExistException("Link has already the same reference");
+        }
+
+        link.setReference(reference);
 
         return linkRepository.save(link);
     }
@@ -320,6 +338,15 @@ public class LinkService {
         return linkList;
     }
 
+    public Link getLinkByLinkId(Long linkId) {
+        User logInUser = serviceAll.getLogInUser();
+        Link link = linkRepository.getLinkFromUserIdByLinkId(logInUser.getId(), linkId);
+        if (link == null) {
+            throw new LinkNotFoundException("No link found");
+        }
+        return link;
+    }
+
     public Link getLinkBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();
         Link link = linkRepository.getLinkFromUserIdBySubject(logInUser.getId(), subject);
@@ -338,13 +365,43 @@ public class LinkService {
         return linkList;
     }
 
-    public Link getLinkByLinkId(Long linkId) {
+    public Link getLinkByReference(String reference) {
         User logInUser = serviceAll.getLogInUser();
-        Link link = linkRepository.getLinkFromUserIdByLinkId(logInUser.getId(), linkId);
+        Link link = linkRepository.getLinkFromUserIdByReference(logInUser.getId(), reference);
         if (link == null) {
             throw new LinkNotFoundException("No link found");
         }
         return link;
+    }
+
+    public List<Link> getLinkListByReferenceContains(String referenceContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Link> linkList = linkRepository.getLinkListByReferenceContains(logInUser.getId(), referenceContains);
+        if (linkList.isEmpty()) {
+            throw new LinkNotFoundException("No link found");
+        }
+        return linkList;
+    }
+
+    public Link getLinkByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
+        User logInUser = serviceAll.getLogInUser();
+        Link link = linkRepository.getLinkFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+        if (link == null) {
+            throw new LinkNotFoundException("No link found");
+        }
+        return link;
+    }
+
+    public List<Link> getLinkListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Link> linkList = linkRepository.getLinkListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
+        if (linkList.isEmpty()) {
+            throw new LinkNotFoundException("No link found");
+        }
+        return linkList;
     }
 
     public List<Link> getLinkListByUserId(Long userId) {

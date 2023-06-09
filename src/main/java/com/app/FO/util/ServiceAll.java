@@ -642,6 +642,10 @@ public class ServiceAll {
         return accountTransactionRepository.getAccountTransactionByAccountIdAndTransactionId(accountId, transactionId);
     }
 
+    public AccountTransaction getAccountTransactionByDirection(String direction, Long transactionId) {
+        return accountTransactionRepository.getAccountTransactionByDirectionAndTransactionId(direction, transactionId);
+    }
+
     //--------------------------
 
     //-- getUser

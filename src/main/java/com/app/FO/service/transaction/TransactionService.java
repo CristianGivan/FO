@@ -1,17 +1,21 @@
 package com.app.FO.service.transaction;
 
+import com.app.FO.config.DateTime;
 import com.app.FO.exceptions.*;
-import com.app.FO.model.transaction.*;
+import com.app.FO.model.account.Account;
+import com.app.FO.model.account.AccountTransaction;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.topic.Topic;
+import com.app.FO.model.transaction.*;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.transaction.TransactionRepository;
 import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,7 +32,7 @@ public class TransactionService {
 
 //-- Post
 
-    public Transaction postTransaction(String subject) {
+    public Transaction postTransaction(String subject, Double sum, Long fromAccountId, Long toAccountId) {
         User logInUser = serviceAll.getLogInUser();
 
         Transaction transaction = transactionRepository.getTransactionFromUserIdBySubject(logInUser.getId(), subject);
@@ -36,11 +40,37 @@ public class TransactionService {
             throw new TransactionAlreadyExistException("Transaction with this subject already exist");
         }
 
-        transaction = transactionRepository.save(new Transaction(subject, logInUser));
+        transaction = transactionRepository.save(new Transaction(subject, logInUser, sum));
 
         TransactionUser transactionUser = new TransactionUser(transaction, logInUser);
         transaction.getTransactionUserList().add(transactionUser);
 
+        Account fromAccount = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), fromAccountId);
+        if (fromAccount == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+        AccountTransaction fromAccountTransaction = serviceAll.getAccountTransaction(fromAccountId, transaction.getId());
+        if (fromAccountTransaction != null) {
+            throw new AccountTransactionAlreadyExistException("The account already has the transaction");
+        }
+
+        Account toAccount = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), toAccountId);
+        if (toAccount == null) {
+            throw new AccountNotFoundException("Account not found in your list");
+        }
+        AccountTransaction toAccountTransaction = serviceAll.getAccountTransaction(toAccountId, transaction.getId());
+        if (fromAccountTransaction != null) {
+            throw new AccountTransactionAlreadyExistException("The account already has the transaction");
+        }
+
+
+        fromAccountTransaction = new AccountTransaction(fromAccount, transaction, transaction.getSum(), "from");
+        toAccountTransaction = new AccountTransaction(toAccount, transaction, transaction.getSum(), "to");
+
+        transaction.getAccountTransactionList().add(fromAccountTransaction);
+        transaction.getAccountTransactionList().add(toAccountTransaction);
+        fromAccount.setBalance(fromAccount.getBalance() - sum);
+        toAccount.setBalance(toAccount.getBalance() + sum);
         return transactionRepository.save(transaction);
     }
 
@@ -57,6 +87,48 @@ public class TransactionService {
         }
 
         transaction.setSubject(subject);
+
+        return transactionRepository.save(transaction);
+    }
+
+    public Transaction putTypeToTransaction(Long transactionId, String type) {
+        User logInUser = serviceAll.getLogInUser();
+        Transaction transaction = transactionRepository.getTransactionFromUserIdByTransactionId(logInUser.getId(), transactionId);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("Transaction not found in your list");
+        }
+
+        if (transaction.getType().equals(type)) {
+            throw new TransactionAlreadyExistException("Transaction has already the same type");
+        }
+
+        transaction.setType(type);
+
+        return transactionRepository.save(transaction);
+    }
+
+    public Transaction putSumToTransaction(Long transactionId, Double sum) {
+        //todo update also the balance from accounts
+        User logInUser = serviceAll.getLogInUser();
+        Transaction transaction = transactionRepository.getTransactionFromUserIdByTransactionId(logInUser.getId(), transactionId);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("Transaction not found in your list");
+        }
+
+        if (transaction.getSum().equals(sum)) {
+            throw new TransactionAlreadyExistException("Transaction has already the same sum");
+        }
+
+        Double sumDifference = sum - transaction.getSum();
+
+        Account fromAccount = serviceAll.getAccountTransactionByDirection("from", transactionId).getAccount();
+        Account toAccount = serviceAll.getAccountTransactionByDirection("to", transactionId).getAccount();
+
+
+        fromAccount.setBalance(fromAccount.getBalance() + sumDifference);
+        toAccount.setBalance(toAccount.getBalance() + sumDifference);
+
+        transaction.setSum(sum);
 
         return transactionRepository.save(transaction);
     }
@@ -180,6 +252,46 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
+    public Transaction putAccountToTransaction(Long transactionId, Long accountId, String direction) {
+        //todo update balance of the previous account
+        User logInUser = serviceAll.getLogInUser();
+
+        Transaction transaction = transactionRepository.getTransactionFromUserIdByTransactionId(logInUser.getId(), transactionId);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("Transaction not found in your list");
+        }
+
+        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found");
+        }
+        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
+        if (accountTransaction != null) {
+            throw new AccountTransactionAlreadyExistException("The transaction already has the account");
+        }
+
+        AccountTransaction replacedAccountTransaction = serviceAll.getAccountTransactionByDirection(direction, transactionId);
+        if (replacedAccountTransaction == null) {
+            throw new AccountTransactionNotFoundException("The transaction not found at account");
+        }
+        Account replacedAccount = replacedAccountTransaction.getAccount();
+
+        if (direction.equals("from")) {
+            replacedAccount.setBalance(replacedAccount.getBalance() + transaction.getSum());
+            account.setBalance(account.getBalance() - transaction.getSum());
+        } else if (direction.equals("to")) {
+            replacedAccount.setBalance(replacedAccount.getBalance() - transaction.getSum());
+            account.setBalance(account.getBalance() + transaction.getSum());
+        } else {
+            throw new AccountTransactionNotFoundException("The direction is not specified correctly");
+        }
+
+        accountTransaction = new AccountTransaction(account, transaction, transaction.getSum(), direction);
+        transaction.getAccountTransactionList().add(accountTransaction);
+        //todo for the future the accountTransaction to be moved to history
+        replacedAccountTransaction.setDirection(replacedAccountTransaction.getDirection() + " deleted");
+        return transactionRepository.save(transaction);
+    }
 
     //--Delete
 
@@ -331,7 +443,66 @@ public class TransactionService {
 
     public List<Transaction> getTransactionListBySubjectContains(String subjectContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<Transaction> transactionList = transactionRepository.getTransactionListBySubjectContains(logInUser.getId(), subjectContains);
+        List<Transaction> transactionList = transactionRepository.getTransactionListFromUserIdBySubjectContains(logInUser.getId(), subjectContains);
+        if (transactionList.isEmpty()) {
+            throw new TransactionNotFoundException("No transaction found");
+        }
+        return transactionList;
+    }
+
+
+    public Transaction getTransactionByType(String type) {
+        User logInUser = serviceAll.getLogInUser();
+        Transaction transaction = transactionRepository.getTransactionFromUserIdByType(logInUser.getId(), type);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("No transaction found");
+        }
+        return transaction;
+    }
+
+    public List<Transaction> getTransactionListByTypeContains(String typeContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Transaction> transactionList = transactionRepository.getTransactionListFromUserIdByTypeContains(logInUser.getId(), typeContains);
+        if (transactionList.isEmpty()) {
+            throw new TransactionNotFoundException("No transaction found");
+        }
+        return transactionList;
+    }
+
+
+    public Transaction getTransactionBySum(Double sum) {
+        User logInUser = serviceAll.getLogInUser();
+        Transaction transaction = transactionRepository.getTransactionFromUserIdBySum(logInUser.getId(), sum);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("No transaction found");
+        }
+        return transaction;
+    }
+
+    public List<Transaction> getTransactionListBySumBetween(Double sumMin, Double sumMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Transaction> transactionList = transactionRepository.getTransactionListFromUserIdBySumBetween(logInUser.getId(), sumMin, sumMax);
+        if (transactionList.isEmpty()) {
+            throw new TransactionNotFoundException("No transaction found");
+        }
+        return transactionList;
+    }
+
+    public Transaction getTransactionByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
+        User logInUser = serviceAll.getLogInUser();
+        Transaction transaction = transactionRepository.getTransactionFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+        if (transaction == null) {
+            throw new TransactionNotFoundException("No transaction found");
+        }
+        return transaction;
+    }
+
+    public List<Transaction> getTransactionListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Transaction> transactionList = transactionRepository.getTransactionListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
         if (transactionList.isEmpty()) {
             throw new TransactionNotFoundException("No transaction found");
         }
@@ -391,6 +562,16 @@ public class TransactionService {
         }
         return transactionList;
     }
+
+    public List<Transaction> getTransactionListByAccountByDirection(Long accountId, String direction) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Transaction> transactionList = transactionRepository.getTransactionListFromUserIdByAccountIdByDirection(logInUser.getId(), accountId, direction);
+        if (transactionList.isEmpty()) {
+            throw new TransactionNotFoundException("No transaction found");
+        }
+        return transactionList;
+    }
+
 
     //-- Other
 

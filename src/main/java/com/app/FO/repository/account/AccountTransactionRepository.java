@@ -12,5 +12,8 @@ public interface AccountTransactionRepository extends JpaRepository<AccountTrans
             "SELECT * FROM account_transaction as tt where tt.account_id=?1 and tt.transaction_id=?2")
     AccountTransaction getAccountTransactionByAccountIdAndTransactionId(Long accountId, Long transactionId);
 
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM account_transaction as tt where tt.direction=?1 and tt.transaction_id=?2")
+    AccountTransaction getAccountTransactionByDirectionAndTransactionId(String direction, Long transactionId);
 
 }

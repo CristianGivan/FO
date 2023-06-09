@@ -1,5 +1,6 @@
 package com.app.FO.model.transaction;
 
+import com.app.FO.model.account.AccountTransaction;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,6 +23,10 @@ public class Transaction {
 
     @Column(name = "subject")
     private String subject;
+    @Column(name = "type")
+    private String type;
+    @Column(name = "sum")
+    private Double sum;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -31,6 +36,11 @@ public class Transaction {
     @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TransactionUser> transactionUserList;
 
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionTag> transactionTagList;
+
+    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionReminder> transactionReminderList;
 
     @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TransactionTopic> transactionTopicList;
@@ -39,21 +49,19 @@ public class Transaction {
     private List<TransactionTasks> transactionTasksList;
 
     @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TransactionTag> transactionTagList;
-
-    @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TransactionReminder> transactionReminderList;
+    private List<AccountTransaction> accountTransactionList;
 
     @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TransactionHistory> transactionHistoryList;
 
-
     public Transaction() {
     }
 
-    public Transaction(String subject, User creator) {
+    //todo add from here also account transaction
+    public Transaction(String subject, User creator, Double sum) {
         this.subject = subject;
         this.creator = creator;
+        this.sum = sum;
         this.createdDate = LocalDateTime.now();
     }
 
@@ -70,6 +78,8 @@ public class Transaction {
                 ", transactionUserList=" + transactionUserList +
                 ", transactionTagList=" + transactionTagList +
                 ", transactionReminderList=" + transactionReminderList +
+                ", fromAccount=" + accountTransactionList +
+                ", toAccount=" + accountTransactionList +
                 ", transactionHistoryList=" + transactionHistoryList +
                 '}';
     }
@@ -88,6 +98,28 @@ public class Transaction {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getType() {
+        if (type == null) {
+            type = "";
+        }
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Double getSum() {
+        if (sum == null) {
+            sum = 0.0;
+        }
+        return sum;
+    }
+
+    public void setSum(Double sum) {
+        this.sum = sum;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -133,14 +165,6 @@ public class Transaction {
         this.transactionReminderList = transactionReminderList;
     }
 
-    public List<TransactionHistory> getTransactionHistoryList() {
-        return transactionHistoryList;
-    }
-
-    public void setTransactionHistoryList(List<TransactionHistory> transactionHistoryList) {
-        this.transactionHistoryList = transactionHistoryList;
-    }
-
     public List<TransactionTopic> getTransactionTopicList() {
         return transactionTopicList;
     }
@@ -156,4 +180,24 @@ public class Transaction {
     public void setTransactionTasksList(List<TransactionTasks> transactionTasksList) {
         this.transactionTasksList = transactionTasksList;
     }
+
+    public List<AccountTransaction> getAccountTransactionList() {
+        if (accountTransactionList == null) {
+            accountTransactionList = new ArrayList<>();
+        }
+        return accountTransactionList;
+    }
+
+    public void setAccountTransactionList(List<AccountTransaction> accountTransactionList) {
+        this.accountTransactionList = accountTransactionList;
+    }
+
+    public List<TransactionHistory> getTransactionHistoryList() {
+        return transactionHistoryList;
+    }
+
+    public void setTransactionHistoryList(List<TransactionHistory> transactionHistoryList) {
+        this.transactionHistoryList = transactionHistoryList;
+    }
+
 }

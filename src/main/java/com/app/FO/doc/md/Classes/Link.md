@@ -43,15 +43,16 @@
 
 ### Attributes
 
-- [ ] subject
-- [ ] createdDate
-- [ ] creator
-- [ ] linkUserList
-- [ ] linkTagList
-- [ ] linkReminderList
-- [ ] linkTopicList
-- [ ] linkTasksList
-- [ ] linkHistoryList
+- [x] subject
+- [x] reference
+- [x] createdDate
+- [x] creator
+- [x] linkUserList
+- [x] linkTagList
+- [x] linkReminderList
+- [x] linkTopicList
+- [x] linkTasksList
+- [x] linkHistoryList
 
 ### Post
 
@@ -59,12 +60,13 @@
 
 ### Put
 
-- [ ] putSubjectToLink
-- [ ] putUserToLink
-- [ ] putTagToLink
-- [ ] putReminderToLink
-- [ ] putTopicToLink
-- [ ] putTasksToLink
+- [x] putSubjectToLink
+- [x] putReferenceToLink
+- [x] putUserToLink
+- [x] putTagToLink
+- [x] putReminderToLink
+- [x] putTopicToLink
+- [x] putTasksToLink
 
 ### Delete
 
@@ -77,15 +79,18 @@
 
 ### Get
 
-- [ ] getAllLink
-- [ ] getLinkById
-- [ ] getTaskBySubject
-- [ ] getTaskListBySubjectContains
-- [ ] getLinkByCreatedDate
-- [ ] getLinkListByUser
-- [ ] getLinkListByTag
-- [ ] getLinkListByReminder
-- [ ] getLinkListByTopic
-- [ ] getLinkListByTasks
+- [x] getAllLink
+- [x] getLinkById
+- [x] getLinkBySubject
+- [x] getLinkListBySubjectContains
+- [x] getLinkByReference
+- [x] getLinkListByReferenceContains
+- [x] getLinkByCreatedDate
+- [x] getLinkListByCreatedDateBetween
+- [x] getLinkListByUser
+- [x] getLinkListByTag
+- [x] getLinkListByReminder
+- [x] getLinkListByTopic
+- [x] getLinkListByTasks
 
 ## Other
