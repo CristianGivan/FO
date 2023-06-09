@@ -1,7 +1,7 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.address.AddressDTO;
+import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.mappers.AddressDTOMapper;
 import com.app.FO.model.address.Address;
 import com.app.FO.service.address.AddressService;
@@ -42,9 +42,9 @@ public class AddressController {
 
 
     //-- PutMapping
-    @PutMapping("/putReferenceToAddress")
-    public AddressDTO putReferenceToAddress(@RequestParam Long addressId, @RequestParam String reference) {
-        Address address = addressService.putReferenceToAddress(addressId, reference);
+    @PutMapping("/putGoogleLocationToAddress")
+    public AddressDTO putGoogleLocationToAddress(@RequestParam Long addressId, @RequestParam String googleLocation) {
+        Address address = addressService.putGoogleLocationToAddress(addressId, googleLocation);
         return addressDTOMapper.addressToAddressDTO(address);
     }
 
@@ -147,15 +147,15 @@ public class AddressController {
         return addressDTOMapper.addressListToAddressDTOList(addressList);
     }
 
-    @GetMapping("/getAddressByReference")
-    public AddressDTO getAddressByReference(@RequestParam String reference) {
-        Address address = addressService.getAddressByReference(reference);
+    @GetMapping("/getAddressByGoogleLocation")
+    public AddressDTO getAddressByGoogleLocation(@RequestParam String googleLocation) {
+        Address address = addressService.getAddressByGoogleLocation(googleLocation);
         return addressDTOMapper.addressToAddressDTO(address);
     }
 
-    @GetMapping("/getAddressListByReferenceContains")
-    public List<AddressDTO> getAddressListByReferenceContains(@RequestParam String referenceContain) {
-        List<Address> addressList = addressService.getAddressListByReferenceContains(referenceContain);
+    @GetMapping("/getAddressListByGoogleLocationContains")
+    public List<AddressDTO> getAddressListByGoogleLocationContains(@RequestParam String googleLocationContain) {
+        List<Address> addressList = addressService.getAddressListByGoogleLocationContains(googleLocationContain);
         return addressDTOMapper.addressListToAddressDTOList(addressList);
     }
 

@@ -1,6 +1,8 @@
 package com.app.FO.util;
 
 import com.app.FO.model.account.*;
+import com.app.FO.model.address.*;
+import com.app.FO.model.document.*;
 import com.app.FO.model.event.*;
 import com.app.FO.model.expense.*;
 import com.app.FO.model.expenses.*;
@@ -8,6 +10,7 @@ import com.app.FO.model.link.*;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.person.*;
 import com.app.FO.model.reminder.Reminder;
+import com.app.FO.model.shop.*;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.*;
 import com.app.FO.model.tasks.*;
@@ -17,6 +20,8 @@ import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
 import com.app.FO.model.work.*;
 import com.app.FO.repository.account.*;
+import com.app.FO.repository.address.*;
+import com.app.FO.repository.document.*;
 import com.app.FO.repository.event.*;
 import com.app.FO.repository.expense.*;
 import com.app.FO.repository.expenses.*;
@@ -24,6 +29,7 @@ import com.app.FO.repository.link.*;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.person.*;
 import com.app.FO.repository.reminder.ReminderRepository;
+import com.app.FO.repository.shop.*;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.task.*;
 import com.app.FO.repository.tasks.*;
@@ -117,6 +123,58 @@ public class ServiceAll {
 
     @Autowired
     private LinkTasksRepository linkTasksRepository;
+
+
+    @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
+    private AddressUserRepository addressUserRepository;
+    @Autowired
+    private AddressTagRepository addressTagRepository;
+
+    @Autowired
+    private AddressReminderRepository addressReminderRepository;
+
+    @Autowired
+    private AddressTopicRepository addressTopicRepository;
+
+    @Autowired
+    private AddressTasksRepository addressTasksRepository;
+
+
+    @Autowired
+    private ShopRepository shopRepository;
+    @Autowired
+    private ShopUserRepository shopUserRepository;
+    @Autowired
+    private ShopTagRepository shopTagRepository;
+
+    @Autowired
+    private ShopReminderRepository shopReminderRepository;
+
+    @Autowired
+    private ShopTopicRepository shopTopicRepository;
+
+    @Autowired
+    private ShopTasksRepository shopTasksRepository;
+
+
+    @Autowired
+    private DocumentRepository documentRepository;
+    @Autowired
+    private DocumentUserRepository documentUserRepository;
+    @Autowired
+    private DocumentTagRepository documentTagRepository;
+
+    @Autowired
+    private DocumentReminderRepository documentReminderRepository;
+
+    @Autowired
+    private DocumentTopicRepository documentTopicRepository;
+
+    @Autowired
+    private DocumentTasksRepository documentTasksRepository;
+
 
     @Autowired
     private WorkUserRepository workUserRepository;
@@ -440,6 +498,88 @@ public class ServiceAll {
     public LinkTasks getLinkTasks(Long linkId, Long tasksId) {
         return linkTasksRepository.getLinkTasksByLinkIdAndTasksId(linkId, tasksId);
     }
+
+    //-- getAddressAnd
+
+
+    public Address getAddressFromUserIdAndAddressId(Long userId, Long addressId) {
+        return addressRepository.getAddressFromUserIdByAddressId(userId, addressId);
+    }
+
+    public AddressUser getAddressUser(Long addressId, Long userId) {
+        return addressUserRepository.getAddressUserByAddressIdAndUserId(addressId, userId);
+    }
+
+    public AddressTag getAddressTag(Long addressId, Long tagId) {
+        return addressTagRepository.getAddressTagByAddressIdAndTagId(addressId, tagId);
+    }
+
+    public AddressReminder getAddressReminder(Long addressId, Long reminderId) {
+        return addressReminderRepository.getAddressReminderByAddressIdAndReminderId(addressId, reminderId);
+    }
+
+    public AddressTopic getAddressTopic(Long addressId, Long topicId) {
+        return addressTopicRepository.getAddressTopicByAddressIdAndTopicId(addressId, topicId);
+    }
+
+    public AddressTasks getAddressTasks(Long addressId, Long tasksId) {
+        return addressTasksRepository.getAddressTasksByAddressIdAndTasksId(addressId, tasksId);
+    }
+
+    //-- getShopAnd
+
+
+    public Shop getShopFromUserIdAndShopId(Long userId, Long shopId) {
+        return shopRepository.getShopFromUserIdByShopId(userId, shopId);
+    }
+
+    public ShopUser getShopUser(Long shopId, Long userId) {
+        return shopUserRepository.getShopUserByShopIdAndUserId(shopId, userId);
+    }
+
+    public ShopTag getShopTag(Long shopId, Long tagId) {
+        return shopTagRepository.getShopTagByShopIdAndTagId(shopId, tagId);
+    }
+
+    public ShopReminder getShopReminder(Long shopId, Long reminderId) {
+        return shopReminderRepository.getShopReminderByShopIdAndReminderId(shopId, reminderId);
+    }
+
+    public ShopTopic getShopTopic(Long shopId, Long topicId) {
+        return shopTopicRepository.getShopTopicByShopIdAndTopicId(shopId, topicId);
+    }
+
+    public ShopTasks getShopTasks(Long shopId, Long tasksId) {
+        return shopTasksRepository.getShopTasksByShopIdAndTasksId(shopId, tasksId);
+    }
+
+    //-- getDocumentAnd
+
+
+    public Document getDocumentFromUserIdAndDocumentId(Long userId, Long documentId) {
+        return documentRepository.getDocumentFromUserIdByDocumentId(userId, documentId);
+    }
+
+    public DocumentUser getDocumentUser(Long documentId, Long userId) {
+        return documentUserRepository.getDocumentUserByDocumentIdAndUserId(documentId, userId);
+    }
+
+    public DocumentTag getDocumentTag(Long documentId, Long tagId) {
+        return documentTagRepository.getDocumentTagByDocumentIdAndTagId(documentId, tagId);
+    }
+
+    public DocumentReminder getDocumentReminder(Long documentId, Long reminderId) {
+        return documentReminderRepository.getDocumentReminderByDocumentIdAndReminderId(documentId, reminderId);
+    }
+
+    public DocumentTopic getDocumentTopic(Long documentId, Long topicId) {
+        return documentTopicRepository.getDocumentTopicByDocumentIdAndTopicId(documentId, topicId);
+    }
+
+    public DocumentTasks getDocumentTasks(Long documentId, Long tasksId) {
+        return documentTasksRepository.getDocumentTasksByDocumentIdAndTasksId(documentId, tasksId);
+    }
+
 
 //-- getWorkAnd
 

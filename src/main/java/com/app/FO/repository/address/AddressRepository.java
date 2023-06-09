@@ -31,12 +31,12 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM address as t inner join address_user tu on t.address_id = tu.address_id where tu.user_id=?1 and t.reference=?2")
-    Address getAddressFromUserIdByReference(Long userId, String reference);
+            "SELECT * FROM address as t inner join address_user tu on t.address_id = tu.address_id where tu.user_id=?1 and t.googleLocation=?2")
+    Address getAddressFromUserIdByGoogleLocation(Long userId, String googleLocation);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM address as t inner join address_user ut on t.address_id = ut.address_id where ut.user_id=:userId and t.reference like %:containingText%")
-    List<Address> getAddressListByReferenceContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM address as t inner join address_user ut on t.address_id = ut.address_id where ut.user_id=:userId and t.googleLocation like %:containingText%")
+    List<Address> getAddressListByGoogleLocationContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM address as t inner join address_user tu on t.address_id = tu.address_id where tu.user_id=?1 and t.created_date=?2")

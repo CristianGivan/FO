@@ -2,8 +2,8 @@ package com.app.FO.service.shop;
 
 import com.app.FO.config.DateTime;
 import com.app.FO.exceptions.*;
-import com.app.FO.model.shop.*;
 import com.app.FO.model.reminder.Reminder;
+import com.app.FO.model.shop.*;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.topic.Topic;
@@ -63,18 +63,18 @@ public class ShopService {
         return shopRepository.save(shop);
     }
 
-    public Shop putReferenceToShop(Long shopId, String reference) {
+    public Shop putNameToShop(Long shopId, String name) {
         User logInUser = serviceAll.getLogInUser();
         Shop shop = shopRepository.getShopFromUserIdByShopId(logInUser.getId(), shopId);
         if (shop == null) {
             throw new ShopNotFoundException("Shop not found in your list");
         }
 
-        if (shop.getReference().equals(reference)) {
-            throw new ShopAlreadyExistException("Shop has already the same reference");
+        if (shop.getName().equals(name)) {
+            throw new ShopAlreadyExistException("Shop has already the same name");
         }
 
-        shop.setReference(reference);
+        shop.setName(name);
 
         return shopRepository.save(shop);
     }
@@ -365,18 +365,18 @@ public class ShopService {
         return shopList;
     }
 
-    public Shop getShopByReference(String reference) {
+    public Shop getShopByName(String name) {
         User logInUser = serviceAll.getLogInUser();
-        Shop shop = shopRepository.getShopFromUserIdByReference(logInUser.getId(), reference);
+        Shop shop = shopRepository.getShopFromUserIdByName(logInUser.getId(), name);
         if (shop == null) {
             throw new ShopNotFoundException("No shop found");
         }
         return shop;
     }
 
-    public List<Shop> getShopListByReferenceContains(String referenceContains) {
+    public List<Shop> getShopListByNameContains(String nameContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<Shop> shopList = shopRepository.getShopListByReferenceContains(logInUser.getId(), referenceContains);
+        List<Shop> shopList = shopRepository.getShopListByNameContains(logInUser.getId(), nameContains);
         if (shopList.isEmpty()) {
             throw new ShopNotFoundException("No shop found");
         }

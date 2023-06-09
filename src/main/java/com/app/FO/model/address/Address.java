@@ -22,8 +22,8 @@ public class Address {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "reference")
-    private String reference;
+    @Column(name = "googleLocation")
+    private String googleLocation;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -54,7 +54,7 @@ public class Address {
 
     public Address(String subject, User creator) {
         this.subject = subject;
-        this.reference = reference;
+        this.googleLocation = googleLocation;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -64,7 +64,7 @@ public class Address {
         return "Address{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + reference + '\'' +
+                ", googleLocation='" + googleLocation + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", addressUserList=" + addressUserList +
@@ -86,8 +86,8 @@ public class Address {
     }
 
     public String getSubject() {
-        if (reference == null) {
-            reference = "";
+        if (googleLocation == null) {
+            googleLocation = "";
         }
         return subject;
     }
@@ -96,15 +96,15 @@ public class Address {
         this.subject = subject;
     }
 
-    public String getReference() {
-        if (reference == null) {
-            reference = "";
+    public String getGoogleLocation() {
+        if (googleLocation == null) {
+            googleLocation = "";
         }
-        return reference;
+        return googleLocation;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setGoogleLocation(String googleLocation) {
+        this.googleLocation = googleLocation;
     }
 
     public LocalDateTime getCreatedDate() {

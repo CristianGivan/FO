@@ -1,7 +1,7 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.document.DocumentDTO;
+import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.mappers.DocumentDTOMapper;
 import com.app.FO.model.document.Document;
 import com.app.FO.service.document.DocumentService;
@@ -42,9 +42,9 @@ public class DocumentController {
 
 
     //-- PutMapping
-    @PutMapping("/putReferenceToDocument")
-    public DocumentDTO putReferenceToDocument(@RequestParam Long documentId, @RequestParam String reference) {
-        Document document = documentService.putReferenceToDocument(documentId, reference);
+    @PutMapping("/putTypeToDocument")
+    public DocumentDTO putTypeToDocument(@RequestParam Long documentId, @RequestParam String type) {
+        Document document = documentService.putTypeToDocument(documentId, type);
         return documentDTOMapper.documentToDocumentDTO(document);
     }
 
@@ -147,15 +147,15 @@ public class DocumentController {
         return documentDTOMapper.documentListToDocumentDTOList(documentList);
     }
 
-    @GetMapping("/getDocumentByReference")
-    public DocumentDTO getDocumentByReference(@RequestParam String reference) {
-        Document document = documentService.getDocumentByReference(reference);
+    @GetMapping("/getDocumentByType")
+    public DocumentDTO getDocumentByType(@RequestParam String type) {
+        Document document = documentService.getDocumentByType(type);
         return documentDTOMapper.documentToDocumentDTO(document);
     }
 
-    @GetMapping("/getDocumentListByReferenceContains")
-    public List<DocumentDTO> getDocumentListByReferenceContains(@RequestParam String referenceContain) {
-        List<Document> documentList = documentService.getDocumentListByReferenceContains(referenceContain);
+    @GetMapping("/getDocumentListByTypeContains")
+    public List<DocumentDTO> getDocumentListByTypeContains(@RequestParam String typeContain) {
+        List<Document> documentList = documentService.getDocumentListByTypeContains(typeContain);
         return documentDTOMapper.documentListToDocumentDTOList(documentList);
     }
 

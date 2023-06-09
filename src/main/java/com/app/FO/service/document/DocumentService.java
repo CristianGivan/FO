@@ -63,18 +63,18 @@ public class DocumentService {
         return documentRepository.save(document);
     }
 
-    public Document putReferenceToDocument(Long documentId, String reference) {
+    public Document putTypeToDocument(Long documentId, String type) {
         User logInUser = serviceAll.getLogInUser();
         Document document = documentRepository.getDocumentFromUserIdByDocumentId(logInUser.getId(), documentId);
         if (document == null) {
             throw new DocumentNotFoundException("Document not found in your list");
         }
 
-        if (document.getReference().equals(reference)) {
-            throw new DocumentAlreadyExistException("Document has already the same reference");
+        if (document.getType().equals(type)) {
+            throw new DocumentAlreadyExistException("Document has already the same type");
         }
 
-        document.setReference(reference);
+        document.setType(type);
 
         return documentRepository.save(document);
     }
@@ -365,18 +365,18 @@ public class DocumentService {
         return documentList;
     }
 
-    public Document getDocumentByReference(String reference) {
+    public Document getDocumentByType(String type) {
         User logInUser = serviceAll.getLogInUser();
-        Document document = documentRepository.getDocumentFromUserIdByReference(logInUser.getId(), reference);
+        Document document = documentRepository.getDocumentFromUserIdByType(logInUser.getId(), type);
         if (document == null) {
             throw new DocumentNotFoundException("No document found");
         }
         return document;
     }
 
-    public List<Document> getDocumentListByReferenceContains(String referenceContains) {
+    public List<Document> getDocumentListByTypeContains(String typeContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<Document> documentList = documentRepository.getDocumentListByReferenceContains(logInUser.getId(), referenceContains);
+        List<Document> documentList = documentRepository.getDocumentListByTypeContains(logInUser.getId(), typeContains);
         if (documentList.isEmpty()) {
             throw new DocumentNotFoundException("No document found");
         }

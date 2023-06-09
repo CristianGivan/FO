@@ -22,8 +22,8 @@ public class Shop {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "reference")
-    private String reference;
+    @Column(name = "name")
+    private String name;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -54,7 +54,7 @@ public class Shop {
 
     public Shop(String subject, User creator) {
         this.subject = subject;
-        this.reference = reference;
+        this.name = name;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -64,7 +64,7 @@ public class Shop {
         return "Shop{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + reference + '\'' +
+                ", name='" + name + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", shopUserList=" + shopUserList +
@@ -86,8 +86,8 @@ public class Shop {
     }
 
     public String getSubject() {
-        if (reference == null) {
-            reference = "";
+        if (name == null) {
+            name = "";
         }
         return subject;
     }
@@ -96,15 +96,15 @@ public class Shop {
         this.subject = subject;
     }
 
-    public String getReference() {
-        if (reference == null) {
-            reference = "";
+    public String getName() {
+        if (name == null) {
+            name = "";
         }
-        return reference;
+        return name;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getCreatedDate() {

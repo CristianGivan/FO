@@ -65,9 +65,9 @@
 - [ ] personReminderList
 - [ ] personTopicList
 - [ ] personTasksList
-- [ ] personHistoryList
 - [ ] documentList
 - [ ] addressList
+- [ ] personHistoryList
 
 ### Post
 
@@ -93,10 +93,8 @@
 - [ ] putDocumentToPerson
 - [ ] putAddressToPerson
 
-
 ### Delete
 
-- [ ] deleteDocumentFromPerson
 - [ ] deleteEmailFromPerson
 - [ ] deletePhoneNumberFromPerson
 - [ ] deleteAnniversaryFromPerson
@@ -105,16 +103,17 @@
 - [ ] deleteReminderFromPerson
 - [ ] deleteTopicFromPerson
 - [ ] deleteTasksFromPerson
+- [ ] deleteDocumentFromPerson
+- [ ] deleteAddressFromPerson
 - [ ] deletePerson
 
 ### Get
 
 - [ ] getAllPerson
 - [ ] getPersonById
-- [ ] getPersonBySubject
-- [ ] getPersonListBySubjectContains
-- [ ] getPersonListByCNP
-- [ ] getPersonListByCNPContains
+
+- [ ] getPersonListByNickName
+- [ ] getPersonListByNickNameContains
 - [ ] getPersonListByFirstName
 - [ ] getPersonListByFirstNameContains
 - [ ] getPersonListByMiddleName
@@ -127,14 +126,18 @@
 - [ ] getPersonListByEmailContains
 - [ ] getPersonListByPhoneNumber
 - [ ] getPersonListByAnniversary
-- [ ] getPersonListByAddress
+- [ ] getPersonListByAnniversaryBetween
+- [ ] getPersonBySubject
+- [ ] getPersonListBySubjectContains
+- [ ] getPersonByCreatedDate
+- [ ] getPersonListByCreatedDateBetween
 - [ ] getPersonListByRelatedPerson
-- [ ] getPersonListByCreatedDate
-- [ ] getLinkByCreatedDate
 - [ ] getPersonListByUser
 - [ ] getPersonListByTag
 - [ ] getPersonListByReminder
 - [ ] getPersonListByTopic
 - [ ] getPersonListByTasks
+- [ ] getPersonListByDocument
+- [ ] getPersonListByAddress
 
 ## Other

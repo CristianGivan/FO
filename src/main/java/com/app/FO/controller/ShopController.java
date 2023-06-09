@@ -42,9 +42,9 @@ public class ShopController {
 
 
     //-- PutMapping
-    @PutMapping("/putReferenceToShop")
-    public ShopDTO putReferenceToShop(@RequestParam Long shopId, @RequestParam String reference) {
-        Shop shop = shopService.putReferenceToShop(shopId, reference);
+    @PutMapping("/putNameToShop")
+    public ShopDTO putNameToShop(@RequestParam Long shopId, @RequestParam String name) {
+        Shop shop = shopService.putNameToShop(shopId, name);
         return shopDTOMapper.shopToShopDTO(shop);
     }
 
@@ -147,15 +147,15 @@ public class ShopController {
         return shopDTOMapper.shopListToShopDTOList(shopList);
     }
 
-    @GetMapping("/getShopByReference")
-    public ShopDTO getShopByReference(@RequestParam String reference) {
-        Shop shop = shopService.getShopByReference(reference);
+    @GetMapping("/getShopByName")
+    public ShopDTO getShopByName(@RequestParam String name) {
+        Shop shop = shopService.getShopByName(name);
         return shopDTOMapper.shopToShopDTO(shop);
     }
 
-    @GetMapping("/getShopListByReferenceContains")
-    public List<ShopDTO> getShopListByReferenceContains(@RequestParam String referenceContain) {
-        List<Shop> shopList = shopService.getShopListByReferenceContains(referenceContain);
+    @GetMapping("/getShopListByNameContains")
+    public List<ShopDTO> getShopListByNameContains(@RequestParam String nameContain) {
+        List<Shop> shopList = shopService.getShopListByNameContains(nameContain);
         return shopDTOMapper.shopListToShopDTOList(shopList);
     }
 

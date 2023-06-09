@@ -31,12 +31,12 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM shop as t inner join shop_user tu on t.shop_id = tu.shop_id where tu.user_id=?1 and t.reference=?2")
-    Shop getShopFromUserIdByReference(Long userId, String reference);
+            "SELECT * FROM shop as t inner join shop_user tu on t.shop_id = tu.shop_id where tu.user_id=?1 and t.name=?2")
+    Shop getShopFromUserIdByName(Long userId, String name);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM shop as t inner join shop_user ut on t.shop_id = ut.shop_id where ut.user_id=:userId and t.reference like %:containingText%")
-    List<Shop> getShopListByReferenceContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM shop as t inner join shop_user ut on t.shop_id = ut.shop_id where ut.user_id=:userId and t.name like %:containingText%")
+    List<Shop> getShopListByNameContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM shop as t inner join shop_user tu on t.shop_id = tu.shop_id where tu.user_id=?1 and t.created_date=?2")

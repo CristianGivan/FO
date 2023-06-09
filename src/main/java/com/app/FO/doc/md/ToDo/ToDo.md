@@ -1,8 +1,9 @@
 # Todo
 
-- [ ] crete entity for address shop document 
-- [ ] include in accountTransaction and all linked tables als the user for query:  query by user account transaction all three
-- [ ] when putSubject make sure that there are no other same subject in table 
+- [x] crete entity for address shop document
+- [ ] include in accountTransaction and all linked tables als the user for query:  query by user account transaction all
+  three
+- [ ] when putSubject make sure that there are no other same subject in table
 - [ ] when get a value treat the case when more values are possible
 - [ ] link_date to created_date
 - [ ] clarify total price checked price and estimated price how is updated
@@ -16,6 +17,9 @@
 - [ ] Check Event
 - [ ] Check Person
 - [ ] Check Link
+- [ ] Check Address
+- [ ] Check Document
+- [ ] Check Shop
 - [ ] Check Work
 - [ ] Check Tasks
 - [ ] Check Task

@@ -31,12 +31,12 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM document as t inner join document_user tu on t.document_id = tu.document_id where tu.user_id=?1 and t.reference=?2")
-    Document getDocumentFromUserIdByReference(Long userId, String reference);
+            "SELECT * FROM document as t inner join document_user tu on t.document_id = tu.document_id where tu.user_id=?1 and t.type=?2")
+    Document getDocumentFromUserIdByType(Long userId, String type);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM document as t inner join document_user ut on t.document_id = ut.document_id where ut.user_id=:userId and t.reference like %:containingText%")
-    List<Document> getDocumentListByReferenceContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM document as t inner join document_user ut on t.document_id = ut.document_id where ut.user_id=:userId and t.type like %:containingText%")
+    List<Document> getDocumentListByTypeContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM document as t inner join document_user tu on t.document_id = tu.document_id where tu.user_id=?1 and t.created_date=?2")

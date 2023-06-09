@@ -22,8 +22,8 @@ public class Document {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "reference")
-    private String reference;
+    @Column(name = "type")
+    private String type;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -54,7 +54,7 @@ public class Document {
 
     public Document(String subject, User creator) {
         this.subject = subject;
-        this.reference = reference;
+        this.type = type;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -64,7 +64,7 @@ public class Document {
         return "Document{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + reference + '\'' +
+                ", type='" + type + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", documentUserList=" + documentUserList +
@@ -86,8 +86,8 @@ public class Document {
     }
 
     public String getSubject() {
-        if (reference == null) {
-            reference = "";
+        if (type == null) {
+            type = "";
         }
         return subject;
     }
@@ -96,15 +96,15 @@ public class Document {
         this.subject = subject;
     }
 
-    public String getReference() {
-        if (reference == null) {
-            reference = "";
+    public String getType() {
+        if (type == null) {
+            type = "";
         }
-        return reference;
+        return type;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public LocalDateTime getCreatedDate() {

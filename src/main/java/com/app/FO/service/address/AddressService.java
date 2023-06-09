@@ -63,18 +63,18 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    public Address putReferenceToAddress(Long addressId, String reference) {
+    public Address putGoogleLocationToAddress(Long addressId, String googleLocation) {
         User logInUser = serviceAll.getLogInUser();
         Address address = addressRepository.getAddressFromUserIdByAddressId(logInUser.getId(), addressId);
         if (address == null) {
             throw new AddressNotFoundException("Address not found in your list");
         }
 
-        if (address.getReference().equals(reference)) {
-            throw new AddressAlreadyExistException("Address has already the same reference");
+        if (address.getGoogleLocation().equals(googleLocation)) {
+            throw new AddressAlreadyExistException("Address has already the same googleLocation");
         }
 
-        address.setReference(reference);
+        address.setGoogleLocation(googleLocation);
 
         return addressRepository.save(address);
     }
@@ -365,18 +365,18 @@ public class AddressService {
         return addressList;
     }
 
-    public Address getAddressByReference(String reference) {
+    public Address getAddressByGoogleLocation(String googleLocation) {
         User logInUser = serviceAll.getLogInUser();
-        Address address = addressRepository.getAddressFromUserIdByReference(logInUser.getId(), reference);
+        Address address = addressRepository.getAddressFromUserIdByGoogleLocation(logInUser.getId(), googleLocation);
         if (address == null) {
             throw new AddressNotFoundException("No address found");
         }
         return address;
     }
 
-    public List<Address> getAddressListByReferenceContains(String referenceContains) {
+    public List<Address> getAddressListByGoogleLocationContains(String googleLocationContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<Address> addressList = addressRepository.getAddressListByReferenceContains(logInUser.getId(), referenceContains);
+        List<Address> addressList = addressRepository.getAddressListByGoogleLocationContains(logInUser.getId(), googleLocationContains);
         if (addressList.isEmpty()) {
             throw new AddressNotFoundException("No address found");
         }
