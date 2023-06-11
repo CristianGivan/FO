@@ -1,5 +1,6 @@
 package com.app.FO.model.address;
 
+import com.app.FO.model.person.PersonAddress;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,6 +46,9 @@ public class Address {
 
     @OneToMany(mappedBy = "address", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AddressTasks> addressTasksList;
+
+    @OneToMany(mappedBy = "address", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonAddress> personAddressList;
     @OneToMany(mappedBy = "address", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AddressHistory> addressHistoryList;
 
@@ -73,6 +77,7 @@ public class Address {
                 ", addressUserList=" + addressUserList +
                 ", addressTagList=" + addressTagList +
                 ", addressReminderList=" + addressReminderList +
+                ", personAddressList=" + personAddressList +
                 ", addressHistoryList=" + addressHistoryList +
                 '}';
     }
@@ -177,6 +182,17 @@ public class Address {
 
     public void setAddressTasksList(List<AddressTasks> addressTasksList) {
         this.addressTasksList = addressTasksList;
+    }
+
+    public List<PersonAddress> getPersonAddressList() {
+        if (personAddressList == null) {
+            personAddressList = new ArrayList<>();
+        }
+        return personAddressList;
+    }
+
+    public void setPersonAddressList(List<PersonAddress> personAddressList) {
+        this.personAddressList = personAddressList;
     }
 
     public List<AddressHistory> getAddressHistoryList() {

@@ -54,10 +54,6 @@
 - [ ] lastName
 - [ ] fullName
 - [ ] description
-- [ ] emailList
-- [ ] phoneNumberList
-- [ ] anniversaryList
-- [ ] relatedPersonList
 - [ ] subject
 - [ ] creator
 - [ ] userList
@@ -65,8 +61,13 @@
 - [ ] personReminderList
 - [ ] personTopicList
 - [ ] personTasksList
-- [ ] documentList
-- [ ] addressList
+- [ ] personDocumentList
+- [ ] personAddressList
+- [ ] personEmailList
+- [ ] personPhoneNumberList
+- [ ] personTheDayList
+- [ ] expensesPersonList
+- [ ] relatedPersonList
 - [ ] personHistoryList
 
 ### Post
@@ -80,10 +81,6 @@
 - [ ] putMiddleNameToPerson
 - [ ] putLastNameToPerson
 - [ ] putDescriptionToPerson
-- [ ] putEmailToPerson
-- [ ] putPhoneNumberToPerson
-- [ ] putAnniversaryToPerson
-- [ ] putRelatedPersonToPerson
 - [ ] putSubjectToPerson
 - [ ] putUserToPerson
 - [ ] putTagToPerson
@@ -92,6 +89,10 @@
 - [ ] putTasksToPerson
 - [ ] putDocumentToPerson
 - [ ] putAddressToPerson
+- [ ] putEmailToPerson
+- [ ] putPhoneNumberToPerson
+- [ ] putTheDayToPerson
+- [ ] putRelatedPersonToPerson
 
 ### Delete
 
@@ -105,13 +106,16 @@
 - [ ] deleteTasksFromPerson
 - [ ] deleteDocumentFromPerson
 - [ ] deleteAddressFromPerson
+- [ ] deleteEmailFromPerson
+- [ ] deletePhoneNumberFromPerson
+- [ ] deleteTheDayFromPerson
+- [ ] deleteRelatedPersonFromPerson
 - [ ] deletePerson
 
 ### Get
 
 - [ ] getAllPerson
 - [ ] getPersonById
-
 - [ ] getPersonListByNickName
 - [ ] getPersonListByNickNameContains
 - [ ] getPersonListByFirstName
@@ -122,11 +126,11 @@
 - [ ] getPersonListByLastNameContains
 - [ ] getPersonListByFullName
 - [ ] getPersonListByFullNameContains
+- [ ] getPersonListByDescription
+- [ ] getPersonListByDescriptionContains
 - [ ] getPersonListByEmail
 - [ ] getPersonListByEmailContains
 - [ ] getPersonListByPhoneNumber
-- [ ] getPersonListByAnniversary
-- [ ] getPersonListByAnniversaryBetween
 - [ ] getPersonBySubject
 - [ ] getPersonListBySubjectContains
 - [ ] getPersonByCreatedDate
@@ -139,5 +143,11 @@
 - [ ] getPersonListByTasks
 - [ ] getPersonListByDocument
 - [ ] getPersonListByAddress
+- [ ] getPersonListByEmail
+- [ ] getPersonListByPhoneNumber
+- [ ] getPersonListByTheDay
+- [ ] getPersonListByTheDayBetween
+- [ ] getPersonListByExpenses
+- [ ] getPersonListByRelatedPerson
 
 ## Other

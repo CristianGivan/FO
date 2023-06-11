@@ -205,6 +205,12 @@ public class ServiceAll {
     private PersonTasksRepository personTasksRepository;
 
     @Autowired
+    private PersonDocumentRepository personDocumentRepository;
+
+    @Autowired
+    private PersonAddressRepository personAddressRepository;
+
+    @Autowired
     private EventRepository eventRepository;
     @Autowired
     private EventUserRepository eventUserRepository;
@@ -628,6 +634,14 @@ public class ServiceAll {
 
     public PersonTasks getPersonTasks(Long personId, Long tasksId) {
         return personTasksRepository.getPersonTasksByPersonIdAndTasksId(personId, tasksId);
+    }
+
+    public PersonDocument getPersonDocument(Long personId, Long documentId) {
+        return personDocumentRepository.getPersonDocumentByPersonIdAndDocumentId(personId, documentId);
+    }
+
+    public PersonAddress getPersonAddress(Long personId, Long addressId) {
+        return personAddressRepository.getPersonAddressByPersonIdAndAddressId(personId, addressId);
     }
 
     //-- getEventAnd

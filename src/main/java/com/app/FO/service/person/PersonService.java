@@ -1,6 +1,10 @@
 package com.app.FO.service.person;
 
-import com.app.FO.exceptions.*;
+import com.app.FO.exceptions.PersonAlreadyExistException;
+import com.app.FO.exceptions.PersonNotFoundException;
+import com.app.FO.exceptions.PersonUserAlreadyExistException;
+import com.app.FO.exceptions.UserNotFoundException;
+import com.app.FO.model.document.Document;
 import com.app.FO.model.person.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
@@ -28,15 +32,17 @@ public class PersonService {
 
 //-- Post
 
-    public Person postPerson(String subject) {
+    public Person postPerson(String nickName, String description) {
         User logInUser = serviceAll.getLogInUser();
+
+        String subject = nickName + " " + description;
 
         Person person = personRepository.getPersonFromUserIdBySubject(logInUser.getId(), subject);
         if (person != null) {
             throw new PersonAlreadyExistException("Person with this subject already exist");
         }
 
-        person = personRepository.save(new Person(subject, logInUser));
+        person = personRepository.save(new Person(nickName, description, logInUser));
 
         PersonUser personUser = new PersonUser(person, logInUser);
         person.getPersonUserList().add(personUser);
@@ -45,6 +51,86 @@ public class PersonService {
     }
 
     //-- Put
+    public Person putNickNameToPerson(Long personId, String nickName) {
+        User logInUser = serviceAll.getLogInUser();
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        if (person.getNickName().equals(nickName)) {
+            throw new PersonAlreadyExistException("Person has already the same nickName");
+        }
+
+        person.setNickName(nickName);
+
+        return personRepository.save(person);
+    }
+
+    public Person putFirstNameToPerson(Long personId, String firstName) {
+        User logInUser = serviceAll.getLogInUser();
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        if (person.getFirstName().equals(firstName)) {
+            throw new PersonAlreadyExistException("Person has already the same firstName");
+        }
+
+        person.setFirstName(firstName);
+
+        return personRepository.save(person);
+    }
+
+    public Person putMiddleNameToPerson(Long personId, String middleName) {
+        User logInUser = serviceAll.getLogInUser();
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        if (person.getMiddleName().equals(middleName)) {
+            throw new PersonAlreadyExistException("Person has already the same middleName");
+        }
+
+        person.setMiddleName(middleName);
+
+        return personRepository.save(person);
+    }
+
+    public Person putLastNameToPerson(Long personId, String lastName) {
+        User logInUser = serviceAll.getLogInUser();
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        if (person.getLastName().equals(lastName)) {
+            throw new PersonAlreadyExistException("Person has already the same lastName");
+        }
+
+        person.setLastName(lastName);
+
+        return personRepository.save(person);
+    }
+
+    public Person putDescriptionToPerson(Long personId, String description) {
+        User logInUser = serviceAll.getLogInUser();
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        if (person.getDescription().equals(description)) {
+            throw new PersonAlreadyExistException("Person has already the same description");
+        }
+
+        person.setDescription(description);
+
+        return personRepository.save(person);
+    }
+
     public Person putSubjectToPerson(Long personId, String subject) {
         User logInUser = serviceAll.getLogInUser();
         Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
@@ -95,12 +181,12 @@ public class PersonService {
 
         Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
-            throw new TagNotFoundException("Tag not found");
+            throw new com.app.FO.exceptions.TagNotFoundException("Tag not found");
         }
 
         PersonTag personTag = serviceAll.getPersonTag(personId, tagId);
         if (personTag != null) {
-            throw new PersonTagAlreadyExistException("The person already has the tag");
+            throw new com.app.FO.exceptions.PersonTagAlreadyExistException("The person already has the tag");
         }
 
         personTag = new PersonTag(person, tag);
@@ -120,12 +206,12 @@ public class PersonService {
 
         Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
-            throw new ReminderNotFoundException("Reminder not found");
+            throw new com.app.FO.exceptions.ReminderNotFoundException("Reminder not found");
         }
 
         PersonReminder personReminder = serviceAll.getPersonReminder(personId, reminderId);
         if (personReminder != null) {
-            throw new PersonReminderAlreadyExistException("The person already has the reminder");
+            throw new com.app.FO.exceptions.PersonReminderAlreadyExistException("The person already has the reminder");
         }
 
         personReminder = new PersonReminder(person, reminder);
@@ -144,12 +230,12 @@ public class PersonService {
 
         Topic topic = serviceAll.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
-            throw new TopicNotFoundException("Topic not found");
+            throw new com.app.FO.exceptions.TopicNotFoundException("Topic not found");
         }
 
         PersonTopic personTopic = serviceAll.getPersonTopic(personId, topicId);
         if (personTopic != null) {
-            throw new PersonTopicAlreadyExistException("The person already has the topic");
+            throw new com.app.FO.exceptions.PersonTopicAlreadyExistException("The person already has the topic");
         }
 
         personTopic = new PersonTopic(person, topic);
@@ -167,12 +253,12 @@ public class PersonService {
 
         Tasks tasks = serviceAll.getTasksFromUserIdAndTasksId(logInUser.getId(), tasksId);
         if (tasks == null) {
-            throw new TasksNotFoundException("Tasks not found");
+            throw new com.app.FO.exceptions.TasksNotFoundException("Tasks not found");
         }
 
         PersonTasks personTasks = serviceAll.getPersonTasks(personId, tasksId);
         if (personTasks != null) {
-            throw new PersonTasksAlreadyExistException("The person already has the tasks");
+            throw new com.app.FO.exceptions.PersonTasksAlreadyExistException("The person already has the tasks");
         }
 
         personTasks = new PersonTasks(person, tasks);
@@ -180,6 +266,53 @@ public class PersonService {
         return personRepository.save(person);
     }
 
+
+    public Person putDocumentToPerson(Long personId, Long documentId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Document document = serviceAll.getDocumentFromUserIdAndDocumentId(logInUser.getId(), documentId);
+        if (document == null) {
+            throw new com.app.FO.exceptions.DocumentNotFoundException("Document not found");
+        }
+
+        PersonDocument personDocument = serviceAll.getPersonDocument(personId, documentId);
+        if (personDocument != null) {
+            throw new com.app.FO.exceptions.PersonDocumentAlreadyExistException("The person already has the document");
+        }
+
+        personDocument = new PersonDocument(person, document);
+        person.getPersonDocumentList().add(personDocument);
+        return personRepository.save(person);
+    }
+
+
+    public Person putAddressToPerson(Long personId, Long addressId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Tasks address = serviceAll.getTasksFromUserIdAndTasksId(logInUser.getId(), addressId);
+        if (address == null) {
+            throw new com.app.FO.exceptions.TasksNotFoundException("Tasks not found");
+        }
+
+        PersonTasks personTasks = serviceAll.getPersonTasks(personId, addressId);
+        if (personTasks != null) {
+            throw new com.app.FO.exceptions.PersonTasksAlreadyExistException("The person already has the address");
+        }
+
+        personTasks = new PersonTasks(person, address);
+        person.getPersonTasksList().add(personTasks);
+        return personRepository.save(person);
+    }
 
     //--Delete
 
@@ -199,7 +332,7 @@ public class PersonService {
 
         PersonUser personUser = serviceAll.getPersonUser(personId, userId);
         if (personUser == null) {
-            throw new PersonUserNotFoundException("The person don't has the user");
+            throw new com.app.FO.exceptions.PersonUserNotFoundException("The person don't has the user");
         }
         person.getPersonUserList().remove(personUser);
 
@@ -216,12 +349,12 @@ public class PersonService {
 
         Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
-            throw new TagNotFoundException("Tag not found");
+            throw new com.app.FO.exceptions.TagNotFoundException("Tag not found");
         }
 
         PersonTag personTag = serviceAll.getPersonTag(personId, tagId);
         if (personTag == null) {
-            throw new PersonTagNotFoundException("The person don't has the tag");
+            throw new com.app.FO.exceptions.PersonTagNotFoundException("The person don't has the tag");
         }
 
         person.getPersonTagList().remove(personTag);
@@ -239,12 +372,12 @@ public class PersonService {
 
         Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
-            throw new ReminderNotFoundException("Reminder not found");
+            throw new com.app.FO.exceptions.ReminderNotFoundException("Reminder not found");
         }
 
         PersonReminder personReminder = serviceAll.getPersonReminder(personId, reminderId);
         if (personReminder == null) {
-            throw new PersonReminderNotFoundException("The person don't has the reminder");
+            throw new com.app.FO.exceptions.PersonReminderNotFoundException("The person don't has the reminder");
         }
 
         person.getPersonReminderList().remove(personReminder);
@@ -262,12 +395,12 @@ public class PersonService {
 
         Topic topic = serviceAll.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
-            throw new TopicNotFoundException("Topic not found");
+            throw new com.app.FO.exceptions.TopicNotFoundException("Topic not found");
         }
 
         PersonTopic personTopic = serviceAll.getPersonTopic(personId, topicId);
         if (personTopic == null) {
-            throw new PersonTasksNotFoundException("The person don't has the topic");
+            throw new com.app.FO.exceptions.PersonTasksNotFoundException("The person don't has the topic");
         }
 
         person.getPersonTopicList().remove(personTopic);
@@ -285,12 +418,12 @@ public class PersonService {
 
         Tasks tasks = serviceAll.getTasksFromUserIdAndTasksId(logInUser.getId(), tasksId);
         if (tasks == null) {
-            throw new TasksNotFoundException("Tasks not found");
+            throw new com.app.FO.exceptions.TasksNotFoundException("Tasks not found");
         }
 
         PersonTasks personTasks = serviceAll.getPersonTasks(personId, tasksId);
         if (personTasks == null) {
-            throw new PersonTasksNotFoundException("The person don't has the tasks");
+            throw new com.app.FO.exceptions.PersonTasksNotFoundException("The person don't has the tasks");
         }
 
         person.getPersonTasksList().remove(personTasks);
@@ -320,6 +453,125 @@ public class PersonService {
         return personList;
     }
 
+
+    public Person getPersonByPersonId(Long personId) {
+        User logInUser = serviceAll.getLogInUser();
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return person;
+    }
+
+    public List<Person> getPersonListByNickName(String nickName) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonFromUserIdByNickName(logInUser.getId(), nickName);
+        ;
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByNickNameContains(String nickNameContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListByNickNameContains(logInUser.getId(), nickNameContains);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByFirstName(String firstName) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonFromUserIdByFirstName(logInUser.getId(), firstName);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByFirstNameContains(String firstNameContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListByFirstNameContains(logInUser.getId(), firstNameContains);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByMiddleName(String middleName) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonFromUserIdByMiddleName(logInUser.getId(), middleName);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByMiddleNameContains(String middleNameContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListByMiddleNameContains(logInUser.getId(), middleNameContains);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByLastName(String lastName) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonFromUserIdByLastName(logInUser.getId(), lastName);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByLastNameContains(String lastNameContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListByLastNameContains(logInUser.getId(), lastNameContains);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByFullName(String fullName) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonFromUserIdByFullName(logInUser.getId(), fullName);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByFullNameContains(String fullNameContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListByFullNameContains(logInUser.getId(), fullNameContains);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByDescription(String description) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonFromUserIdByDescription(logInUser.getId(), description);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByDescriptionContains(String descriptionContains) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListByDescriptionContains(logInUser.getId(), descriptionContains);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
     public Person getPersonBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();
         Person person = personRepository.getPersonFromUserIdBySubject(logInUser.getId(), subject);
@@ -336,15 +588,6 @@ public class PersonService {
             throw new PersonNotFoundException("No person found");
         }
         return personList;
-    }
-
-    public Person getPersonByPersonId(Long personId) {
-        User logInUser = serviceAll.getLogInUser();
-        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
-        if (person == null) {
-            throw new PersonNotFoundException("No person found");
-        }
-        return person;
     }
 
     public List<Person> getPersonListByUserId(Long userId) {
@@ -386,6 +629,33 @@ public class PersonService {
     public List<Person> getPersonListByTasksId(Long tasksId) {
         User logInUser = serviceAll.getLogInUser();
         List<Person> personList = personRepository.getPersonListFromUserIdByTasksId(logInUser.getId(), tasksId);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByDocument(Long documentId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListFromUserIdByDocumentId(logInUser.getId(), documentId);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByAddress(Long addressId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListFromUserIdByAddressId(logInUser.getId(), addressId);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public List<Person> getPersonListByExpenses(Long expensesId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListFromUserIdByExpensesId(logInUser.getId(), expensesId);
         if (personList.isEmpty()) {
             throw new PersonNotFoundException("No person found");
         }

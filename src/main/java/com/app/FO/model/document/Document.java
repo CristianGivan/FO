@@ -1,5 +1,6 @@
 package com.app.FO.model.document;
 
+import com.app.FO.model.person.PersonDocument;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,6 +46,9 @@ public class Document {
 
     @OneToMany(mappedBy = "document", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<DocumentTasks> documentTasksList;
+
+    @OneToMany(mappedBy = "document", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonDocument> personDocumentList;
     @OneToMany(mappedBy = "document", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<DocumentHistory> documentHistoryList;
 
@@ -72,6 +76,7 @@ public class Document {
                 ", documentTasksList=" + documentTasksList +
                 ", documentUserList=" + documentUserList +
                 ", documentTagList=" + documentTagList +
+                ", personDocumentList=" + personDocumentList +
                 ", documentReminderList=" + documentReminderList +
                 ", documentHistoryList=" + documentHistoryList +
                 '}';
@@ -177,6 +182,17 @@ public class Document {
 
     public void setDocumentTasksList(List<DocumentTasks> documentTasksList) {
         this.documentTasksList = documentTasksList;
+    }
+
+    public List<PersonDocument> getPersonDocumentList() {
+        if (personDocumentList == null) {
+            personDocumentList = new ArrayList<>();
+        }
+        return personDocumentList;
+    }
+
+    public void setPersonDocumentList(List<PersonDocument> personDocumentList) {
+        this.personDocumentList = personDocumentList;
     }
 
     public List<DocumentHistory> getDocumentHistoryList() {

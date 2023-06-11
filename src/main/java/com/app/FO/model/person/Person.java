@@ -21,10 +21,25 @@ public class Person {
     @Column(name = "person_id")
     private Long id;
 
+    @Column(name = "nickName")
+    private String nickName;
+    @Column(name = "firsName")
+    private String firstName;
+    @Column(name = "middleName")
+    private String middleName;
+    @Column(name = "lastName")
+    private String lastName;
+    @Column(name = "fullName")
+    private String fullName;
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "subject")
     private String subject;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -33,6 +48,11 @@ public class Person {
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PersonUser> personUserList;
 
+    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonTag> personTagList;
+
+    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonReminder> personReminderList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PersonTopic> personTopicList;
@@ -41,14 +61,26 @@ public class Person {
     private List<PersonTasks> personTasksList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<PersonTag> personTagList;
+    private List<PersonDocument> personDocumentList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<PersonReminder> personReminderList;
+    private List<PersonAddress> personAddressList;
+
+    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonEmail> personEmailList;
+
+    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonPhoneNumber> personPhoneNumberList;
+
+    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonTheDay> personTheDayList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesPerson> expensesPayerList;
 
+    @OneToMany
+    @JoinColumn(name = "releted_person")
+    private List<Person> relatedPersonList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PersonHistory> personHistoryList;
@@ -57,8 +89,10 @@ public class Person {
     public Person() {
     }
 
-    public Person(String subject, User creator) {
-        this.subject = subject;
+    public Person(String nickName, String description, User creator) {
+        this.nickName = nickName;
+        this.description = description;
+        this.subject = nickName + " " + description;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -76,7 +110,13 @@ public class Person {
                 ", personUserList=" + personUserList +
                 ", personTagList=" + personTagList +
                 ", personReminderList=" + personReminderList +
+                ", personDocumentList=" + personDocumentList +
+                ", personAddressList=" + personAddressList +
+                ", personEmailList=" + personEmailList +
+                ", personPhoneNumberList=" + personPhoneNumberList +
+                ", personTheDayList=" + personTheDayList +
                 ", expensesPayerList=" + expensesPayerList +
+                ", relatedPersonList=" + relatedPersonList +
                 ", personHistoryList=" + personHistoryList +
                 '}';
     }
@@ -87,6 +127,54 @@ public class Person {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getSubject() {
@@ -164,11 +252,59 @@ public class Person {
         this.personTasksList = personTasksList;
     }
 
+    public List<PersonDocument> getPersonDocumentList() {
+        return personDocumentList;
+    }
+
+    public void setPersonDocumentList(List<PersonDocument> personDocumentList) {
+        this.personDocumentList = personDocumentList;
+    }
+
+    public List<PersonAddress> getPersonAddressList() {
+        return personAddressList;
+    }
+
+    public void setPersonAddressList(List<PersonAddress> personAddressList) {
+        this.personAddressList = personAddressList;
+    }
+
+    public List<PersonEmail> getPersonEmailList() {
+        return personEmailList;
+    }
+
+    public void setPersonEmailList(List<PersonEmail> personEmailList) {
+        this.personEmailList = personEmailList;
+    }
+
+    public List<PersonPhoneNumber> getPersonPhoneNumberList() {
+        return personPhoneNumberList;
+    }
+
+    public void setPersonPhoneNumberList(List<PersonPhoneNumber> personPhoneNumberList) {
+        this.personPhoneNumberList = personPhoneNumberList;
+    }
+
+    public List<PersonTheDay> getPersonTheDayList() {
+        return personTheDayList;
+    }
+
+    public void setPersonTheDayList(List<PersonTheDay> personTheDayList) {
+        this.personTheDayList = personTheDayList;
+    }
+
     public List<ExpensesPerson> getExpensesPayerList() {
         return expensesPayerList;
     }
 
     public void setExpensesPayerList(List<ExpensesPerson> expensesPayerList) {
         this.expensesPayerList = expensesPayerList;
+    }
+
+    public List<Person> getRelatedPersonList() {
+        return relatedPersonList;
+    }
+
+    public void setRelatedPersonList(List<Person> relatedPersonList) {
+        this.relatedPersonList = relatedPersonList;
     }
 }
