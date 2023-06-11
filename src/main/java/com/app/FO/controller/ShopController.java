@@ -1,6 +1,5 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.shop.ShopDTO;
 import com.app.FO.mapper.mappers.ShopDTOMapper;
 import com.app.FO.model.shop.Shop;
@@ -27,8 +26,8 @@ public class ShopController {
     //-- PostMapping
 
     @PostMapping("/postNewShop")
-    public ShopDTO postNewShop(@RequestBody TextDTO noteText) {
-        Shop shop = shopService.postShop(noteText.getText());
+    public ShopDTO postNewShop(@RequestParam String subject, @RequestParam String name) {
+        Shop shop = shopService.postShop(subject, name);
         return shopDTOMapper.shopToShopDTO(shop);
     }
 

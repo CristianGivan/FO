@@ -30,7 +30,7 @@ public class ShopService {
 
 //-- Post
 
-    public Shop postShop(String subject) {
+    public Shop postShop(String subject, String name) {
         User logInUser = serviceAll.getLogInUser();
 
         Shop shop = shopRepository.getShopFromUserIdBySubject(logInUser.getId(), subject);
@@ -38,7 +38,7 @@ public class ShopService {
             throw new ShopAlreadyExistException("Shop with this subject already exist");
         }
 
-        shop = shopRepository.save(new Shop(subject, logInUser));
+        shop = shopRepository.save(new Shop(subject, name, logInUser));
 
         ShopUser shopUser = new ShopUser(shop, logInUser);
         shop.getShopUserList().add(shopUser);

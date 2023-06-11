@@ -22,8 +22,8 @@ public class Email {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "reference")
-    private String reference;
+    @Column(name = "email_address")
+    private String emailAddress;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -52,9 +52,9 @@ public class Email {
     public Email() {
     }
 
-    public Email(String subject, User creator) {
+    public Email(String subject, String emailAddress, User creator) {
         this.subject = subject;
-        this.reference = reference;
+        this.emailAddress = emailAddress;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -64,7 +64,7 @@ public class Email {
         return "Email{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + reference + '\'' +
+                ", reference='" + emailAddress + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", emailUserList=" + emailUserList +
@@ -86,8 +86,8 @@ public class Email {
     }
 
     public String getSubject() {
-        if (reference == null) {
-            reference = "";
+        if (subject == null) {
+            subject = "";
         }
         return subject;
     }
@@ -96,15 +96,15 @@ public class Email {
         this.subject = subject;
     }
 
-    public String getReference() {
-        if (reference == null) {
-            reference = "";
+    public String getEmailAddress() {
+        if (emailAddress == null) {
+            emailAddress = "";
         }
-        return reference;
+        return emailAddress;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public LocalDateTime getCreatedDate() {

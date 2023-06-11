@@ -30,7 +30,7 @@ public class DocumentService {
 
 //-- Post
 
-    public Document postDocument(String subject) {
+    public Document postDocument(String subject, String type) {
         User logInUser = serviceAll.getLogInUser();
 
         Document document = documentRepository.getDocumentFromUserIdBySubject(logInUser.getId(), subject);
@@ -38,7 +38,7 @@ public class DocumentService {
             throw new DocumentAlreadyExistException("Document with this subject already exist");
         }
 
-        document = documentRepository.save(new Document(subject, logInUser));
+        document = documentRepository.save(new Document(subject, type, logInUser));
 
         DocumentUser documentUser = new DocumentUser(document, logInUser);
         document.getDocumentUserList().add(documentUser);

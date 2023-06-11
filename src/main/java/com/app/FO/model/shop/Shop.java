@@ -52,7 +52,7 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(String subject, User creator) {
+    public Shop(String subject, String name, User creator) {
         this.subject = subject;
         this.name = name;
         this.creator = creator;
@@ -86,8 +86,8 @@ public class Shop {
     }
 
     public String getSubject() {
-        if (name == null) {
-            name = "";
+        if (subject == null) {
+            subject = "";
         }
         return subject;
     }

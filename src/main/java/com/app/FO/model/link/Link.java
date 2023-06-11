@@ -52,7 +52,7 @@ public class Link {
     public Link() {
     }
 
-    public Link(String subject, User creator) {
+    public Link(String subject, String reference, User creator) {
         this.subject = subject;
         this.reference = reference;
         this.creator = creator;
@@ -86,8 +86,8 @@ public class Link {
     }
 
     public String getSubject() {
-        if (reference == null) {
-            reference = "";
+        if (subject == null) {
+            subject = "";
         }
         return subject;
     }

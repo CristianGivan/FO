@@ -1,7 +1,6 @@
 package com.app.FO.controller;
 
 import com.app.FO.mapper.dto.address.AddressDTO;
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.mappers.AddressDTOMapper;
 import com.app.FO.model.address.Address;
 import com.app.FO.service.address.AddressService;
@@ -27,8 +26,8 @@ public class AddressController {
     //-- PostMapping
 
     @PostMapping("/postNewAddress")
-    public AddressDTO postNewAddress(@RequestBody TextDTO noteText) {
-        Address address = addressService.postAddress(noteText.getText());
+    public AddressDTO postNewAddress(@RequestParam String subject, @RequestParam String googleLocation) {
+        Address address = addressService.postAddress(subject, googleLocation);
         return addressDTOMapper.addressToAddressDTO(address);
     }
 

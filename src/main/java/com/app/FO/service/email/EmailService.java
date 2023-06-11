@@ -30,7 +30,7 @@ public class EmailService {
 
 //-- Post
 
-    public Email postEmail(String subject) {
+    public Email postEmail(String subject, String emailAddress) {
         User logInUser = serviceAll.getLogInUser();
 
         Email email = emailRepository.getEmailFromUserIdBySubject(logInUser.getId(), subject);
@@ -38,7 +38,7 @@ public class EmailService {
             throw new EmailAlreadyExistException("Email with this subject already exist");
         }
 
-        email = emailRepository.save(new Email(subject, logInUser));
+        email = emailRepository.save(new Email(subject, emailAddress, logInUser));
 
         EmailUser emailUser = new EmailUser(email, logInUser);
         email.getEmailUserList().add(emailUser);
@@ -63,18 +63,18 @@ public class EmailService {
         return emailRepository.save(email);
     }
 
-    public Email putReferenceToEmail(Long emailId, String reference) {
+    public Email putEmailAddressToEmail(Long emailId, String emailAddress) {
         User logInUser = serviceAll.getLogInUser();
         Email email = emailRepository.getEmailFromUserIdByEmailId(logInUser.getId(), emailId);
         if (email == null) {
             throw new EmailNotFoundException("Email not found in your list");
         }
 
-        if (email.getReference().equals(reference)) {
-            throw new EmailAlreadyExistException("Email has already the same reference");
+        if (email.getEmailAddress().equals(emailAddress)) {
+            throw new EmailAlreadyExistException("Email has already the same emailAddress");
         }
 
-        email.setReference(reference);
+        email.setEmailAddress(emailAddress);
 
         return emailRepository.save(email);
     }
@@ -365,18 +365,18 @@ public class EmailService {
         return emailList;
     }
 
-    public Email getEmailByReference(String reference) {
+    public Email getEmailByEmailAddress(String emailAddress) {
         User logInUser = serviceAll.getLogInUser();
-        Email email = emailRepository.getEmailFromUserIdByReference(logInUser.getId(), reference);
+        Email email = emailRepository.getEmailFromUserIdByEmailAddress(logInUser.getId(), emailAddress);
         if (email == null) {
             throw new EmailNotFoundException("No email found");
         }
         return email;
     }
 
-    public List<Email> getEmailListByReferenceContains(String referenceContains) {
+    public List<Email> getEmailListByEmailAddressContains(String emailAddressContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<Email> emailList = emailRepository.getEmailListByReferenceContains(logInUser.getId(), referenceContains);
+        List<Email> emailList = emailRepository.getEmailListByEmailAddressContains(logInUser.getId(), emailAddressContains);
         if (emailList.isEmpty()) {
             throw new EmailNotFoundException("No email found");
         }

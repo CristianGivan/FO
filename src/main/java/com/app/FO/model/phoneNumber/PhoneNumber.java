@@ -22,8 +22,8 @@ public class PhoneNumber {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "reference")
-    private String reference;
+    @Column(name = "number")
+    private String number;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -52,9 +52,9 @@ public class PhoneNumber {
     public PhoneNumber() {
     }
 
-    public PhoneNumber(String subject, User creator) {
+    public PhoneNumber(String subject, String number, User creator) {
         this.subject = subject;
-        this.reference = reference;
+        this.number = number;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -64,7 +64,7 @@ public class PhoneNumber {
         return "PhoneNumber{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + reference + '\'' +
+                ", reference='" + number + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", phoneNumberUserList=" + phoneNumberUserList +
@@ -86,8 +86,8 @@ public class PhoneNumber {
     }
 
     public String getSubject() {
-        if (reference == null) {
-            reference = "";
+        if (subject == null) {
+            subject = "";
         }
         return subject;
     }
@@ -96,15 +96,15 @@ public class PhoneNumber {
         this.subject = subject;
     }
 
-    public String getReference() {
-        if (reference == null) {
-            reference = "";
+    public String getNumber() {
+        if (number == null) {
+            number = "";
         }
-        return reference;
+        return number;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public LocalDateTime getCreatedDate() {

@@ -31,12 +31,12 @@ public interface EmailRepository extends JpaRepository<Email, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM email as t inner join email_user tu on t.email_id = tu.email_id where tu.user_id=?1 and t.reference=?2")
-    Email getEmailFromUserIdByReference(Long userId, String reference);
+            "SELECT * FROM email as t inner join email_user tu on t.email_id = tu.email_id where tu.user_id=?1 and t.email_address=?2")
+    Email getEmailFromUserIdByEmailAddress(Long userId, String emailAddress);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM email as t inner join email_user ut on t.email_id = ut.email_id where ut.user_id=:userId and t.reference like %:containingText%")
-    List<Email> getEmailListByReferenceContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM email as t inner join email_user ut on t.email_id = ut.email_id where ut.user_id=:userId and t.emailAddress like %:containingText%")
+    List<Email> getEmailListByEmailAddressContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM email as t inner join email_user tu on t.email_id = tu.email_id where tu.user_id=?1 and t.created_date=?2")

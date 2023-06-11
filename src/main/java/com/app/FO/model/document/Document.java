@@ -56,7 +56,7 @@ public class Document {
     public Document() {
     }
 
-    public Document(String subject, User creator) {
+    public Document(String subject, String type, User creator) {
         this.subject = subject;
         this.type = type;
         this.creator = creator;
@@ -91,8 +91,8 @@ public class Document {
     }
 
     public String getSubject() {
-        if (type == null) {
-            type = "";
+        if (subject == null) {
+            subject = "";
         }
         return subject;
     }

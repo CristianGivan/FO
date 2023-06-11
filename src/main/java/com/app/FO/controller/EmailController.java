@@ -1,6 +1,5 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.email.EmailDTO;
 import com.app.FO.mapper.mappers.EmailDTOMapper;
 import com.app.FO.model.email.Email;
@@ -27,8 +26,8 @@ public class EmailController {
     //-- PostMapping
 
     @PostMapping("/postNewEmail")
-    public EmailDTO postNewEmail(@RequestBody TextDTO noteText) {
-        Email email = emailService.postEmail(noteText.getText());
+    public EmailDTO postNewEmail(@RequestParam String subject, @RequestParam String emailAddress) {
+        Email email = emailService.postEmail(subject, emailAddress);
         return emailDTOMapper.emailToEmailDTO(email);
     }
 
@@ -42,9 +41,9 @@ public class EmailController {
 
 
     //-- PutMapping
-    @PutMapping("/putReferenceToEmail")
-    public EmailDTO putReferenceToEmail(@RequestParam Long emailId, @RequestParam String reference) {
-        Email email = emailService.putReferenceToEmail(emailId, reference);
+    @PutMapping("/putEmailAddressToEmail")
+    public EmailDTO putEmailAddressToEmail(@RequestParam Long emailId, @RequestParam String emailAddress) {
+        Email email = emailService.putEmailAddressToEmail(emailId, emailAddress);
         return emailDTOMapper.emailToEmailDTO(email);
     }
 
@@ -147,15 +146,15 @@ public class EmailController {
         return emailDTOMapper.emailListToEmailDTOList(emailList);
     }
 
-    @GetMapping("/getEmailByReference")
-    public EmailDTO getEmailByReference(@RequestParam String reference) {
-        Email email = emailService.getEmailByReference(reference);
+    @GetMapping("/getEmailByEmailAddress")
+    public EmailDTO getEmailByEmailAddress(@RequestParam String emailAddress) {
+        Email email = emailService.getEmailByEmailAddress(emailAddress);
         return emailDTOMapper.emailToEmailDTO(email);
     }
 
-    @GetMapping("/getEmailListByReferenceContains")
-    public List<EmailDTO> getEmailListByReferenceContains(@RequestParam String referenceContain) {
-        List<Email> emailList = emailService.getEmailListByReferenceContains(referenceContain);
+    @GetMapping("/getEmailListByEmailAddressContains")
+    public List<EmailDTO> getEmailListByEmailAddressContains(@RequestParam String emailAddressContain) {
+        List<Email> emailList = emailService.getEmailListByEmailAddressContains(emailAddressContain);
         return emailDTOMapper.emailListToEmailDTOList(emailList);
     }
 

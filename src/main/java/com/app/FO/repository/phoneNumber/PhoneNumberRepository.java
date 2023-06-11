@@ -31,12 +31,12 @@ public interface PhoneNumberRepository extends JpaRepository<PhoneNumber, Long> 
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM phoneNumber as t inner join phoneNumber_user tu on t.phoneNumber_id = tu.phoneNumber_id where tu.user_id=?1 and t.reference=?2")
-    PhoneNumber getPhoneNumberFromUserIdByReference(Long userId, String reference);
+            "SELECT * FROM phoneNumber as t inner join phoneNumber_user tu on t.phoneNumber_id = tu.phoneNumber_id where tu.user_id=?1 and t.number=?2")
+    PhoneNumber getPhoneNumberFromUserIdByNumber(Long userId, String number);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM phoneNumber as t inner join phoneNumber_user ut on t.phoneNumber_id = ut.phoneNumber_id where ut.user_id=:userId and t.reference like %:containingText%")
-    List<PhoneNumber> getPhoneNumberListByReferenceContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM phoneNumber as t inner join phoneNumber_user ut on t.phoneNumber_id = ut.phoneNumber_id where ut.user_id=:userId and t.number like %:containingText%")
+    List<PhoneNumber> getPhoneNumberListByNumberContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM phoneNumber as t inner join phoneNumber_user tu on t.phoneNumber_id = tu.phoneNumber_id where tu.user_id=?1 and t.created_date=?2")

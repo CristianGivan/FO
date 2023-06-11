@@ -56,7 +56,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(String subject, User creator) {
+    public Address(String subject, String googleLocation, User creator) {
         this.subject = subject;
         this.googleLocation = googleLocation;
         this.creator = creator;
@@ -91,8 +91,8 @@ public class Address {
     }
 
     public String getSubject() {
-        if (googleLocation == null) {
-            googleLocation = "";
+        if (subject == null) {
+            subject = "";
         }
         return subject;
     }

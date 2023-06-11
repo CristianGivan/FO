@@ -30,7 +30,7 @@ public class PhoneNumberService {
 
 //-- Post
 
-    public PhoneNumber postPhoneNumber(String subject) {
+    public PhoneNumber postPhoneNumber(String subject, String number) {
         User logInUser = serviceAll.getLogInUser();
 
         PhoneNumber phoneNumber = phoneNumberRepository.getPhoneNumberFromUserIdBySubject(logInUser.getId(), subject);
@@ -38,7 +38,7 @@ public class PhoneNumberService {
             throw new PhoneNumberAlreadyExistException("PhoneNumber with this subject already exist");
         }
 
-        phoneNumber = phoneNumberRepository.save(new PhoneNumber(subject, logInUser));
+        phoneNumber = phoneNumberRepository.save(new PhoneNumber(subject, number, logInUser));
 
         PhoneNumberUser phoneNumberUser = new PhoneNumberUser(phoneNumber, logInUser);
         phoneNumber.getPhoneNumberUserList().add(phoneNumberUser);
@@ -63,18 +63,18 @@ public class PhoneNumberService {
         return phoneNumberRepository.save(phoneNumber);
     }
 
-    public PhoneNumber putReferenceToPhoneNumber(Long phoneNumberId, String reference) {
+    public PhoneNumber putNumberToPhoneNumber(Long phoneNumberId, String number) {
         User logInUser = serviceAll.getLogInUser();
         PhoneNumber phoneNumber = phoneNumberRepository.getPhoneNumberFromUserIdByPhoneNumberId(logInUser.getId(), phoneNumberId);
         if (phoneNumber == null) {
             throw new PhoneNumberNotFoundException("PhoneNumber not found in your list");
         }
 
-        if (phoneNumber.getReference().equals(reference)) {
-            throw new PhoneNumberAlreadyExistException("PhoneNumber has already the same reference");
+        if (phoneNumber.getNumber().equals(number)) {
+            throw new PhoneNumberAlreadyExistException("PhoneNumber has already the same number");
         }
 
-        phoneNumber.setReference(reference);
+        phoneNumber.setNumber(number);
 
         return phoneNumberRepository.save(phoneNumber);
     }
@@ -365,18 +365,18 @@ public class PhoneNumberService {
         return phoneNumberList;
     }
 
-    public PhoneNumber getPhoneNumberByReference(String reference) {
+    public PhoneNumber getPhoneNumberByNumber(String number) {
         User logInUser = serviceAll.getLogInUser();
-        PhoneNumber phoneNumber = phoneNumberRepository.getPhoneNumberFromUserIdByReference(logInUser.getId(), reference);
+        PhoneNumber phoneNumber = phoneNumberRepository.getPhoneNumberFromUserIdByNumber(logInUser.getId(), number);
         if (phoneNumber == null) {
             throw new PhoneNumberNotFoundException("No phoneNumber found");
         }
         return phoneNumber;
     }
 
-    public List<PhoneNumber> getPhoneNumberListByReferenceContains(String referenceContains) {
+    public List<PhoneNumber> getPhoneNumberListByNumberContains(String numberContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<PhoneNumber> phoneNumberList = phoneNumberRepository.getPhoneNumberListByReferenceContains(logInUser.getId(), referenceContains);
+        List<PhoneNumber> phoneNumberList = phoneNumberRepository.getPhoneNumberListByNumberContains(logInUser.getId(), numberContains);
         if (phoneNumberList.isEmpty()) {
             throw new PhoneNumberNotFoundException("No phoneNumber found");
         }

@@ -22,8 +22,8 @@ public class TheDay {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "reference")
-    private String reference;
+    @Column(name = "day")
+    private String day;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -52,9 +52,9 @@ public class TheDay {
     public TheDay() {
     }
 
-    public TheDay(String subject, User creator) {
+    public TheDay(String subject, String day, User creator) {
         this.subject = subject;
-        this.reference = reference;
+        this.day = day;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -64,7 +64,7 @@ public class TheDay {
         return "TheDay{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + reference + '\'' +
+                ", reference='" + day + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", theDayUserList=" + theDayUserList +
@@ -86,8 +86,8 @@ public class TheDay {
     }
 
     public String getSubject() {
-        if (reference == null) {
-            reference = "";
+        if (subject == null) {
+            subject = "";
         }
         return subject;
     }
@@ -96,15 +96,15 @@ public class TheDay {
         this.subject = subject;
     }
 
-    public String getReference() {
-        if (reference == null) {
-            reference = "";
+    public String getDay() {
+        if (day == null) {
+            day = "";
         }
-        return reference;
+        return day;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public LocalDateTime getCreatedDate() {

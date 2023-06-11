@@ -30,7 +30,7 @@ public class AddressService {
 
 //-- Post
 
-    public Address postAddress(String subject) {
+    public Address postAddress(String subject, String googleLocation) {
         User logInUser = serviceAll.getLogInUser();
 
         Address address = addressRepository.getAddressFromUserIdBySubject(logInUser.getId(), subject);
@@ -38,7 +38,7 @@ public class AddressService {
             throw new AddressAlreadyExistException("Address with this subject already exist");
         }
 
-        address = addressRepository.save(new Address(subject, logInUser));
+        address = addressRepository.save(new Address(subject, googleLocation, logInUser));
 
         AddressUser addressUser = new AddressUser(address, logInUser);
         address.getAddressUserList().add(addressUser);

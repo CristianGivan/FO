@@ -1,6 +1,5 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.link.LinkDTO;
 import com.app.FO.mapper.mappers.LinkDTOMapper;
 import com.app.FO.model.link.Link;
@@ -27,8 +26,8 @@ public class LinkController {
     //-- PostMapping
 
     @PostMapping("/postNewLink")
-    public LinkDTO postNewLink(@RequestBody TextDTO noteText) {
-        Link link = linkService.postLink(noteText.getText());
+    public LinkDTO postNewLink(@RequestParam String subject, @RequestParam String reference) {
+        Link link = linkService.postLink(subject, reference);
         return linkDTOMapper.linkToLinkDTO(link);
     }
 

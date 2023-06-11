@@ -31,12 +31,12 @@ public interface TheDayRepository extends JpaRepository<TheDay, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM the_day as t inner join the_day_user tu on t.the_day_id = tu.the_day_id where tu.user_id=?1 and t.reference=?2")
-    TheDay getTheDayFromUserIdByReference(Long userId, String reference);
+            "SELECT * FROM the_day as t inner join the_day_user tu on t.the_day_id = tu.the_day_id where tu.user_id=?1 and t.day=?2")
+    TheDay getTheDayFromUserIdByDay(Long userId, String day);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM the_day as t inner join the_day_user ut on t.the_day_id = ut.the_day_id where ut.user_id=:userId and t.reference like %:containingText%")
-    List<TheDay> getTheDayListByReferenceContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM the_day as t inner join the_day_user ut on t.the_day_id = ut.the_day_id where ut.user_id=:userId and t.day like %:containingText%")
+    List<TheDay> getTheDayListByDayContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM the_day as t inner join the_day_user tu on t.the_day_id = tu.the_day_id where tu.user_id=?1 and t.created_date=?2")

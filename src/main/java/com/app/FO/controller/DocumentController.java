@@ -1,7 +1,6 @@
 package com.app.FO.controller;
 
 import com.app.FO.mapper.dto.document.DocumentDTO;
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.mappers.DocumentDTOMapper;
 import com.app.FO.model.document.Document;
 import com.app.FO.service.document.DocumentService;
@@ -27,8 +26,8 @@ public class DocumentController {
     //-- PostMapping
 
     @PostMapping("/postNewDocument")
-    public DocumentDTO postNewDocument(@RequestBody TextDTO noteText) {
-        Document document = documentService.postDocument(noteText.getText());
+    public DocumentDTO postNewDocument(@RequestParam String subject, @RequestParam String type) {
+        Document document = documentService.postDocument(subject, type);
         return documentDTOMapper.documentToDocumentDTO(document);
     }
 

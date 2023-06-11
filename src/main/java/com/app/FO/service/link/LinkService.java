@@ -30,7 +30,7 @@ public class LinkService {
 
 //-- Post
 
-    public Link postLink(String subject) {
+    public Link postLink(String subject, String reference) {
         User logInUser = serviceAll.getLogInUser();
 
         Link link = linkRepository.getLinkFromUserIdBySubject(logInUser.getId(), subject);
@@ -38,7 +38,7 @@ public class LinkService {
             throw new LinkAlreadyExistException("Link with this subject already exist");
         }
 
-        link = linkRepository.save(new Link(subject, logInUser));
+        link = linkRepository.save(new Link(subject, reference, logInUser));
 
         LinkUser linkUser = new LinkUser(link, logInUser);
         link.getLinkUserList().add(linkUser);

@@ -3,17 +3,20 @@ package com.app.FO.util;
 import com.app.FO.model.account.*;
 import com.app.FO.model.address.*;
 import com.app.FO.model.document.*;
+import com.app.FO.model.email.*;
 import com.app.FO.model.event.*;
 import com.app.FO.model.expense.*;
 import com.app.FO.model.expenses.*;
 import com.app.FO.model.link.*;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.person.*;
+import com.app.FO.model.phoneNumber.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.shop.*;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.*;
 import com.app.FO.model.tasks.*;
+import com.app.FO.model.theDay.*;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.transaction.*;
 import com.app.FO.model.user.Role;
@@ -22,17 +25,20 @@ import com.app.FO.model.work.*;
 import com.app.FO.repository.account.*;
 import com.app.FO.repository.address.*;
 import com.app.FO.repository.document.*;
+import com.app.FO.repository.email.*;
 import com.app.FO.repository.event.*;
 import com.app.FO.repository.expense.*;
 import com.app.FO.repository.expenses.*;
 import com.app.FO.repository.link.*;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.person.*;
+import com.app.FO.repository.phoneNumber.*;
 import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.shop.*;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.task.*;
 import com.app.FO.repository.tasks.*;
+import com.app.FO.repository.theDay.*;
 import com.app.FO.repository.topic.*;
 import com.app.FO.repository.transaction.*;
 import com.app.FO.repository.user.RoleRepository;
@@ -279,6 +285,54 @@ public class ServiceAll {
 
     @Autowired
     private TransactionTasksRepository transactionTasksRepository;
+
+    @Autowired
+    private EmailRepository emailRepository;
+    @Autowired
+    private EmailUserRepository emailUserRepository;
+    @Autowired
+    private EmailTagRepository emailTagRepository;
+
+    @Autowired
+    private EmailReminderRepository emailReminderRepository;
+
+    @Autowired
+    private EmailTopicRepository emailTopicRepository;
+
+    @Autowired
+    private EmailTasksRepository emailTasksRepository;
+
+    @Autowired
+    private TheDayRepository theDayRepository;
+    @Autowired
+    private TheDayUserRepository theDayUserRepository;
+    @Autowired
+    private TheDayTagRepository theDayTagRepository;
+
+    @Autowired
+    private TheDayReminderRepository theDayReminderRepository;
+
+    @Autowired
+    private TheDayTopicRepository theDayTopicRepository;
+
+    @Autowired
+    private TheDayTasksRepository theDayTasksRepository;
+
+    @Autowired
+    private PhoneNumberRepository phoneNumberRepository;
+    @Autowired
+    private PhoneNumberUserRepository phoneNumberUserRepository;
+    @Autowired
+    private PhoneNumberTagRepository phoneNumberTagRepository;
+
+    @Autowired
+    private PhoneNumberReminderRepository phoneNumberReminderRepository;
+
+    @Autowired
+    private PhoneNumberTopicRepository phoneNumberTopicRepository;
+
+    @Autowired
+    private PhoneNumberTasksRepository phoneNumberTasksRepository;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -759,6 +813,87 @@ public class ServiceAll {
 
     public TransactionTasks getTransactionTasks(Long transactionId, Long tasksId) {
         return transactionTasksRepository.getTransactionTasksByTransactionIdAndTasksId(transactionId, tasksId);
+    }
+
+    //-- getEmailAnd
+
+
+    public Email getEmailFromUserIdAndEmailId(Long userId, Long emailId) {
+        return emailRepository.getEmailFromUserIdByEmailId(userId, emailId);
+    }
+
+    public EmailUser getEmailUser(Long emailId, Long userId) {
+        return emailUserRepository.getEmailUserByEmailIdAndUserId(emailId, userId);
+    }
+
+    public EmailTag getEmailTag(Long emailId, Long tagId) {
+        return emailTagRepository.getEmailTagByEmailIdAndTagId(emailId, tagId);
+    }
+
+    public EmailReminder getEmailReminder(Long emailId, Long reminderId) {
+        return emailReminderRepository.getEmailReminderByEmailIdAndReminderId(emailId, reminderId);
+    }
+
+    public EmailTopic getEmailTopic(Long emailId, Long topicId) {
+        return emailTopicRepository.getEmailTopicByEmailIdAndTopicId(emailId, topicId);
+    }
+
+    public EmailTasks getEmailTasks(Long emailId, Long tasksId) {
+        return emailTasksRepository.getEmailTasksByEmailIdAndTasksId(emailId, tasksId);
+    }
+
+    //-- getTheDayAnd
+
+
+    public TheDay getTheDayFromUserIdAndTheDayId(Long userId, Long theDayId) {
+        return theDayRepository.getTheDayFromUserIdByTheDayId(userId, theDayId);
+    }
+
+    public TheDayUser getTheDayUser(Long theDayId, Long userId) {
+        return theDayUserRepository.getTheDayUserByTheDayIdAndUserId(theDayId, userId);
+    }
+
+    public TheDayTag getTheDayTag(Long theDayId, Long tagId) {
+        return theDayTagRepository.getTheDayTagByTheDayIdAndTagId(theDayId, tagId);
+    }
+
+    public TheDayReminder getTheDayReminder(Long theDayId, Long reminderId) {
+        return theDayReminderRepository.getTheDayReminderByTheDayIdAndReminderId(theDayId, reminderId);
+    }
+
+    public TheDayTopic getTheDayTopic(Long theDayId, Long topicId) {
+        return theDayTopicRepository.getTheDayTopicByTheDayIdAndTopicId(theDayId, topicId);
+    }
+
+    public TheDayTasks getTheDayTasks(Long theDayId, Long tasksId) {
+        return theDayTasksRepository.getTheDayTasksByTheDayIdAndTasksId(theDayId, tasksId);
+    }
+
+    //-- getPhoneNumberAnd
+
+
+    public PhoneNumber getPhoneNumberFromUserIdAndPhoneNumberId(Long userId, Long phoneNumberId) {
+        return phoneNumberRepository.getPhoneNumberFromUserIdByPhoneNumberId(userId, phoneNumberId);
+    }
+
+    public PhoneNumberUser getPhoneNumberUser(Long phoneNumberId, Long userId) {
+        return phoneNumberUserRepository.getPhoneNumberUserByPhoneNumberIdAndUserId(phoneNumberId, userId);
+    }
+
+    public PhoneNumberTag getPhoneNumberTag(Long phoneNumberId, Long tagId) {
+        return phoneNumberTagRepository.getPhoneNumberTagByPhoneNumberIdAndTagId(phoneNumberId, tagId);
+    }
+
+    public PhoneNumberReminder getPhoneNumberReminder(Long phoneNumberId, Long reminderId) {
+        return phoneNumberReminderRepository.getPhoneNumberReminderByPhoneNumberIdAndReminderId(phoneNumberId, reminderId);
+    }
+
+    public PhoneNumberTopic getPhoneNumberTopic(Long phoneNumberId, Long topicId) {
+        return phoneNumberTopicRepository.getPhoneNumberTopicByPhoneNumberIdAndTopicId(phoneNumberId, topicId);
+    }
+
+    public PhoneNumberTasks getPhoneNumberTasks(Long phoneNumberId, Long tasksId) {
+        return phoneNumberTasksRepository.getPhoneNumberTasksByPhoneNumberIdAndTasksId(phoneNumberId, tasksId);
     }
 
     //-- getAccountAnd

@@ -1,6 +1,5 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.phoneNumber.PhoneNumberDTO;
 import com.app.FO.mapper.mappers.PhoneNumberDTOMapper;
 import com.app.FO.model.phoneNumber.PhoneNumber;
@@ -27,8 +26,8 @@ public class PhoneNumberController {
     //-- PostMapping
 
     @PostMapping("/postNewPhoneNumber")
-    public PhoneNumberDTO postNewPhoneNumber(@RequestBody TextDTO noteText) {
-        PhoneNumber phoneNumber = phoneNumberService.postPhoneNumber(noteText.getText());
+    public PhoneNumberDTO postNewPhoneNumber(@RequestParam String subject, @RequestParam String number) {
+        PhoneNumber phoneNumber = phoneNumberService.postPhoneNumber(subject, number);
         return phoneNumberDTOMapper.phoneNumberToPhoneNumberDTO(phoneNumber);
     }
 
@@ -42,9 +41,9 @@ public class PhoneNumberController {
 
 
     //-- PutMapping
-    @PutMapping("/putReferenceToPhoneNumber")
-    public PhoneNumberDTO putReferenceToPhoneNumber(@RequestParam Long phoneNumberId, @RequestParam String reference) {
-        PhoneNumber phoneNumber = phoneNumberService.putReferenceToPhoneNumber(phoneNumberId, reference);
+    @PutMapping("/putNumberToPhoneNumber")
+    public PhoneNumberDTO putNumberToPhoneNumber(@RequestParam Long phoneNumberId, @RequestParam String number) {
+        PhoneNumber phoneNumber = phoneNumberService.putNumberToPhoneNumber(phoneNumberId, number);
         return phoneNumberDTOMapper.phoneNumberToPhoneNumberDTO(phoneNumber);
     }
 
@@ -147,15 +146,15 @@ public class PhoneNumberController {
         return phoneNumberDTOMapper.phoneNumberListToPhoneNumberDTOList(phoneNumberList);
     }
 
-    @GetMapping("/getPhoneNumberByReference")
-    public PhoneNumberDTO getPhoneNumberByReference(@RequestParam String reference) {
-        PhoneNumber phoneNumber = phoneNumberService.getPhoneNumberByReference(reference);
+    @GetMapping("/getPhoneNumberByNumber")
+    public PhoneNumberDTO getPhoneNumberByNumber(@RequestParam String number) {
+        PhoneNumber phoneNumber = phoneNumberService.getPhoneNumberByNumber(number);
         return phoneNumberDTOMapper.phoneNumberToPhoneNumberDTO(phoneNumber);
     }
 
-    @GetMapping("/getPhoneNumberListByReferenceContains")
-    public List<PhoneNumberDTO> getPhoneNumberListByReferenceContains(@RequestParam String referenceContain) {
-        List<PhoneNumber> phoneNumberList = phoneNumberService.getPhoneNumberListByReferenceContains(referenceContain);
+    @GetMapping("/getPhoneNumberListByNumberContains")
+    public List<PhoneNumberDTO> getPhoneNumberListByNumberContains(@RequestParam String numberContain) {
+        List<PhoneNumber> phoneNumberList = phoneNumberService.getPhoneNumberListByNumberContains(numberContain);
         return phoneNumberDTOMapper.phoneNumberListToPhoneNumberDTOList(phoneNumberList);
     }
 

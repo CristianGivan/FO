@@ -33,7 +33,7 @@ public class TheDayService {
 
 //-- Post
 
-    public TheDay postTheDay(String subject) {
+    public TheDay postTheDay(String subject, String day) {
         User logInUser = serviceAll.getLogInUser();
 
         TheDay theDay = theDayRepository.getTheDayFromUserIdBySubject(logInUser.getId(), subject);
@@ -41,7 +41,7 @@ public class TheDayService {
             throw new TheDayAlreadyExistException("TheDay with this subject already exist");
         }
 
-        theDay = theDayRepository.save(new TheDay(subject, logInUser));
+        theDay = theDayRepository.save(new TheDay(subject, day, logInUser));
 
         TheDayUser theDayUser = new TheDayUser(theDay, logInUser);
         theDay.getTheDayUserList().add(theDayUser);
@@ -66,18 +66,18 @@ public class TheDayService {
         return theDayRepository.save(theDay);
     }
 
-    public TheDay putReferenceToTheDay(Long theDayId, String reference) {
+    public TheDay putDayToTheDay(Long theDayId, String day) {
         User logInUser = serviceAll.getLogInUser();
         TheDay theDay = theDayRepository.getTheDayFromUserIdByTheDayId(logInUser.getId(), theDayId);
         if (theDay == null) {
             throw new TheDayNotFoundException("TheDay not found in your list");
         }
 
-        if (theDay.getReference().equals(reference)) {
-            throw new TheDayAlreadyExistException("TheDay has already the same reference");
+        if (theDay.getDay().equals(day)) {
+            throw new TheDayAlreadyExistException("TheDay has already the same day");
         }
 
-        theDay.setReference(reference);
+        theDay.setDay(day);
 
         return theDayRepository.save(theDay);
     }
@@ -368,18 +368,18 @@ public class TheDayService {
         return theDayList;
     }
 
-    public TheDay getTheDayByReference(String reference) {
+    public TheDay getTheDayByDay(String day) {
         User logInUser = serviceAll.getLogInUser();
-        TheDay theDay = theDayRepository.getTheDayFromUserIdByReference(logInUser.getId(), reference);
+        TheDay theDay = theDayRepository.getTheDayFromUserIdByDay(logInUser.getId(), day);
         if (theDay == null) {
             throw new TheDayNotFoundException("No theDay found");
         }
         return theDay;
     }
 
-    public List<TheDay> getTheDayListByReferenceContains(String referenceContains) {
+    public List<TheDay> getTheDayListByDayContains(String dayContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<TheDay> theDayList = theDayRepository.getTheDayListByReferenceContains(logInUser.getId(), referenceContains);
+        List<TheDay> theDayList = theDayRepository.getTheDayListByDayContains(logInUser.getId(), dayContains);
         if (theDayList.isEmpty()) {
             throw new TheDayNotFoundException("No theDay found");
         }
