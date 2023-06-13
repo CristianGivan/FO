@@ -21,7 +21,7 @@ public class DatesReminder {
     @ManyToOne
     @JoinColumn(name = "dates_id")
     @JsonIgnore
-    private com.app.FO.model.dates.Dates dates;
+    private Dates dates;
 
     @ManyToOne
     @JoinColumn(name = "reminder_id")
@@ -34,7 +34,7 @@ public class DatesReminder {
     public DatesReminder() {
     }
 
-    public DatesReminder(com.app.FO.model.dates.Dates dates, Reminder reminder) {
+    public DatesReminder(Dates dates, Reminder reminder) {
         this.dates = dates;
         this.reminder = reminder;
         this.datesDate = LocalDateTime.now();
@@ -58,11 +58,11 @@ public class DatesReminder {
         this.id = id;
     }
 
-    public com.app.FO.model.dates.Dates getDates() {
+    public Dates getDates() {
         return dates;
     }
 
-    public void setDates(com.app.FO.model.dates.Dates dates) {
+    public void setDates(Dates dates) {
         this.dates = dates;
     }
 

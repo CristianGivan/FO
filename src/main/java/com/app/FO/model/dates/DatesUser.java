@@ -26,7 +26,7 @@ public class DatesUser {
     @ManyToOne
     @JoinColumn(name = "dates_id")
     @JsonIgnore
-    private com.app.FO.model.dates.Dates dates;
+    private Dates dates;
 
     @Column(name = "dates_date")
     private LocalDateTime datesDate;
@@ -34,7 +34,7 @@ public class DatesUser {
     public DatesUser() {
     }
 
-    public DatesUser(com.app.FO.model.dates.Dates dates, User user) {
+    public DatesUser(Dates dates, User user) {
         this.user = user;
         this.dates = dates;
         this.datesDate = LocalDateTime.now();
@@ -66,11 +66,11 @@ public class DatesUser {
         this.user = user;
     }
 
-    public com.app.FO.model.dates.Dates getDates() {
+    public Dates getDates() {
         return dates;
     }
 
-    public void setDates(com.app.FO.model.dates.Dates dates) {
+    public void setDates(Dates dates) {
         this.dates = dates;
     }
 

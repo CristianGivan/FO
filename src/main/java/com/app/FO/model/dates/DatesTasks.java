@@ -26,7 +26,7 @@ public class DatesTasks {
     @ManyToOne
     @JoinColumn(name = "dates_id")
     @JsonIgnore
-    private com.app.FO.model.dates.Dates dates;
+    private Dates dates;
 
     @Column(name = "dates_date")
     private LocalDateTime datesDate;
@@ -34,7 +34,7 @@ public class DatesTasks {
     public DatesTasks() {
     }
 
-    public DatesTasks(com.app.FO.model.dates.Dates dates, Tasks tasks) {
+    public DatesTasks(Dates dates, Tasks tasks) {
         this.dates = dates;
         this.tasks = tasks;
         this.datesDate = LocalDateTime.now();
@@ -66,11 +66,11 @@ public class DatesTasks {
         this.tasks = tasks;
     }
 
-    public com.app.FO.model.dates.Dates getDates() {
+    public Dates getDates() {
         return dates;
     }
 
-    public void setDates(com.app.FO.model.dates.Dates dates) {
+    public void setDates(Dates dates) {
         this.dates = dates;
     }
 

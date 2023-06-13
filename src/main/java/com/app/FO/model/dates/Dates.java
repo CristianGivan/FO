@@ -22,8 +22,8 @@ public class Dates {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "dates_date)")
-    private String datesDate;
+    @Column(name = "reference")
+    private String reference;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -32,30 +32,29 @@ public class Dates {
     private User creator;
 
     @OneToMany(mappedBy = "dates", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<com.app.FO.model.dates.DatesUser> datesUserList;
+    private List<DatesUser> datesUserList;
 
     @OneToMany(mappedBy = "dates", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<com.app.FO.model.dates.DatesTag> datesTagList;
+    private List<DatesTag> datesTagList;
 
     @OneToMany(mappedBy = "dates", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<com.app.FO.model.dates.DatesReminder> datesReminderList;
+    private List<DatesReminder> datesReminderList;
 
     @OneToMany(mappedBy = "dates", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<com.app.FO.model.dates.DatesTopic> datesTopicList;
+    private List<DatesTopic> datesTopicList;
 
     @OneToMany(mappedBy = "dates", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<com.app.FO.model.dates.DatesTasks> datesTasksList;
+    private List<DatesTasks> datesTasksList;
     @OneToMany(mappedBy = "dates", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<com.app.FO.model.dates.DatesHistory> datesHistoryList;
+    private List<DatesHistory> datesHistoryList;
 
 
     public Dates() {
     }
 
-
-    public Dates(String subject, String datesDate, User creator) {
+    public Dates(String subject, User creator) {
         this.subject = subject;
-        this.datesDate = datesDate;
+        this.reference = reference;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -65,7 +64,7 @@ public class Dates {
         return "Dates{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + datesDate + '\'' +
+                ", reference='" + reference + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", datesUserList=" + datesUserList +
@@ -87,8 +86,8 @@ public class Dates {
     }
 
     public String getSubject() {
-        if (datesDate == null) {
-            datesDate = "";
+        if (reference == null) {
+            reference = "";
         }
         return subject;
     }
@@ -97,15 +96,15 @@ public class Dates {
         this.subject = subject;
     }
 
-    public String getDatesDate() {
-        if (datesDate == null) {
-            datesDate = "";
+    public String getReference() {
+        if (reference == null) {
+            reference = "";
         }
-        return datesDate;
+        return reference;
     }
 
-    public void setDatesDate(String datesDate) {
-        this.datesDate = datesDate;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -124,70 +123,70 @@ public class Dates {
         this.creator = creator;
     }
 
-    public List<com.app.FO.model.dates.DatesUser> getDatesUserList() {
+    public List<DatesUser> getDatesUserList() {
         if (datesUserList == null) {
             datesUserList = new ArrayList<>();
         }
         return datesUserList;
     }
 
-    public void setDatesUserList(List<com.app.FO.model.dates.DatesUser> datesUserList) {
+    public void setDatesUserList(List<DatesUser> datesUserList) {
         this.datesUserList = datesUserList;
     }
 
-    public List<com.app.FO.model.dates.DatesTag> getDatesTagList() {
+    public List<DatesTag> getDatesTagList() {
         if (datesTagList == null) {
             datesTagList = new ArrayList<>();
         }
         return datesTagList;
     }
 
-    public void setDatesTagList(List<com.app.FO.model.dates.DatesTag> datesTagList) {
+    public void setDatesTagList(List<DatesTag> datesTagList) {
         this.datesTagList = datesTagList;
     }
 
-    public List<com.app.FO.model.dates.DatesReminder> getDatesReminderList() {
+    public List<DatesReminder> getDatesReminderList() {
         if (datesReminderList == null) {
             datesReminderList = new ArrayList<>();
         }
         return datesReminderList;
     }
 
-    public void setDatesReminderList(List<com.app.FO.model.dates.DatesReminder> datesReminderList) {
+    public void setDatesReminderList(List<DatesReminder> datesReminderList) {
         this.datesReminderList = datesReminderList;
     }
 
 
-    public List<com.app.FO.model.dates.DatesTopic> getDatesTopicList() {
+    public List<DatesTopic> getDatesTopicList() {
         if (datesTopicList == null) {
             datesTopicList = new ArrayList<>();
         }
         return datesTopicList;
     }
 
-    public void setDatesTopicList(List<com.app.FO.model.dates.DatesTopic> datesTopicList) {
+    public void setDatesTopicList(List<DatesTopic> datesTopicList) {
         this.datesTopicList = datesTopicList;
     }
 
-    public List<com.app.FO.model.dates.DatesTasks> getDatesTasksList() {
+    public List<DatesTasks> getDatesTasksList() {
         if (datesTasksList == null) {
             datesTasksList = new ArrayList<>();
         }
         return datesTasksList;
     }
 
-    public void setDatesTasksList(List<com.app.FO.model.dates.DatesTasks> datesTasksList) {
+    public void setDatesTasksList(List<DatesTasks> datesTasksList) {
         this.datesTasksList = datesTasksList;
     }
 
-    public List<com.app.FO.model.dates.DatesHistory> getDatesHistoryList() {
+    public List<DatesHistory> getDatesHistoryList() {
         if (datesHistoryList == null) {
             datesHistoryList = new ArrayList<>();
         }
         return datesHistoryList;
     }
 
-    public void setDatesHistoryList(List<com.app.FO.model.dates.DatesHistory> datesHistoryList) {
+    public void setDatesHistoryList(List<DatesHistory> datesHistoryList) {
         this.datesHistoryList = datesHistoryList;
     }
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "dates_history")
+@Table(name = "task_history")
 public class DatesHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dates_history_seq")
@@ -29,7 +29,7 @@ public class DatesHistory {
     @ManyToOne
     @JoinColumn(name = "dates_id")
     @JsonIgnore
-    private com.app.FO.model.dates.Dates dates;
+    private Dates dates;
 
     public DatesHistory() {
     }
@@ -68,11 +68,11 @@ public class DatesHistory {
         this.user = user;
     }
 
-    public com.app.FO.model.dates.Dates getDates() {
+    public Dates getDates() {
         return dates;
     }
 
-    public void setDates(com.app.FO.model.dates.Dates dates) {
+    public void setDates(Dates dates) {
         this.dates = dates;
     }
 }

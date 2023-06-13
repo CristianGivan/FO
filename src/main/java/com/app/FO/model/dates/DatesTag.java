@@ -21,7 +21,7 @@ public class DatesTag {
     @ManyToOne
     @JoinColumn(name = "dates_id")
     @JsonIgnore
-    private com.app.FO.model.dates.Dates dates;
+    private Dates dates;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
@@ -34,7 +34,7 @@ public class DatesTag {
     public DatesTag() {
     }
 
-    public DatesTag(com.app.FO.model.dates.Dates dates, Tag tag) {
+    public DatesTag(Dates dates, Tag tag) {
         this.dates = dates;
         this.tag = tag;
         this.datesDate = LocalDateTime.now();
@@ -58,11 +58,11 @@ public class DatesTag {
         this.id = id;
     }
 
-    public com.app.FO.model.dates.Dates getDates() {
+    public Dates getDates() {
         return dates;
     }
 
-    public void setDates(com.app.FO.model.dates.Dates dates) {
+    public void setDates(Dates dates) {
         this.dates = dates;
     }
 

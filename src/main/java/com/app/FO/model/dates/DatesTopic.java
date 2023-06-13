@@ -21,7 +21,7 @@ public class DatesTopic {
     @ManyToOne
     @JoinColumn(name = "dates_id")
     @JsonIgnore
-    private com.app.FO.model.dates.Dates dates;
+    private Dates dates;
 
     @ManyToOne
     @JoinColumn(name = "topic_id")
@@ -34,7 +34,7 @@ public class DatesTopic {
     public DatesTopic() {
     }
 
-    public DatesTopic(com.app.FO.model.dates.Dates dates, Topic topic) {
+    public DatesTopic(Dates dates, Topic topic) {
         this.dates = dates;
         this.topic = topic;
         this.datesDate = LocalDateTime.now();
