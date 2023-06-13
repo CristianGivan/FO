@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface TheDayTopicRepository extends JpaRepository<TheDayTopic, Long> {
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM the_day_topic as tt where tt.the_day_id=?1 and tt.topic_id=?2")
+            "SELECT * FROM theDay_topic as tt where tt.theDay_id=?1 and tt.topic_id=?2")
     TheDayTopic getTheDayTopicByTheDayIdAndTopicId(Long theDayId, Long topicId);
 
 

@@ -1,14 +1,17 @@
 package com.app.FO.model.tag;
 
 import com.app.FO.model.account.AccountTag;
+import com.app.FO.model.email.EmailTag;
 import com.app.FO.model.event.EventTag;
 import com.app.FO.model.expense.ExpenseTag;
 import com.app.FO.model.expenses.ExpensesTag;
 import com.app.FO.model.link.LinkTag;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.person.PersonTag;
+import com.app.FO.model.phoneNumber.PhoneNumberTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.tasks.TasksTag;
+import com.app.FO.model.theDay.TheDayTag;
 import com.app.FO.model.topic.TopicTag;
 import com.app.FO.model.transaction.TransactionTag;
 import com.app.FO.model.user.User;
@@ -82,6 +85,15 @@ public class Tag {
     private List<AccountTag> accountTagList;
 
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EmailTag> emailTagList;
+
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TheDayTag> theDayTagList;
+
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PhoneNumberTag> phoneNumberTagList;
+
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TagHistory> tagHistoryList;
 
 
@@ -108,12 +120,15 @@ public class Tag {
                 ", workTagList=" + workTagList +
                 ", tasksTagList=" + tasksTagList +
                 ", linkTagList=" + linkTagList +
-                ", personTafList=" + personTagList +
+                ", personTagList=" + personTagList +
                 ", eventTagList=" + eventTagList +
                 ", expenseTagList=" + expenseTagList +
                 ", expensesTagList=" + expensesTagList +
                 ", transactionTagList=" + transactionTagList +
                 ", accountTagList=" + accountTagList +
+                ", emailTagList=" + emailTagList +
+                ", theDayTagList=" + theDayTagList +
+                ", phoneNumberTagList=" + phoneNumberTagList +
                 ", tagHistoryList=" + tagHistoryList +
                 '}';
     }
@@ -263,5 +278,29 @@ public class Tag {
 
     public void setTagHistoryList(List<TagHistory> tagHistoryList) {
         this.tagHistoryList = tagHistoryList;
+    }
+
+    public List<EmailTag> getEmailTagList() {
+        return emailTagList;
+    }
+
+    public void setEmailTagList(List<EmailTag> emailTagList) {
+        this.emailTagList = emailTagList;
+    }
+
+    public List<TheDayTag> getTheDayTagList() {
+        return theDayTagList;
+    }
+
+    public void setTheDayTagList(List<TheDayTag> theDayTagList) {
+        this.theDayTagList = theDayTagList;
+    }
+
+    public List<PhoneNumberTag> getPhoneNumberTagList() {
+        return phoneNumberTagList;
+    }
+
+    public void setPhoneNumberTagList(List<PhoneNumberTag> phoneNumberTagList) {
+        this.phoneNumberTagList = phoneNumberTagList;
     }
 }

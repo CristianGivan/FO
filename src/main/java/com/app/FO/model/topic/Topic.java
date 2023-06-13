@@ -1,13 +1,16 @@
 package com.app.FO.model.topic;
 
 import com.app.FO.model.account.AccountTopic;
+import com.app.FO.model.email.EmailTopic;
 import com.app.FO.model.event.EventTopic;
 import com.app.FO.model.expense.ExpenseTopic;
 import com.app.FO.model.expenses.ExpensesTopic;
 import com.app.FO.model.link.LinkTopic;
 import com.app.FO.model.person.PersonTopic;
+import com.app.FO.model.phoneNumber.PhoneNumberTopic;
 import com.app.FO.model.task.TaskTopic;
 import com.app.FO.model.tasks.TasksTopic;
+import com.app.FO.model.theDay.TheDayTopic;
 import com.app.FO.model.transaction.TransactionTopic;
 import com.app.FO.model.user.User;
 import com.app.FO.model.work.WorkTopic;
@@ -86,6 +89,14 @@ public class Topic {
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicHistory> topicHistoryList;
 
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EmailTopic> emailTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TheDayTopic> theDayTopicList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PhoneNumberTopic> phoneNumberTopicList;
 
     public Topic() {
     }
@@ -103,7 +114,7 @@ public class Topic {
                 "id=" + id +
                 ", subject='" + subject + '\'' +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator.getId() +
+                ", creator=" + creator +
                 ", topicUserList=" + topicUserList +
                 ", topicTagList=" + topicTagList +
                 ", topicReminderList=" + topicReminderList +
@@ -119,6 +130,9 @@ public class Topic {
                 ", transactionTopicList=" + transactionTopicList +
                 ", accountTopicList=" + accountTopicList +
                 ", topicHistoryList=" + topicHistoryList +
+                ", emailTopicList=" + emailTopicList +
+                ", theDayTopicList=" + theDayTopicList +
+                ", phoneNumberTopicList=" + phoneNumberTopicList +
                 '}';
     }
 
@@ -299,5 +313,29 @@ public class Topic {
 
     public void setAccountTopicList(List<AccountTopic> accountTopicList) {
         this.accountTopicList = accountTopicList;
+    }
+
+    public List<EmailTopic> getEmailTopicList() {
+        return emailTopicList;
+    }
+
+    public void setEmailTopicList(List<EmailTopic> emailTopicList) {
+        this.emailTopicList = emailTopicList;
+    }
+
+    public List<TheDayTopic> getTheDayTopicList() {
+        return theDayTopicList;
+    }
+
+    public void setTheDayTopicList(List<TheDayTopic> theDayTopicList) {
+        this.theDayTopicList = theDayTopicList;
+    }
+
+    public List<PhoneNumberTopic> getPhoneNumberTopicList() {
+        return phoneNumberTopicList;
+    }
+
+    public void setPhoneNumberTopicList(List<PhoneNumberTopic> phoneNumberTopicList) {
+        this.phoneNumberTopicList = phoneNumberTopicList;
     }
 }

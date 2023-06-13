@@ -24,7 +24,7 @@ public class PersonTheDay {
     private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "the_day_id")
+    @JoinColumn(name = "the_theDay_id")
     @JsonIgnore
     private TheDay theDay;
 

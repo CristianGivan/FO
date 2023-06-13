@@ -7,15 +7,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "person_phoneNumber")
+@Table(name = "person_phone_number")
 public class PersonPhoneNumber {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_phoneNumber_seq")
-    @SequenceGenerator(name = "person_phoneNumber_seq",
-            sequenceName = "person_phoneNumber_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_phone_number_seq")
+    @SequenceGenerator(name = "person_phone_number_seq",
+            sequenceName = "person_phone_number_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "person_phoneNumber_id")
+    @Column(name = "person_phone_number_id")
     private Long id;
 
     @ManyToOne

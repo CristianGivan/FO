@@ -48,27 +48,28 @@
 
 ### Attributes
 
-- [ ] nickName
-- [ ] firstName
-- [ ] middleName
-- [ ] lastName
-- [ ] fullName
-- [ ] description
-- [ ] subject
-- [ ] creator
-- [ ] userList
-- [ ] personTagList
-- [ ] personReminderList
-- [ ] personTopicList
-- [ ] personTasksList
-- [ ] personDocumentList
-- [ ] personAddressList
-- [ ] personEmailList
-- [ ] personPhoneNumberList
-- [ ] personTheDayList
-- [ ] expensesPersonList
-- [ ] relatedPersonList
-- [ ] personHistoryList
+- [x] nickName
+- [x] firstName
+- [x] middleName
+- [x] lastName
+- [x] fullName
+- [x] description
+- [x] subject
+- [x] createdDate
+- [x] creator
+- [x] userList
+- [x] personTagList
+- [x] personReminderList
+- [x] personTopicList
+- [x] personTasksList
+- [x] personDocumentList
+- [x] personAddressList
+- [x] personEmailList
+- [x] personPhoneNumberList
+- [x] personTheDayList
+- [x] expensesPersonList
+- [x] relatedPersonList
+- [x] personHistoryList
 
 ### Post
 

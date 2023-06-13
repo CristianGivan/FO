@@ -23,7 +23,7 @@ public class Person {
 
     @Column(name = "nickName")
     private String nickName;
-    @Column(name = "firsName")
+    @Column(name = "firstName")
     private String firstName;
     @Column(name = "middleName")
     private String middleName;
@@ -79,7 +79,7 @@ public class Person {
     private List<ExpensesPerson> expensesPayerList;
 
     @OneToMany
-    @JoinColumn(name = "releted_person")
+    @JoinColumn(name = "related_person")
     private List<Person> relatedPersonList;
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -130,6 +130,9 @@ public class Person {
     }
 
     public String getNickName() {
+        if (nickName == null) {
+            nickName = "";
+        }
         return nickName;
     }
 
@@ -138,6 +141,9 @@ public class Person {
     }
 
     public String getFirstName() {
+        if (firstName == null) {
+            firstName = "";
+        }
         return firstName;
     }
 
@@ -146,6 +152,9 @@ public class Person {
     }
 
     public String getMiddleName() {
+        if (middleName == null) {
+            middleName = "";
+        }
         return middleName;
     }
 
@@ -154,6 +163,9 @@ public class Person {
     }
 
     public String getLastName() {
+        if (lastName == null) {
+            lastName = "";
+        }
         return lastName;
     }
 
@@ -162,6 +174,9 @@ public class Person {
     }
 
     public String getFullName() {
+        if (fullName == null) {
+            fullName = "";
+        }
         return fullName;
     }
 
@@ -170,6 +185,9 @@ public class Person {
     }
 
     public String getDescription() {
+        if (description == null) {
+            description = "";
+        }
         return description;
     }
 
@@ -178,6 +196,9 @@ public class Person {
     }
 
     public String getSubject() {
+        if (subject == null) {
+            subject = "";
+        }
         return subject;
     }
 

@@ -4,6 +4,8 @@ package com.app.FO.model.user;
 import com.app.FO.model.account.Account;
 import com.app.FO.model.account.AccountHistory;
 import com.app.FO.model.account.AccountUser;
+import com.app.FO.model.email.Email;
+import com.app.FO.model.email.EmailUser;
 import com.app.FO.model.event.Event;
 import com.app.FO.model.event.EventHistory;
 import com.app.FO.model.event.EventUser;
@@ -23,6 +25,8 @@ import com.app.FO.model.note.NoteUser;
 import com.app.FO.model.person.Person;
 import com.app.FO.model.person.PersonHistory;
 import com.app.FO.model.person.PersonUser;
+import com.app.FO.model.phoneNumber.PhoneNumber;
+import com.app.FO.model.phoneNumber.PhoneNumberUser;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.reminder.ReminderHistory;
 import com.app.FO.model.tag.Tag;
@@ -34,6 +38,8 @@ import com.app.FO.model.task.TaskUser;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.tasks.TasksHistory;
 import com.app.FO.model.tasks.TasksUser;
+import com.app.FO.model.theDay.TheDay;
+import com.app.FO.model.theDay.TheDayUser;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.topic.TopicHistory;
 import com.app.FO.model.topic.TopicUser;
@@ -184,6 +190,23 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountHistory> accountHistoryList;
 
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Email> emailList;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EmailUser> emailUserList;
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TheDay> theDayList;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TheDayUser> theDayUserList;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PhoneNumber> phoneNumberList;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PhoneNumberUser> phoneNumberUserList;
+
     public User() {
     }
 
@@ -244,6 +267,12 @@ public class User {
                 ", accountList=" + accountList +
                 ", accountUserList=" + accountUserList +
                 ", accountHistoryList=" + accountHistoryList +
+                ", emailList=" + emailList +
+                ", emailUserList=" + emailUserList +
+                ", theDayList=" + theDayList +
+                ", theDayUserList=" + theDayUserList +
+                ", phoneNumberList=" + phoneNumberList +
+                ", phoneNumberUserList=" + phoneNumberUserList +
                 '}';
     }
 
@@ -649,5 +678,53 @@ public class User {
 
     public void setAccountHistoryList(List<AccountHistory> accountHistoryList) {
         this.accountHistoryList = accountHistoryList;
+    }
+
+    public List<Email> getEmailList() {
+        return emailList;
+    }
+
+    public void setEmailList(List<Email> emailList) {
+        this.emailList = emailList;
+    }
+
+    public List<EmailUser> getEmailUserList() {
+        return emailUserList;
+    }
+
+    public void setEmailUserList(List<EmailUser> emailUserList) {
+        this.emailUserList = emailUserList;
+    }
+
+    public List<TheDay> getTheDayList() {
+        return theDayList;
+    }
+
+    public void setTheDayList(List<TheDay> theDayList) {
+        this.theDayList = theDayList;
+    }
+
+    public List<TheDayUser> getTheDayUserList() {
+        return theDayUserList;
+    }
+
+    public void setTheDayUserList(List<TheDayUser> theDayUserList) {
+        this.theDayUserList = theDayUserList;
+    }
+
+    public List<PhoneNumber> getPhoneNumberList() {
+        return phoneNumberList;
+    }
+
+    public void setPhoneNumberList(List<PhoneNumber> phoneNumberList) {
+        this.phoneNumberList = phoneNumberList;
+    }
+
+    public List<PhoneNumberUser> getPhoneNumberUserList() {
+        return phoneNumberUserList;
+    }
+
+    public void setPhoneNumberUserList(List<PhoneNumberUser> phoneNumberUserList) {
+        this.phoneNumberUserList = phoneNumberUserList;
     }
 }

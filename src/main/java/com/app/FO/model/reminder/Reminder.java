@@ -1,14 +1,17 @@
 package com.app.FO.model.reminder;
 
 import com.app.FO.model.account.Account;
+import com.app.FO.model.email.Email;
 import com.app.FO.model.event.Event;
 import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.link.Link;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.person.Person;
+import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.task.Task;
 import com.app.FO.model.tasks.Tasks;
+import com.app.FO.model.theDay.TheDay;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.transaction.Transaction;
 import com.app.FO.model.user.User;
@@ -114,6 +117,21 @@ public class Reminder {
     @JsonIgnore
     private Account account;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "email_id")
+    @JsonIgnore
+    private Email email;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "phoneNumber_id")
+    @JsonIgnore
+    private PhoneNumber phoneNumber;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "theDay_id")
+    @JsonIgnore
+    private TheDay theDay;
+
     public Reminder() {
     }
 
@@ -146,6 +164,9 @@ public class Reminder {
                 ", expenses=" + expenses +
                 ", transaction=" + transaction +
                 ", account=" + account +
+                ", email=" + email +
+                ", phoneNumber=" + phoneNumber +
+                ", theDay=" + theDay +
                 '}';
     }
 
@@ -299,5 +320,29 @@ public class Reminder {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public TheDay getTheDay() {
+        return theDay;
+    }
+
+    public void setTheDay(TheDay theDay) {
+        this.theDay = theDay;
     }
 }

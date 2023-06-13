@@ -217,6 +217,15 @@ public class ServiceAll {
     private PersonAddressRepository personAddressRepository;
 
     @Autowired
+    private PersonEmailRepository personEmailRepository;
+
+    @Autowired
+    private PersonPhoneNumberRepository personPhoneNumberRepository;
+
+    @Autowired
+    private PersonTheDayRepository personTheDayRepository;
+
+    @Autowired
     private EventRepository eventRepository;
     @Autowired
     private EventUserRepository eventUserRepository;
@@ -698,6 +707,17 @@ public class ServiceAll {
         return personAddressRepository.getPersonAddressByPersonIdAndAddressId(personId, addressId);
     }
 
+    public PersonEmail getPersonEmail(Long personId, Long emailId) {
+        return personEmailRepository.getPersonEmailByPersonIdAndEmailId(personId, emailId);
+    }
+
+    public PersonPhoneNumber getPersonPhoneNumber(Long personId, Long phoneNumberId) {
+        return personPhoneNumberRepository.getPersonPhoneNumberByPersonIdAndPhoneNumberId(personId, phoneNumberId);
+    }
+
+    public PersonTheDay getPersonTheDay(Long personId, Long theDayId) {
+        return personTheDayRepository.getPersonTheDayByPersonIdAndTheDayId(personId, theDayId);
+    }
     //-- getEventAnd
 
 
@@ -868,6 +888,7 @@ public class ServiceAll {
     public TheDayTasks getTheDayTasks(Long theDayId, Long tasksId) {
         return theDayTasksRepository.getTheDayTasksByTheDayIdAndTasksId(theDayId, tasksId);
     }
+
 
     //-- getPhoneNumberAnd
 

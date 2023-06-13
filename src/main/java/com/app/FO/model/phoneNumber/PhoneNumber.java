@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "phoneNumber")
+@Table(name = "phone_number")
 public class PhoneNumber {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phoneNumber_seq")
-    @SequenceGenerator(name = "phoneNumber_seq",
-            sequenceName = "phoneNumber_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phone_number_seq")
+    @SequenceGenerator(name = "phone_number_seq",
+            sequenceName = "phone_number_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "phoneNumber_id")
+    @Column(name = "phone_number_id")
     private Long id;
 
     @Column(name = "subject")

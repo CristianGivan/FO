@@ -1,12 +1,15 @@
 package com.app.FO.model.tasks;
 
 import com.app.FO.model.account.AccountTasks;
+import com.app.FO.model.email.EmailTasks;
 import com.app.FO.model.event.EventTasks;
 import com.app.FO.model.expense.ExpenseTasks;
 import com.app.FO.model.expenses.ExpensesTasks;
 import com.app.FO.model.link.LinkTasks;
 import com.app.FO.model.person.PersonTasks;
+import com.app.FO.model.phoneNumber.PhoneNumberTasks;
 import com.app.FO.model.task.TaskStatus;
+import com.app.FO.model.theDay.TheDayTasks;
 import com.app.FO.model.transaction.TransactionTasks;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -88,6 +91,15 @@ public class Tasks {
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksHistory> tasksHistoryList;
 
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EmailTasks> emailTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TheDayTasks> theDayTasksList;
+
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PhoneNumberTasks> phoneNumberTasksList;
+
     public Tasks() {
     }
 
@@ -120,6 +132,9 @@ public class Tasks {
                 ", transactionTasksList=" + transactionTasksList +
                 ", accountTasksList=" + accountTasksList +
                 ", tasksHistoryList=" + tasksHistoryList +
+                ", emailTasksList=" + emailTasksList +
+                ", theDayTasksList=" + theDayTasksList +
+                ", phoneNumberTasksList=" + phoneNumberTasksList +
                 '}';
     }
 
@@ -287,5 +302,29 @@ public class Tasks {
 
     public void setTasksHistoryList(List<TasksHistory> tasksHistoryList) {
         this.tasksHistoryList = tasksHistoryList;
+    }
+
+    public List<EmailTasks> getEmailTasksList() {
+        return emailTasksList;
+    }
+
+    public void setEmailTasksList(List<EmailTasks> emailTasksList) {
+        this.emailTasksList = emailTasksList;
+    }
+
+    public List<TheDayTasks> getTheDayTasksList() {
+        return theDayTasksList;
+    }
+
+    public void setTheDayTasksList(List<TheDayTasks> theDayTasksList) {
+        this.theDayTasksList = theDayTasksList;
+    }
+
+    public List<PhoneNumberTasks> getPhoneNumberTasksList() {
+        return phoneNumberTasksList;
+    }
+
+    public void setPhoneNumberTasksList(List<PhoneNumberTasks> phoneNumberTasksList) {
+        this.phoneNumberTasksList = phoneNumberTasksList;
     }
 }

@@ -26,8 +26,8 @@ public class TheDayController {
     //-- PostMapping
 
     @PostMapping("/postNewTheDay")
-    public TheDayDTO postNewTheDay(@RequestParam String subject, @RequestParam String day) {
-        TheDay theDay = theDayService.postTheDay(subject, day);
+    public TheDayDTO postNewTheDay(@RequestParam String subject, @RequestParam String date) {
+        TheDay theDay = theDayService.postTheDay(subject, date);
         return theDayDTOMapper.theDayToTheDayDTO(theDay);
     }
 
@@ -41,9 +41,9 @@ public class TheDayController {
 
 
     //-- PutMapping
-    @PutMapping("/putDayToTheDay")
-    public TheDayDTO putDayToTheDay(@RequestParam Long theDayId, @RequestParam String day) {
-        TheDay theDay = theDayService.putDayToTheDay(theDayId, day);
+    @PutMapping("/putReferenceToTheDay")
+    public TheDayDTO putReferenceToTheDay(@RequestParam Long theDayId, @RequestParam String reference) {
+        TheDay theDay = theDayService.putReferenceToTheDay(theDayId, reference);
         return theDayDTOMapper.theDayToTheDayDTO(theDay);
     }
 
@@ -146,15 +146,15 @@ public class TheDayController {
         return theDayDTOMapper.theDayListToTheDayDTOList(theDayList);
     }
 
-    @GetMapping("/getTheDayByDay")
-    public TheDayDTO getTheDayByDay(@RequestParam String day) {
-        TheDay theDay = theDayService.getTheDayByDay(day);
+    @GetMapping("/getTheDayByReference")
+    public TheDayDTO getTheDayByReference(@RequestParam String reference) {
+        TheDay theDay = theDayService.getTheDayByReference(reference);
         return theDayDTOMapper.theDayToTheDayDTO(theDay);
     }
 
-    @GetMapping("/getTheDayListByDayContains")
-    public List<TheDayDTO> getTheDayListByDayContains(@RequestParam String dayContain) {
-        List<TheDay> theDayList = theDayService.getTheDayListByDayContains(dayContain);
+    @GetMapping("/getTheDayListByReferenceContains")
+    public List<TheDayDTO> getTheDayListByReferenceContains(@RequestParam String referenceContain) {
+        List<TheDay> theDayList = theDayService.getTheDayListByReferenceContains(referenceContain);
         return theDayDTOMapper.theDayListToTheDayDTOList(theDayList);
     }
 

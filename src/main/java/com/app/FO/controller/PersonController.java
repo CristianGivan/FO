@@ -100,14 +100,32 @@ public class PersonController {
     }
 
     @PutMapping("/putDocumentToPerson")
-    public PersonDTO putDocumentToPerson(@RequestParam Long personId, @RequestParam Long tasksId) {
-        Person person = personService.putDocumentToPerson(personId, tasksId);
+    public PersonDTO putDocumentToPerson(@RequestParam Long personId, @RequestParam Long documentId) {
+        Person person = personService.putDocumentToPerson(personId, documentId);
         return personDTOMapper.personToPersonDTO(person);
     }
 
     @PutMapping("/putAddressToPerson")
-    public PersonDTO putAddressToPerson(@RequestParam Long personId, @RequestParam Long tasksId) {
-        Person person = personService.putAddressToPerson(personId, tasksId);
+    public PersonDTO putAddressToPerson(@RequestParam Long personId, @RequestParam Long addressId) {
+        Person person = personService.putAddressToPerson(personId, addressId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @PutMapping("/putEmailToPerson")
+    public PersonDTO putEmailToPerson(@RequestParam Long personId, @RequestParam Long emailId) {
+        Person person = personService.putEmailToPerson(personId, emailId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @PutMapping("/putPhoneNumberToPerson")
+    public PersonDTO putPhoneNumberToPerson(@RequestParam Long personId, @RequestParam Long phoneNumberId) {
+        Person person = personService.putPhoneNumberToPerson(personId, phoneNumberId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @PutMapping("/putTheDayToPerson")
+    public PersonDTO putTheDayToPerson(@RequestParam Long personId, @RequestParam Long theDayId) {
+        Person person = personService.putTheDayToPerson(personId, theDayId);
         return personDTOMapper.personToPersonDTO(person);
     }
 

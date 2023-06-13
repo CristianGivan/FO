@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface TheDayReminderRepository extends JpaRepository<TheDayReminder, Long> {
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM the_day_reminder as tr where tr.the_day_id=?1 and tr.reminder_id=?2")
+            "SELECT * FROM theDay_reminder as tr where tr.theDay_id=?1 and tr.reminder_id=?2")
     TheDayReminder getTheDayReminderByTheDayIdAndReminderId(Long theDayId, Long reminderId);
 
 

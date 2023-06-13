@@ -22,8 +22,8 @@ public class TheDay {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "day")
-    private String day;
+    @Column(name = "the_day_date)")
+    private String theDayDate;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -31,30 +31,30 @@ public class TheDay {
     @JsonIgnore
     private User creator;
 
-    @OneToMany(mappedBy = "the_day", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "theDay", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TheDayUser> theDayUserList;
 
-    @OneToMany(mappedBy = "the_day", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "theDay", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TheDayTag> theDayTagList;
 
-    @OneToMany(mappedBy = "the_day", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "theDay", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TheDayReminder> theDayReminderList;
 
-    @OneToMany(mappedBy = "the_day", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "theDay", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TheDayTopic> theDayTopicList;
 
-    @OneToMany(mappedBy = "the_day", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "theDay", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TheDayTasks> theDayTasksList;
-    @OneToMany(mappedBy = "the_day", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "theDay", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TheDayHistory> theDayHistoryList;
 
 
     public TheDay() {
     }
 
-    public TheDay(String subject, String day, User creator) {
+    public TheDay(String subject, String theDayDate, User creator) {
         this.subject = subject;
-        this.day = day;
+        this.theDayDate = theDayDate;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -64,7 +64,7 @@ public class TheDay {
         return "TheDay{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", reference='" + day + '\'' +
+                ", reference='" + theDayDate + '\'' +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", theDayUserList=" + theDayUserList +
@@ -86,8 +86,8 @@ public class TheDay {
     }
 
     public String getSubject() {
-        if (subject == null) {
-            subject = "";
+        if (theDayDate == null) {
+            theDayDate = "";
         }
         return subject;
     }
@@ -96,15 +96,15 @@ public class TheDay {
         this.subject = subject;
     }
 
-    public String getDay() {
-        if (day == null) {
-            day = "";
+    public String getTheDayDate() {
+        if (theDayDate == null) {
+            theDayDate = "";
         }
-        return day;
+        return theDayDate;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setTheDayDate(String theDayDate) {
+        this.theDayDate = theDayDate;
     }
 
     public LocalDateTime getCreatedDate() {

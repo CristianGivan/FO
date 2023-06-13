@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface TheDayTagRepository extends JpaRepository<TheDayTag, Long> {
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM the_day_tag as tt where tt.the_day_id=?1 and tt.tag_id=?2")
+            "SELECT * FROM theDay_tag as tt where tt.theDay_id=?1 and tt.tag_id=?2")
     TheDayTag getTheDayTagByTheDayIdAndTagId(Long theDayId, Long tagId);
 
 

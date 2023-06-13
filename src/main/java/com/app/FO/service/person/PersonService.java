@@ -1,14 +1,15 @@
 package com.app.FO.service.person;
 
-import com.app.FO.exceptions.PersonAlreadyExistException;
-import com.app.FO.exceptions.PersonNotFoundException;
-import com.app.FO.exceptions.PersonUserAlreadyExistException;
-import com.app.FO.exceptions.UserNotFoundException;
+import com.app.FO.exceptions.*;
+import com.app.FO.model.address.Address;
 import com.app.FO.model.document.Document;
+import com.app.FO.model.email.Email;
 import com.app.FO.model.person.*;
+import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
+import com.app.FO.model.theDay.TheDay;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.person.PersonRepository;
@@ -79,6 +80,7 @@ public class PersonService {
         }
 
         person.setFirstName(firstName);
+        person.setFullName(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
 
         return personRepository.save(person);
     }
@@ -95,6 +97,7 @@ public class PersonService {
         }
 
         person.setMiddleName(middleName);
+        person.setFullName(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
 
         return personRepository.save(person);
     }
@@ -111,6 +114,7 @@ public class PersonService {
         }
 
         person.setLastName(lastName);
+        person.setFullName(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
 
         return personRepository.save(person);
     }
@@ -299,18 +303,87 @@ public class PersonService {
             throw new PersonNotFoundException("Person not found in your list");
         }
 
-        Tasks address = serviceAll.getTasksFromUserIdAndTasksId(logInUser.getId(), addressId);
+        Address address = serviceAll.getAddressFromUserIdAndAddressId(logInUser.getId(), addressId);
         if (address == null) {
-            throw new com.app.FO.exceptions.TasksNotFoundException("Tasks not found");
+            throw new com.app.FO.exceptions.AddressNotFoundException("Address not found");
         }
 
-        PersonTasks personTasks = serviceAll.getPersonTasks(personId, addressId);
-        if (personTasks != null) {
-            throw new com.app.FO.exceptions.PersonTasksAlreadyExistException("The person already has the address");
+        PersonAddress personAddress = serviceAll.getPersonAddress(personId, addressId);
+        if (personAddress != null) {
+            throw new com.app.FO.exceptions.PersonAddressAlreadyExistException("The person already has the address");
         }
 
-        personTasks = new PersonTasks(person, address);
-        person.getPersonTasksList().add(personTasks);
+        personAddress = new PersonAddress(person, address);
+        person.getPersonAddressList().add(personAddress);
+        return personRepository.save(person);
+    }
+
+    public Person putEmailToPerson(Long personId, Long emailId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Email email = serviceAll.getEmailFromUserIdAndEmailId(logInUser.getId(), emailId);
+        if (email == null) {
+            throw new com.app.FO.exceptions.EmailNotFoundException("Email not found");
+        }
+
+        PersonEmail personEmail = serviceAll.getPersonEmail(personId, emailId);
+        if (personEmail != null) {
+            throw new PersonEmailAlreadyExistException("The person already has the email");
+        }
+
+        personEmail = new PersonEmail(person, email);
+        person.getPersonEmailList().add(personEmail);
+        return personRepository.save(person);
+    }
+
+    public Person putPhoneNumberToPerson(Long personId, Long phoneNumberId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        PhoneNumber phoneNumber = serviceAll.getPhoneNumberFromUserIdAndPhoneNumberId(logInUser.getId(), phoneNumberId);
+        if (phoneNumber == null) {
+            throw new PhoneNumberNotFoundException("PhoneNumber not found");
+        }
+
+        PersonPhoneNumber personPhoneNumber = serviceAll.getPersonPhoneNumber(personId, phoneNumberId);
+        if (personPhoneNumber != null) {
+            throw new com.app.FO.exceptions.PersonPhoneNumberAlreadyExistException("The person already has the phoneNumber");
+        }
+
+        personPhoneNumber = new PersonPhoneNumber(person, phoneNumber);
+        person.getPersonPhoneNumberList().add(personPhoneNumber);
+        return personRepository.save(person);
+    }
+
+    public Person putTheDayToPerson(Long personId, Long theDayId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        TheDay theDay = serviceAll.getTheDayFromUserIdAndTheDayId(logInUser.getId(), theDayId);
+        if (theDay == null) {
+            throw new TheDayNotFoundException("TheDay not found");
+        }
+
+        PersonTheDay personTheDay = serviceAll.getPersonTheDay(personId, theDayId);
+        if (personTheDay != null) {
+            throw new com.app.FO.exceptions.PersonTheDayAlreadyExistException("The person already has the theDay");
+        }
+
+        personTheDay = new PersonTheDay(person, theDay);
+        person.getPersonTheDayList().add(personTheDay);
         return personRepository.save(person);
     }
 

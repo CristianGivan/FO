@@ -24,7 +24,7 @@ public class TheDayTasks {
     private Tasks tasks;
 
     @ManyToOne
-    @JoinColumn(name = "tthe_day_id")
+    @JoinColumn(name = "the_day_id")
     @JsonIgnore
     private TheDay theDay;
 

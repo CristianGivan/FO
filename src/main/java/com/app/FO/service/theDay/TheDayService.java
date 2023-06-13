@@ -1,10 +1,7 @@
 package com.app.FO.service.theDay;
 
 import com.app.FO.config.DateTime;
-import com.app.FO.exceptions.TheDayAlreadyExistException;
-import com.app.FO.exceptions.TheDayNotFoundException;
-import com.app.FO.exceptions.TheDayUserAlreadyExistException;
-import com.app.FO.exceptions.UserNotFoundException;
+import com.app.FO.exceptions.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
@@ -33,7 +30,7 @@ public class TheDayService {
 
 //-- Post
 
-    public TheDay postTheDay(String subject, String day) {
+    public TheDay postTheDay(String subject, String date) {
         User logInUser = serviceAll.getLogInUser();
 
         TheDay theDay = theDayRepository.getTheDayFromUserIdBySubject(logInUser.getId(), subject);
@@ -41,7 +38,7 @@ public class TheDayService {
             throw new TheDayAlreadyExistException("TheDay with this subject already exist");
         }
 
-        theDay = theDayRepository.save(new TheDay(subject, day, logInUser));
+        theDay = theDayRepository.save(new TheDay(subject, date, logInUser));
 
         TheDayUser theDayUser = new TheDayUser(theDay, logInUser);
         theDay.getTheDayUserList().add(theDayUser);
@@ -66,18 +63,18 @@ public class TheDayService {
         return theDayRepository.save(theDay);
     }
 
-    public TheDay putDayToTheDay(Long theDayId, String day) {
+    public TheDay putReferenceToTheDay(Long theDayId, String reference) {
         User logInUser = serviceAll.getLogInUser();
         TheDay theDay = theDayRepository.getTheDayFromUserIdByTheDayId(logInUser.getId(), theDayId);
         if (theDay == null) {
             throw new TheDayNotFoundException("TheDay not found in your list");
         }
 
-        if (theDay.getDay().equals(day)) {
-            throw new TheDayAlreadyExistException("TheDay has already the same day");
+        if (theDay.getTheDayDate().equals(reference)) {
+            throw new TheDayAlreadyExistException("TheDay has already the same reference");
         }
 
-        theDay.setDay(day);
+        theDay.setTheDayDate(reference);
 
         return theDayRepository.save(theDay);
     }
@@ -116,12 +113,12 @@ public class TheDayService {
 
         Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
-            throw new com.app.FO.exceptions.TagNotFoundException("Tag not found");
+            throw new TagNotFoundException("Tag not found");
         }
 
         TheDayTag theDayTag = serviceAll.getTheDayTag(theDayId, tagId);
         if (theDayTag != null) {
-            throw new com.app.FO.exceptions.TheDayTagAlreadyExistException("The theDay already has the tag");
+            throw new TheDayTagAlreadyExistException("The theDay already has the tag");
         }
 
         theDayTag = new TheDayTag(theDay, tag);
@@ -141,12 +138,12 @@ public class TheDayService {
 
         Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
-            throw new com.app.FO.exceptions.ReminderNotFoundException("Reminder not found");
+            throw new ReminderNotFoundException("Reminder not found");
         }
 
         TheDayReminder theDayReminder = serviceAll.getTheDayReminder(theDayId, reminderId);
         if (theDayReminder != null) {
-            throw new com.app.FO.exceptions.TheDayReminderAlreadyExistException("The theDay already has the reminder");
+            throw new TheDayReminderAlreadyExistException("The theDay already has the reminder");
         }
 
         theDayReminder = new TheDayReminder(theDay, reminder);
@@ -165,12 +162,12 @@ public class TheDayService {
 
         Topic topic = serviceAll.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
-            throw new com.app.FO.exceptions.TopicNotFoundException("Topic not found");
+            throw new TopicNotFoundException("Topic not found");
         }
 
         TheDayTopic theDayTopic = serviceAll.getTheDayTopic(theDayId, topicId);
         if (theDayTopic != null) {
-            throw new com.app.FO.exceptions.TheDayTopicAlreadyExistException("The theDay already has the topic");
+            throw new TheDayTopicAlreadyExistException("The theDay already has the topic");
         }
 
         theDayTopic = new TheDayTopic(theDay, topic);
@@ -188,12 +185,12 @@ public class TheDayService {
 
         Tasks tasks = serviceAll.getTasksFromUserIdAndTasksId(logInUser.getId(), tasksId);
         if (tasks == null) {
-            throw new com.app.FO.exceptions.TasksNotFoundException("Tasks not found");
+            throw new TasksNotFoundException("Tasks not found");
         }
 
         TheDayTasks theDayTasks = serviceAll.getTheDayTasks(theDayId, tasksId);
         if (theDayTasks != null) {
-            throw new com.app.FO.exceptions.TheDayTasksAlreadyExistException("The theDay already has the tasks");
+            throw new TheDayTasksAlreadyExistException("The theDay already has the tasks");
         }
 
         theDayTasks = new TheDayTasks(theDay, tasks);
@@ -220,7 +217,7 @@ public class TheDayService {
 
         TheDayUser theDayUser = serviceAll.getTheDayUser(theDayId, userId);
         if (theDayUser == null) {
-            throw new com.app.FO.exceptions.TheDayUserNotFoundException("The theDay don't has the user");
+            throw new TheDayUserNotFoundException("The theDay don't has the user");
         }
         theDay.getTheDayUserList().remove(theDayUser);
 
@@ -237,12 +234,12 @@ public class TheDayService {
 
         Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
         if (tag == null) {
-            throw new com.app.FO.exceptions.TagNotFoundException("Tag not found");
+            throw new TagNotFoundException("Tag not found");
         }
 
         TheDayTag theDayTag = serviceAll.getTheDayTag(theDayId, tagId);
         if (theDayTag == null) {
-            throw new com.app.FO.exceptions.TheDayTagNotFoundException("The theDay don't has the tag");
+            throw new TheDayTagNotFoundException("The theDay don't has the tag");
         }
 
         theDay.getTheDayTagList().remove(theDayTag);
@@ -260,12 +257,12 @@ public class TheDayService {
 
         Reminder reminder = serviceAll.getReminderFromUserIdByReminderId(logInUser.getId(), reminderId);
         if (reminder == null) {
-            throw new com.app.FO.exceptions.ReminderNotFoundException("Reminder not found");
+            throw new ReminderNotFoundException("Reminder not found");
         }
 
         TheDayReminder theDayReminder = serviceAll.getTheDayReminder(theDayId, reminderId);
         if (theDayReminder == null) {
-            throw new com.app.FO.exceptions.TheDayReminderNotFoundException("The theDay don't has the reminder");
+            throw new TheDayReminderNotFoundException("The theDay don't has the reminder");
         }
 
         theDay.getTheDayReminderList().remove(theDayReminder);
@@ -283,12 +280,12 @@ public class TheDayService {
 
         Topic topic = serviceAll.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
         if (topic == null) {
-            throw new com.app.FO.exceptions.TopicNotFoundException("Topic not found");
+            throw new TopicNotFoundException("Topic not found");
         }
 
         TheDayTopic theDayTopic = serviceAll.getTheDayTopic(theDayId, topicId);
         if (theDayTopic == null) {
-            throw new com.app.FO.exceptions.TheDayTasksNotFoundException("The theDay don't has the topic");
+            throw new TheDayTasksNotFoundException("The theDay don't has the topic");
         }
 
         theDay.getTheDayTopicList().remove(theDayTopic);
@@ -306,12 +303,12 @@ public class TheDayService {
 
         Tasks tasks = serviceAll.getTasksFromUserIdAndTasksId(logInUser.getId(), tasksId);
         if (tasks == null) {
-            throw new com.app.FO.exceptions.TasksNotFoundException("Tasks not found");
+            throw new TasksNotFoundException("Tasks not found");
         }
 
         TheDayTasks theDayTasks = serviceAll.getTheDayTasks(theDayId, tasksId);
         if (theDayTasks == null) {
-            throw new com.app.FO.exceptions.TheDayTasksNotFoundException("The theDay don't has the tasks");
+            throw new TheDayTasksNotFoundException("The theDay don't has the tasks");
         }
 
         theDay.getTheDayTasksList().remove(theDayTasks);
@@ -368,18 +365,18 @@ public class TheDayService {
         return theDayList;
     }
 
-    public TheDay getTheDayByDay(String day) {
+    public TheDay getTheDayByReference(String reference) {
         User logInUser = serviceAll.getLogInUser();
-        TheDay theDay = theDayRepository.getTheDayFromUserIdByDay(logInUser.getId(), day);
+        TheDay theDay = theDayRepository.getTheDayFromUserIdByReference(logInUser.getId(), reference);
         if (theDay == null) {
             throw new TheDayNotFoundException("No theDay found");
         }
         return theDay;
     }
 
-    public List<TheDay> getTheDayListByDayContains(String dayContains) {
+    public List<TheDay> getTheDayListByReferenceContains(String referenceContains) {
         User logInUser = serviceAll.getLogInUser();
-        List<TheDay> theDayList = theDayRepository.getTheDayListByDayContains(logInUser.getId(), dayContains);
+        List<TheDay> theDayList = theDayRepository.getTheDayListByReferenceContains(logInUser.getId(), referenceContains);
         if (theDayList.isEmpty()) {
             throw new TheDayNotFoundException("No theDay found");
         }
