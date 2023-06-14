@@ -78,9 +78,9 @@ public class Person {
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesPerson> expensesPayerList;
 
-    @OneToMany
-    @JoinColumn(name = "related_person")
-    private List<Person> relatedPersonList;
+    @OneToMany(mappedBy = "relatedPerson", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonPerson> personPersonList;
+
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PersonHistory> personHistoryList;
@@ -116,7 +116,7 @@ public class Person {
                 ", personPhoneNumberList=" + personPhoneNumberList +
                 ", personDatesList=" + personDatesList +
                 ", expensesPayerList=" + expensesPayerList +
-                ", relatedPersonList=" + relatedPersonList +
+                ", relatedPersonList=" + personPersonList +
                 ", personHistoryList=" + personHistoryList +
                 '}';
     }
@@ -321,11 +321,11 @@ public class Person {
         this.expensesPayerList = expensesPayerList;
     }
 
-    public List<Person> getRelatedPersonList() {
-        return relatedPersonList;
+    public List<PersonPerson> getPersonPersonList() {
+        return personPersonList;
     }
 
-    public void setRelatedPersonList(List<Person> relatedPersonList) {
-        this.relatedPersonList = relatedPersonList;
+    public void setPersonPersonList(List<PersonPerson> personPersonList) {
+        this.personPersonList = personPersonList;
     }
 }

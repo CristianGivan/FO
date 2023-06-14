@@ -226,6 +226,10 @@ public class ServiceAll {
     private PersonDatesRepository personDatesRepository;
 
     @Autowired
+    private PersonPersonRepository personPersonRepository;
+
+
+    @Autowired
     private EventRepository eventRepository;
     @Autowired
     private EventUserRepository eventUserRepository;
@@ -717,6 +721,10 @@ public class ServiceAll {
 
     public PersonDates getPersonDates(Long personId, Long datesId) {
         return personDatesRepository.getPersonDatesByPersonIdAndDatesId(personId, datesId);
+    }
+
+    public PersonPerson getPersonPerson(Long personId, Long reletedPersonId) {
+        return personPersonRepository.getPersonPersonByPersonIdAndPersonId(personId, reletedPersonId);
     }
     //-- getEventAnd
 

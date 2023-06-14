@@ -30,7 +30,7 @@ public class DatesService {
 
 //-- Post
 
-    public Dates postDates(String subject) {
+    public Dates postDates(String subject, String datesDate) {
         User logInUser = serviceAll.getLogInUser();
 
         Dates dates = datesRepository.getDatesFromUserIdBySubject(logInUser.getId(), subject);
@@ -38,7 +38,7 @@ public class DatesService {
             throw new DatesAlreadyExistException("Dates with this subject already exist");
         }
 
-        dates = datesRepository.save(new Dates(subject, logInUser));
+        dates = datesRepository.save(new Dates(subject, datesDate, logInUser));
 
         DatesUser datesUser = new DatesUser(dates, logInUser);
         dates.getDatesUserList().add(datesUser);
@@ -70,11 +70,11 @@ public class DatesService {
             throw new DatesNotFoundException("Dates not found in your list");
         }
 
-        if (dates.getReference().equals(reference)) {
+        if (dates.getDatesDate().equals(reference)) {
             throw new DatesAlreadyExistException("Dates has already the same reference");
         }
 
-        dates.setReference(reference);
+        dates.setDatesDate(reference);
 
         return datesRepository.save(dates);
     }

@@ -129,6 +129,13 @@ public class PersonController {
         return personDTOMapper.personToPersonDTO(person);
     }
 
+
+    @PutMapping("/putPersonToPerson")
+    public PersonDTO putPersonToPerson(@RequestParam Long personId, @RequestParam Long relatedPersonId) {
+        Person person = personService.putPersonToPerson(personId, relatedPersonId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
     //-- DeleteMapping
 
 
@@ -302,20 +309,47 @@ public class PersonController {
     }
 
     @GetMapping("/getPersonListByDocument")
-    public List<PersonDTO> getPersonListByDocument(@RequestParam Long tasksId) {
-        List<Person> personList = personService.getPersonListByDocument(tasksId);
+    public List<PersonDTO> getPersonListByDocument(@RequestParam Long documentId) {
+        List<Person> personList = personService.getPersonListByDocument(documentId);
         return personDTOMapper.personListToPersonDTOList(personList);
     }
 
     @GetMapping("/getPersonListByAddress")
-    public List<PersonDTO> getPersonListByAddress(@RequestParam Long tasksId) {
-        List<Person> personList = personService.getPersonListByAddress(tasksId);
+    public List<PersonDTO> getPersonListByAddress(@RequestParam Long addressId) {
+        List<Person> personList = personService.getPersonListByAddress(addressId);
+        return personDTOMapper.personListToPersonDTOList(personList);
+    }
+
+    @GetMapping("/getPersonListByEmail")
+    public List<PersonDTO> getPersonListByEmail(@RequestParam Long emailId) {
+        List<Person> personList = personService.getPersonListByEmail(emailId);
+        return personDTOMapper.personListToPersonDTOList(personList);
+    }
+
+    @GetMapping("/getPersonListByPhoneNumberId")
+    public List<PersonDTO> getPersonListByPhoneNumberId(@RequestParam Long phoneNumberId) {
+        List<Person> personList = personService.getPersonListByPhoneNumberId(phoneNumberId);
+        return personDTOMapper.personListToPersonDTOList(personList);
+    }
+
+    @GetMapping("/getPersonListByDatesId")
+    public List<PersonDTO> getPersonListByDatesId(@RequestParam Long datesId) {
+        List<Person> personList = personService.getPersonListByDatesId(datesId);
         return personDTOMapper.personListToPersonDTOList(personList);
     }
 
     @GetMapping("/getPersonListByExpenses")
     public List<PersonDTO> getPersonListByExpenses(@RequestParam Long tasksId) {
         List<Person> personList = personService.getPersonListByExpenses(tasksId);
+        return personDTOMapper.personListToPersonDTOList(personList);
+
+
+    }
+
+
+    @GetMapping("/getPersonListByPersonId")
+    public List<PersonDTO> getPersonListByPersonId(@RequestParam Long personId) {
+        List<Person> personList = personService.getPersonListByPersonId(personId);
         return personDTOMapper.personListToPersonDTOList(personList);
     }
     //--- Other

@@ -1,6 +1,5 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.dates.DatesDTO;
 import com.app.FO.mapper.mappers.DatesDTOMapper;
 import com.app.FO.model.dates.Dates;
@@ -27,8 +26,8 @@ public class DatesController {
     //-- PostMapping
 
     @PostMapping("/postNewDates")
-    public DatesDTO postNewDates(@RequestBody TextDTO noteText) {
-        Dates dates = datesService.postDates(noteText.getText());
+    public DatesDTO postNewDates(@RequestParam String subject, @RequestParam String datesDate) {
+        Dates dates = datesService.postDates(subject, datesDate);
         return datesDTOMapper.datesToDatesDTO(dates);
     }
 

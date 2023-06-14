@@ -77,23 +77,23 @@
 
 ### Put
 
-- [ ] putNickNameToPerson
-- [ ] putFirstNameToPerson
-- [ ] putMiddleNameToPerson
-- [ ] putLastNameToPerson
-- [ ] putDescriptionToPerson
-- [ ] putSubjectToPerson
-- [ ] putUserToPerson
-- [ ] putTagToPerson
-- [ ] putReminderToPerson
-- [ ] putTopicToPerson
-- [ ] putTasksToPerson
-- [ ] putDocumentToPerson
-- [ ] putAddressToPerson
-- [ ] putEmailToPerson
-- [ ] putPhoneNumberToPerson
-- [ ] putDatesToPerson
-- [ ] putRelatedPersonToPerson
+- [x]  putNickNameToPerson
+- [x]  putFirstNameToPerson
+- [x]  putMiddleNameToPerson
+- [x]  putLastNameToPerson
+- [x]  putDescriptionToPerson
+- [x]  putSubjectToPerson
+- [x]  putUserToPerson
+- [x]  putTagToPerson
+- [x]  putReminderToPerson
+- [x]  putTopicToPerson
+- [x]  putTasksToPerson
+- [x]  putDocumentToPerson
+- [x]  putAddressToPerson
+- [x]  putEmailToPerson
+- [x]  putPhoneNumberToPerson
+- [x]  putDatesToPerson
+- [x]  putRelatedPersonToPerson
 
 ### Delete
 
@@ -115,40 +115,37 @@
 
 ### Get
 
-- [ ] getAllPerson
-- [ ] getPersonById
-- [ ] getPersonListByNickName
-- [ ] getPersonListByNickNameContains
-- [ ] getPersonListByFirstName
-- [ ] getPersonListByFirstNameContains
-- [ ] getPersonListByMiddleName
-- [ ] getPersonListByMiddleNameContains
-- [ ] getPersonListByLastName
-- [ ] getPersonListByLastNameContains
-- [ ] getPersonListByFullName
-- [ ] getPersonListByFullNameContains
-- [ ] getPersonListByDescription
-- [ ] getPersonListByDescriptionContains
-- [ ] getPersonListByEmail
-- [ ] getPersonListByEmailContains
-- [ ] getPersonListByPhoneNumber
-- [ ] getPersonBySubject
-- [ ] getPersonListBySubjectContains
-- [ ] getPersonByCreatedDate
-- [ ] getPersonListByCreatedDateBetween
-- [ ] getPersonListByRelatedPerson
-- [ ] getPersonListByUser
-- [ ] getPersonListByTag
-- [ ] getPersonListByReminder
-- [ ] getPersonListByTopic
-- [ ] getPersonListByTasks
-- [ ] getPersonListByDocument
-- [ ] getPersonListByAddress
-- [ ] getPersonListByEmail
-- [ ] getPersonListByPhoneNumber
-- [ ] getPersonListByDates
-- [ ] getPersonListByDatesBetween
-- [ ] getPersonListByExpenses
+- [x]  getAllPerson
+- [x]  getPersonById
+- [x]  getPersonListByNickName
+- [x]  getPersonListByNickNameContains
+- [x]  getPersonListByFirstName
+- [x]  getPersonListByFirstNameContains
+- [x]  getPersonListByMiddleName
+- [x]  getPersonListByMiddleNameContains
+- [x]  getPersonListByLastName
+- [x]  getPersonListByLastNameContains
+- [x]  getPersonListByFullName
+- [x]  getPersonListByFullNameContains
+- [x]  getPersonListByDescription
+- [x]  getPersonListByDescriptionContains
+- [x]  getPersonBySubject
+- [x]  getPersonListBySubjectContains
+- [x]  getPersonByCreatedDate
+- [x]  getPersonListByCreatedDateBetween
+- [x]  getPersonListByRelatedPerson
+- [x]  getPersonListByUser
+- [x]  getPersonListByTag
+- [x]  getPersonListByReminder
+- [x]  getPersonListByTopic
+- [x]  getPersonListByTasks
+- [x]  getPersonListByDocument
+- [x]  getPersonListByAddress
+- [x]  getPersonListByEmail
+- [x]  getPersonListByPhoneNumber
+- [x]  getPersonListByDates
+- [x]  getPersonListByDatesBetween
+- [x] getPersonListByExpenses
 - [ ] getPersonListByRelatedPerson
 
 ## Other

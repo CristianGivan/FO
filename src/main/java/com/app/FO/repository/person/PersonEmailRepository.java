@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface PersonEmailRepository extends JpaRepository<PersonEmail, Long> {
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person_mail as tt where tt.person_id=?1 and tt.email_id=?2")
-    PersonEmail getPersonEmailByPersonIdAndEmailId(Long personId, Long mailId);
+            "SELECT * FROM person_email as tt where tt.person_id=?1 and tt.email_id=?2")
+    PersonEmail getPersonEmailByPersonIdAndEmailId(Long personId, Long emailId);
 
 
 }

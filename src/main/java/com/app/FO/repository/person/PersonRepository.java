@@ -21,43 +21,43 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     Person getPersonFromUserIdByPersonId(Long userId, Long personId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.nickName=?2")
+            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.nick_name=?2")
     List<Person> getPersonFromUserIdByNickName(Long userId, String nickName);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.nickName like %:containingText%")
+            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.nick_name like %:containingText%")
     List<Person> getPersonListByNickNameContains(@Param("userId") Long UserId, @Param("containingText") String containsText);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.firstName=?2")
+            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.first_name=?2")
     List<Person> getPersonFromUserIdByFirstName(Long userId, String firstName);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.firstName like %:containingText%")
+            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.first_name like %:containingText%")
     List<Person> getPersonListByFirstNameContains(@Param("userId") Long UserId, @Param("containingText") String containsText);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.middleName=?2")
+            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.middle_name=?2")
     List<Person> getPersonFromUserIdByMiddleName(Long userId, String middleName);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.middleName like %:containingText%")
+            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.middle_name like %:containingText%")
     List<Person> getPersonListByMiddleNameContains(@Param("userId") Long UserId, @Param("containingText") String containsText);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.subject=?2")
-    List<Person> getPersonFromUserIdByLastName(Long userId, String subject);
+            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.last_name=?2")
+    List<Person> getPersonFromUserIdByLastName(Long userId, String lastName);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.subject like %:containingText%")
+            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.last_name like %:containingText%")
     List<Person> getPersonListByLastNameContains(@Param("userId") Long UserId, @Param("containingText") String containsText);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.fullName=?2")
+            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.full_name=?2")
     List<Person> getPersonFromUserIdByFullName(Long userId, String fullName);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.fullName like %:containingText%")
+            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.full_name like %:containingText%")
     List<Person> getPersonListByFullNameContains(@Param("userId") Long UserId, @Param("containingText") String containsText);
 
     @Query(nativeQuery = true, value =
@@ -107,7 +107,23 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> getPersonListFromUserIdByAddressId(Long userId, Long addressId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_expenses as tn on t.person_id = tn.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tn.expenses_id=?2")
+            "SELECT * FROM person as t inner join person_email as tn on t.person_id = tn.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tn.email_id=?2")
+    List<Person> getPersonListFromUserIdByEmailId(Long userId, Long emailId);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM person as t inner join person_phone_number as tn on t.person_id = tn.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tn.phone_number_id=?2")
+    List<Person> getPersonListFromUserIdByPhoneNumberId(Long userId, Long phoneNumberId);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM person as t inner join person_dates as tn on t.person_id = tn.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tn.dates_id=?2")
+    List<Person> getPersonListFromUserIdByDatesId(Long userId, Long datesId);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM person as t inner join expenses_person as tn on t.person_id = tn.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tn.expenses_id=?2")
     List<Person> getPersonListFromUserIdByExpensesId(Long userId, Long expensesId);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM person as t inner join person_person as tn on t.person_id = tn.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tn.person_id=?2")
+    List<Person> getPersonListFromUserIdByPersonId(Long userId, Long personId);
 
 }

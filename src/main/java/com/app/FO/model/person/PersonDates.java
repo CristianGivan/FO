@@ -24,7 +24,7 @@ public class PersonDates {
     private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "the_dates_id")
+    @JoinColumn(name = "dates_id")
     @JsonIgnore
     private Dates dates;
 
