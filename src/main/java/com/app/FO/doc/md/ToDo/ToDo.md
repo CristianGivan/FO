@@ -1,5 +1,9 @@
 # Todo
 
+- [ ] 
+- [ ] when subject already exist throw exception or not?
+- [ ] accont expenses account see
+- [ ] getPersonPerosn check
 - [ ] dates and phoneNumber dates and number type
 - [x] crete entity for address shop document
 - [ ] include in accountTransaction and all linked tables als the user for query:  query by user account transaction all
@@ -15,12 +19,12 @@
 - [x] Check Transaction
 - [x] Check Expenses
 - [x] Check Expense
-- [ ] Check Event
-- [ ] Check Person
-- [ ] Check Link
+- [x] Check Event
+- [x] Check Person
+- [x] Check Link
 - [ ] Check Address
 - [ ] Check Document
-- [ ] Check Shop
+- [ ] Check ShopEve
 - [ ] Check Work
 - [ ] Check Tasks
 - [ ] Check Task

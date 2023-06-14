@@ -511,7 +511,7 @@ public class AccountService {
         return account;
     }
 
-    public List<Account> getAccountByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+    public List<Account> getAccountListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
         LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
         LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
         User logInUser = serviceAll.getLogInUser();

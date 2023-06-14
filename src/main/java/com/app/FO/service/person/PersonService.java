@@ -1,5 +1,6 @@
 package com.app.FO.service.person;
 
+import com.app.FO.config.DateTime;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.address.Address;
 import com.app.FO.model.dates.Dates;
@@ -17,6 +18,7 @@ import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -680,6 +682,27 @@ public class PersonService {
     public List<Person> getPersonListBySubjectContains(String subjectContains) {
         User logInUser = serviceAll.getLogInUser();
         List<Person> personList = personRepository.getPersonListBySubjectContains(logInUser.getId(), subjectContains);
+        if (personList.isEmpty()) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return personList;
+    }
+
+    public Person getPersonByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
+        User logInUser = serviceAll.getLogInUser();
+        Person person = personRepository.getPersonFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+        if (person == null) {
+            throw new PersonNotFoundException("No person found");
+        }
+        return person;
+    }
+
+    public List<Person> getPersonListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Person> personList = personRepository.getPersonListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
         if (personList.isEmpty()) {
             throw new PersonNotFoundException("No person found");
         }

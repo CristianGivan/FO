@@ -1,10 +1,11 @@
 package com.app.FO.controller;
 
-import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.event.EventDTO;
+import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.mappers.EventDTOMapper;
 import com.app.FO.model.event.Event;
 import com.app.FO.service.event.EventService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,8 @@ public class EventController {
     //-- PostMapping
 
     @PostMapping("/postNewEvent")
-    public EventDTO postNewEvent(@RequestBody TextDTO noteText) {
-        Event event = eventService.postEvent(noteText.getText());
+    public EventDTO postNewEvent(@RequestBody TextDTO eventText) {
+        Event event = eventService.postEvent(eventText.getText());
         return eventDTOMapper.eventToEventDTO(event);
     }
 
@@ -67,6 +68,18 @@ public class EventController {
     @PutMapping("/putTasksToEvent")
     public EventDTO putTasksToEvent(@RequestParam Long eventId, @RequestParam Long tasksId) {
         Event event = eventService.putTasksToEvent(eventId, tasksId);
+        return eventDTOMapper.eventToEventDTO(event);
+    }
+
+    @PutMapping("/putExpensesToEvent")
+    public EventDTO putExpensesToEvent(@RequestParam Long eventId, @RequestParam Long expensesId) {
+        Event event = eventService.putExpensesToEvent(eventId, expensesId);
+        return eventDTOMapper.eventToEventDTO(event);
+    }
+
+    @PutMapping("/putPersonToEvent")
+    public EventDTO putPersonToEvent(@RequestParam Long eventId, @RequestParam Long personId) {
+        Event event = eventService.putPersonToEvent(eventId, personId);
         return eventDTOMapper.eventToEventDTO(event);
     }
 
@@ -120,6 +133,11 @@ public class EventController {
         return eventDTOMapper.eventListToEventDTOList(eventList);
     }
 
+    @GetMapping("/getEventById")
+    public EventDTO getEventById(@RequestParam Long eventId) {
+        Event event = eventService.getEventByEventId(eventId);
+        return eventDTOMapper.eventToEventDTO(event);
+    }
 
     @GetMapping("/getEventBySubject")
     public EventDTO getEventBySubject(@RequestParam String subject) {
@@ -133,12 +151,18 @@ public class EventController {
         return eventDTOMapper.eventListToEventDTOList(eventList);
     }
 
-    @GetMapping("/getEventById")
-    public EventDTO getEventById(@RequestParam Long eventId) {
-        Event event = eventService.getEventByEventId(eventId);
+    @GetMapping("/getEventByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public EventDTO getEventByCreatedDate(@RequestParam String createdDate) {
+        Event event = eventService.getEventByCreatedDate(createdDate);
         return eventDTOMapper.eventToEventDTO(event);
     }
 
+    @GetMapping("/getEventListByCreatedDateBetween")
+    public List<EventDTO> getEventListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Event> eventList = eventService.getEventListByCreatedDateBetween(createdDateMin, createdDateMax);
+        return eventDTOMapper.eventListToEventDTOList(eventList);
+    }
 
     @GetMapping("/getEventListByUserId")
     public List<EventDTO> getEventListByUserId(@RequestParam Long userId) {
@@ -170,6 +194,17 @@ public class EventController {
         return eventDTOMapper.eventListToEventDTOList(eventList);
     }
 
+    @GetMapping("/getEventListByExpensesId")
+    public List<EventDTO> getEventListByExpensesId(@RequestParam Long expensesId) {
+        List<Event> eventList = eventService.getEventListByExpensesId(expensesId);
+        return eventDTOMapper.eventListToEventDTOList(eventList);
+    }
+
+    @GetMapping("/getEventListByPersonId")
+    public List<EventDTO> getEventListByPersonId(@RequestParam Long personId) {
+        List<Event> eventList = eventService.getEventListByPersonId(personId);
+        return eventDTOMapper.eventListToEventDTOList(eventList);
+    }
 
     //--- Other
 

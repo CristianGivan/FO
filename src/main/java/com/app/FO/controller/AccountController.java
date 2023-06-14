@@ -212,9 +212,9 @@ public class AccountController {
         return accountDTOMapper.accountToAccountDTO(account);
     }
 
-    @GetMapping("/getAccountByCreatedDateBetween")
-    public List<AccountDTO> getAccountByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
-        List<Account> accountList = accountService.getAccountByCreatedDateBetween(createdDateMin, createdDateMax);
+    @GetMapping("/getAccountListByCreatedDateBetween")
+    public List<AccountDTO> getAccountListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Account> accountList = accountService.getAccountListByCreatedDateBetween(createdDateMin, createdDateMax);
         return accountDTOMapper.accountListToAccountDTOList(accountList);
     }
 

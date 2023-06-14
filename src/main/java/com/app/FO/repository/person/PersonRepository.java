@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -75,6 +76,14 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query(nativeQuery = true, value =
             "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=:userId and t.subject like %:containingText%")
     List<Person> getPersonListBySubjectContains(@Param("userId") Long UserId, @Param("containingText") String containsText);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and t.created_date=?2")
+    Person getPersonFromUserIdByCreatedDate(Long userId, LocalDateTime createdDate);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM person as t inner join person_user ut on t.person_id = ut.person_id where ut.user_id=?1 and t.created_date between ?2 and ?3")
+    List<Person> getPersonListFromUserIdByCreatedDateBetween(Long UserId, LocalDateTime createdDateMin, LocalDateTime createdDateMax);
 
 
     @Query(nativeQuery = true, value =

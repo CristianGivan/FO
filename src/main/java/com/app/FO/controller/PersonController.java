@@ -4,6 +4,7 @@ import com.app.FO.mapper.dto.person.PersonDTO;
 import com.app.FO.mapper.mappers.PersonDTOMapper;
 import com.app.FO.model.person.Person;
 import com.app.FO.service.person.PersonService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -275,6 +276,19 @@ public class PersonController {
     @GetMapping("/getPersonListBySubjectContains")
     public List<PersonDTO> getPersonListBySubjectContains(@RequestParam String subjectContain) {
         List<Person> personList = personService.getPersonListBySubjectContains(subjectContain);
+        return personDTOMapper.personListToPersonDTOList(personList);
+    }
+
+    @GetMapping("/getPersonByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public PersonDTO getPersonByCreatedDate(@RequestParam String createdDate) {
+        Person person = personService.getPersonByCreatedDate(createdDate);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @GetMapping("/getPersonListByCreatedDateBetween")
+    public List<PersonDTO> getPersonListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Person> personList = personService.getPersonListByCreatedDateBetween(createdDateMin, createdDateMax);
         return personDTOMapper.personListToPersonDTOList(personList);
     }
 

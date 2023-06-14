@@ -4,6 +4,7 @@
 - description something that can distinguish by other person with the same name and also to have a better reference
   about that peron like is a mechanic has a business he presented x person is sister of
 - subject had the name concatenated with description shall be done uniq by the short description
+- getPersonListByRelatedPerson tbd
 
 # ToDo
 
@@ -131,8 +132,8 @@
 - [x]  getPersonListByDescriptionContains
 - [x]  getPersonBySubject
 - [x]  getPersonListBySubjectContains
-- [x]  getPersonByCreatedDate
-- [x]  getPersonListByCreatedDateBetween
+- [ ]  getPersonByCreatedDate
+- [ ]  getPersonListByCreatedDateBetween
 - [x]  getPersonListByRelatedPerson
 - [x]  getPersonListByUser
 - [x]  getPersonListByTag
@@ -144,7 +145,7 @@
 - [x]  getPersonListByEmail
 - [x]  getPersonListByPhoneNumber
 - [x]  getPersonListByDates
-- [x]  getPersonListByDatesBetween
+- [ ]  getPersonListByDatesBetween
 - [x] getPersonListByExpenses
 - [ ] getPersonListByRelatedPerson
 

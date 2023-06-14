@@ -43,32 +43,32 @@
 
 ### Attributes
 
-- [ ] subject
-- [ ] createdDate
-- [ ] creator
-- [ ] eventUserList
-- [ ] eventTagList
-- [ ] eventReminderList
-- [ ] eventTopicList
-- [ ] eventTasksList
-- [ ] eventExpensesList
-- [ ] eventPersonList
-- [ ] eventHistoryList
+- [x] subject
+- [x] createdDate
+- [x] creator
+- [x] eventUserList
+- [x] eventTagList
+- [x] eventReminderList
+- [x] eventTopicList
+- [x] eventTasksList
+- [x] eventExpensesList
+- [x] eventPersonList
+- [x] eventHistoryList
 
 ### Post
 
-- [ ] postEvent
+- [x] postEvent
 
 ### Put
 
-- [ ] putSubjectToEvent
-- [ ] putUserToEvent
-- [ ] putTagToEvent
-- [ ] putReminderToEvent
-- [ ] putTopicToEvent
-- [ ] putToExpensesEvent
-- [ ] putPersonToEvent
-- [ ] putTasksToEvent
+- [x] putSubjectToEvent
+- [x] putUserToEvent
+- [x] putTagToEvent
+- [x] putReminderToEvent
+- [x] putTopicToEvent
+- [x] putTasksToEvent
+- [x] putToExpensesEvent
+- [x] putPersonToEvent
 
 ### Delete
 
@@ -83,17 +83,18 @@
 
 ### Get
 
-- [ ] getAllEvent
-- [ ] getEventById
-- [ ] getTaskBySubject
-- [ ] getTaskListBySubjectContains
-- [ ] getEventByCreatedDate
-- [ ] getEventListByUser
-- [ ] getEventListByTag
-- [ ] getEventListByReminder
-- [ ] getEventListByTopic
-- [ ] getEventListByTasks
-- [ ] getEventListByExpenses
-- [ ] getEventListByPerson
+- [x] getAllEvent
+- [x] getEventById
+- [x] getEvenBySubject
+- [x] getEvenListBySubjectContains
+- [x] getEventByCreatedDate
+- [x] getEventListByCreatedDateBetween
+- [x] getEventListByUser
+- [x] getEventListByTag
+- [x] getEventListByReminder
+- [x] getEventListByTopic
+- [x] getEventListByTasks
+- [x] getEventListByExpenses
+- [x] getEventListByPerson
 
 ## Other

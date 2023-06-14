@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,16 +33,23 @@ public class Event {
 
 
     @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventTag> eventTagList;
+
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventReminder> eventReminderList;
+
+
+    @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTopic> eventTopicList;
 
     @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTasks> eventTasksList;
 
     @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<EventTag> eventTagList;
+    private List<EventExpenses> eventExpensesList;
 
     @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<EventReminder> eventReminderList;
+    private List<EventPerson> eventPersonList;
 
     @OneToMany(mappedBy = "event", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventHistory> eventHistoryList;
@@ -64,11 +72,12 @@ public class Event {
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", eventUserList=" + eventUserList +
-                ", eventTopicList=" + eventTopicList +
-                ", eventTasksList=" + eventTasksList +
-                ", eventUserList=" + eventUserList +
                 ", eventTagList=" + eventTagList +
                 ", eventReminderList=" + eventReminderList +
+                ", eventTopicList=" + eventTopicList +
+                ", eventTasksList=" + eventTasksList +
+                ", eventExpensesList=" + eventExpensesList +
+                ", eventPersonList=" + eventPersonList +
                 ", eventHistoryList=" + eventHistoryList +
                 '}';
     }
@@ -106,6 +115,9 @@ public class Event {
     }
 
     public List<EventUser> getEventUserList() {
+        if (eventUserList == null) {
+            eventUserList = new ArrayList<>();
+        }
         return eventUserList;
     }
 
@@ -129,14 +141,6 @@ public class Event {
         this.eventReminderList = eventReminderList;
     }
 
-    public List<EventHistory> getEventHistoryList() {
-        return eventHistoryList;
-    }
-
-    public void setEventHistoryList(List<EventHistory> eventHistoryList) {
-        this.eventHistoryList = eventHistoryList;
-    }
-
     public List<EventTopic> getEventTopicList() {
         return eventTopicList;
     }
@@ -151,5 +155,29 @@ public class Event {
 
     public void setEventTasksList(List<EventTasks> eventTasksList) {
         this.eventTasksList = eventTasksList;
+    }
+
+    public List<EventExpenses> getEventExpensesList() {
+        return eventExpensesList;
+    }
+
+    public void setEventExpensesList(List<EventExpenses> eventExpensesList) {
+        this.eventExpensesList = eventExpensesList;
+    }
+
+    public List<EventPerson> getEventPersonList() {
+        return eventPersonList;
+    }
+
+    public void setEventPersonList(List<EventPerson> eventPersonList) {
+        this.eventPersonList = eventPersonList;
+    }
+
+    public List<EventHistory> getEventHistoryList() {
+        return eventHistoryList;
+    }
+
+    public void setEventHistoryList(List<EventHistory> eventHistoryList) {
+        this.eventHistoryList = eventHistoryList;
     }
 }

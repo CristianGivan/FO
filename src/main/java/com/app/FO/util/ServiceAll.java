@@ -246,6 +246,12 @@ public class ServiceAll {
     private EventTasksRepository eventTasksRepository;
 
     @Autowired
+    private EventExpensesRepository eventExpensesRepository;
+
+    @Autowired
+    private EventPersonRepository eventPersonRepository;
+
+    @Autowired
     private ExpenseRepository expenseRepository;
     @Autowired
     private ExpenseUserRepository expenseUserRepository;
@@ -751,6 +757,14 @@ public class ServiceAll {
 
     public EventTasks getEventTasks(Long eventId, Long tasksId) {
         return eventTasksRepository.getEventTasksByEventIdAndTasksId(eventId, tasksId);
+    }
+
+    public EventExpenses getEventExpenses(Long eventId, Long expensesId) {
+        return eventExpensesRepository.getEventExpensesByEventIdAndExpensesId(eventId, expensesId);
+    }
+
+    public EventPerson getEventPerson(Long eventId, Long personId) {
+        return eventPersonRepository.getEventPersonByEventIdAndPersonId(eventId, personId);
     }
 
     //-- getExpenseAnd
