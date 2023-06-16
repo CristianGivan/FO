@@ -1,15 +1,49 @@
 # Todo
 
+## Final check
+
+### Classes
+
+- [14] Account
+    - accont expenses account see
+- [9] Address
+- [16] Dates
+- [17] Document
+- [18] Email
+- [15] Event
+- [11] Expense
+- [12] Expenses
+- [5] Link
+- [3] Note
+- [20] Person
+    - [ ] getPersonPerosn check
+- [19] PhoneNumber
+- [2] Reminder
+- [10] Shop
+- [1] Tag
+- [6] Task
+- [7] Tasks
+- [4] Topic
+- [13] Transaction
+- [0] User
+- [8] Work
+
+### General
+
+- [ ] when get a value treat the case when more values are possible
+
+## Old Check
+
 - [ ] 
-- [ ] when subject already exist throw exception or not?
-- [ ] accont expenses account see
-- [ ] getPersonPerosn check
+- [x] when subject already exist throw exception or not?
+- [x] accont expenses account see
+- [x] getPersonPerosn check
 - [ ] dates and phoneNumber dates and number type
 - [x] crete entity for address shop document
 - [ ] include in accountTransaction and all linked tables als the user for query:  query by user account transaction all
   three
 - [ ] when putSubject make sure that there are no other same subject in table
-- [ ] when get a value treat the case when more values are possible
+- [x] when get a value treat the case when more values are possible
 - [ ] link_date to created_date
 - [ ] clarify total price checked price and estimated price how is updated
 - [ ] controller for expensesExpense?
@@ -24,7 +58,7 @@
 - [x] Check Link
 - [ ] Check Address
 - [ ] Check Document
-- [ ] Check ShopEve
+- [ ] Check Shop
 - [ ] Check Work
 - [ ] Check Tasks
 - [ ] Check Task

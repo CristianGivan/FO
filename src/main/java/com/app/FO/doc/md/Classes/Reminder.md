@@ -6,4 +6,41 @@ Ideas:
 - traete this assign of one reminder to many entities (e.g. tasks)
 - [ ] Add creator (log in user)
 - shall have a user list?
-- 
+
+### Attributes
+
+- [ ] subject
+- [ ] reminderDateTime
+- [ ] createdDate
+- [ ] creator
+- [ ] reminderUserList
+- [ ] snooze
+
+### Post
+
+- [ ] postReminder
+
+### Put
+
+- [ ] putSubjectToReminder
+- [ ] putReminderDateTimeToReminder
+- [ ] putUserToReminder
+- [ ] putSnoozeToReminder
+
+### Delete
+
+- [ ] deleteUserFromReminder
+- [ ] deleteSnoozeFromReminder
+
+### Get
+
+- [ ] getAllReminder
+- [ ] getReminderById
+- [ ] getReminderBySubject
+- [ ] getReminderListBySubjectContains
+- [ ] getReminderByReminderDateTime
+- [ ] getReminderByReminderDateTimeBetween
+- [ ] getReminderByCreatedDate
+- [ ] getReminderListByCreatedDateBetween
+- [ ] getReminderListByUser
+- [ ] getReminderListBySnooze

@@ -26,4 +26,37 @@
 - [x] postTag
 - [x] getTagByTagId
 - [x] getAllTags
-- [ ] 
+
+-
+
+### Attributes
+
+- [ ] subject
+- [ ] createdDate
+- [ ] creator
+- [ ] tagUserList
+
+### Post
+
+- [ ] postTag
+
+### Put
+
+- [ ] putSubjectToTag
+- [ ] putUserToTag
+
+### Delete
+
+- [ ] deleteUserFromTag
+
+### Get
+
+- [ ] getAllTag
+- [ ] getTagById
+- [ ] getTagBySubject
+- [ ] getTagListBySubjectContains
+- [ ] getTagByCreatedDate
+- [ ] getTagListByCreatedDateBetween
+- [ ] getTagListByUser
+
+## Other[ ]

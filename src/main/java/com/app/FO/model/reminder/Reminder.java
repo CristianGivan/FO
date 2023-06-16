@@ -35,7 +35,7 @@ public class Reminder {
     private Long id;
 
     @Column(name = "reminder")
-    private String reminder;
+    private String subject;
 
     @Column(name = "created_date")
     private LocalDateTime createdDateTime;
@@ -135,8 +135,8 @@ public class Reminder {
     public Reminder() {
     }
 
-    public Reminder(String reminder, User creator) {
-        this.reminder = reminder;
+    public Reminder(String subject, User creator) {
+        this.subject = subject;
         this.creator = creator;
         this.createdDateTime = LocalDateTime.now();
     }
@@ -146,7 +146,7 @@ public class Reminder {
     public String toString() {
         return "Reminder{" +
                 "id=" + id +
-                ", reminder='" + reminder + '\'' +
+                ", reminder='" + subject + '\'' +
                 ", createdDateTime=" + createdDateTime +
                 ", reminderDateTime=" + reminderDateTime +
                 ", snoozes=" + snoozes +
@@ -178,12 +178,12 @@ public class Reminder {
         this.id = id;
     }
 
-    public String getReminder() {
-        return reminder;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setReminder(String reminder) {
-        this.reminder = reminder;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public LocalDateTime getCreatedDateTime() {

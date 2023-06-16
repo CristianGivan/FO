@@ -1,4 +1,5 @@
 # General
+
 Only topic has a link
 
 # ToDo
@@ -46,7 +47,7 @@ Only topic has a link
 
 - [ ] subject
 - [ ] workingDateTime
-- [ ] workingEfort
+- [ ] workingEffort
 - [ ] createdDate
 - [ ] creator
 - [ ] workUserList
@@ -93,5 +94,6 @@ Only topic has a link
 - [ ] getWorkListByTask
 - [ ] getWorkByWorkingDateTime
 - [ ] getWorkByWorkingEfort
-- 
+-
+
 ## Other
