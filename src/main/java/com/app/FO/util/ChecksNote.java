@@ -109,9 +109,9 @@ public class ChecksNote {
     }
 
     public void checkIsNoOtherNoteAtReminder(Reminder reminder) {
-        if (reminder.getNote() != null) {
-            throw new ReminderAlreadyExistException("Another note already exist, do you want to replace it?");
-        }
+//        if (reminder.getDescription() != null) {
+//            throw new ReminderAlreadyExistException("Another note already exist, do you want to replace it?");
+//        }
     }
 
     public void checkIsNoteAndUserAndAreLiked(Note note, User user) {

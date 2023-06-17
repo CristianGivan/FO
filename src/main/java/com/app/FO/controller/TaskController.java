@@ -5,6 +5,7 @@ import com.app.FO.mapper.dto.task.TaskDTO;
 import com.app.FO.mapper.mappers.TaskDTOMapper;
 import com.app.FO.model.task.Task;
 import com.app.FO.service.task.TaskService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -157,9 +158,16 @@ public class TaskController {
     }
 
 
-    @GetMapping("/getTaskListByTopicId")
-    public List<TaskDTO> getTaskListByTopicId(@RequestParam Long topicId) {
-        List<Task> taskList = taskService.getTaskListByTopicId(topicId);
+    @GetMapping("/getTaskByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public TaskDTO getTaskByCreatedDate(@RequestParam String createdDate) {
+        Task task = taskService.getTaskByCreatedDate(createdDate);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
+    @GetMapping("/getTaskListByCreatedDateBetween")
+    public List<TaskDTO> getTaskListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Task> taskList = taskService.getTaskListByCreatedDateBetween(createdDateMin, createdDateMax);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
 
@@ -175,9 +183,17 @@ public class TaskController {
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
 
+
     @GetMapping("/getTaskListByReminderId")
     public List<TaskDTO> getTaskListByReminderId(@RequestParam Long reminderId) {
         List<Task> taskList = taskService.getTaskListByReminderId(reminderId);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+
+    @GetMapping("/getTaskListByTopicId")
+    public List<TaskDTO> getTaskListByTopicId(@RequestParam Long topicId) {
+        List<Task> taskList = taskService.getTaskListByTopicId(topicId);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
 

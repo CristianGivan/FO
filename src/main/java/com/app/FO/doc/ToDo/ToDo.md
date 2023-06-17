@@ -18,15 +18,16 @@
 - [20] Person
     - [ ] getPersonPerosn check
 - [19] PhoneNumber
-- [2] Reminder
+- [1] Reminder
+- [22] Role
 - [10] Shop
+- [x] Snooze
 - [x] Tag
 - [6] Task
 - [7] Tasks
 - [4] Topic
 - [13] Transaction
-- [0] User
-    - [ ] Role
+- [21] User
 - [8] Work
 
 ### General

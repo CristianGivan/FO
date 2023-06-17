@@ -108,12 +108,11 @@ public class NoteService {
          * 6. Save parameter1 */
 
         Note note = getNoteByNoteId(noteId);
-        Reminder reminder = reminderService.getReminderByReminderIdFromUser(reminderId);
+        Reminder reminder = reminderService.getReminderByReminderId(reminderId);
         checksNote.checkIsNoteAndReminderAndAreNotLiked(note, reminder);
         checksNote.checkIsNoOtherNoteAtReminder(reminder); // one reminder hase only one note shall throw exception to don't overwrite.
         NoteReminder noteReminder = new NoteReminder(note, reminder);
         note.getNoteRemainderList().add(noteReminder);
-        reminder.setNote(note);
         return noteRepository.save(note);
     }
 
@@ -230,10 +229,9 @@ public class NoteService {
          * 3. Delete param2 from param1
          * 4. Save param1, no needed to save param2 because there is persist*/
         Note note = getNoteByNoteId(noteId);
-        Reminder reminder = reminderService.getReminderByReminderIdFromUser(reminderId);
+        Reminder reminder = reminderService.getReminderByReminderId(reminderId);
         checksNote.checkIsNoteAndReminderAndAreLiked(note, reminder);
         noteReminderService.deleteNoteReminderFormNoteIdByReminderId(noteId, reminderId);
-        reminder.setNote(null);
         return noteRepository.save(note);
     }
 

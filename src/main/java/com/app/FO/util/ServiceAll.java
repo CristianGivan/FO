@@ -13,7 +13,12 @@ import com.app.FO.model.note.Note;
 import com.app.FO.model.person.*;
 import com.app.FO.model.phoneNumber.*;
 import com.app.FO.model.reminder.Reminder;
+import com.app.FO.model.reminder.ReminderReminder;
+import com.app.FO.model.reminder.ReminderSnooze;
+import com.app.FO.model.reminder.ReminderUser;
 import com.app.FO.model.shop.*;
+import com.app.FO.model.snooze.Snooze;
+import com.app.FO.model.snooze.SnoozeUser;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tag.TagUser;
 import com.app.FO.model.task.*;
@@ -37,8 +42,13 @@ import com.app.FO.repository.link.*;
 import com.app.FO.repository.note.NoteRepository;
 import com.app.FO.repository.person.*;
 import com.app.FO.repository.phoneNumber.*;
+import com.app.FO.repository.reminder.ReminderReminderRepository;
 import com.app.FO.repository.reminder.ReminderRepository;
+import com.app.FO.repository.reminder.ReminderSnoozeRepository;
+import com.app.FO.repository.reminder.ReminderUserRepository;
 import com.app.FO.repository.shop.*;
+import com.app.FO.repository.snooze.SnoozeRepository;
+import com.app.FO.repository.snooze.SnoozeUserRepository;
 import com.app.FO.repository.tag.TagRepository;
 import com.app.FO.repository.tag.TagUserRepository;
 import com.app.FO.repository.task.*;
@@ -77,6 +87,17 @@ public class ServiceAll {
     @Autowired
     private ReminderRepository reminderRepository;
 
+    @Autowired
+    private ReminderUserRepository reminderUserRepository;
+
+    @Autowired
+    private ReminderSnoozeRepository reminderSnoozeRepository;
+    @Autowired
+    private ReminderReminderRepository reminderReminderRepository;
+    @Autowired
+    private SnoozeRepository snoozeRepository;
+    @Autowired
+    private SnoozeUserRepository snoozeUserRepository;
     @Autowired
     private TopicRepository topicRepository;
     @Autowired
@@ -515,9 +536,31 @@ public class ServiceAll {
         return tagUserRepository.getTagUserByTagIdAndUserId(tagId, userId);
     }
 
-    //-- getReminder
+    //-- getReminderAnd
     public Reminder getReminderFromUserIdByReminderId(Long userId, Long reminderId) {
         return reminderRepository.getReminderFromUserIdByReminderId(userId, reminderId);
+    }
+
+    public ReminderUser getReminderUser(Long reminderId, Long userId) {
+        return reminderUserRepository.getReminderUserByReminderIdAndUserId(reminderId, userId);
+    }
+
+
+    public ReminderSnooze getReminderSnooze(Long reminderId, Long snoozeId) {
+        return reminderSnoozeRepository.getReminderSnoozeByReminderIdAndSnoozeId(reminderId, snoozeId);
+    }
+
+    public ReminderReminder getReminderReminder(Long reminderId, Long repeatedReminderId) {
+        return reminderReminderRepository.getReminderReminderByReminderIdAndReminderId(reminderId, repeatedReminderId);
+    }
+
+    //-- getSnoozeAnd
+    public Snooze getSnoozeFromUserIdBySnoozeId(Long userId, Long snoozeId) {
+        return snoozeRepository.getSnoozeFromUserIdBySnoozeId(userId, snoozeId);
+    }
+
+    public SnoozeUser getSnoozeUser(Long snoozeId, Long userId) {
+        return snoozeUserRepository.getSnoozeUserBySnoozeIdAndUserId(snoozeId, userId);
     }
 
     //-- getNote

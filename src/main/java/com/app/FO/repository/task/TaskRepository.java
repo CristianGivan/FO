@@ -30,6 +30,14 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> getTaskListBySubjectContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
     @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.created_date=?2")
+    Task getTaskFromUserIdByCreatedDate(Long userId, LocalDateTime createdDate);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user ut on t.task_id = ut.task_id where ut.user_id=?1 and t.created_date between ?2 and ?3")
+    List<Task> getTaskListFromUserIdByCreatedDateBetween(Long UserId, LocalDateTime createdDateMin, LocalDateTime createdDateMax);
+
+    @Query(nativeQuery = true, value =
             "SELECT * FROM task as t inner join task_topic as tn on t.task_id = tn.task_id inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and tn.topic_id=?2")
     List<Task> getTaskListFromUserIdByTopicId(Long userId, Long topicId);
 

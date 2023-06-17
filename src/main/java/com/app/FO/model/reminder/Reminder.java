@@ -7,7 +7,6 @@ import com.app.FO.model.event.Event;
 import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.link.Link;
-import com.app.FO.model.note.Note;
 import com.app.FO.model.person.Person;
 import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.task.Task;
@@ -20,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,11 +34,11 @@ public class Reminder {
     @Column(name = "reminder_id")
     private Long id;
 
-    @Column(name = "reminder")
+    @Column(name = "subject")
     private String subject;
 
 
-    @Column(name = "data_time")
+    @Column(name = "reminder_date_time")
     private LocalDateTime reminderDateTime;
 
     @Column(name = "created_date")
@@ -52,19 +52,12 @@ public class Reminder {
     @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ReminderUser> reminderUserList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "note_id")
-    @JsonIgnore
-    private Note note;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ReminderSnooze> reminderSnoozeList;
 
-    //is a table mostly for statistics
-    @OneToMany(mappedBy = "reminder", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Snooze> snoozes;
 
-    //todo ar putea fi un tabel de legatura?
-    @OneToMany
-    @JoinColumn(name = "repeated_reminders")
-    private List<Reminder> repeatedReminderList;
+    @OneToMany(mappedBy = "repeatedReminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ReminderReminder> repeatedReminderList;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "topic_id")
@@ -145,18 +138,17 @@ public class Reminder {
         this.createdDateTime = LocalDateTime.now();
     }
 
-
     @Override
     public String toString() {
         return "Reminder{" +
                 "id=" + id +
-                ", reminder='" + subject + '\'' +
-                ", createdDateTime=" + createdDateTime +
+                ", subject='" + subject + '\'' +
                 ", reminderDateTime=" + reminderDateTime +
-                ", snoozes=" + snoozes +
-                ", repeatedReminderList=" + repeatedReminderList +
+                ", createdDateTime=" + createdDateTime +
                 ", creator=" + creator +
-                ", note=" + note +
+                ", reminderUserList=" + reminderUserList +
+                ", reminderSnoozeList=" + reminderSnoozeList +
+                ", repeatedReminderList=" + repeatedReminderList +
                 ", topic=" + topic +
                 ", task=" + task +
                 ", work=" + work +
@@ -183,19 +175,14 @@ public class Reminder {
     }
 
     public String getSubject() {
+        if (subject == null) {
+            subject = "";
+        }
         return subject;
     }
 
     public void setSubject(String subject) {
         this.subject = subject;
-    }
-
-    public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
-    }
-
-    public void setCreatedDateTime(LocalDateTime createdDateTime) {
-        this.createdDateTime = createdDateTime;
     }
 
     public LocalDateTime getReminderDateTime() {
@@ -206,20 +193,12 @@ public class Reminder {
         this.reminderDateTime = reminderDateTime;
     }
 
-    public List<Snooze> getSnoozes() {
-        return snoozes;
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
     }
 
-    public void setSnoozes(List<Snooze> snoozes) {
-        this.snoozes = snoozes;
-    }
-
-    public List<Reminder> getRepeatedReminderList() {
-        return repeatedReminderList;
-    }
-
-    public void setRepeatedReminderList(List<Reminder> repeatedReminderList) {
-        this.repeatedReminderList = repeatedReminderList;
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 
     public User getCreator() {
@@ -230,12 +209,31 @@ public class Reminder {
         this.creator = creator;
     }
 
-    public Note getNote() {
-        return note;
+    public List<ReminderUser> getReminderUserList() {
+        if (reminderUserList == null) {
+            reminderUserList = new ArrayList<>();
+        }
+        return reminderUserList;
     }
 
-    public void setNote(Note note) {
-        this.note = note;
+    public void setReminderUserList(List<ReminderUser> reminderUserList) {
+        this.reminderUserList = reminderUserList;
+    }
+
+    public List<ReminderSnooze> getReminderSnoozeList() {
+        return reminderSnoozeList;
+    }
+
+    public void setReminderSnoozeList(List<ReminderSnooze> reminderSnoozeList) {
+        this.reminderSnoozeList = reminderSnoozeList;
+    }
+
+    public List<ReminderReminder> getRepeatedReminderList() {
+        return repeatedReminderList;
+    }
+
+    public void setRepeatedReminderList(List<ReminderReminder> repeatedReminderList) {
+        this.repeatedReminderList = repeatedReminderList;
     }
 
     public Topic getTopic() {

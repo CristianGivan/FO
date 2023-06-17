@@ -95,7 +95,7 @@ public class DateTime {
     }
 
     public static LocalTime textToLocalTime(String textDateTime) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         return LocalTime.parse(textDateTime, dateTimeFormatter);
     }
 

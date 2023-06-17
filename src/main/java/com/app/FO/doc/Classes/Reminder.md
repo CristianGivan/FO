@@ -9,38 +9,43 @@ Ideas:
 
 ### Attributes
 
-- [ ] subject
-- [ ] reminderDateTime
-- [ ] createdDate
-- [ ] creator
-- [ ] reminderUserList
-- [ ] snooze
+- [x] subject
+- [x] reminderDateTime
+- [x] createdDate
+- [x] creator
+- [x] reminderUserList
+- [x] reminderList
+- [x] snooze
 
 ### Post
 
-- [ ] postReminder
+- [x] postReminder
 
 ### Put
 
-- [ ] putSubjectToReminder
-- [ ] putReminderDateTimeToReminder
-- [ ] putUserToReminder
-- [ ] putSnoozeToReminder
+- [x] putSubjectToReminder
+- [x] putReminderDateTimeToReminder
+- [x] putUserToReminder
+- [x] putSnoozeToReminder
+- [x] putReminderToReminder
 
 ### Delete
 
-- [ ] deleteUserFromReminder
-- [ ] deleteSnoozeFromReminder
+- [x] deleteUserFromReminder
+- [x] deleteSnoozeFromReminder
+- [x] deleteReminderFromReminder
+- [ ] deleteReminder
 
 ### Get
 
-- [ ] getAllReminder
-- [ ] getReminderById
-- [ ] getReminderBySubject
-- [ ] getReminderListBySubjectContains
-- [ ] getReminderByReminderDateTime
-- [ ] getReminderByReminderDateTimeBetween
-- [ ] getReminderByCreatedDate
-- [ ] getReminderListByCreatedDateBetween
-- [ ] getReminderListByUser
-- [ ] getReminderListBySnooze
+- [x] getAllReminder
+- [x] getReminderById
+- [x] getReminderBySubject
+- [x] getReminderListBySubjectContains
+- [x] getReminderByReminderDateTime
+- [x] getReminderByReminderDateTimeBetween
+- [x] getReminderByCreatedDate
+- [x] getReminderListByCreatedDateBetween
+- [x] getReminderListByUser
+- [x] getReminderListBySnooze
+- [x] getReminderListByReminder

@@ -1,35 +1,45 @@
 package com.app.FO.mapper.dto.snooze;
 
-import com.app.FO.mapper.dto.reminder.ReminderDTO;
-
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class SnoozeDTO {
-    private ReminderDTO reminder;
+    private Long snoozeId;
+    private String subject;
     private LocalTime snoozeTime;
-    private Integer snoozeCount;
+    private LocalDateTime createdDateTime;
 
-    public SnoozeDTO(ReminderDTO reminder, LocalTime snoozeTime, Integer snoozeCount) {
-        this.reminder = reminder;
+    public SnoozeDTO(Long snoozeId, String subject, LocalTime snoozeTime, LocalDateTime createdDateTime) {
+        this.snoozeId = snoozeId;
+        this.subject = subject;
         this.snoozeTime = snoozeTime;
-        this.snoozeCount = snoozeCount;
+        this.createdDateTime = createdDateTime;
     }
 
     @Override
     public String toString() {
         return "SnoozeDTO{" +
-                "reminder=" + reminder +
+                "snoozeId=" + snoozeId +
+                ", subject='" + subject + '\'' +
                 ", snoozeTime=" + snoozeTime +
-                ", snoozeCount=" + snoozeCount +
+                ", createdDateTime=" + createdDateTime +
                 '}';
     }
 
-    public ReminderDTO getReminder() {
-        return reminder;
+    public Long getSnoozeId() {
+        return snoozeId;
     }
 
-    public void setReminder(ReminderDTO reminder) {
-        this.reminder = reminder;
+    public void setSnoozeId(Long snoozeId) {
+        this.snoozeId = snoozeId;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public LocalTime getSnoozeTime() {
@@ -40,11 +50,11 @@ public class SnoozeDTO {
         this.snoozeTime = snoozeTime;
     }
 
-    public Integer getSnoozeCount() {
-        return snoozeCount;
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
     }
 
-    public void setSnoozeCount(Integer snoozeCount) {
-        this.snoozeCount = snoozeCount;
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 }

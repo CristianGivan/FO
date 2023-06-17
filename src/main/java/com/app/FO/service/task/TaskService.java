@@ -367,6 +367,15 @@ Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
         return taskList;
     }
 
+    public Task getTaskByTaskId(Long taskId) {
+        User logInUser = serviceAll.getLogInUser();
+        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        if (task == null) {
+            throw new TaskNotFoundException("No task found");
+        }
+        return task;
+    }
+
     public Task getTaskBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();
         Task task = taskRepository.getTaskFromUserIdBySubject(logInUser.getId(), subject);
@@ -385,15 +394,27 @@ Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
         return taskList;
     }
 
-    public Task getTaskByTaskId(Long taskId) {
+
+    public Task getTaskByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
         User logInUser = serviceAll.getLogInUser();
-        Task task = taskRepository.getTaskFromUserIdByTaskId(logInUser.getId(), taskId);
+        Task task = taskRepository.getTaskFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
         if (task == null) {
             throw new TaskNotFoundException("No task found");
         }
         return task;
     }
 
+    public List<Task> getTaskListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Task> taskList = taskRepository.getTaskListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
+        if (taskList.isEmpty()) {
+            throw new TaskNotFoundException("No task found");
+        }
+        return taskList;
+    }
 
     public List<Task> getTaskListByUserId(Long userId) {
         User logInUser = serviceAll.getLogInUser();

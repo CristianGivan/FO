@@ -42,27 +42,12 @@ public class Note {
     private List<NoteReminder> noteReminderList;
 
     @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<NoteHistory> noteHistoryList;
-
-    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicNote> topicNoteList;
 
-    public Note() {
-    }
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<NoteHistory> noteHistoryList;
 
-    @Override
-    public String toString() {
-        return "Note{" +
-                "id=" + id +
-                ", noteText='" + noteText + '\'' +
-                ", createdDate=" + createdDateTime +
-                ", creator=" + creator.getId() +
-                ", noteUserList=" + noteUserList +
-                ", noteTagList=" + noteTagList +
-                ", topicNoteList=" + topicNoteList +
-                ", noteReminderList=" + noteReminderList +
-                ", noteHistoryList=" + noteHistoryList +
-                '}';
+    public Note() {
     }
 
     public Note(String noteText) {
@@ -80,6 +65,21 @@ public class Note {
         this.noteText = noteText;
         this.creator = creator;
         this.createdDateTime = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", noteText='" + noteText + '\'' +
+                ", createdDate=" + createdDateTime +
+                ", creator=" + creator.getId() +
+                ", noteUserList=" + noteUserList +
+                ", noteTagList=" + noteTagList +
+                ", topicNoteList=" + topicNoteList +
+                ", noteReminderList=" + noteReminderList +
+                ", noteHistoryList=" + noteHistoryList +
+                '}';
     }
 
     public Long getId() {
@@ -146,6 +146,18 @@ public class Note {
         this.createdDateTime = createdDate;
     }
 
+    public List<TopicNote> getTopicNoteList() {
+        if (topicNoteList == null) {
+            topicNoteList = new ArrayList<>();
+        }
+        return topicNoteList;
+    }
+
+    public void setTopicNoteList(List<TopicNote> topicNotes) {
+        this.topicNoteList = topicNotes;
+    }
+
+
     public List<NoteHistory> getNoteHistoryList() {
         if (noteHistoryList == null) {
             noteHistoryList = new ArrayList<>();
@@ -157,14 +169,4 @@ public class Note {
         this.noteHistoryList = noteHistories;
     }
 
-    public List<TopicNote> getTopicNoteList() {
-        if (topicNoteList == null) {
-            topicNoteList = new ArrayList<>();
-        }
-        return topicNoteList;
-    }
-
-    public void setTopicNoteList(List<TopicNote> topicNotes) {
-        this.topicNoteList = topicNotes;
-    }
 }
