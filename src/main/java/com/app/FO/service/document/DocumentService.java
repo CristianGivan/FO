@@ -111,7 +111,7 @@ public class DocumentService {
             throw new DocumentNotFoundException("Document not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -232,7 +232,7 @@ public class DocumentService {
             throw new DocumentNotFoundException("Document not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }

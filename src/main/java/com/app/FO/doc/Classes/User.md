@@ -8,41 +8,46 @@
 
 ## ToDo
 
+- [ ] password manager check if the password was used
+- [ ] get user by Id Username Email etc. by his userList
+
 ### Attributes
 
-- [ ] Username
-- [ ] Password
-- [ ] Email
-- [ ] Role
-- [ ] CreatedDate
-- [ ] UserList
+- [x] Username
+- [x] Password
+- [x] CreatedDate
+- [x] Email
+- [x] UserList
+- [x] Role
 
 ### Post
 
-- [ ] postUser
+- [x] postUser
 
 ### Put
 
-- [ ] putRoleToUser
-- [ ] putUsernameToUser
-- [ ] putPasswordToUser
-- [ ] putEmailToUser
-- [ ] putUserToUser
+- [x] putUsernameToLogInUser
+- [x] putPasswordToLogInUser
+- [x] putEmailToLogInUser
+- [x] putUserToLogInUser
+- [x] putRoleToUser
 
 ### Delete
 
-- [ ] deleteUserFromUser
-- [ ] deleteRoleFromUser
+- [x] deleteUserFromLogInUser
+- [x] deleteRoleFromUser
+- [x] deleteUser
 
 ### Get
 
-- [ ] getAllUser
-- [ ] getUserById
-- [ ] getUserByUsername
-- [ ] getUserByUsernameContains
+- [x] getAllUser
+- [x] getLogInUser
+- [x] getUserById
+- [x] getUserListByUsername
+- [x] getUserListByUsernameContains
 - [ ] getUserByCreatedDate
-- [ ] getUserByCreatedDateBetween
-- [ ] getUserListByUser
+- [x] getUserListByCreatedDateBetween
+- [ ] getUserListByUser // create a list with all users where this user is present
 - [ ] getUserListByEmail
 - [ ] getUserListByRole
 

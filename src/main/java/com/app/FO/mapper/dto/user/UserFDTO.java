@@ -10,18 +10,16 @@ public class UserFDTO {
 
     private String password;
 
-    private String email;
     private List<UserRoleDTO> userRoleDTOList;
 
     private List<UserDTO> userDTOList;
 
     private List<TagDTO> tagDTOList;
 
-    public UserFDTO(Long userId, String username, String password, String email, List<UserRoleDTO> userRoleDTOList, List<UserDTO> userDTOList, List<TagDTO> tagDTOList) {
+    public UserFDTO(Long userId, String username, String password, List<UserRoleDTO> userRoleDTOList, List<UserDTO> userDTOList, List<TagDTO> tagDTOList) {
         this.userId = userId;
         this.username = username;
         this.password = password;
-        this.email = email;
         this.userRoleDTOList = userRoleDTOList;
         this.userDTOList = userDTOList;
         this.tagDTOList = tagDTOList;
@@ -33,7 +31,6 @@ public class UserFDTO {
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
                 ", userRoleDTOList=" + userRoleDTOList +
                 ", userDTOList=" + userDTOList +
                 ", tagDTOList=" + tagDTOList +
@@ -64,13 +61,6 @@ public class UserFDTO {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public List<UserRoleDTO> getUserRoleDTOList() {
         return userRoleDTOList;

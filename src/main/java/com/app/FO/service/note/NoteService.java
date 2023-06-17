@@ -13,9 +13,8 @@ import com.app.FO.service.topic.TopicNoteService;
 import com.app.FO.service.topic.TopicService;
 import com.app.FO.service.user.UserService;
 import com.app.FO.util.ChecksNote;
+import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -45,6 +44,8 @@ public class NoteService {
     private NoteUserService noteUserService;
     @Autowired
     private NoteReminderService noteReminderService;
+    @Autowired
+    private ServiceAll serviceAll;
 
     //    private NoteDTOMapper noteDTOMapper;
     @Autowired
@@ -66,10 +67,10 @@ public class NoteService {
     }
 
     public Note postNewNote(String noteText) {
-        User user = getLogInUser();
-        checksNote.checkIsNoteWithNoteText(noteText, user);
-        Note note = new Note(noteText, user);
-        NoteUser noteUser = new NoteUser(note, user);
+        User logInUser = serviceAll.getLogInUser();
+        checksNote.checkIsNoteWithNoteText(noteText, logInUser);
+        Note note = new Note(noteText, logInUser);
+        NoteUser noteUser = new NoteUser(note, logInUser);
         note.getNoteUserList().add(noteUser);
         return noteRepository.save(note);
     }
@@ -136,44 +137,50 @@ public class NoteService {
     }
 
     //-- Get
-    public User getLogInUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        return userService.getUserByUsername(userDetails.getUsername());
-    }
+//    public User getLogInUser() {
+//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+//                .getAuthentication().getPrincipal();
+//        return userService.getUserListByUsername(userDetails.getUsername());
+//    }
 
     public List<Note> getAllNote() {
-        List<Note> noteList = noteRepository.getNoteListByUserId(getLogInUser().getId());
+        User logInUser = serviceAll.getLogInUser();
+        List<Note> noteList = noteRepository.getNoteListByUserId(logInUser.getId());
         checksNote.checkIsNoteList(noteList);
         return noteList;
     }
 
     public Note getNoteByNoteId(Long noteId) {
-        Note note = noteRepository.getNoteByIdAndUserId(noteId, getLogInUser().getId());
+        User logInUser = serviceAll.getLogInUser();
+        Note note = noteRepository.getNoteByIdAndUserId(noteId, logInUser.getId());
         checksNote.checkIsNote(note);
         return note;
     }
 
     public List<Note> getNoteListByTagId(Long tagId) {
-        List<Note> noteList = noteRepository.getNoteListFromUserIdByTagId(getLogInUser().getId(), tagId);
+        User logInUser = serviceAll.getLogInUser();
+        List<Note> noteList = noteRepository.getNoteListFromUserIdByTagId(logInUser.getId(), tagId);
         checksNote.checkIsNoteList(noteList);
         return noteList;
     }
 
     public List<Note> getNoteListByReminderId(Long reminderId) {
-        List<Note> noteList = noteRepository.getNoteListFromUserIdByReminderId(getLogInUser().getId(), reminderId);
+        User logInUser = serviceAll.getLogInUser();
+        List<Note> noteList = noteRepository.getNoteListFromUserIdByReminderId(logInUser.getId(), reminderId);
         checksNote.checkIsNoteList(noteList);
         return noteList;
     }
 
     public List<Note> getNoteListByTopicId(Long topicId) {
-        List<Note> noteList = noteRepository.getNoteListFromUserIdByTopicId(getLogInUser().getId(), topicId);
+        User logInUser = serviceAll.getLogInUser();
+        List<Note> noteList = noteRepository.getNoteListFromUserIdByTopicId(logInUser.getId(), topicId);
         checksNote.checkIsNoteList(noteList);
         return noteList;
     }
 
     public List<Note> getNoteListByNoteThatContainsText(String containsText) {
-        List<Note> noteList = noteRepository.getNotesByCreatorIdAndNoteTextContains(getLogInUser().getId(), containsText);
+        User logInUser = serviceAll.getLogInUser();
+        List<Note> noteList = noteRepository.getNotesByCreatorIdAndNoteTextContains(logInUser.getId(), containsText);
         checksNote.checkIsNoteList(noteList);
         return noteList;
     }

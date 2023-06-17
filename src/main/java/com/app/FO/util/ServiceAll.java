@@ -15,12 +15,15 @@ import com.app.FO.model.phoneNumber.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.shop.*;
 import com.app.FO.model.tag.Tag;
+import com.app.FO.model.tag.TagUser;
 import com.app.FO.model.task.*;
 import com.app.FO.model.tasks.*;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.transaction.*;
 import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
+import com.app.FO.model.user.UserRole;
+import com.app.FO.model.user.UserUser;
 import com.app.FO.model.work.*;
 import com.app.FO.repository.account.*;
 import com.app.FO.repository.address.*;
@@ -37,6 +40,7 @@ import com.app.FO.repository.phoneNumber.*;
 import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.shop.*;
 import com.app.FO.repository.tag.TagRepository;
+import com.app.FO.repository.tag.TagUserRepository;
 import com.app.FO.repository.task.*;
 import com.app.FO.repository.tasks.*;
 import com.app.FO.repository.topic.*;
@@ -44,6 +48,7 @@ import com.app.FO.repository.transaction.*;
 import com.app.FO.repository.user.RoleRepository;
 import com.app.FO.repository.user.UserRepository;
 import com.app.FO.repository.user.UserRoleRepository;
+import com.app.FO.repository.user.UserUserRepository;
 import com.app.FO.repository.work.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -53,15 +58,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Configuration
 public class ServiceAll {
     private NoteRepository noteRepository;
-    private TagRepository tagRepository;
+
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserUserRepository userUserRepository;
 
     @Autowired
     private UserRoleRepository userRoleRepository;
 
     @Autowired
     private RoleRepository roleRepository;
+
+    private TagRepository tagRepository;
+    @Autowired
+    private TagUserRepository tagUserRepository;
 
     @Autowired
     private ReminderRepository reminderRepository;
@@ -452,20 +463,14 @@ public class ServiceAll {
         return false;
     }
 
-    public Boolean tagHasUser(Tag tag, User user) {
-        if (tagRepository.tagIdHasUserId(tag.getId(), user.getId())) {
-            return true;
-        }
-        return false;
-    }
 
     public Role userHasRole(User user, Role role) {
         return roleRepository.userIdHasRoleId(role.getId(), user.getId());
     }
 
-    public Long userHasUser(User userFrom, User user) {
-        return userRepository.userIdHasUserId(userFrom.getId(), user.getId());
-    }
+//    public User userHasUser(User userFrom, User user) {
+//        return userRepository.getUserFromUserIdByUserId(userFrom.getId(), user.getId());
+//    }
 
     public Boolean userIsAdmin(User user) {
         Boolean isAdminRole = user.getUserRoleList().stream().
@@ -479,6 +484,46 @@ public class ServiceAll {
 
 
     //--------------------------
+
+    //-- getUserAnd
+
+    public User getLogInUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.getUserByUserName(userDetails.getUsername());
+    }
+
+    public User getUserByUserId(Long userId) {
+        return userRepository.getUserByUserId(userId);
+    }
+
+    public UserUser getUserUserByUserIdAndUserId(Long userId, Long userLinkedId) {
+        return userUserRepository.getUserUserByUserIdAndUserId(userId, userLinkedId);
+    }
+
+    public UserRole getUserRoleByUserIdAndRoleId(Long userId, Long roleId) {
+        return userRoleRepository.getUserRoleByUserIdAndRoleId(userId, roleId);
+    }
+
+    //-- getTagAnd
+
+    public Tag getTagFromUserIdByTagId(Long userId, Long tagId) {
+        return tagRepository.getTagFromUserIdByTagId(userId, tagId);
+
+    }
+
+    public TagUser getTagUser(Long tagId, Long userId) {
+        return tagUserRepository.getTagUserByTagIdAndUserId(tagId, userId);
+    }
+
+    //-- getReminder
+    public Reminder getReminderFromUserIdByReminderId(Long userId, Long reminderId) {
+        return reminderRepository.getReminderFromUserIdByReminderId(userId, reminderId);
+    }
+
+    //-- getNote
+    public Note getNoteByIdAndUserId(Long noteId, Long userId) {
+        return noteRepository.getNoteByIdAndUserId(noteId, userId);
+    }
 
     //-- getTopicAnd
 
@@ -860,6 +905,10 @@ public class ServiceAll {
     //-- getEmailAnd
 
 
+    public Email getEmailFromUserIdByEmailAddress(Long userId, String emailAddress) {
+        return emailRepository.getEmailFromUserIdByEmailAddress(userId, emailAddress);
+    }
+
     public Email getEmailFromUserIdAndEmailId(Long userId, Long emailId) {
         return emailRepository.getEmailFromUserIdByEmailId(userId, emailId);
     }
@@ -980,33 +1029,6 @@ public class ServiceAll {
 
     //--------------------------
 
-    //-- getUser
-
-    public User getLogInUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.getUserByUserName(userDetails.getUsername());
-    }
-
-    public User getUserByUserId(Long userId) {
-        return userRepository.getUserByUserId(userId);
-    }
-
-    //-- getTag
-
-    public Tag getTagFromUserIdAndTagId(Long userId, Long tagId) {
-        return tagRepository.getTagFromUserIdAndTagId(userId, tagId);
-    }
-
-
-    //-- getReminder
-    public Reminder getReminderFromUserIdByReminderId(Long userId, Long reminderId) {
-        return reminderRepository.getReminderFromUserIdByReminderId(userId, reminderId);
-    }
-
-    //-- getNote
-    public Note getNoteByIdAndUserId(Long noteId, Long userId) {
-        return noteRepository.getNoteByIdAndUserId(noteId, userId);
-    }
 
     //-- getTopic
     public Topic getTopicFromUserIdByTopicId(Long userId, Long topicId) {

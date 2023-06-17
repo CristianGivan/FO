@@ -95,7 +95,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -261,7 +261,7 @@ Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }

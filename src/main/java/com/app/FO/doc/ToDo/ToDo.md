@@ -20,12 +20,13 @@
 - [19] PhoneNumber
 - [2] Reminder
 - [10] Shop
-- [1] Tag
+- [x] Tag
 - [6] Task
 - [7] Tasks
 - [4] Topic
 - [13] Transaction
 - [0] User
+    - [ ] Role
 - [8] Work
 
 ### General

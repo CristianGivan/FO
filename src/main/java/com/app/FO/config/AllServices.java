@@ -27,10 +27,10 @@ public class AllServices {
     public AllServices(UserService userService) {
         this.userService = userService;
     }
-
-    public List<User> getUserListDTOByTag(Tag tag) {
-        return userService.getUserListByTagId(tag.getId());
-    }
+//
+//    public List<User> getUserListDTOByTag(Tag tag) {
+//        return userService.getUserListByTagId(tag.getId());
+//    }
 
     public List<User> getUserListDTOByUser(User user) {
         return userService.getUserListByUserId(user.getId());

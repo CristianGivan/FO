@@ -24,9 +24,7 @@ public abstract class TagDTOMapper {
     public abstract List<TagDTO> tagListToTagDTOList(List<Tag> tags);
 
     @Mapping(target = "tagId", source = "id")
-    @Mapping(target = "userList", expression = "java(" +
-            "userDTOMapper.userListToUserDTOList(allServices.getUserListDTOByTag(tag))" +
-            ")")
+
     public abstract TagFDTO tagToTagFDTO(Tag tag);
 
     public abstract List<TagFDTO> tagListToTagFDTOList(List<Tag> tags);

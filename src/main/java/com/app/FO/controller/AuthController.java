@@ -96,7 +96,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public User register(@RequestBody RegisterDTO newUser) {
-        System.out.println("test");
-        return userService.postUser(newUser);
+        return userService.postUser(newUser.getUsername(), newUser.getPassword(), newUser.getRole());
     }
 }

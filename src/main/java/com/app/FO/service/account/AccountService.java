@@ -30,7 +30,7 @@ public class AccountService {
         this.serviceAll = serviceAll;
     }
 
-//-- Post
+    //-- Post
 
     public Account postAccount(String subject) {
         User logInUser = serviceAll.getLogInUser();
@@ -125,7 +125,7 @@ public class AccountService {
             throw new AccountNotFoundException("Account not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -291,7 +291,7 @@ public class AccountService {
             throw new AccountNotFoundException("Account not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -447,6 +447,15 @@ public class AccountService {
         return accountList;
     }
 
+    public Account getAccountByAccountId(Long accountId) {
+        User logInUser = serviceAll.getLogInUser();
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return account;
+    }
+
     public Account getAccountBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();
         Account account = accountRepository.getAccountFromUserIdBySubject(logInUser.getId(), subject);
@@ -522,14 +531,6 @@ public class AccountService {
         return accountList;
     }
 
-    public Account getAccountByAccountId(Long accountId) {
-        User logInUser = serviceAll.getLogInUser();
-        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
-        if (account == null) {
-            throw new AccountNotFoundException("No account found");
-        }
-        return account;
-    }
 
     public List<Account> getAccountListByUserId(Long userId) {
         User logInUser = serviceAll.getLogInUser();

@@ -37,11 +37,25 @@ public class Reminder {
     @Column(name = "reminder")
     private String subject;
 
-    @Column(name = "created_date")
-    private LocalDateTime createdDateTime;
 
     @Column(name = "data_time")
     private LocalDateTime reminderDateTime;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDateTime;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
+
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ReminderUser> reminderUserList;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "note_id")
+    @JsonIgnore
+    private Note note;
 
     //is a table mostly for statistics
     @OneToMany(mappedBy = "reminder", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -51,16 +65,6 @@ public class Reminder {
     @OneToMany
     @JoinColumn(name = "repeated_reminders")
     private List<Reminder> repeatedReminderList;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User creator;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "note_id")
-    @JsonIgnore
-    private Note note;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "topic_id")

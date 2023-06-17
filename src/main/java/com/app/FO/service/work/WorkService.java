@@ -97,7 +97,7 @@ public class WorkService {
             throw new WorkNotFoundException("Work not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -249,7 +249,7 @@ public class WorkService {
             throw new WorkNotFoundException("Work not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }

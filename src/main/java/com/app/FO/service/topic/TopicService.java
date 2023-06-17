@@ -94,7 +94,7 @@ public class TopicService {
             throw new TopicNotFoundException("Topic not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -216,7 +216,7 @@ public class TopicService {
             throw new TopicNotFoundException("Topic not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }

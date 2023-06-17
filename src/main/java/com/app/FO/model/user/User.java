@@ -31,6 +31,7 @@ import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.phoneNumber.PhoneNumberUser;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.reminder.ReminderHistory;
+import com.app.FO.model.reminder.ReminderUser;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tag.TagHistory;
 import com.app.FO.model.tag.TagUser;
@@ -51,6 +52,7 @@ import com.app.FO.model.work.WorkHistory;
 import com.app.FO.model.work.WorkUser;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,9 +73,11 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "email")
-    private String email;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "email_id", referencedColumnName = "email_id")
+    private Email email;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserRole> userRoleList;
@@ -95,6 +99,8 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ReminderHistory> reminderHistoryList;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ReminderUser> reminderUserList;
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Note> noteList;
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -213,6 +219,7 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
@@ -300,11 +307,19 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 
