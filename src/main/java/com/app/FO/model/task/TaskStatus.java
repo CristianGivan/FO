@@ -5,7 +5,7 @@ public enum TaskStatus {
     STARTED(1),
     WORKING(2),
     PENDING(3),
-    COMPLITED(4);
+    COMPLETED(4);
 
     private int value;
 

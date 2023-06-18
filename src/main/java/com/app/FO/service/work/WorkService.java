@@ -6,6 +6,7 @@ import com.app.FO.exceptions.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.task.Task;
+import com.app.FO.model.task.TaskStatus;
 import com.app.FO.model.task.TaskWork;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -64,6 +64,76 @@ public class WorkService {
 
         return workRepository.save(work);
     }
+
+
+    public Work putWorkingDateTimeToWork(Long workId, String workingDateTimeText) {
+        /*      Formatter "yyyy-MM-dd HH:mm:ss"  2023.06.01 13:14:15
+         */
+        LocalDateTime workingDateTime = DateTime.textToLocalDateTime(workingDateTimeText);
+        User logInUser = serviceAll.getLogInUser();
+
+        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
+        if (work == null) {
+            throw new WorkNotFoundException("Work not found in your list");
+        }
+
+        work.setWorkingDateTime(workingDateTime);
+        return workRepository.save(work);
+    }
+
+    public Work putWorkingTimeToWork(Long workId, Double workingTime) {
+
+        User logInUser = serviceAll.getLogInUser();
+
+        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
+        if (work == null) {
+            throw new WorkNotFoundException("Work not found in your list");
+        }
+
+        work.setWorkingTime(workingTime);
+        return workRepository.save(work);
+    }
+
+    public Work putEstimatedTimeToWork(Long workId, Double estimatedTime) {
+
+        User logInUser = serviceAll.getLogInUser();
+
+        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
+        if (work == null) {
+            throw new WorkNotFoundException("Work not found in your list");
+        }
+
+        work.setEstimatedTime(estimatedTime);
+        return workRepository.save(work);
+    }
+
+    public Work putWorkingProgressToWork(Long workId, Double workingProgress) {
+
+        User logInUser = serviceAll.getLogInUser();
+
+        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
+        if (work == null) {
+            throw new WorkNotFoundException("Work not found in your list");
+        }
+
+        work.setWorkingProgress(workingProgress);
+        return workRepository.save(work);
+    }
+
+    public Work putTaskStatusToWork(Long workId, String taskStatusText) {
+
+        TaskStatus taskStatus = serviceAll.convertTaskStatusTextToTaskStatus(taskStatusText);
+        User logInUser = serviceAll.getLogInUser();
+
+        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
+        if (work == null) {
+            throw new WorkNotFoundException("Work not found in your list");
+        }
+
+        work.setTaskStatus(taskStatus);
+        return workRepository.save(work);
+    }
+
 
     public Work putUserToWork(Long workId, Long userId) {
         User logInUser = serviceAll.getLogInUser();
@@ -181,37 +251,6 @@ public class WorkService {
 
         taskWork = new TaskWork(task, work);
         work.getTaskWorkList().add(taskWork);
-        return workRepository.save(work);
-    }
-
-    public Work putWorkingDateTimeToWork(Long workId, String workingDateTimeText) {
-        /*      Formatter "yyyy-MM-dd HH:mm:ss"  2023.06.01 13:14:15
-         */
-        LocalDateTime workingDateTime = DateTime.textToLocalDateTime(workingDateTimeText);
-        User logInUser = serviceAll.getLogInUser();
-
-        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
-        if (work == null) {
-            throw new WorkNotFoundException("Work not found in your list");
-        }
-
-        work.setWorkingDateTime(workingDateTime);
-        return workRepository.save(work);
-    }
-
-    public Work putWorkingEfortToWork(Long workId, String workingEfortText) {
-/*      Formatter "HH:mm"
-13:14
-*/
-        LocalTime workingEfort = DateTime.textToLocalTime(workingEfortText);
-        User logInUser = serviceAll.getLogInUser();
-
-        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
-        if (work == null) {
-            throw new WorkNotFoundException("Work not found in your list");
-        }
-
-        work.setWorkingEfFort(workingEfort);
         return workRepository.save(work);
     }
 
@@ -355,6 +394,17 @@ public class WorkService {
         return workList;
     }
 
+
+    public Work getWorkByWorkId(Long workId) {
+        User logInUser = serviceAll.getLogInUser();
+        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
+        if (work == null) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return work;
+    }
+
+
     public Work getWorkBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();
         Work work = workRepository.getWorkFromUserIdBySubject(logInUser.getId(), subject);
@@ -373,14 +423,107 @@ public class WorkService {
         return workList;
     }
 
-    public Work getWorkByWorkId(Long workId) {
+
+    public Work getWorkByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
         User logInUser = serviceAll.getLogInUser();
-        Work work = workRepository.getWorkFromUserIdByWorkId(logInUser.getId(), workId);
+        Work work = workRepository.getWorkFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
         if (work == null) {
             throw new WorkNotFoundException("No work found");
         }
         return work;
     }
+
+    public List<Work> getWorkListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+
+    public List<Work> getWorkListByWorkingDateTime(String workingDateTime) {
+        LocalDateTime workingDateTimeTime = DateTime.textToLocalDateTime(workingDateTime);
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkListFromUserIdByWorkingDateTime(logInUser.getId(), workingDateTimeTime);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+    public List<Work> getWorkListByWorkingDateTimeBetween(String workingDateTimeMin, String workingDateTimeMax) {
+        LocalDateTime workingDateTimeTimeMin = DateTime.textToLocalDateTime(workingDateTimeMin);
+        LocalDateTime workingDateTimeTimeMax = DateTime.textToLocalDateTime(workingDateTimeMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkListFromUserIdByWorkingDateTimeBetween(logInUser.getId(), workingDateTimeTimeMin, workingDateTimeTimeMax);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+    public List<Work> getWorkByWorkingTime(Double workingTime) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkListFromUserIdByWorkingTime(logInUser.getId(), workingTime);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+    public List<Work> getWorkListByWorkingTimeBetween(Double workingTimeMin, Double workingTimeMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkListFromUserIdByWorkingTimeBetween(logInUser.getId(), workingTimeMin, workingTimeMax);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+    public List<Work> getWorkByEstimatedTime(Double estimatedTime) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkFromUserIdByEstimatedTime(logInUser.getId(), estimatedTime);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+    public List<Work> getWorkListByEstimatedTimeBetween(Double estimatedTimeMin, Double estimatedTimeMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkListFromUserIdByEstimatedTimeBetween(logInUser.getId(), estimatedTimeMin, estimatedTimeMax);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+    public List<Work> getWorkByWorkingProgress(Double workingProgress) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkFromUserIdByWorkingProgress(logInUser.getId(), workingProgress);
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
+    public List<Work> getWorkByTaskStatus(String taskStatusText) {
+
+        TaskStatus taskStatus = serviceAll.convertTaskStatusTextToTaskStatus(taskStatusText);
+
+        User logInUser = serviceAll.getLogInUser();
+        List<Work> workList = workRepository.getWorkListFromUserIdByTaskStatus(logInUser.getId(), taskStatus.getValue());
+        if (workList.isEmpty()) {
+            throw new WorkNotFoundException("No work found");
+        }
+        return workList;
+    }
+
 
     public List<Work> getWorkListByUserId(Long userId) {
         User logInUser = serviceAll.getLogInUser();
@@ -421,32 +564,6 @@ public class WorkService {
     public List<Work> getWorkListByTaskId(Long taskId) {
         User logInUser = serviceAll.getLogInUser();
         List<Work> workList = workRepository.getWorkListFromUserIdByTaskId(logInUser.getId(), taskId);
-        if (workList.isEmpty()) {
-            throw new WorkNotFoundException("No work found");
-        }
-        return workList;
-    }
-
-    public List<Work> getWorkByWorkingDateTime(String workingDateTimeText) {
-        /*      Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
-         */
-        LocalDateTime workingDateTime = DateTime.textToLocalDateTime(workingDateTimeText);
-        User logInUser = serviceAll.getLogInUser();
-
-        List<Work> workList = workRepository.getWorkListFromUserIdByWorkingDateTime(logInUser.getId(), workingDateTime);
-        if (workList.isEmpty()) {
-            throw new WorkNotFoundException("No work found");
-        }
-        return workList;
-    }
-
-    public List<Work> getWorkByWorkingEfort(String workingEfortText) {
-        /*      Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
-         */
-        LocalDateTime workingEfort = DateTime.textToLocalDateTime(workingEfortText);
-        User logInUser = serviceAll.getLogInUser();
-
-        List<Work> workList = workRepository.getWorkListFromUserIdByWorkingEfort(logInUser.getId(), workingEfort);
         if (workList.isEmpty()) {
             throw new WorkNotFoundException("No work found");
         }

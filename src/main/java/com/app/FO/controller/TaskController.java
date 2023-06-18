@@ -40,6 +40,18 @@ public class TaskController {
         return taskDTOMapper.taskToTaskDTO(task);
     }
 
+    @PutMapping("/putStartDateToTask")
+    public TaskDTO putStartDateToTask(@RequestParam Long taskId, @RequestParam String startDate) {
+        Task task = taskService.putStartDateToTask(taskId, startDate);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
+    @PutMapping("/putEndDateToTask")
+    public TaskDTO putEndDateToTask(@RequestParam Long taskId, @RequestParam String endDate) {
+        Task task = taskService.putEndDateToTask(taskId, endDate);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
     @PutMapping("/putUserToTask")
     public TaskDTO putUserToTask(@RequestParam Long taskId, @RequestParam Long userId) {
         Task task = taskService.putUserToTask(taskId, userId);
@@ -70,17 +82,6 @@ public class TaskController {
         return taskDTOMapper.taskToTaskDTO(task);
     }
 
-    @PutMapping("/putStartDateToTask")
-    public TaskDTO putStartDateToTask(@RequestParam Long taskId, @RequestParam String startDate) {
-        Task task = taskService.putStartDateToTask(taskId, startDate);
-        return taskDTOMapper.taskToTaskDTO(task);
-    }
-
-    @PutMapping("/putEndDateToTask")
-    public TaskDTO putEndDateToTask(@RequestParam Long taskId, @RequestParam String endDate) {
-        Task task = taskService.putEndDateToTask(taskId, endDate);
-        return taskDTOMapper.taskToTaskDTO(task);
-    }
 
     @PutMapping("/putTaskStatusToTask")
     public TaskDTO putTaskStatusToTask(@RequestParam Long taskId, @RequestParam String taskStatus) {
@@ -138,6 +139,11 @@ public class TaskController {
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
 
+    @GetMapping("/getTaskById")
+    public TaskDTO getTaskById(@RequestParam Long taskId) {
+        Task task = taskService.getTaskByTaskId(taskId);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
 
     @GetMapping("/getTaskBySubject")
     public TaskDTO getTaskBySubject(@RequestParam String subject) {
@@ -149,12 +155,6 @@ public class TaskController {
     public List<TaskDTO> getTaskListBySubjectContains(@RequestParam String subjectContain) {
         List<Task> taskList = taskService.getTaskListBySubjectContains(subjectContain);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
-    }
-
-    @GetMapping("/getTaskById")
-    public TaskDTO getTaskById(@RequestParam Long taskId) {
-        Task task = taskService.getTaskByTaskId(taskId);
-        return taskDTOMapper.taskToTaskDTO(task);
     }
 
 
@@ -170,6 +170,87 @@ public class TaskController {
         List<Task> taskList = taskService.getTaskListByCreatedDateBetween(createdDateMin, createdDateMax);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
+
+    @GetMapping("/getTaskByStartDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public List<TaskDTO> getTaskByStartDate(@RequestParam String startDate) {
+        List<Task> taskList = taskService.getTaskByStartDate(startDate);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskListByStartDateBetween")
+    public List<TaskDTO> getTaskListByStartDateBetween(@RequestParam String startDateMin, @RequestParam String startDateMax) {
+        List<Task> taskList = taskService.getTaskListByStartDateBetween(startDateMin, startDateMax);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+
+    @GetMapping("/getTaskByEndDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public List<TaskDTO> getTaskByEndDate(@RequestParam String endDate) {
+        List<Task> taskList = taskService.getTaskByEndDate(endDate);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskListByEndDateBetween")
+    public List<TaskDTO> getTaskListByEndDateBetween(@RequestParam String endDateMin, @RequestParam String endDateMax) {
+        List<Task> taskList = taskService.getTaskListByEndDateBetween(endDateMin, endDateMax);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskByWorkingTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TaskDTO> getTaskByWorkingTime(@RequestParam Double workingTime) {
+        List<Task> taskList = taskService.getTaskByWorkingTime(workingTime);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskListByWorkingTimeBetween")
+    public List<TaskDTO> getTaskListByWorkingTimeBetween(@RequestParam Double workingTimeMin, @RequestParam Double workingTimeMax) {
+        List<Task> taskList = taskService.getTaskListByWorkingTimeBetween(workingTimeMin, workingTimeMax);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskByEstimatedTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TaskDTO> getTaskByEstimatedTime(@RequestParam Double estimatedTime) {
+        List<Task> taskList = taskService.getTaskByEstimatedTime(estimatedTime);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskListByEstimatedTimeBetween")
+    public List<TaskDTO> getTaskListByEstimatedTimeBetween(@RequestParam Double estimatedTimeMin, @RequestParam Double estimatedTimeMax) {
+        List<Task> taskList = taskService.getTaskListByEstimatedTimeBetween(estimatedTimeMin, estimatedTimeMax);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskByEstimatedLeftTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TaskDTO> getTaskByEstimatedLeftTime(@RequestParam Double estimatedLeftTime) {
+        List<Task> taskList = taskService.getTaskByEstimatedLeftTime(estimatedLeftTime);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskListByEstimatedLeftTimeBetween")
+    public List<TaskDTO> getTaskListByEstimatedLeftTimeBetween(@RequestParam Double estimatedLeftTimeMin, @RequestParam Double estimatedLeftTimeMax) {
+        List<Task> taskList = taskService.getTaskListByEstimatedLeftTimeBetween(estimatedLeftTimeMin, estimatedLeftTimeMax);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+
+    @GetMapping("/getTaskByWorkingProgress")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TaskDTO> getTaskByWorkingProgress(@RequestParam Double workingProgress) {
+        List<Task> taskList = taskService.getTaskByWorkingProgress(workingProgress);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
+    @GetMapping("/getTaskByTaskStatus")
+    public List<TaskDTO> getTaskByTaskStatus(@RequestParam String taskStatus) {
+        List<Task> taskList = taskService.getTaskByTaskStatus(taskStatus);
+        return taskDTOMapper.taskListToTaskDTOList(taskList);
+    }
+
 
     @GetMapping("/getTaskListByUserId")
     public List<TaskDTO> getTaskListByUserId(@RequestParam Long userId) {
@@ -200,25 +281,6 @@ public class TaskController {
     @GetMapping("/getTaskListByWorkId")
     public List<TaskDTO> getTaskListByWorkId(@RequestParam Long workId) {
         List<Task> taskList = taskService.getTaskListByWorkId(workId);
-        return taskDTOMapper.taskListToTaskDTOList(taskList);
-    }
-
-
-    @GetMapping("/getTaskByStartDate")
-    public List<TaskDTO> getTaskByStartDate(@RequestParam String startDate) {
-        List<Task> taskList = taskService.getTaskByStartDate(startDate);
-        return taskDTOMapper.taskListToTaskDTOList(taskList);
-    }
-
-    @GetMapping("/getTaskByEndDate")
-    public List<TaskDTO> getTaskByEndDate(@RequestParam String endDate) {
-        List<Task> taskList = taskService.getTaskByEndDate(endDate);
-        return taskDTOMapper.taskListToTaskDTOList(taskList);
-    }
-
-    @GetMapping("/getTaskByTaskStatus")
-    public List<TaskDTO> getTaskByTaskStatus(@RequestParam String taskStatus) {
-        List<Task> taskList = taskService.getTaskByTaskStatus(taskStatus);
         return taskDTOMapper.taskListToTaskDTOList(taskList);
     }
 

@@ -24,10 +24,6 @@ public class Task {
     @Column(name = "subject")
     private String subject;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User creator;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
@@ -38,28 +34,39 @@ public class Task {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
+    @Column(name = "working_time")
+    private Double workingTime;
+
+    @Column(name = "estimated_time")
+    private Double estimatedTime;
+    @Column(name = "estimated_left_time")
+    private Double estimatedLeftTime;
+    @Column(name = "working_progress")
+    private Double workingProgress;
     @Column(name = "task_status")
     private TaskStatus taskStatus;
 
     //todo tbc
-    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskTopic> taskTopicList;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
 
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskUser> taskUserList;
-
-    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<TaskWork> taskWorkList;
 
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskTag> taskTagList;
 
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskReminder> taskReminderList;
-
+    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskTopic> taskTopicList;
+    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskWork> taskWorkList;
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksTask> tasksTaskList;
-
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TaskHistory> taskHistoryList;
 
@@ -77,20 +84,25 @@ public class Task {
         return "Task{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", creator=" + creator.getId() +
                 ", createdDate=" + createdDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", workingTime=" + workingTime +
+                ", estimatedTime=" + estimatedTime +
+                ", leftEstimatedTime=" + estimatedLeftTime +
+                ", workingProgress=" + workingProgress +
                 ", taskStatus=" + taskStatus +
+                ", creator=" + creator +
                 ", taskUserList=" + taskUserList +
+                ", taskTagList=" + taskTagList +
+                ", taskReminderList=" + taskReminderList +
                 ", taskTopicList=" + taskTopicList +
                 ", taskWorkList=" + taskWorkList +
-                ", taskReminderList=" + taskReminderList +
-                ", taskTagList=" + taskTagList +
                 ", tasksTaskList=" + tasksTaskList +
                 ", taskHistoryList=" + taskHistoryList +
                 '}';
     }
+
 
     public Long getId() {
         return id;
@@ -104,16 +116,8 @@ public class Task {
         return subject;
     }
 
-    public void setSubject(String task) {
-        this.subject = task;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User user) {
-        this.creator = user;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -125,6 +129,9 @@ public class Task {
     }
 
     public LocalDateTime getStartDate() {
+        if (startDate == null) {
+            startDate = LocalDateTime.now();
+        }
         return startDate;
     }
 
@@ -133,11 +140,46 @@ public class Task {
     }
 
     public LocalDateTime getEndDate() {
+        if (endDate == null) {
+            endDate = LocalDateTime.now();
+        }
         return endDate;
     }
 
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    public Double getWorkingTime() {
+        return workingTime;
+    }
+
+    public void setWorkingTime(Double workingTime) {
+        this.workingTime = workingTime;
+    }
+
+    public Double getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(Double estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
+    public Double getEstimatedLeftTime() {
+        return estimatedLeftTime;
+    }
+
+    public void setEstimatedLeftTime(Double estimatedLeftTime) {
+        this.estimatedLeftTime = estimatedLeftTime;
+    }
+
+    public Double getWorkingProgress() {
+        return workingProgress;
+    }
+
+    public void setWorkingProgress(Double workingProgress) {
+        this.workingProgress = workingProgress;
     }
 
     public TaskStatus getTaskStatus() {
@@ -148,48 +190,12 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-
-    public List<TaskWork> getTaskEffortList() {
-        return taskWorkList;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setTaskEffortList(List<TaskWork> taskWorks) {
-        this.taskWorkList = taskWorks;
-    }
-
-    public List<TaskTag> getTaskTagList() {
-        return taskTagList;
-    }
-
-    public void setTaskTagList(List<TaskTag> noteTags) {
-        this.taskTagList = noteTags;
-    }
-
-    public List<TasksTask> getTaskListTasks() {
-        return tasksTaskList;
-    }
-
-    public void setTaskListTasks(List<TasksTask> tasksTasks) {
-        this.tasksTaskList = tasksTasks;
-    }
-
-    public List<TaskHistory> getTaskHistoryList() {
-        return taskHistoryList;
-    }
-
-    public void setTaskHistoryList(List<TaskHistory> taskHistories) {
-        this.taskHistoryList = taskHistories;
-    }
-
-    public List<TaskTopic> getTaskTopicList() {
-        if (taskTopicList == null) {
-            taskTopicList = new ArrayList<>();
-        }
-        return taskTopicList;
-    }
-
-    public void setTaskTopicList(List<TaskTopic> taskTopicList) {
-        this.taskTopicList = taskTopicList;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public List<TaskUser> getTaskUserList() {
@@ -203,21 +209,15 @@ public class Task {
         this.taskUserList = taskUserList;
     }
 
-    public List<TaskWork> getTaskWorkList() {
-        if (taskWorkList == null) {
-            taskWorkList = new ArrayList<>();
-        }
-        return taskWorkList;
+    public List<TaskTag> getTaskTagList() {
+        return taskTagList;
     }
 
-    public void setTaskWorkList(List<TaskWork> taskWorkList) {
-        this.taskWorkList = taskWorkList;
+    public void setTaskTagList(List<TaskTag> taskTagList) {
+        this.taskTagList = taskTagList;
     }
 
     public List<TaskReminder> getTaskReminderList() {
-        if (taskReminderList == null) {
-            taskReminderList = new ArrayList<>();
-        }
         return taskReminderList;
     }
 
@@ -225,11 +225,38 @@ public class Task {
         this.taskReminderList = taskReminderList;
     }
 
+    public List<TaskTopic> getTaskTopicList() {
+        return taskTopicList;
+    }
+
+    public void setTaskTopicList(List<TaskTopic> taskTopicList) {
+        this.taskTopicList = taskTopicList;
+    }
+
+    public List<TaskWork> getTaskWorkList() {
+        return taskWorkList;
+    }
+
+    public void setTaskWorkList(List<TaskWork> taskWorkList) {
+        this.taskWorkList = taskWorkList;
+    }
+
     public List<TasksTask> getTasksTaskList() {
+        if (tasksTaskList == null) {
+            tasksTaskList = new ArrayList<>();
+        }
         return tasksTaskList;
     }
 
     public void setTasksTaskList(List<TasksTask> tasksTaskList) {
         this.tasksTaskList = tasksTaskList;
+    }
+
+    public List<TaskHistory> getTaskHistoryList() {
+        return taskHistoryList;
+    }
+
+    public void setTaskHistoryList(List<TaskHistory> taskHistoryList) {
+        this.taskHistoryList = taskHistoryList;
     }
 }

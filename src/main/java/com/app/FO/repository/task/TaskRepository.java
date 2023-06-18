@@ -38,6 +38,51 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> getTaskListFromUserIdByCreatedDateBetween(Long UserId, LocalDateTime createdDateMin, LocalDateTime createdDateMax);
 
     @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.start_date=?2")
+    List<Task> getTaskFromUserIdByStartDate(Long userId, LocalDateTime startDate);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user ut on t.task_id = ut.task_id where ut.user_id=?1 and t.start_date between ?2 and ?3")
+    List<Task> getTaskListFromUserIdByStartDateBetween(Long UserId, LocalDateTime startDateMin, LocalDateTime startDateMax);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.end_date=?2")
+    List<Task> getTaskFromUserIdByEndDate(Long userId, LocalDateTime endDate);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user ut on t.task_id = ut.task_id where ut.user_id=?1 and t.end_date between ?2 and ?3")
+    List<Task> getTaskListFromUserIdByEndDateBetween(Long UserId, LocalDateTime endDateMin, LocalDateTime endDateMax);
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.working_time=?2")
+    List<Task> getTaskListFromUserIdByWorkingTime(Long userId, Double workingTime);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user ut on t.task_id = ut.task_id where ut.user_id=?1 and t.working_time between ?2 and ?3")
+    List<Task> getTaskListFromUserIdByWorkingTimeBetween(Long UserId, Double workingTimeMin, Double workingTimeMax);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.estimated_time=?2")
+    List<Task> getTaskFromUserIdByEstimatedTime(Long userId, Double estimatedTime);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user ut on t.task_id = ut.task_id where ut.user_id=?1 and t.estimated_time between ?2 and ?3")
+    List<Task> getTaskListFromUserIdByEstimatedTimeBetween(Long UserId, Double estimatedTimeMin, Double estimatedTimeMax);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.estimated_left_time=?2")
+    List<Task> getTaskFromUserIdByEstimatedLeftTime(Long userId, Double estimatedLeftTime);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user ut on t.task_id = ut.task_id where ut.user_id=?1 and t.estimated_left_time between ?2 and ?3")
+    List<Task> getTaskListFromUserIdByEstimatedLeftTimeBetween(Long UserId, Double estimatedLeftTimeMin, Double estimatedLeftTimeMax);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.working_progress=?2")
+    List<Task> getTaskFromUserIdByWorkingProgress(Long userId, Double workingProgress);
+
+    @Query(nativeQuery = true, value =
             "SELECT * FROM task as t inner join (SELECT ti.task_id FROM (SELECT t.task_id FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1) as ti inner join task_user tu on ti.task_id = tu.task_id where tu.user_id=?2)as tr on tr.task_id=t.task_id")
     List<Task> getTaskListFromUserIdByUserId(Long logInUser, Long userId);
 

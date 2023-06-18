@@ -2,6 +2,13 @@
 
 Only topic has a link
 
+- while working the estimation can be changed based on what came up but this had to be documented
+    - 5 h plus because x work is harder that expected
+    - 5 h minus because not needed to do work x
+    - in subject can be mentioned estimation
+- [ ] taskStatus tha status that will be transfer to Task as actual status
+- [ ] workingProgress the progress that will be transfer to Task to be added to overview
+
 # ToDo
 
 ## Entity
@@ -45,17 +52,20 @@ Only topic has a link
 
 ### Attributes
 
-- [ ] subject
-- [ ] workingDateTime
-- [ ] workingEffort
-- [ ] createdDate
-- [ ] creator
-- [ ] workUserList
-- [ ] workTagList
-- [ ] workReminderList
-- [ ] workTopicList
-- [ ] workTaskList
-- [ ] workHistoryList
+- [x] subject
+- [x] workingDateTime
+- [x] workingTime
+- [x] estimatedTime
+- [x] workingProgress
+- [x] taskStatus
+- [x] createdDate
+- [x] creator
+- [x] workUserList
+- [x] workTagList
+- [x] workReminderList
+- [x] workTopicList
+- [x] taskWorkList
+- [x] workHistoryList
 
 ### Post
 
@@ -64,13 +74,15 @@ Only topic has a link
 ### Put
 
 - [ ] putSubjectToWork
+- [ ] putWorkingDateTimeToWork
+- [ ] putWorkingTimeToWork
+- [ ] putEstimatedTimeToWork
+- [ ] putWorkingProgressToWork
+- [ ] putTaskStatusToWork
 - [ ] putUserToWork
 - [ ] putTagToWork
 - [ ] putReminderToWork
 - [ ] putTopicToWork
-- [ ] putTaskToWork
-- [ ] putWorkingDateTimeToWork
-- [ ] putWorkingEfortToWork
 
 ### Delete
 
@@ -84,16 +96,23 @@ Only topic has a link
 ### Get
 
 - [ ] getAllWork
+- [ ] getWorkById
 - [ ] getWorkBySubject
 - [ ] getWorkListBySubjectContains
-- [ ] getWorkById
+- [ ] getWorkByCreatedDate
+- [ ] getWorkListByCreatedDateBetween
+- [ ] getWorkListByWorkingDateTime
+- [ ] getWorkListByWorkingDateTimeBetween
+- [ ] getWorkListByWorkingTime
+- [ ] getWorkListByWorkingTimeBetween
+- [ ] getWorkListByEstimatedTime
+- [ ] getWorkListByEstimatedTimeBetween
+- [ ] getWorkListByWorkingProgress
+- [ ] getTaskListByTaskStatus
 - [ ] getWorkListByUser
 - [ ] getWorkListByTag
 - [ ] getWorkListByReminder
 - [ ] getWorkListByTopic
 - [ ] getWorkListByTask
-- [ ] getWorkByWorkingDateTime
-- [ ] getWorkByWorkingEfort
--
 
 ## Other

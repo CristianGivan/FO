@@ -8,6 +8,11 @@
 - estimatedTime is the time estimated to work on this task
 - workingTime is the time worked at the task is sum of all work done
 - workingProgress is the work done to complete the task
+- [ ] putEstimatedTimeToTask is done at putWork
+- [ ] putWorkingTimeTimeToTask is done at putWork
+- [x] startDate when is estimated to start the task
+- [x] endDate when is estimated to finish the task.
+- [x] taskStatus The date hen is finish is set to Completed
 
 # ToDo
 
@@ -52,22 +57,23 @@
 
 ### Attributes
 
-- subject
-- startDate
-- endDate
-- taskStatus
-- estimatedTime
-- workingTime
-- workingProgress
-- createdDate
-- creator
-- taskUserList
-- taskWorkList
-- taskTagList
-- taskReminderList
-- taskTopicList
-- tasksTaskList
-- taskHistoryList
+- [x] subject
+- [x] createdDate
+- [x] startDate
+- [x] endDate
+- [x] workingTime
+- [x] estimatedTime
+- [x] estimatedLeftTime
+- [x] workingProgress
+- [x] taskStatus
+- [x] creator
+- [x] taskUserList
+- [x] taskTagList
+- [x] taskReminderList
+- [x] taskTopicList
+- [x] taskWorkList
+- [x] tasksTaskList
+- [x] taskHistoryList
 
 ### Post
 
@@ -76,17 +82,14 @@
 ### Put
 
 - [x] putSubjectToTask
+- [x] putStartDateToTask
+- [x] putEndDateToTask
 - [x] putUserToTask
 - [x] putTagToTask
 - [x] putReminderToTask
 - [x] putTopicToTask
-- [x] putWorkToTask
-- [x] putStartDateToTask
-- [x] putEndDateToTask
+- [                ] putWorkToTask
 - [x] putTaskStatusToTask
-- [ ] putEstimatedTimeToTask
-- [ ] putWorkingTimeTimeToTask
-- [ ] putWorkingProgressToTask
 
 ### Delete
 
@@ -102,7 +105,20 @@
 - [x] getAllTask
 - [x] getTaskBySubject
 - [x] getTaskListBySubjectContains
-- [ ] getTaskListByCreatedDate
+- [x] getTaskByCreatedDate
+- [x] getTaskListByCreatedDateBetween
+- [x] getTaskListByStartDate
+- [x] getTaskListByStartDateBetween
+- [x] getTaskListByEndDate
+- [x] getTaskListByEndDateBetween
+- [x] getTaskListByWorkingTime
+- [x] getTaskListByWorkingTimeBetween
+- [x] getTaskListByEstimatedTime
+- [x] getTaskListByEstimatedTimeBetween
+- [x] getTaskListByEstimatedLeftTime
+- [x] getTaskListByEstimatedLeftTimeBetween
+- [x] getTaskListByWorkingProgress
+- [ ] getTaskListByTaskStatus
 - [x] getTaskByTaskId
 - [x] getTasksListByUserId
 - [x] getTaskListByTagId

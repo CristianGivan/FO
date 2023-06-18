@@ -1141,7 +1141,7 @@ public class ServiceAll {
                 taskStatus = TaskStatus.PENDING;
                 break;
             case "COMPLITED":
-                taskStatus = TaskStatus.COMPLITED;
+                taskStatus = TaskStatus.COMPLETED;
                 break;
             default:
                 taskStatus = TaskStatus.UNDEFINE;
