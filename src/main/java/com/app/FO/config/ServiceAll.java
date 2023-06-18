@@ -70,6 +70,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.List;
+
 @Configuration
 public class ServiceAll {
 
@@ -976,6 +978,9 @@ public class ServiceAll {
 
     //-- getEmailAnd
 
+    public List<Email> getEmailListFromUserId(Long userId) {
+        return emailRepository.getEmailListFromUserId(userId);
+    }
 
     public Email getEmailFromUserIdByEmailAddress(Long userId, String emailAddress) {
         return emailRepository.getEmailFromUserIdByEmailAddress(userId, emailAddress);

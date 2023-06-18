@@ -15,7 +15,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @Api(tags = "Autentificare")
@@ -34,7 +37,37 @@ public class AuthController {
         this.userService = userService;
     }
 
+    private String getToken(User user) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+        String token = jwtTokenService.generateToken(userDetails);
+        System.out.println("Token: " + token);
+        return token.toString();
+    }
+
+    private String getBearer(User user) {
+        String string = "Bearer " + getToken(user);
+        return string;
+    }
+
+    private String getBearerList(List<User> userList) {
+        String string = userList.stream().map(user -> getBearer(user) + "\n").toString();
+        return string;
+    }
+
+
 //Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4MTI2Mjk1N30.36c1ov50JQ2fC_PFs2owD_r34F9zVSuG685-_SFhpRFMtuLKIz_pGfIJ2hu_bWKADBanGoPBDsA9C_EGHrfokQ
+
+    @PostMapping("/authenticateAll")
+    @ApiOperation(value = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4MTA4OTA1MX0.p2e29XIuwXxRlYvFJZy84B20diA5nM3jmuty22MO6W9jUyOez7084mpGDFpz_ICY4V-p2piWIrr9OLCwxvC9JQ")
+    public String authenticateAll(@RequestParam Long userId) {
+        if (userId == 0) {
+            return getBearerList(userService.getAllUser());
+
+        } else {
+            return getBearer(userService.getUserByUserId(userId));
+        }
+    }
 
     @PostMapping("/authenticate")
     @ApiOperation(value = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4MTA4OTA1MX0.p2e29XIuwXxRlYvFJZy84B20diA5nM3jmuty22MO6W9jUyOez7084mpGDFpz_ICY4V-p2piWIrr9OLCwxvC9JQ")
@@ -47,29 +80,32 @@ public class AuthController {
     }
 
     //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5Njg4MTg3NX0.fBU-cMbgrvQMJeI2FQ4rbLQkVQBNX5OlycIJ04F8msQWsC-LfB7gq_UddQIIIy1K5DvgEg1uyOnw8OHYPGw0yA
+    //Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5ODA2NzQxMn0.1wKwFIvSEFMBqzagt8k-Z3wpCJZAZMDd747S9Zm6XLJW24WkSJDsaL9CnA-1WObQmehX9KXSATRg2_jNbd7G5Q
     @PostMapping("/authenticateUser1")
     @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5Njg4MTg3NX0.fBU-cMbgrvQMJeI2FQ4rbLQkVQBNX5OlycIJ04F8msQWsC-LfB7gq_UddQIIIy1K5DvgEg1uyOnw8OHYPGw0yA")
-    public String authenticateUser1(@RequestBody String username, String password) {
+    public String authenticateUser1(@RequestParam String username, @RequestParam String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return jwtTokenService.generateToken(userDetails);
     }
 
+    //Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMiIsImV4cCI6MTY5ODA2NjY5OH0.yDS-I7a1e-nPz7jgFtjJ6RcB_y_LisgcsojwmYpCq6RsT5X8APNQT5cZn6iYYN1W7kMQI5eJuZUtyEGlZ4z3Fg
     @PostMapping("/authenticateUser2")
-    @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMiIsImV4cCI6MTY4NDUyNzUwN30.485xc7qF22Waz8HCWXqxs7WY0GFNBjGE0VT_p3One649pMq__ozIbP-et47pjLvco0tovz2OO6yTuO_qUKd-FA")
-    public String authenticateUser2(@RequestBody String username, String password) {
+    @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMiIsImV4cCI6MTY5ODA2NjY5OH0.yDS-I7a1e-nPz7jgFtjJ6RcB_y_LisgcsojwmYpCq6RsT5X8APNQT5cZn6iYYN1W7kMQI5eJuZUtyEGlZ4z3Fg")
+    public String authenticateUser2(@RequestParam String username, @RequestParam String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return jwtTokenService.generateToken(userDetails);
     }
 
+    //Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY5ODA2NzcyM30.zlrR5EoMBK77-1wnrvMsC6IgCQxLfwNLwP5jbV3Z4Y_5XgNhRp01T3EDD4lB45TXuOi_nKY57N4O8fLByaJOwg
     @PostMapping("/authenticateUser3")
     @ApiOperation(value =
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY5NTY0MTM5Mn0.bfmaVSWDkb-vBiXEeV13_BhMkZ-Hzv9pvLdEgCnDf27FyiND4jqszqWTtyTInYYFrxzh_sSZxjgrek81BWQ5Zg"
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY5ODA2NzcyM30.zlrR5EoMBK77-1wnrvMsC6IgCQxLfwNLwP5jbV3Z4Y_5XgNhRp01T3EDD4lB45TXuOi_nKY57N4O8fLByaJOwg"
     )
-    public String authenticateUser3(@RequestBody String username, String password) {
+    public String authenticateUser3(@RequestParam String username, @RequestParam String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -78,7 +114,7 @@ public class AuthController {
 
     @PostMapping("/authenticateUser4")
     @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyNCIsImV4cCI6MTY4NDUyODQ4M30.8LSwT7hVr2uMLXn6NMiBoJTjVFOTD52thu1SdmdD36_Yxj9HE9MEgwJJBfaIU8icwZ5Kfa7_RAeMSBcrvZeVuA")
-    public String authenticateUser4(@RequestBody String username, String password) {
+    public String authenticateUser4(@RequestParam String username, @RequestParam String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -87,7 +123,7 @@ public class AuthController {
 
     @PostMapping("/authenticateUser5")
     @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyNSIsImV4cCI6MTY4NDUyNzg4NH0.gP0jcNWj5gaWBq9rygBgWlXQsgoZX09nS755Z5gFRAgZlJw4T-RfZxFXLPMCgZIAnFMsqWZXEt-mhLeVWtIaUw")
-    public String authenticateUser5(@RequestBody String username, String password) {
+    public String authenticateUser5(@RequestParam String username, @RequestParam String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);

@@ -53,7 +53,8 @@ public class Runner implements CommandLineRunner {
         } else {
             standard = roleService.findRoleByType(RoleType.ROLE_STANDARD);
         }
-// Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5Njg4MTg3NX0.fBU-cMbgrvQMJeI2FQ4rbLQkVQBNX5OlycIJ04F8msQWsC-LfB7gq_UddQIIIy1K5DvgEg1uyOnw8OHYPGw0yA
+        // Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5ODA2NjYyNH0.tZag2BFxFCLg7eIPcQHA7OO4RnFf4LXSlDUH5y0DAjMuORF17Wyfx0Pam62p79FTMC5u7bJkH5XaowsEB3u6gg
+        // Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5Njg4MTg3NX0.fBU-cMbgrvQMJeI2FQ4rbLQkVQBNX5OlycIJ04F8msQWsC-LfB7gq_UddQIIIy1K5DvgEg1uyOnw8OHYPGw0yA
         if (userService.getUserByUserId(1L) == null) {
             user1 = new User("User1",
                     "$2a$12$sJZ7/SZpCOTSeMg1jos87ulm.OcN31uQKnYisY/5r5XlNXSoQKPRi");//pas1
@@ -63,7 +64,7 @@ public class Runner implements CommandLineRunner {
             user1.getUserRoleList().add(userRole2);
             userRepository.save(user1);
         }
-
+        // Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMiIsImV4cCI6MTY5ODA2NjY5OH0.yDS-I7a1e-nPz7jgFtjJ6RcB_y_LisgcsojwmYpCq6RsT5X8APNQT5cZn6iYYN1W7kMQI5eJuZUtyEGlZ4z3Fg
         if (userService.getUserByUserId(2L) == null) {
             user2 = new User("User2",
                     "$2a$12$gaUsXx4r4JlzHYXomu/XguBgQZbj2XXOWq5h683u7KCOPUozoRy56");//pas2
@@ -72,7 +73,7 @@ public class Runner implements CommandLineRunner {
             userRepository.save(user2);
 
         }
-
+        //Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY5ODA2NjgxNn0.W7Jer3Al5x5Me2DxmuM-l89dvQDs7yYTYsg0XCCGSRKGhT8kQyb7WaIvIiPTrFYGpGLZDDmFqviP0sMhrlX8XA
         if (userService.getUserByUserId(3L) == null) {
             user3 = new User("User3",
                     "$2a$12$b/jcMc9LC8sTk.8mV6Mzv.0GFCqgD7O/oK6m96nojFVKuGj8LlJv2");//pas3
@@ -80,8 +81,5 @@ public class Runner implements CommandLineRunner {
             user3.getUserRoleList().add(userRole1);
             userRepository.save(user3);
         }
-
-
     }
-
 }

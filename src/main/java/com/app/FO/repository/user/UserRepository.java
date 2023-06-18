@@ -33,7 +33,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM user as t where t.created_date=?1")
-    User getUserFromUserIdByCreatedDate(Long userId, LocalDateTime createdDate);
+    User getUserFromUserIdByCreatedDate(LocalDateTime createdDate);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM user as t where t.created_date between ?1 and ?2")
@@ -56,7 +56,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM user as u inner join user_user uu on u.user_id = uu.user_id where uu.user_id=?1")
+            "SELECT * FROM user as u inner join user_user uu on u.user_id = uu.user_id where uu.user_linked_id=?1")
     List<User> getUserListByUserId(Long userId);
 
     @Query(nativeQuery = true, value =
@@ -64,7 +64,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> getUserListByEmailId(Long emailId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM user as u where u.role_id=?1")
+            "SELECT * FROM user as u inner join user_role uu on u.user_id = uu.user_id where uu.role_id=?1")
     List<User> getUserListByRole(Long roleId);
 
     @Query(nativeQuery = true, value =

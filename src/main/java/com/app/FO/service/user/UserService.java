@@ -86,7 +86,7 @@ public class UserService {
         return userRepository.save(logInUser);
     }
 
-    public User putEmailToLogInUser(Long emailId) {
+    public User putMainEmailToLogInUser(Long emailId) {
         User logInUser = getLogInUser();
         if (!userIsAdmin(logInUser)) {
             throw new UserHasNotEnoughPrivileges("The user has not enough rights to create another user");
@@ -97,7 +97,7 @@ public class UserService {
             throw new EmailNotFoundException("Email not found");
         }
 
-        logInUser.setEmail(email);
+        logInUser.setMainEmail(email.getEmailAddress());
         return userRepository.save(logInUser);
     }
 
@@ -242,8 +242,8 @@ public class UserService {
 
     public User getUserByCreatedDate(String createdDate) {
         LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
-        User logInUser = serviceAll.getLogInUser();
-        User user = userRepository.getUserFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+
+        User user = userRepository.getUserFromUserIdByCreatedDate(createdDateTime);
         if (user == null) {
             throw new UserNotFoundException("No user found");
         }
@@ -274,7 +274,7 @@ public class UserService {
         return userList;
     }
 
-    public List<User> getUserListByEmail(Long emailId) {
+    public List<User> getUserListByMainEmail(Long emailId) {
         List<User> userList = userRepository.getUserListByEmailId(emailId);
         if (userList.isEmpty()) {
             throw new UserNotFoundException("No user found");

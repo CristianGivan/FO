@@ -16,10 +16,10 @@
 - [5] Link
 - [x] Note
 - [20] Person
-    - [ ] getPersonPerosn check
+    - [ ] getPersonPerson check
 - [19] PhoneNumber
 - [3] Reminder
-- [2] Role
+- [21] Role
 - [10] Shop
 - [x] Snooze
 - [x] Tag
@@ -27,7 +27,7 @@
 - [7] Tasks
 - [4] Topic
 - [13] Transaction
-- [1] User
+- [x] User
 - [8] Work
 
 ### General

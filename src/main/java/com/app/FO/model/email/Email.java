@@ -33,8 +33,7 @@ public class Email {
 
     @OneToMany(mappedBy = "email", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EmailUser> emailUserList;
-    @OneToOne(mappedBy = "email")
-    private User user;
+
     @OneToMany(mappedBy = "email", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EmailTag> emailTagList;
 
@@ -146,13 +145,6 @@ public class Email {
         this.emailTagList = emailTagList;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public List<EmailReminder> getEmailReminderList() {
         if (emailReminderList == null) {

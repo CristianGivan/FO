@@ -6,7 +6,6 @@ import com.app.FO.model.account.AccountHistory;
 import com.app.FO.model.account.AccountUser;
 import com.app.FO.model.dates.Dates;
 import com.app.FO.model.dates.DatesUser;
-import com.app.FO.model.email.Email;
 import com.app.FO.model.email.EmailUser;
 import com.app.FO.model.event.Event;
 import com.app.FO.model.event.EventHistory;
@@ -73,11 +72,13 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "main_email")
+    private String mainEmail;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "email_id", referencedColumnName = "email_id")
-    private Email email;
+
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserRole> userRoleList;
@@ -196,9 +197,6 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountHistory> accountHistoryList;
 
-    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Email> emailList;
-
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EmailUser> emailUserList;
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -228,7 +226,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
+                ", mainEmail='" + mainEmail + '\'' +
                 ", userRoleList=" + userRoleList +
                 ", userUserList=" + userUserList +
                 ", tagList=" + tagList +
@@ -274,7 +272,6 @@ public class User {
                 ", accountList=" + accountList +
                 ", accountUserList=" + accountUserList +
                 ", accountHistoryList=" + accountHistoryList +
-                ", emailList=" + emailList +
                 ", emailUserList=" + emailUserList +
                 ", datesList=" + datesList +
                 ", datesUserList=" + datesUserList +
@@ -315,12 +312,12 @@ public class User {
         this.createdDate = createdDate;
     }
 
-    public Email getEmail() {
-        return email;
+    public String getMainEmail() {
+        return mainEmail;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setMainEmail(String mainEmail) {
+        this.mainEmail = mainEmail;
     }
 
     public List<UserRole> getUserRoleList() {
@@ -693,14 +690,6 @@ public class User {
 
     public void setAccountHistoryList(List<AccountHistory> accountHistoryList) {
         this.accountHistoryList = accountHistoryList;
-    }
-
-    public List<Email> getEmailList() {
-        return emailList;
-    }
-
-    public void setEmailList(List<Email> emailList) {
-        this.emailList = emailList;
     }
 
     public List<EmailUser> getEmailUserList() {

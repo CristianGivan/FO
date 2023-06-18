@@ -49,9 +49,9 @@ public class UserController {
 
     }
 
-    @PutMapping("/putEmailToLogInUser")
-    public UserDTO putEmailToLogInUser(@RequestParam Long emailId) {
-        User user = userService.putEmailToLogInUser(emailId);
+    @PutMapping("/putMainEmailToLogInUser")
+    public UserDTO putMainEmailToLogInUser(@RequestParam Long emailId) {
+        User user = userService.putMainEmailToLogInUser(emailId);
         return userDTOMapper.userToUserDTO(user);
     }
 
@@ -74,6 +74,7 @@ public class UserController {
         User user = userService.deleteUserFromLogInUser(userId);
         return userDTOMapper.userToUserDTO(user);
     }
+    
 
     @DeleteMapping("/deleteRoleFromUser/")
     public UserDTO deleteRoleFromUser(@RequestParam Long userId, @RequestParam String userType) {
@@ -146,9 +147,9 @@ public class UserController {
         return userDTOMapper.userListToUserDTOList(userList);
     }
 
-    @GetMapping("/getUserListByEmail/")
-    public List<UserDTO> getUserListByEmail(@RequestParam Long emailId) {
-        List<User> userList = userService.getUserListByEmail(emailId);
+    @GetMapping("/getUserListByMainEmail/")
+    public List<UserDTO> getUserListByMainEmail(@RequestParam Long emailId) {
+        List<User> userList = userService.getUserListByMainEmail(emailId);
         return userDTOMapper.userListToUserDTOList(userList);
     }
 

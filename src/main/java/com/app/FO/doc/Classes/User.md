@@ -5,6 +5,8 @@
 - user can have a list of users as favorites it can add to his notes or other elements users from this list
 - user can search from all users and at another user to his user
 - for future the user had to accept to be in other user list
+- user email shall be many to many because if a 2 users insert the same email I receive error, coud be 2 users with the
+  same email parent children
 
 ## ToDo
 
@@ -13,11 +15,11 @@
 
 ### Attributes
 
-- [x] Username
-- [x] Password
-- [x] CreatedDate
-- [x] Email
-- [x] UserList
+- [x] username
+- [x] password
+- [x] mainEmail
+- [x] createdDate
+- [x] userList
 - [x] Role
 
 ### Post
@@ -28,7 +30,7 @@
 
 - [x] putUsernameToLogInUser
 - [x] putPasswordToLogInUser
-- [x] putEmailToLogInUser
+- [x] putMainEmailToLogInUser
 - [x] putUserToLogInUser
 - [x] putRoleToUser
 
@@ -45,11 +47,11 @@
 - [x] getUserById
 - [x] getUserListByUsername
 - [x] getUserListByUsernameContains
-- [ ] getUserByCreatedDate
+- [x] getUserListByMainEmail
+- [x] getUserByCreatedDate
 - [x] getUserListByCreatedDateBetween
-- [ ] getUserListByUser // create a list with all users where this user is present
-- [ ] getUserListByEmail
-- [ ] getUserListByRole
+- [x] getUserListByUser // create a list with all users where this user is present
+- [x] getUserListByRole
 
 ## Other
 

@@ -44,12 +44,12 @@
 ### Attributes
 
 - [x] subject
-- [x] reminderDateTime
 - [x] createdDate
 - [x] creator
-- [x] reminderUserList
-- [x] reminderList
-- [x] snooze
+- [x] topicUserList
+- [x] topicTagList
+- [x] topicReminderList
+- [x] topicNoteList
 
 ### Post
 
@@ -86,4 +86,4 @@
 
 ## Other
 
-- [ ] delete Id from controller name 
+- [ ] shall have link or not?
