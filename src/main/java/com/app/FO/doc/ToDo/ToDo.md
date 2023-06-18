@@ -13,7 +13,7 @@
 - [15] Event
 - [11] Expense
 - [12] Expenses
-- [5] Link
+- [x] Link
 - [x] Note
 - [20] Person
     - [ ] getPersonPerson check

@@ -6,6 +6,9 @@ Ideas:
 - traete this assign of one reminder to many entities (e.g. tasks)
 - [ ] Add creator (log in user)
 - shall have a user list?
+- un reminder poate sa aiba mai multe entitati si o entitate poate sa aimba mai multe reminder dar se sterge doar
+  relatia dintre entitate si reminder cand reminderul este oprit de la o entitate mai mult decat atat nu se sterge se
+  muta in history
 
 ### Attributes
 

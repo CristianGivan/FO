@@ -70,12 +70,12 @@
 
 ### Delete
 
-- [ ] deleteUserFromLink
-- [ ] deleteTagFromLink
-- [ ] deleteReminderFromLink
-- [ ] deleteTopicFromLink
-- [ ] deleteTasksFromLink
-- [ ] deleteLink
+- [x] deleteUserFromLink
+- [x] deleteTagFromLink
+- [x] deleteReminderFromLink
+- [x] deleteTopicFromLink
+- [x] deleteTasksFromLink
+- [x] deleteLink
 
 ### Get
 
