@@ -10,6 +10,10 @@ Ideas:
   relatia dintre entitate si reminder cand reminderul este oprit de la o entitate mai mult decat atat nu se sterge se
   muta in history
 
+## ToDo
+
+- [ ] clarify the relation ReminderReminder check delition
+
 ### Attributes
 
 - [x] subject
@@ -17,8 +21,8 @@ Ideas:
 - [x] createdDate
 - [x] creator
 - [x] reminderUserList
-- [x] reminderList
 - [x] snooze
+- [x] reminderList
 
 ### Post
 
@@ -51,4 +55,5 @@ Ideas:
 - [x] getReminderListByCreatedDateBetween
 - [x] getReminderListByUser
 - [x] getReminderListBySnooze
-- [x] getReminderListByReminder
+- [x] getReminderListWithReminder
+- [x] getReminderListFromReminder

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface ReminderReminderRepository extends JpaRepository<ReminderReminder, Long> {
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM reminder_reminder as tu where tu.reminder_id=?1 and tu.reminder_id=?2")
+            "SELECT * FROM reminder_reminder as tu where tu.reminder_id=?1 and tu.repeated_reminder_id=?2")
     ReminderReminder getReminderReminderByReminderIdAndReminderId(Long reminderId, Long repeatedReminderId);
 
 

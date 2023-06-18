@@ -1,21 +1,21 @@
 package com.app.FO.model.reminder;
 
-import com.app.FO.model.account.Account;
-import com.app.FO.model.dates.Dates;
-import com.app.FO.model.email.Email;
-import com.app.FO.model.event.Event;
-import com.app.FO.model.expense.Expense;
-import com.app.FO.model.expenses.Expenses;
-import com.app.FO.model.link.Link;
+import com.app.FO.model.account.AccountReminder;
+import com.app.FO.model.dates.DatesReminder;
+import com.app.FO.model.email.EmailReminder;
+import com.app.FO.model.event.EventReminder;
+import com.app.FO.model.expense.ExpenseReminder;
+import com.app.FO.model.expenses.ExpensesReminder;
+import com.app.FO.model.link.LinkReminder;
 import com.app.FO.model.note.NoteReminder;
-import com.app.FO.model.person.Person;
-import com.app.FO.model.phoneNumber.PhoneNumber;
-import com.app.FO.model.task.Task;
-import com.app.FO.model.tasks.Tasks;
-import com.app.FO.model.topic.Topic;
-import com.app.FO.model.transaction.Transaction;
+import com.app.FO.model.person.PersonReminder;
+import com.app.FO.model.phoneNumber.PhoneNumberReminder;
+import com.app.FO.model.task.TaskReminder;
+import com.app.FO.model.tasks.TasksReminder;
+import com.app.FO.model.topic.TopicReminder;
+import com.app.FO.model.transaction.TransactionReminder;
 import com.app.FO.model.user.User;
-import com.app.FO.model.work.Work;
+import com.app.FO.model.work.WorkReminder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -56,81 +56,52 @@ public class Reminder {
     @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ReminderSnooze> reminderSnoozeList;
 
-
     @OneToMany(mappedBy = "repeatedReminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ReminderReminder> repeatedReminderList;
 
     @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NoteReminder> noteReminderList;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "topic_id")
-    @JsonIgnore
-    private Topic topic;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "task_id")
-    @JsonIgnore
-    private Task task;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TopicReminder> topicReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "work_id")
-    @JsonIgnore
-    private Work work;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskReminder> taskReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "tasks_id")
-    @JsonIgnore
-    private Tasks tasks;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkReminder> workReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "event_id")
-    @JsonIgnore
-    private Event event;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TasksReminder> tasksReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "link_id")
-    @JsonIgnore
-    private Link link;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EventReminder> eventReminderList;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<LinkReminder> linkReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "person_id")
-    @JsonIgnore
-    private Person person;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PersonReminder> personReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "expense_id")
-    @JsonIgnore
-    private Expense expense;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseReminder> expenseReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "expenses_id")
-    @JsonIgnore
-    private Expenses expenses;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesReminder> expensesReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "transaction_id")
-    @JsonIgnore
-    private Transaction transaction;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionReminder> transactionReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "account_id")
-    @JsonIgnore
-    private Account account;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<AccountReminder> accountReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "email_id")
-    @JsonIgnore
-    private Email email;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<EmailReminder> emailReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "phoneNumber_id")
-    @JsonIgnore
-    private PhoneNumber phoneNumber;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<PhoneNumberReminder> phoneNumberReminderList;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "dates_id")
-    @JsonIgnore
-    private Dates dates;
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<DatesReminder> datesReminderList;
 
     public Reminder() {
     }
@@ -139,35 +110,6 @@ public class Reminder {
         this.subject = subject;
         this.creator = creator;
         this.createdDateTime = LocalDateTime.now();
-    }
-
-    @Override
-    public String toString() {
-        return "Reminder{" +
-                "id=" + id +
-                ", subject='" + subject + '\'' +
-                ", reminderDateTime=" + reminderDateTime +
-                ", createdDateTime=" + createdDateTime +
-                ", creator=" + creator +
-                ", reminderUserList=" + reminderUserList +
-                ", reminderSnoozeList=" + reminderSnoozeList +
-                ", repeatedReminderList=" + repeatedReminderList +
-                ", noteReminderList=" + noteReminderList +
-                ", topic=" + topic +
-                ", task=" + task +
-                ", work=" + work +
-                ", tasks=" + tasks +
-                ", event=" + event +
-                ", link=" + link +
-                ", person=" + person +
-                ", expense=" + expense +
-                ", expenses=" + expenses +
-                ", transaction=" + transaction +
-                ", account=" + account +
-                ", email=" + email +
-                ", phoneNumber=" + phoneNumber +
-                ", dates=" + dates +
-                '}';
     }
 
     public Long getId() {
@@ -179,9 +121,6 @@ public class Reminder {
     }
 
     public String getSubject() {
-        if (subject == null) {
-            subject = "";
-        }
         return subject;
     }
 
@@ -248,115 +187,144 @@ public class Reminder {
         this.noteReminderList = noteReminderList;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public List<TopicReminder> getTopicReminderList() {
+        return topicReminderList;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setTopicReminderList(List<TopicReminder> topicReminderList) {
+        this.topicReminderList = topicReminderList;
     }
 
-    public Task getTask() {
-        return task;
+    public List<TaskReminder> getTaskReminderList() {
+        return taskReminderList;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setTaskReminderList(List<TaskReminder> taskReminderList) {
+        this.taskReminderList = taskReminderList;
     }
 
-    public Work getWork() {
-        return work;
+    public List<WorkReminder> getWorkReminderList() {
+        return workReminderList;
     }
 
-    public void setWork(Work work) {
-        this.work = work;
+    public void setWorkReminderList(List<WorkReminder> workReminderList) {
+        this.workReminderList = workReminderList;
     }
 
-    public Tasks getTasks() {
-        return tasks;
+    public List<TasksReminder> getTasksReminderList() {
+        return tasksReminderList;
     }
 
-    public void setTasks(Tasks tasks) {
-        this.tasks = tasks;
+    public void setTasksReminderList(List<TasksReminder> tasksReminderList) {
+        this.tasksReminderList = tasksReminderList;
     }
 
-    public Event getEvent() {
-        return event;
+    public List<EventReminder> getEventReminderList() {
+        return eventReminderList;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEventReminderList(List<EventReminder> eventReminderList) {
+        this.eventReminderList = eventReminderList;
     }
 
-    public Link getLink() {
-        return link;
+    public List<LinkReminder> getLinkReminderList() {
+        return linkReminderList;
     }
 
-    public void setLink(Link link) {
-        this.link = link;
+    public void setLinkReminderList(List<LinkReminder> linkReminderList) {
+        this.linkReminderList = linkReminderList;
     }
 
-    public Person getPerson() {
-        return person;
+    public List<PersonReminder> getPersonReminderList() {
+        return personReminderList;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPersonReminderList(List<PersonReminder> personReminderList) {
+        this.personReminderList = personReminderList;
     }
 
-    public Expense getExpense() {
-        return expense;
+    public List<ExpenseReminder> getExpenseReminderList() {
+        return expenseReminderList;
     }
 
-    public void setExpense(Expense expense) {
-        this.expense = expense;
+    public void setExpenseReminderList(List<ExpenseReminder> expenseReminderList) {
+        this.expenseReminderList = expenseReminderList;
     }
 
-    public Expenses getExpenses() {
-        return expenses;
+    public List<ExpensesReminder> getExpensesReminderList() {
+        return expensesReminderList;
     }
 
-    public void setExpenses(Expenses expenses) {
-        this.expenses = expenses;
+    public void setExpensesReminderList(List<ExpensesReminder> expensesReminderList) {
+        this.expensesReminderList = expensesReminderList;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
+    public List<TransactionReminder> getTransactionReminderList() {
+        return transactionReminderList;
     }
 
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
+    public void setTransactionReminderList(List<TransactionReminder> transactionReminderList) {
+        this.transactionReminderList = transactionReminderList;
     }
 
-    public Account getAccount() {
-        return account;
+    public List<AccountReminder> getAccountReminderList() {
+        return accountReminderList;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccountReminderList(List<AccountReminder> accountReminderList) {
+        this.accountReminderList = accountReminderList;
     }
 
-    public Email getEmail() {
-        return email;
+    public List<EmailReminder> getEmailReminderList() {
+        return emailReminderList;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setEmailReminderList(List<EmailReminder> emailReminderList) {
+        this.emailReminderList = emailReminderList;
     }
 
-    public PhoneNumber getPhoneNumber() {
-        return phoneNumber;
+    public List<PhoneNumberReminder> getPhoneNumberReminderList() {
+        return phoneNumberReminderList;
     }
 
-    public void setPhoneNumber(PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumberReminderList(List<PhoneNumberReminder> phoneNumberReminderList) {
+        this.phoneNumberReminderList = phoneNumberReminderList;
     }
 
-    public Dates getDates() {
-        return dates;
+    public List<DatesReminder> getDatesReminderList() {
+        return datesReminderList;
     }
 
-    public void setDates(Dates dates) {
-        this.dates = dates;
+    public void setDatesReminderList(List<DatesReminder> datesReminderList) {
+        this.datesReminderList = datesReminderList;
+    }
+
+    @Override
+    public String toString() {
+        return "Reminder{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", reminderDateTime=" + reminderDateTime +
+                ", createdDateTime=" + createdDateTime +
+                ", creator=" + creator +
+                ", reminderUserList=" + reminderUserList +
+                ", reminderSnoozeList=" + reminderSnoozeList +
+                ", repeatedReminderList=" + repeatedReminderList +
+                ", noteReminderList=" + noteReminderList +
+                ", topicReminderList=" + topicReminderList +
+                ", taskReminderList=" + taskReminderList +
+                ", workReminderList=" + workReminderList +
+                ", tasksReminderList=" + tasksReminderList +
+                ", eventReminderList=" + eventReminderList +
+                ", linkReminderList=" + linkReminderList +
+                ", personReminderList=" + personReminderList +
+                ", expenseReminderList=" + expenseReminderList +
+                ", expensesReminderList=" + expensesReminderList +
+                ", transactionReminderList=" + transactionReminderList +
+                ", accountReminderList=" + accountReminderList +
+                ", emailReminderList=" + emailReminderList +
+                ", phoneNumberReminderList=" + phoneNumberReminderList +
+                ", datesReminderList=" + datesReminderList +
+                '}';
     }
 }

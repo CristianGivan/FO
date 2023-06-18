@@ -25,7 +25,7 @@
 - [x] Tag
 - [6] Task
 - [7] Tasks
-- [4] Topic
+- [x] Topic
 - [13] Transaction
 - [x] User
 - [8] Work
@@ -33,6 +33,7 @@
 ### General
 
 - [ ] when get a value treat the case when more values are possible
+- [ ] topicLink(wishful) or linkTopic (now)
 
 ## Old Check
 

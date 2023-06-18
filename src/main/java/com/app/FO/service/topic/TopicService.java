@@ -1,7 +1,9 @@
 package com.app.FO.service.topic;
 
+import com.app.FO.config.DateTime;
 import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
+import com.app.FO.model.link.Link;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
@@ -11,6 +13,7 @@ import com.app.FO.repository.topic.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -110,29 +113,6 @@ public class TopicService {
         return topicRepository.save(topic);
     }
 
-    public Topic putNoteToTopic(Long topicId, Long noteId) {
-        User logInUser = serviceAll.getLogInUser();
-
-        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
-        if (topic == null) {
-            throw new TopicNotFoundException("Topic not found in your list");
-        }
-
-        Note note = serviceAll.getNoteByIdAndUserId(noteId, logInUser.getId());
-        if (note == null) {
-            throw new NoteNotFoundException("Note not found");
-        }
-
-        TopicNote topicNote = serviceAll.getTopicNote(topicId, noteId);
-        if (topicNote != null) {
-            throw new TopicNoteAlreadyExistException("The topic already has the note");
-        }
-
-        topicNote = new TopicNote(topic, note);
-        topic.getTopicNoteList().add(topicNote);
-
-        return topicRepository.save(topic);
-    }
 
     public Topic putReminderToTopic(Long topicId, Long reminderId) {
         User logInUser = serviceAll.getLogInUser();
@@ -158,6 +138,54 @@ public class TopicService {
         return topicRepository.save(topic);
     }
 
+    public Topic putNoteToTopic(Long topicId, Long noteId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        Note note = serviceAll.getNoteByIdAndUserId(noteId, logInUser.getId());
+        if (note == null) {
+            throw new NoteNotFoundException("Note not found");
+        }
+
+        TopicNote topicNote = serviceAll.getTopicNote(topicId, noteId);
+        if (topicNote != null) {
+            throw new TopicNoteAlreadyExistException("The topic already has the note");
+        }
+
+        topicNote = new TopicNote(topic, note);
+        topic.getTopicNoteList().add(topicNote);
+
+        return topicRepository.save(topic);
+    }
+
+
+    public Topic putLinkToTopic(Long topicId, Long linkId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        Link link = serviceAll.getLinkFromUserIdAndLinkId(logInUser.getId(), linkId);
+        if (link == null) {
+            throw new LinkNotFoundException("Link not found");
+        }
+
+        TopicLink topicLink = serviceAll.getTopicLink(topicId, linkId);
+        if (topicLink != null) {
+            throw new TopicLinkAlreadyExistException("The topic already has the link");
+        }
+
+        topicLink = new TopicLink(topic, link);
+        topic.getTopicLinkList().add(topicLink);
+
+        return topicRepository.save(topic);
+    }
 
     //--Delete
 
@@ -184,29 +212,6 @@ public class TopicService {
         return topicRepository.save(topic);
     }
 
-
-    public Topic deleteNoteFromTopic(Long topicId, Long noteId) {
-        User logInUser = serviceAll.getLogInUser();
-
-        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
-        if (topic == null) {
-            throw new TopicNotFoundException("Topic not found in your list");
-        }
-
-        Note note = serviceAll.getNoteByIdAndUserId(noteId, logInUser.getId());
-        if (note == null) {
-            throw new NoteNotFoundException("Note not found");
-        }
-
-        TopicNote topicNote = serviceAll.getTopicNote(topicId, noteId);
-        if (topicNote == null) {
-            throw new TopicNoteNotFoundException("The topic don't has the note");
-        }
-
-        topic.getTopicNoteList().remove(topicNote);
-
-        return topicRepository.save(topic);
-    }
 
     public Topic deleteTagFromTopic(Long topicId, Long tagId) {
         User logInUser = serviceAll.getLogInUser();
@@ -253,6 +258,55 @@ public class TopicService {
 
         return topicRepository.save(topic);
     }
+
+
+    public Topic deleteNoteFromTopic(Long topicId, Long noteId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        Note note = serviceAll.getNoteByIdAndUserId(noteId, logInUser.getId());
+        if (note == null) {
+            throw new NoteNotFoundException("Note not found");
+        }
+
+        TopicNote topicNote = serviceAll.getTopicNote(topicId, noteId);
+        if (topicNote == null) {
+            throw new TopicNoteNotFoundException("The topic don't has the note");
+        }
+
+        topic.getTopicNoteList().remove(topicNote);
+
+        return topicRepository.save(topic);
+    }
+
+
+    public Topic deleteLinkFromTopic(Long topicId, Long linkId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Topic topic = topicRepository.getTopicFromUserIdByTopicId(logInUser.getId(), topicId);
+        if (topic == null) {
+            throw new TopicNotFoundException("Topic not found in your list");
+        }
+
+        Link link = serviceAll.getLinkFromUserIdAndLinkId(logInUser.getId(), linkId);
+        if (link == null) {
+            throw new LinkNotFoundException("Link not found");
+        }
+
+        TopicLink topicLink = serviceAll.getTopicLink(topicId, linkId);
+        if (topicLink == null) {
+            throw new TopicLinkNotFoundException("The topic don't has the link");
+        }
+
+        topic.getTopicLinkList().remove(topicLink);
+
+        return topicRepository.save(topic);
+    }
+
 
     public List<Topic> deleteTopic(Long topicId) {
         User logInUser = serviceAll.getLogInUser();
@@ -303,9 +357,31 @@ public class TopicService {
         return topic;
     }
 
-    public List<Topic> getTopicListByNoteId(Long noteId) {
+
+    public Topic getTopicByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
         User logInUser = serviceAll.getLogInUser();
-        List<Topic> topicList = topicRepository.getTopicListFromUserIdByNoteId(logInUser.getId(), noteId);
+        Topic topic = topicRepository.getTopicFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+        if (topic == null) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topic;
+    }
+
+    public List<Topic> getTopicListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
+    }
+
+    public List<Topic> getTopicListByUserId(Long userId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserIdByUserId(logInUser.getId(), userId);
         if (topicList.isEmpty()) {
             throw new TopicNotFoundException("No topic found");
         }
@@ -330,19 +406,24 @@ public class TopicService {
         return topicList;
     }
 
-
-    //-- Other
-
-
-    //-- ChecksNote
-
-
-    //-- Redefine
-
-    //todo tbdel
-    public Topic saveTopic(Topic topic) {
-        return topicRepository.save(topic);
+    public List<Topic> getTopicListByNoteId(Long noteId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserIdByNoteId(logInUser.getId(), noteId);
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
     }
 
+    public List<Topic> getTopicListByLinkId(Long linkId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Topic> topicList = topicRepository.getTopicListFromUserIdByLinkId(logInUser.getId(), linkId);
+        if (topicList.isEmpty()) {
+            throw new TopicNotFoundException("No topic found");
+        }
+        return topicList;
+    }
+
+    //-- Other
 
 }

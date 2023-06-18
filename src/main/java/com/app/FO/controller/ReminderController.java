@@ -160,9 +160,15 @@ public class ReminderController {
     }
 
 
-    @GetMapping("/getReminderListByReminderId")
-    public List<ReminderDTO> getReminderListByReminderId(@RequestParam Long reminderId) {
-        List<Reminder> reminderList = reminderService.getReminderListByReminderId(reminderId);
+    @GetMapping("/getReminderListWithReminder")
+    public List<ReminderDTO> getReminderListWithReminder(@RequestParam Long reminderId) {
+        List<Reminder> reminderList = reminderService.getReminderListWithReminder(reminderId);
+        return reminderDTOMapper.reminderListToReminderDTOList(reminderList);
+    }
+
+    @GetMapping("/getReminderListFromReminder")
+    public List<ReminderDTO> getReminderListFromReminder(@RequestParam Long reminderId) {
+        List<Reminder> reminderList = reminderService.getReminderListFromReminder(reminderId);
         return reminderDTOMapper.reminderListToReminderDTOList(reminderList);
     }
 

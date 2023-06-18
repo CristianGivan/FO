@@ -128,6 +128,9 @@ public class ServiceAll {
     private TopicReminderRepository topicReminderRepository;
 
     @Autowired
+    private TopicLinkRepository topicLinkRepository;
+
+    @Autowired
     private TopicNoteRepository topicNoteRepository;
 
     @Autowired
@@ -609,12 +612,17 @@ public class ServiceAll {
         return topicTagRepository.getTopicTagByTopicIdAndTagId(topicId, tagId);
     }
 
-    public TopicNote getTopicNote(Long topicId, Long noteId) {
-        return topicNoteRepository.getTopicNoteByTopicIdAndNoteId(topicId, noteId);
-    }
 
     public TopicReminder getTopicReminder(Long topicId, Long reminderId) {
         return topicReminderRepository.getTopicReminderByTopicIdAndReminderId(topicId, reminderId);
+    }
+
+    public TopicNote getTopicNote(Long topicId, Long NoteId) {
+        return topicNoteRepository.getTopicNoteByTopicIdAndNoteId(topicId, NoteId);
+    }
+
+    public TopicLink getTopicLink(Long topicId, Long linkId) {
+        return topicLinkRepository.getTopicLinkByTopicIdAndLinkId(topicId, linkId);
     }
 
     //-- getTaskAnd

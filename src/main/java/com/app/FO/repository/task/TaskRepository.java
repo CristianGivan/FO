@@ -38,6 +38,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> getTaskListFromUserIdByCreatedDateBetween(Long UserId, LocalDateTime createdDateMin, LocalDateTime createdDateMax);
 
     @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join (SELECT ti.task_id FROM (SELECT t.task_id FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1) as ti inner join task_user tu on ti.task_id = tu.task_id where tu.user_id=?2)as tr on tr.task_id=t.task_id")
+    List<Task> getTaskListFromUserIdByUserId(Long logInUser, Long userId);
+
+    @Query(nativeQuery = true, value =
             "SELECT * FROM task as t inner join task_topic as tn on t.task_id = tn.task_id inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and tn.topic_id=?2")
     List<Task> getTaskListFromUserIdByTopicId(Long userId, Long topicId);
 
@@ -45,9 +49,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             "SELECT * FROM task as t inner join task_work as tn on t.task_id = tn.task_id inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and tn.work_id=?2")
     List<Task> getTaskListFromUserIdByWorkId(Long userId, Long workId);
 
-    @Query(nativeQuery = true, value =
-            "SELECT * FROM task as t inner join (SELECT ti.task_id FROM (SELECT t.task_id FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1) as ti inner join task_user tu on ti.task_id = tu.task_id where tu.user_id=?2)as tr on tr.task_id=t.task_id")
-    List<Task> getTaskListFromUserIdByUserId(Long logInUser, Long userId);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM task as t inner join task_tag as tt on t.task_id = tt.task_id inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and tt.tag_id=?2")

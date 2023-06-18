@@ -1,5 +1,8 @@
 # General
 
+- linkTopic I add topics that are important to that link ideas to don't remember
+- topicLink I include the link as reference
+
 # ToDo
 
 ## Entity
@@ -50,6 +53,7 @@
 - [x] topicTagList
 - [x] topicReminderList
 - [x] topicNoteList
+- [x] topicLinkList
 
 ### Post
 
@@ -62,7 +66,7 @@
 - [x] putNoteToTopic
 - [x] putTagToTopic
 - [x] putReminderToTopic
-- [ ] putLinkToTopic
+- [x] putLinkToTopic
 
 ### Delete
 
@@ -70,19 +74,22 @@
 - [x] deleteNoteFromTopic
 - [x] deleteTagFromTopic
 - [x] deleteReminderFromTopic
-- [ ] deleteLinkFromTopic
+- [x] deleteLinkFromTopic
 - [x] deleteTopic
 
 ### Get
 
 - [x] getAllTopic
+- [x] getTopicByTopicId
 - [x] getTopicBySubject
 - [x] getTopicListBySubjectContains
-- [x] getTopicByTopicId
-- [x] getTopicListByNoteId
+- [x] getTopicByCreatedDate
+- [x] getTopicListByCreatedDateBetween
+- [x] getTopicListByUser
 - [x] getTopicListByTagId
 - [x] getTopicListByReminderId
-- [ ] getTopicListByLink
+- [x] getTopicListByNoteId
+- [x] getTopicListByLink
 
 ## Other
 

@@ -335,9 +335,19 @@ Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
         return reminderList;
     }
 
-    public List<Reminder> getReminderListByReminderId(Long reminderId) {
+    public List<Reminder> getReminderListWithReminder(Long reminderId) {
         User logInUser = serviceAll.getLogInUser();
-        List<Reminder> reminderList = reminderRepository.getReminderListFromUserIdByReminderId(logInUser.getId(), reminderId);
+        List<Reminder> reminderList = reminderRepository.getReminderFromUserIdWithReminderId(logInUser.getId(), reminderId);
+        if (reminderList.isEmpty()) {
+            throw new ReminderNotFoundException("No reminder found");
+        }
+        return reminderList;
+
+    }
+
+    public List<Reminder> getReminderListFromReminder(Long reminderId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Reminder> reminderList = reminderRepository.getReminderFromUserIdFromReminderId(logInUser.getId(), reminderId);
         if (reminderList.isEmpty()) {
             throw new ReminderNotFoundException("No reminder found");
         }

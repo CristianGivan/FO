@@ -36,7 +36,7 @@ public class Topic {
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "create_date")
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -55,6 +55,9 @@ public class Topic {
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicNote> topicNoteList;
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TopicLink> topicLinkList;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<WorkTopic> workTopicList;
@@ -119,6 +122,7 @@ public class Topic {
                 ", topicTagList=" + topicTagList +
                 ", topicReminderList=" + topicReminderList +
                 ", topicNoteList=" + topicNoteList +
+                ", topicLinkList=" + topicLinkList +
                 ", workTopicList=" + workTopicList +
                 ", taskTopicList=" + taskTopicList +
                 ", tasksTopicList=" + tasksTopicList +
@@ -163,6 +167,14 @@ public class Topic {
         this.topicNoteList = topicNotes;
     }
 
+    public List<TopicLink> getTopicLinkList() {
+        return topicLinkList;
+    }
+
+    public void setTopicLinkList(List<TopicLink> topicLinkList) {
+        this.topicLinkList = topicLinkList;
+    }
+
     public List<TopicTag> getTopicTagList() {
         if (topicTagList == null) {
             topicTagList = new ArrayList<>();
@@ -202,16 +214,6 @@ public class Topic {
         this.createdDate = createdDate;
     }
 
-    public List<TopicHistory> getTopicHistoryList() {
-        if (topicHistoryList == null) {
-            topicHistoryList = new ArrayList<>();
-        }
-        return topicHistoryList;
-    }
-
-    public void setTopicHistoryList(List<TopicHistory> topicHistory) {
-        this.topicHistoryList = topicHistory;
-    }
 
     public List<TopicReminder> getTopicReminderList() {
         if (topicReminderList == null) {
@@ -338,4 +340,16 @@ public class Topic {
     public void setPhoneNumberTopicList(List<PhoneNumberTopic> phoneNumberTopicList) {
         this.phoneNumberTopicList = phoneNumberTopicList;
     }
+
+    public List<TopicHistory> getTopicHistoryList() {
+        if (topicHistoryList == null) {
+            topicHistoryList = new ArrayList<>();
+        }
+        return topicHistoryList;
+    }
+
+    public void setTopicHistoryList(List<TopicHistory> topicHistory) {
+        this.topicHistoryList = topicHistory;
+    }
+
 }

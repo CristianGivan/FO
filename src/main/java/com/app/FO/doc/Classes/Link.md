@@ -1,5 +1,8 @@
 # General
 
+- linkTopic I add topics that are important to that link ideas to don't remember
+- topicLink I include the link as reference
+
 # ToDo
 
 ## Entity
@@ -50,7 +53,6 @@
 - [x] linkUserList
 - [x] linkTagList
 - [x] linkReminderList
-- [x] linkTopicList
 - [x] linkTasksList
 - [x] linkHistoryList
 
