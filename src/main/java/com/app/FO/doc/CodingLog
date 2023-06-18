@@ -9,7 +9,7 @@ User	getUserList
 
 230422
 1
-Note	Sterg Remainder
+Note	Sterg Reminder
 
 230421
 12
@@ -36,16 +36,16 @@ reformatting checking for note
 + when no element was found throw exception
 
 Note	Find by reminder
-Note	Sterg Remainder
-Remainder	Sterg
-Remainder	Get reminder by note
+Note	Sterg Reminder
+Reminder	Sterg
+Reminder	Get reminder by note
 
 
 230408
 View all
 Creez
 Find by Id
-Adaug Remainder
+Adaug Reminder
 
 230407
 I tried to use lombok but I couldn't because is hard to integrate lombok with mapstruct and the Id shall be ignored.
@@ -54,8 +54,8 @@ I managed to rebase but I lost all modifications
 230306
 4
 Note:
-Adaug Remainder
-Sterg Remainder
+Adaug Reminder
+Sterg Reminder
 tesdt
 230325
 6
@@ -92,7 +92,7 @@ Find by Id
 230117
 4
 + Caut dupa topic
-+ Adaug Remainder mapper
++ Adaug Reminder mapper
 
 
 230115

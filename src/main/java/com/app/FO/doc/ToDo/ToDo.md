@@ -14,12 +14,12 @@
 - [11] Expense
 - [12] Expenses
 - [5] Link
-- [3] Note
+- [x] Note
 - [20] Person
     - [ ] getPersonPerosn check
 - [19] PhoneNumber
-- [1] Reminder
-- [22] Role
+- [3] Reminder
+- [2] Role
 - [10] Shop
 - [x] Snooze
 - [x] Tag
@@ -27,7 +27,7 @@
 - [7] Tasks
 - [4] Topic
 - [13] Transaction
-- [21] User
+- [1] User
 - [8] Work
 
 ### General

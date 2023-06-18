@@ -48,7 +48,7 @@ public abstract class NoteDTOMapper {
 //    @Mapping(target = "tagDTOList", expression = "java(" +
 //            "tagDTOMapper.tagListToTagDTOList(tagService.getListOfTagByNoteId(noteId))" +
 //            ")")
-//    @Mapping(target = "remainderDTOList", expression = "java(" +
+//    @Mapping(target = "ReminderDTOList", expression = "java(" +
 //            "reminderDTOMapper.reminderListTOReminderDTOList(reminderService.getReminderListByNoteId(noteId))" +
 //            ")")
 //    @Mapping(target = "topicDTOList", expression = "java(" +

@@ -1,5 +1,6 @@
 package com.app.FO.service.topic;
 
+import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.note.Note;
 import com.app.FO.model.reminder.Reminder;
@@ -7,7 +8,6 @@ import com.app.FO.model.tag.Tag;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.topic.TopicRepository;
-import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

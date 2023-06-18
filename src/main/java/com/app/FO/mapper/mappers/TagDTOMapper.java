@@ -1,6 +1,5 @@
 package com.app.FO.mapper.mappers;
 
-import com.app.FO.config.AllServices;
 import com.app.FO.mapper.dto.tag.TagDTO;
 import com.app.FO.mapper.dto.tag.TagFDTO;
 import com.app.FO.model.tag.Tag;
@@ -13,8 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {
         UserDTOMapper.class, TopicDTOMapper.class})
 public abstract class TagDTOMapper {
-    @Autowired
-    protected AllServices allServices;
+
     @Autowired
     protected UserDTOMapper userDTOMapper;
 

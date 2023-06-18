@@ -1,6 +1,5 @@
 # General
 
-
 # ToDo
 
 ## Entity
@@ -18,37 +17,46 @@
       @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
       private List<Entity> entityList;
   ```
-   
 
 ### Entity
 
 - [x] Add to all OneToMany the orphanRemoval and cascade
+
 ```
 , orphanRemoval = true,  cascade = {CascadeType.PERSIST, CascadeType.MERGE}
 ```
 
-
 ### DTO
+
 - [ ] Create DTO
 - [ ] Create FDTO
 - [ ] Create Mapper
-  - Add in uses the mappers needed:
-    ```
-    uses = {UserDTOMapper.class}
-    ```
-  - Add @Autowired DTOMapper for the list is needed to be created
-    ```
-     @Autowired
-     protected UserDTOMapper userDTOMapper;
-    ```
+    - Add in uses the mappers needed:
+      ```
+      uses = {UserDTOMapper.class}
+      ```
+    - Add @Autowired DTOMapper for the list is needed to be created
+      ```
+       @Autowired
+       protected UserDTOMapper userDTOMapper;
+      ```
 
+### Attributes
 
+- [x] subject
+- [x] reminderDateTime
+- [x] createdDate
+- [x] creator
+- [x] reminderUserList
+- [x] reminderList
+- [x] snooze
 
 ### Post
+
 - [x] postTopic
 
-
 ### Put
+
 - [x] putSubjectToTopic
 - [x] putUserToTopic
 - [x] putNoteToTopic
@@ -57,6 +65,7 @@
 - [ ] putLinkToTopic
 
 ### Delete
+
 - [x] deleteUserFromTopic
 - [x] deleteNoteFromTopic
 - [x] deleteTagFromTopic
@@ -65,6 +74,7 @@
 - [x] deleteTopic
 
 ### Get
+
 - [x] getAllTopic
 - [x] getTopicBySubject
 - [x] getTopicListBySubjectContains
@@ -74,6 +84,6 @@
 - [x] getTopicListByReminderId
 - [ ] getTopicListByLink
 
-
 ## Other
+
 - [ ] delete Id from controller name 

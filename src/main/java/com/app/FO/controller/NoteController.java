@@ -7,6 +7,7 @@ import com.app.FO.mapper.dto.note.NoteFDTO;
 import com.app.FO.mapper.mappers.NoteDTOMapper;
 import com.app.FO.model.note.Note;
 import com.app.FO.service.note.NoteService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,31 +29,30 @@ public class NoteController {
 
     //-- PostMapping
 
-    @PostMapping("/postNewNote")
-    public NoteFDTO postNewNote(@RequestBody TextDTO noteText) {
-        Note note = noteService.postNewNote(noteText.getText());
+    @PostMapping("/postNote")
+    public NoteFDTO postNote(@RequestBody TextDTO noteText) {
+        Note note = noteService.postNote(noteText.getText());
         return noteDTOMapper.noteToNoteFDTO(note);
     }
 
 
     //-- PutMapping
+    @PutMapping("/putSubjectToNote")
+    public NoteDTO putSubjectToNote(@RequestParam Long noteId, @RequestParam String subject) {
+        Note note = noteService.putSubjectToNote(noteId, subject);
+        return noteDTOMapper.noteToNoteDTO(note);
+    }
+
+    @PutMapping("/putTypeToNote")
+    public NoteDTO putTypeToNote(@RequestParam Long noteId, @RequestParam String type) {
+        Note note = noteService.putTypeToNote(noteId, type);
+        return noteDTOMapper.noteToNoteDTO(note);
+    }
+
 
     @PutMapping("/putTagToNote")
     public NoteFDTO putTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
         Note note = noteService.putTagToNote(noteId, tagId);
-        return noteDTOMapper.noteToNoteFDTO(note);
-    }
-
-
-    @PutMapping("/putTopicToNote")
-    public NoteFDTO putTopicToNote(@RequestParam Long noteId, @RequestParam Long topicId) {
-        Note note = noteService.putTopicToNote(noteId, topicId);
-        return noteDTOMapper.noteToNoteFDTO(note);
-    }
-
-    @PutMapping("/putRemainderToNote")
-    public NoteFDTO putRemainderToNote(@RequestParam Long noteId, @RequestParam Long remainderId) {
-        Note note = noteService.putRemainderToNote(noteId, remainderId);
         return noteDTOMapper.noteToNoteFDTO(note);
     }
 
@@ -62,6 +62,41 @@ public class NoteController {
         return noteDTOMapper.noteToNoteFDTO(note);
     }
 
+
+    @PutMapping("/putReminderToNote")
+    public NoteFDTO putReminderToNote(@RequestParam Long noteId, @RequestParam Long ReminderId) {
+        Note note = noteService.putReminderToNote(noteId, ReminderId);
+        return noteDTOMapper.noteToNoteFDTO(note);
+    }
+
+
+    //-- DeleteMapping
+
+
+    @DeleteMapping("/deleteTagFromNote")
+    public NoteFDTO deleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
+        Note note = noteService.deleteTagFromNote(noteId, tagId);
+        return noteDTOMapper.noteToNoteFDTO(note);
+    }
+
+
+    @DeleteMapping("/deleteReminderFromNote")
+    public NoteFDTO deleteReminderFromNote(@RequestParam Long noteId, @RequestParam Long ReminderId) {
+        Note note = noteService.deleteReminderFromNote(noteId, ReminderId);
+        return noteDTOMapper.noteToNoteFDTO(note);
+    }
+
+    @DeleteMapping("/deleteUserFromNote")
+    public NoteFDTO deleteUserFromNote(@RequestParam Long noteId, @RequestParam Long userId) {
+        Note note = noteService.deleteUserFromNote(noteId, userId);
+        return noteDTOMapper.noteToNoteFDTO(note);
+    }
+
+    @DeleteMapping("/deleteNote")
+    public List<NoteDTO> deleteNote(@RequestParam Long noteId) {
+        List<Note> noteList = noteService.deleteNote(noteId);
+        return noteDTOMapper.noteListToNoteDTOList(noteList);
+    }
 
     //-- GetMapping
     @GetMapping("/getAllNote")
@@ -79,127 +114,64 @@ public class NoteController {
         return noteDTOMapper.noteToNoteDTO(note);
     }
 
-    @GetMapping("/getNotesByTagId/{tagId}")
-    public List<NoteFDTO> getNotesByTagId(@PathVariable Long tagId) {
+    @GetMapping("/getNoteBySubject")
+    public NoteDTO getNoteBySubject(@RequestParam String subject) {
+        Note note = noteService.getNoteBySubject(subject);
+        return noteDTOMapper.noteToNoteDTO(note);
+    }
+
+    @GetMapping("/getNoteListBySubjectContains")
+    public List<NoteDTO> getNoteListBySubjectContains(@RequestParam String subjectContain) {
+        List<Note> noteList = noteService.getNoteListBySubjectContains(subjectContain);
+        return noteDTOMapper.noteListToNoteDTOList(noteList);
+    }
+
+    @GetMapping("/getNoteByType")
+    public NoteDTO getNoteByType(@RequestParam String type) {
+        Note note = noteService.getNoteByType(type);
+        return noteDTOMapper.noteToNoteDTO(note);
+    }
+
+    @GetMapping("/getNoteByTypeContains")
+    public List<NoteDTO> getNoteByTypeContains(@RequestParam String typeContain) {
+        List<Note> noteList = noteService.getNoteByTypeContains(typeContain);
+        return noteDTOMapper.noteListToNoteDTOList(noteList);
+    }
+
+
+    @GetMapping("/getNoteByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public NoteDTO getNoteByCreatedDate(@RequestParam String createdDate) {
+        Note note = noteService.getNoteByCreatedDate(createdDate);
+        return noteDTOMapper.noteToNoteDTO(note);
+    }
+
+    @GetMapping("/getNoteListByCreatedDateBetween")
+    public List<NoteDTO> getNoteListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Note> noteList = noteService.getNoteListByCreatedDateBetween(createdDateMin, createdDateMax);
+        return noteDTOMapper.noteListToNoteDTOList(noteList);
+    }
+
+    @GetMapping("/getNoteListByUserId")
+    public List<NoteDTO> getNoteListByUserId(@RequestParam Long userId) {
+        List<Note> noteList = noteService.getNoteListByUserId(userId);
+        return noteDTOMapper.noteListToNoteDTOList(noteList);
+    }
+
+    @GetMapping("/getNoteListByTagId/{tagId}")
+    public List<NoteFDTO> getNoteListByTagId(@PathVariable Long tagId) {
         List<Note> notes = noteService.getNoteListByTagId(tagId);
         return noteDTOMapper.noteListToNoteFDTOList(notes);
     }
 
-    @GetMapping("/getNotesByTopicId/{topicId}")
-    public List<NoteFDTO> getNotesByTopicId(@PathVariable Long topicId) {
-        List<Note> notes = noteService.getNoteListByTopicId(topicId);
-        return noteDTOMapper.noteListToNoteFDTOList(notes);
+    @GetMapping("/getNoteListByReminderId")
+    public List<NoteDTO> getNoteListByReminderId(@RequestParam Long reminderId) {
+        List<Note> noteList = noteService.getNoteListByReminderId(reminderId);
+        return noteDTOMapper.noteListToNoteDTOList(noteList);
     }
 
-    @GetMapping("/getNotesByNoteThatContainsText/{containsText}")
-    public List<NoteFDTO> getNotesByNoteThatContainsText(@PathVariable String containsText) {
-        List<Note> notes = noteService.getNoteListByNoteThatContainsText(containsText);
-        return noteDTOMapper.noteListToNoteFDTOList(notes);
-    }
-
-
-    //-- DeleteMapping
-    @DeleteMapping("/deleteNoteByNoteId")
-    public NoteFDTO deleteNoteByNoteId(@RequestParam Long noteId) {
-        Note note = noteService.deleteNoteByNoteId(noteId);
-        return noteDTOMapper.noteToNoteFDTO(note);
-    }
-
-    @DeleteMapping("/deleteTagFromNote")
-    public NoteFDTO deleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
-        Note note = noteService.deleteTagFromNote(noteId, tagId);
-        return noteDTOMapper.noteToNoteFDTO(note);
-    }
-
-    @DeleteMapping("/deleteTopicFromNote")
-    public NoteFDTO deleteTopicFromNote(@RequestParam Long noteId, @RequestParam Long topicId) {
-        Note note = noteService.deleteTopicFromNote(noteId, topicId);
-        return noteDTOMapper.noteToNoteFDTO(note);
-    }
-
-    @DeleteMapping("/deleteRemainderFromNote")
-    public NoteFDTO deleteRemainderFromNote(@RequestParam Long noteId, @RequestParam Long remainderId) {
-        Note note = noteService.deleteRemainderFromNote(noteId, remainderId);
-        return noteDTOMapper.noteToNoteFDTO(note);
-    }
-
-    @DeleteMapping("/deleteUserFromNote")
-    public NoteFDTO deleteUserFromNote(@RequestParam Long noteId, @RequestParam Long userId) {
-        Note note = noteService.deleteUserFromNote(noteId, userId);
-        return noteDTOMapper.noteToNoteFDTO(note);
-    }
 
     //--- Other
 
-/*
-    //-- PostMapping admin
 
-    @PostMapping("/adminPostNewNote")
-    public NoteFDTO adminPostNewNote(@RequestBody TextDTO noteText) {
-        Note note = noteService.adminPostNewNote(noteText.getText());
-        return noteDTOMapper.NoteToNoteFDTO(note);
-    }
-
-    //-- GetMapping admin
-
-    //
-    @GetMapping("/adminGetNoteById/{noteId}")
-    public NoteFDTO adminGetNoteById(@PathVariable Long noteId) {
-        Note note = noteService.adminGetNoteById(noteId);
-        return noteDTOMapper.NoteToNoteFDTO(note);
-    }
-
-
-    @GetMapping("/adminGetAllNotes")
-    public List<NoteDTO> adminGetAllNotes() {
-        List<Note> notes = noteService.adminGetAllNotes();
-        return noteDTOMapper.NotesToNotesDTO(notes);
-    }
-
-
-    @GetMapping("/adminGetNotesByTagId/{tagId}")
-    public List<NoteFDTO> adminGetNotesByTagId(@PathVariable Long tagId) {
-        List<Note> notes = noteService.adminGetNotesByTagId(tagId);
-        return noteDTOMapper.NotesToNotesFDTO(notes);
-    }
-
-    @GetMapping("/adminGetNotesByTopicId/{topicId}")
-    public List<NoteFDTO> adminGetNotesByTopicId(@PathVariable Long topicId) {
-        List<Note> notes = noteService.adminGetNotesByTopicId(topicId);
-        return noteDTOMapper.NotesToNotesFDTO(notes);
-    }
-
-    @GetMapping("/adminGetNotesByNoteThatContainsText/{containsText}")
-    public List<NoteFDTO> adminGetNotesByNoteThatContainsText(@PathVariable String containsText) {
-        List<Note> notes = noteService.adminGetNotesByNoteThatContainsText(containsText);
-        if (notes == null) {
-            throw new NoteNotFoundException("The note was not found");
-        }
-        return noteDTOMapper.NotesToNotesFDTO(notes);
-    }
-
-
-    //-- PutMapping admin
-
-    @PutMapping("/adminPutNoteText/{noteId}")
-    public NoteFDTO adminPutNoteText(@PathVariable Long noteId, @RequestBody TextDTO textNote) {
-        Note note = noteService.adminPutNoteText(noteId, textNote.getText());
-        return noteDTOMapper.NoteToNoteFDTO(note);
-    }
-
-    @PutMapping("/adminPutTagToNote")
-    public NoteFDTO adminPutTagToNote(@RequestParam Long noteId, @RequestParam Long tagId) {
-        Note note =noteService.adminPutTagToNote(noteId, tagId);
-        return noteDTOMapper.NoteToNoteFDTO(note);
-    }
-
-
-    //-- DeleteMapping admin
-
-    @DeleteMapping("/adminDeleteTagFromNote")
-    public NoteFDTO adminDeleteTagFromNote(@RequestParam Long noteId, @RequestParam Long tagId) {
-        Note note =noteService.adminDeleteTagFromNote(noteId, tagId);
-        return noteDTOMapper.NoteToNoteFDTO(note);
-    }
-*/
 }

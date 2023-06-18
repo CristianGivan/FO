@@ -4,50 +4,46 @@ General
 
 ## Template
 
-### Entity
-
-### Put
-
-- [ ] putTextToNote
-
 ### Attributes
 
-- [ ] type
-- [ ] subject
-- [ ] createdDate
-- [ ] creator
-- [ ] noteUserList
-- [ ] noteTagList
-- [ ] noteReminderList
+- [x] subject
+- [x] type
+- [x] createdDate
+- [x] creator
+- [x] noteUserList
+- [x] noteTagList
+- [x] noteReminderList
 
 ### Post
 
-- [ ] postTag
+- [x] postNote
 
 ### Put
 
-- [ ] putTypeToTag
-- [ ] putSubjectToTag
-- [ ] putUserToTag
-- [ ] putTagToTag
-- [ ] putReminderToTag
+- [x] putSubjectToNote
+- [x] putTypeToNote
+- [x] putUserToNote
+- [x] putTagToNote
+- [x] putReminderToNote
 
 ### Delete
 
-- [ ] deleteUserFromTag
+- [x] deleteUserFromNote
+- [x] deleteTagFromNote
+- [x] deleteReminderFromNote
 
 ### Get
 
-- [ ] getAllTag
-- [ ] getTagById
-- [ ] getTagBySubject
-- [ ] getTagListBySubjectContains
-- [ ] getTagByType
-- [ ] getTagListByTypeContains
-- [ ] getTagByCreatedDate
-- [ ] getTagListByCreatedDateBetween
-- [ ] getTagListByUser
-- [ ] getTagListByTag
-- [ ] getTagListByReminder
+- [x] getAllNote
+- [x] getNoteById
+- [x] getNoteBySubject
+- [x] getNoteListBySubjectContains
+- [x] getNoteByType
+- [x] getNoteListByTypeContains
+- [x] getNoteByCreatedDate
+- [x] getNoteListByCreatedDateBetween
+- [x] getNoteListByUser
+- [x] getNoteListByTag
+- [x] getNoteListByReminder
 
 ## Other[ ]

@@ -762,22 +762,22 @@ INSERT INTO `note_history_seq` VALUES (1);
 UNLOCK TABLES;
 
 --
--- Dumping data for table `note_remainder`
+-- Dumping data for table `note_Reminder`
 --
 
-LOCK TABLES `note_remainder` WRITE;
-/*!40000 ALTER TABLE `note_remainder` DISABLE KEYS */;
-/*!40000 ALTER TABLE `note_remainder` ENABLE KEYS */;
+LOCK TABLES `note_Reminder` WRITE;
+/*!40000 ALTER TABLE `note_Reminder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `note_Reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `note_remainder_seq`
+-- Dumping data for table `note_Reminder_seq`
 --
 
-LOCK TABLES `note_remainder_seq` WRITE;
-/*!40000 ALTER TABLE `note_remainder_seq` DISABLE KEYS */;
-INSERT INTO `note_remainder_seq` VALUES (1);
-/*!40000 ALTER TABLE `note_remainder_seq` ENABLE KEYS */;
+LOCK TABLES `note_Reminder_seq` WRITE;
+/*!40000 ALTER TABLE `note_Reminder_seq` DISABLE KEYS */;
+INSERT INTO `note_Reminder_seq` VALUES (1);
+/*!40000 ALTER TABLE `note_Reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

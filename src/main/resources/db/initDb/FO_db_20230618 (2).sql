@@ -242,7 +242,7 @@ CREATE TABLE `account_tag_seq` (
 
 LOCK TABLES `account_tag_seq` WRITE;
 /*!40000 ALTER TABLE `account_tag_seq` DISABLE KEYS */;
-INSERT INTO `account_tag_seq` VALUES (7);
+INSERT INTO `account_tag_seq` VALUES (1);
 /*!40000 ALTER TABLE `account_tag_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1795,6 +1795,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
+INSERT INTO `event` VALUES (1,'2023-06-14 18:11:46','Event1',1),(2,'2023-06-14 18:11:53','Event2',1),(3,'2023-06-14 18:11:58','Event3',1),(4,'2023-06-14 18:12:05','Event33',1),(5,'2023-06-14 18:12:08','Event333',1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1850,6 +1851,58 @@ INSERT INTO `event_expense_seq` VALUES (1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `event_expenses`
+--
+
+DROP TABLE IF EXISTS `event_expenses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event_expenses` (
+  `event_expenses_id` bigint NOT NULL,
+  `event_date` datetime DEFAULT NULL,
+  `event_id` bigint DEFAULT NULL,
+  `expenses_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`event_expenses_id`),
+  KEY `FKgquieqn0gklei1dfc32rv3hu1` (`event_id`),
+  KEY `FKnp1of12nggto0b0cuhdda3lyt` (`expenses_id`),
+  CONSTRAINT `FKgquieqn0gklei1dfc32rv3hu1` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`),
+  CONSTRAINT `FKnp1of12nggto0b0cuhdda3lyt` FOREIGN KEY (`expenses_id`) REFERENCES `expenses` (`expenses_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_expenses`
+--
+
+LOCK TABLES `event_expenses` WRITE;
+/*!40000 ALTER TABLE `event_expenses` DISABLE KEYS */;
+INSERT INTO `event_expenses` VALUES (1,'2023-06-14 20:09:02',1,1),(2,'2023-06-14 20:09:05',2,2),(3,'2023-06-14 20:09:09',3,3),(4,'2023-06-14 20:09:14',4,4),(5,'2023-06-14 20:09:23',4,5),(6,'2023-06-14 20:09:25',5,5);
+/*!40000 ALTER TABLE `event_expenses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event_expenses_seq`
+--
+
+DROP TABLE IF EXISTS `event_expenses_seq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event_expenses_seq` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_expenses_seq`
+--
+
+LOCK TABLES `event_expenses_seq` WRITE;
+/*!40000 ALTER TABLE `event_expenses_seq` DISABLE KEYS */;
+INSERT INTO `event_expenses_seq` VALUES (7);
+/*!40000 ALTER TABLE `event_expenses_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `event_history_seq`
 --
 
@@ -1869,6 +1922,58 @@ LOCK TABLES `event_history_seq` WRITE;
 /*!40000 ALTER TABLE `event_history_seq` DISABLE KEYS */;
 INSERT INTO `event_history_seq` VALUES (1);
 /*!40000 ALTER TABLE `event_history_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event_person`
+--
+
+DROP TABLE IF EXISTS `event_person`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event_person` (
+  `event_person_id` bigint NOT NULL,
+  `event_date` datetime DEFAULT NULL,
+  `event_id` bigint DEFAULT NULL,
+  `person_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`event_person_id`),
+  KEY `FKpmqgfnq8lnm52ofkr4s7lo9me` (`event_id`),
+  KEY `FKlgigtkdw54k3eif4208c5n5yf` (`person_id`),
+  CONSTRAINT `FKlgigtkdw54k3eif4208c5n5yf` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`),
+  CONSTRAINT `FKpmqgfnq8lnm52ofkr4s7lo9me` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_person`
+--
+
+LOCK TABLES `event_person` WRITE;
+/*!40000 ALTER TABLE `event_person` DISABLE KEYS */;
+INSERT INTO `event_person` VALUES (1,'2023-06-14 20:10:50',1,1),(2,'2023-06-14 20:10:56',2,2),(3,'2023-06-14 20:10:58',3,3),(4,'2023-06-14 20:11:00',4,4),(5,'2023-06-14 20:11:02',4,5),(6,'2023-06-14 20:11:04',5,5);
+/*!40000 ALTER TABLE `event_person` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event_person_seq`
+--
+
+DROP TABLE IF EXISTS `event_person_seq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event_person_seq` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_person_seq`
+--
+
+LOCK TABLES `event_person_seq` WRITE;
+/*!40000 ALTER TABLE `event_person_seq` DISABLE KEYS */;
+INSERT INTO `event_person_seq` VALUES (7);
+/*!40000 ALTER TABLE `event_person_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1897,6 +2002,7 @@ CREATE TABLE `event_reminder` (
 
 LOCK TABLES `event_reminder` WRITE;
 /*!40000 ALTER TABLE `event_reminder` DISABLE KEYS */;
+INSERT INTO `event_reminder` VALUES (1,'2023-06-14 20:06:11',1,1),(2,'2023-06-14 20:06:14',2,2),(3,'2023-06-14 20:06:17',3,3),(4,'2023-06-14 20:06:21',4,4),(5,'2023-06-14 20:06:24',5,5),(6,'2023-06-14 20:06:31',4,5);
 /*!40000 ALTER TABLE `event_reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1918,7 +2024,7 @@ CREATE TABLE `event_reminder_seq` (
 
 LOCK TABLES `event_reminder_seq` WRITE;
 /*!40000 ALTER TABLE `event_reminder_seq` DISABLE KEYS */;
-INSERT INTO `event_reminder_seq` VALUES (1);
+INSERT INTO `event_reminder_seq` VALUES (7);
 /*!40000 ALTER TABLE `event_reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1940,7 +2046,7 @@ CREATE TABLE `event_seq` (
 
 LOCK TABLES `event_seq` WRITE;
 /*!40000 ALTER TABLE `event_seq` DISABLE KEYS */;
-INSERT INTO `event_seq` VALUES (1);
+INSERT INTO `event_seq` VALUES (6);
 /*!40000 ALTER TABLE `event_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1970,6 +2076,7 @@ CREATE TABLE `event_tag` (
 
 LOCK TABLES `event_tag` WRITE;
 /*!40000 ALTER TABLE `event_tag` DISABLE KEYS */;
+INSERT INTO `event_tag` VALUES (1,'2023-06-14 20:05:07',1,1),(2,'2023-06-14 20:05:11',2,2),(3,'2023-06-14 20:05:13',3,3),(4,'2023-06-14 20:05:17',4,4),(5,'2023-06-14 20:05:18',4,5),(6,'2023-06-14 20:05:21',5,5);
 /*!40000 ALTER TABLE `event_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1991,7 +2098,7 @@ CREATE TABLE `event_tag_seq` (
 
 LOCK TABLES `event_tag_seq` WRITE;
 /*!40000 ALTER TABLE `event_tag_seq` DISABLE KEYS */;
-INSERT INTO `event_tag_seq` VALUES (1);
+INSERT INTO `event_tag_seq` VALUES (7);
 /*!40000 ALTER TABLE `event_tag_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2021,6 +2128,7 @@ CREATE TABLE `event_tasks` (
 
 LOCK TABLES `event_tasks` WRITE;
 /*!40000 ALTER TABLE `event_tasks` DISABLE KEYS */;
+INSERT INTO `event_tasks` VALUES (1,'2023-06-14 20:07:45',1,1),(2,'2023-06-14 20:07:48',2,2),(3,'2023-06-14 20:07:50',3,3),(4,'2023-06-14 20:07:54',4,4),(5,'2023-06-14 20:08:06',4,5),(6,'2023-06-14 20:08:09',5,5);
 /*!40000 ALTER TABLE `event_tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2042,7 +2150,7 @@ CREATE TABLE `event_tasks_seq` (
 
 LOCK TABLES `event_tasks_seq` WRITE;
 /*!40000 ALTER TABLE `event_tasks_seq` DISABLE KEYS */;
-INSERT INTO `event_tasks_seq` VALUES (1);
+INSERT INTO `event_tasks_seq` VALUES (7);
 /*!40000 ALTER TABLE `event_tasks_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2072,6 +2180,7 @@ CREATE TABLE `event_topic` (
 
 LOCK TABLES `event_topic` WRITE;
 /*!40000 ALTER TABLE `event_topic` DISABLE KEYS */;
+INSERT INTO `event_topic` VALUES (1,'2023-06-14 20:06:57',1,1),(2,'2023-06-14 20:07:02',2,2),(3,'2023-06-14 20:07:04',3,3),(4,'2023-06-14 20:07:07',4,4),(5,'2023-06-14 20:07:10',4,5),(6,'2023-06-14 20:07:12',5,5);
 /*!40000 ALTER TABLE `event_topic` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2093,7 +2202,7 @@ CREATE TABLE `event_topic_seq` (
 
 LOCK TABLES `event_topic_seq` WRITE;
 /*!40000 ALTER TABLE `event_topic_seq` DISABLE KEYS */;
-INSERT INTO `event_topic_seq` VALUES (1);
+INSERT INTO `event_topic_seq` VALUES (7);
 /*!40000 ALTER TABLE `event_topic_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2123,6 +2232,7 @@ CREATE TABLE `event_user` (
 
 LOCK TABLES `event_user` WRITE;
 /*!40000 ALTER TABLE `event_user` DISABLE KEYS */;
+INSERT INTO `event_user` VALUES (1,'2023-06-14 18:11:46',1,1),(2,'2023-06-14 18:11:53',2,1),(3,'2023-06-14 18:11:58',3,1),(4,'2023-06-14 18:12:05',4,1),(5,'2023-06-14 18:12:08',5,1),(6,'2023-06-14 18:29:45',1,2),(7,'2023-06-14 18:29:47',1,3),(8,'2023-06-14 18:29:50',2,3),(9,'2023-06-14 18:29:52',2,2);
 /*!40000 ALTER TABLE `event_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2144,7 +2254,7 @@ CREATE TABLE `event_user_seq` (
 
 LOCK TABLES `event_user_seq` WRITE;
 /*!40000 ALTER TABLE `event_user_seq` DISABLE KEYS */;
-INSERT INTO `event_user_seq` VALUES (1);
+INSERT INTO `event_user_seq` VALUES (10);
 /*!40000 ALTER TABLE `event_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2233,7 +2343,6 @@ CREATE TABLE `expense_reminder` (
 
 LOCK TABLES `expense_reminder` WRITE;
 /*!40000 ALTER TABLE `expense_reminder` DISABLE KEYS */;
-INSERT INTO `expense_reminder` VALUES (1,'2023-06-08 15:57:01',1,1),(2,'2023-06-08 15:57:06',2,2),(3,'2023-06-08 15:57:08',3,3),(4,'2023-06-08 15:57:13',4,4),(5,'2023-06-08 15:57:15',4,5),(6,'2023-06-08 15:57:18',5,5);
 /*!40000 ALTER TABLE `expense_reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2255,7 +2364,7 @@ CREATE TABLE `expense_reminder_seq` (
 
 LOCK TABLES `expense_reminder_seq` WRITE;
 /*!40000 ALTER TABLE `expense_reminder_seq` DISABLE KEYS */;
-INSERT INTO `expense_reminder_seq` VALUES (7);
+INSERT INTO `expense_reminder_seq` VALUES (1);
 /*!40000 ALTER TABLE `expense_reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2965,6 +3074,7 @@ CREATE TABLE `link` (
 
 LOCK TABLES `link` WRITE;
 /*!40000 ALTER TABLE `link` DISABLE KEYS */;
+INSERT INTO `link` VALUES (1,'2023-06-14 21:38:35','Link1',1,'ref1'),(2,'2023-06-14 21:38:42','Link2',1,'ref2'),(3,'2023-06-14 21:38:46','Link3',1,'ref3'),(4,'2023-06-14 21:38:52','Link33',1,'ref33'),(5,'2023-06-14 21:38:59','Link333',1,'ref333');
 /*!40000 ALTER TABLE `link` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3016,6 +3126,7 @@ CREATE TABLE `link_reminder` (
 
 LOCK TABLES `link_reminder` WRITE;
 /*!40000 ALTER TABLE `link_reminder` DISABLE KEYS */;
+INSERT INTO `link_reminder` VALUES (1,'2023-06-14 21:44:25',1,1),(2,'2023-06-14 21:44:28',2,2),(3,'2023-06-14 21:44:31',3,3),(4,'2023-06-14 21:44:33',4,4),(5,'2023-06-14 21:44:35',4,5),(6,'2023-06-14 21:44:38',5,5);
 /*!40000 ALTER TABLE `link_reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3037,7 +3148,7 @@ CREATE TABLE `link_reminder_seq` (
 
 LOCK TABLES `link_reminder_seq` WRITE;
 /*!40000 ALTER TABLE `link_reminder_seq` DISABLE KEYS */;
-INSERT INTO `link_reminder_seq` VALUES (1);
+INSERT INTO `link_reminder_seq` VALUES (7);
 /*!40000 ALTER TABLE `link_reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3059,7 +3170,7 @@ CREATE TABLE `link_seq` (
 
 LOCK TABLES `link_seq` WRITE;
 /*!40000 ALTER TABLE `link_seq` DISABLE KEYS */;
-INSERT INTO `link_seq` VALUES (1);
+INSERT INTO `link_seq` VALUES (6);
 /*!40000 ALTER TABLE `link_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3140,6 +3251,7 @@ CREATE TABLE `link_tasks` (
 
 LOCK TABLES `link_tasks` WRITE;
 /*!40000 ALTER TABLE `link_tasks` DISABLE KEYS */;
+INSERT INTO `link_tasks` VALUES (1,'2023-06-14 21:46:13',1,1),(2,'2023-06-14 21:46:15',2,2),(3,'2023-06-14 21:46:20',3,3),(4,'2023-06-14 21:46:23',4,4),(5,'2023-06-14 21:46:25',4,5),(6,'2023-06-14 21:46:27',5,5);
 /*!40000 ALTER TABLE `link_tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3161,7 +3273,7 @@ CREATE TABLE `link_tasks_seq` (
 
 LOCK TABLES `link_tasks_seq` WRITE;
 /*!40000 ALTER TABLE `link_tasks_seq` DISABLE KEYS */;
-INSERT INTO `link_tasks_seq` VALUES (1);
+INSERT INTO `link_tasks_seq` VALUES (7);
 /*!40000 ALTER TABLE `link_tasks_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3191,6 +3303,7 @@ CREATE TABLE `link_topic` (
 
 LOCK TABLES `link_topic` WRITE;
 /*!40000 ALTER TABLE `link_topic` DISABLE KEYS */;
+INSERT INTO `link_topic` VALUES (1,'2023-06-14 21:45:24',1,1),(2,'2023-06-14 21:45:27',2,2),(3,'2023-06-14 21:45:29',3,3),(4,'2023-06-14 21:45:32',4,4),(5,'2023-06-14 21:45:33',4,5),(6,'2023-06-14 21:45:35',5,5);
 /*!40000 ALTER TABLE `link_topic` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3212,7 +3325,7 @@ CREATE TABLE `link_topic_seq` (
 
 LOCK TABLES `link_topic_seq` WRITE;
 /*!40000 ALTER TABLE `link_topic_seq` DISABLE KEYS */;
-INSERT INTO `link_topic_seq` VALUES (1);
+INSERT INTO `link_topic_seq` VALUES (7);
 /*!40000 ALTER TABLE `link_topic_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3242,6 +3355,7 @@ CREATE TABLE `link_user` (
 
 LOCK TABLES `link_user` WRITE;
 /*!40000 ALTER TABLE `link_user` DISABLE KEYS */;
+INSERT INTO `link_user` VALUES (1,'2023-06-14 21:38:35',1,1),(2,'2023-06-14 21:38:42',2,1),(3,'2023-06-14 21:38:46',3,1),(4,'2023-06-14 21:38:52',4,1),(5,'2023-06-14 21:38:59',5,1),(6,'2023-06-14 21:42:52',1,2),(7,'2023-06-14 21:42:54',1,3),(8,'2023-06-14 21:43:08',2,3),(9,'2023-06-14 21:43:12',2,2),(10,'2023-06-14 21:43:21',3,2),(11,'2023-06-14 21:43:23',3,3);
 /*!40000 ALTER TABLE `link_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3263,7 +3377,7 @@ CREATE TABLE `link_user_seq` (
 
 LOCK TABLES `link_user_seq` WRITE;
 /*!40000 ALTER TABLE `link_user_seq` DISABLE KEYS */;
-INSERT INTO `link_user_seq` VALUES (1);
+INSERT INTO `link_user_seq` VALUES (12);
 /*!40000 ALTER TABLE `link_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3277,7 +3391,8 @@ DROP TABLE IF EXISTS `note`;
 CREATE TABLE `note` (
   `note_id` bigint NOT NULL,
   `created_date` datetime DEFAULT NULL,
-  `note_text` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`note_id`),
   KEY `FKmoddtnuw3yy6ct34xnw6u0boh` (`user_id`),
@@ -3291,6 +3406,7 @@ CREATE TABLE `note` (
 
 LOCK TABLES `note` WRITE;
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;
+INSERT INTO `note` VALUES (1,'2023-06-18 02:50:07','note1','type1',1),(2,'2023-06-18 02:55:21','note2','type2',1),(3,'2023-06-18 02:55:24','note3','type3',1),(4,'2023-06-18 02:55:30','note33','type33',1),(5,'2023-06-18 02:55:33','note333','type333',1);
 /*!40000 ALTER TABLE `note` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3347,54 +3463,55 @@ INSERT INTO `note_history_seq` VALUES (1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `note_Reminder`
+-- Table structure for table `note_reminder`
 --
 
-DROP TABLE IF EXISTS `note_Reminder`;
+DROP TABLE IF EXISTS `note_reminder`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `note_Reminder` (
-  `note_Reminder_id` bigint NOT NULL,
+CREATE TABLE `note_reminder` (
+  `note_reminder_id` bigint NOT NULL,
   `link_date` datetime DEFAULT NULL,
   `note_id` bigint DEFAULT NULL,
-  `Reminder_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`note_Reminder_id`),
-  KEY `FKnvroi70n8vqevdp3o2mhrju41` (`note_id`),
-  KEY `FK2hleild9tydqlcej5rxatugpe` (`Reminder_id`),
-  CONSTRAINT `FK2hleild9tydqlcej5rxatugpe` FOREIGN KEY (`Reminder_id`) REFERENCES `reminder` (`reminder_id`),
-  CONSTRAINT `FKnvroi70n8vqevdp3o2mhrju41` FOREIGN KEY (`note_id`) REFERENCES `note` (`note_id`)
+  `reminder_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`note_reminder_id`),
+  KEY `FKlbh3ecpfoj6g9c5gcjm9wdks0` (`note_id`),
+  KEY `FKlb0jijmly7xv5u3yjta1qqtwh` (`reminder_id`),
+  CONSTRAINT `FKlb0jijmly7xv5u3yjta1qqtwh` FOREIGN KEY (`reminder_id`) REFERENCES `reminder` (`reminder_id`),
+  CONSTRAINT `FKlbh3ecpfoj6g9c5gcjm9wdks0` FOREIGN KEY (`note_id`) REFERENCES `note` (`note_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `note_Reminder`
+-- Dumping data for table `note_reminder`
 --
 
-LOCK TABLES `note_Reminder` WRITE;
-/*!40000 ALTER TABLE `note_Reminder` DISABLE KEYS */;
-/*!40000 ALTER TABLE `note_Reminder` ENABLE KEYS */;
+LOCK TABLES `note_reminder` WRITE;
+/*!40000 ALTER TABLE `note_reminder` DISABLE KEYS */;
+INSERT INTO `note_reminder` VALUES (1,'2023-06-18 03:09:48',1,1),(2,'2023-06-18 03:09:56',2,2),(3,'2023-06-18 03:09:58',3,3),(4,'2023-06-18 03:10:01',4,4),(5,'2023-06-18 03:10:02',4,5),(6,'2023-06-18 03:10:04',5,5);
+/*!40000 ALTER TABLE `note_reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `note_Reminder_seq`
+-- Table structure for table `note_reminder_seq`
 --
 
-DROP TABLE IF EXISTS `note_Reminder_seq`;
+DROP TABLE IF EXISTS `note_reminder_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `note_Reminder_seq` (
+CREATE TABLE `note_reminder_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `note_Reminder_seq`
+-- Dumping data for table `note_reminder_seq`
 --
 
-LOCK TABLES `note_Reminder_seq` WRITE;
-/*!40000 ALTER TABLE `note_Reminder_seq` DISABLE KEYS */;
-INSERT INTO `note_Reminder_seq` VALUES (1);
-/*!40000 ALTER TABLE `note_Reminder_seq` ENABLE KEYS */;
+LOCK TABLES `note_reminder_seq` WRITE;
+/*!40000 ALTER TABLE `note_reminder_seq` DISABLE KEYS */;
+INSERT INTO `note_reminder_seq` VALUES (7);
+/*!40000 ALTER TABLE `note_reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3415,7 +3532,7 @@ CREATE TABLE `note_seq` (
 
 LOCK TABLES `note_seq` WRITE;
 /*!40000 ALTER TABLE `note_seq` DISABLE KEYS */;
-INSERT INTO `note_seq` VALUES (1);
+INSERT INTO `note_seq` VALUES (6);
 /*!40000 ALTER TABLE `note_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3445,6 +3562,7 @@ CREATE TABLE `note_tag` (
 
 LOCK TABLES `note_tag` WRITE;
 /*!40000 ALTER TABLE `note_tag` DISABLE KEYS */;
+INSERT INTO `note_tag` VALUES (1,'2023-06-18 02:56:11',1,1),(2,'2023-06-18 02:56:17',2,2),(3,'2023-06-18 02:56:19',3,3),(4,'2023-06-18 02:56:21',4,4),(5,'2023-06-18 02:56:24',4,5),(6,'2023-06-18 02:56:26',5,5),(7,'2023-06-18 02:56:29',5,6);
 /*!40000 ALTER TABLE `note_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3466,7 +3584,7 @@ CREATE TABLE `note_tag_seq` (
 
 LOCK TABLES `note_tag_seq` WRITE;
 /*!40000 ALTER TABLE `note_tag_seq` DISABLE KEYS */;
-INSERT INTO `note_tag_seq` VALUES (1);
+INSERT INTO `note_tag_seq` VALUES (8);
 /*!40000 ALTER TABLE `note_tag_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3496,6 +3614,7 @@ CREATE TABLE `note_user` (
 
 LOCK TABLES `note_user` WRITE;
 /*!40000 ALTER TABLE `note_user` DISABLE KEYS */;
+INSERT INTO `note_user` VALUES (1,'2023-06-18 02:50:07',1,1),(2,'2023-06-18 02:55:21',2,1),(3,'2023-06-18 02:55:24',3,1),(4,'2023-06-18 02:55:30',4,1),(5,'2023-06-18 02:55:33',5,1),(6,'2023-06-18 02:58:09',1,2),(7,'2023-06-18 02:58:13',1,3),(8,'2023-06-18 02:58:14',1,4),(9,'2023-06-18 02:58:16',1,5),(10,'2023-06-18 02:58:20',2,5),(11,'2023-06-18 02:58:22',2,3),(12,'2023-06-18 02:58:30',2,2),(13,'2023-06-18 02:58:35',3,2),(14,'2023-06-18 02:58:44',3,3),(15,'2023-06-18 02:58:45',3,4),(16,'2023-06-18 02:58:47',3,5);
 /*!40000 ALTER TABLE `note_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3517,7 +3636,7 @@ CREATE TABLE `note_user_seq` (
 
 LOCK TABLES `note_user_seq` WRITE;
 /*!40000 ALTER TABLE `note_user_seq` DISABLE KEYS */;
-INSERT INTO `note_user_seq` VALUES (1);
+INSERT INTO `note_user_seq` VALUES (17);
 /*!40000 ALTER TABLE `note_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3915,6 +4034,7 @@ CREATE TABLE `person_reminder` (
 
 LOCK TABLES `person_reminder` WRITE;
 /*!40000 ALTER TABLE `person_reminder` DISABLE KEYS */;
+INSERT INTO `person_reminder` VALUES (1,'2023-06-14 14:46:55',1,1),(2,'2023-06-14 14:46:58',2,2),(3,'2023-06-14 14:47:00',3,3),(4,'2023-06-14 14:47:02',4,4),(5,'2023-06-14 14:47:05',4,5),(6,'2023-06-14 14:47:06',5,5);
 /*!40000 ALTER TABLE `person_reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3936,7 +4056,7 @@ CREATE TABLE `person_reminder_seq` (
 
 LOCK TABLES `person_reminder_seq` WRITE;
 /*!40000 ALTER TABLE `person_reminder_seq` DISABLE KEYS */;
-INSERT INTO `person_reminder_seq` VALUES (1);
+INSERT INTO `person_reminder_seq` VALUES (7);
 /*!40000 ALTER TABLE `person_reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3988,6 +4108,7 @@ CREATE TABLE `person_tag` (
 
 LOCK TABLES `person_tag` WRITE;
 /*!40000 ALTER TABLE `person_tag` DISABLE KEYS */;
+INSERT INTO `person_tag` VALUES (1,'2023-06-14 14:41:59',1,1),(2,'2023-06-14 14:42:04',2,2),(3,'2023-06-14 14:42:07',3,3),(4,'2023-06-14 14:42:09',4,4),(5,'2023-06-14 14:42:13',4,5),(6,'2023-06-14 14:42:14',5,5);
 /*!40000 ALTER TABLE `person_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4009,7 +4130,7 @@ CREATE TABLE `person_tag_seq` (
 
 LOCK TABLES `person_tag_seq` WRITE;
 /*!40000 ALTER TABLE `person_tag_seq` DISABLE KEYS */;
-INSERT INTO `person_tag_seq` VALUES (1);
+INSERT INTO `person_tag_seq` VALUES (7);
 /*!40000 ALTER TABLE `person_tag_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4039,6 +4160,7 @@ CREATE TABLE `person_tasks` (
 
 LOCK TABLES `person_tasks` WRITE;
 /*!40000 ALTER TABLE `person_tasks` DISABLE KEYS */;
+INSERT INTO `person_tasks` VALUES (1,'2023-06-14 14:48:16',1,1),(2,'2023-06-14 14:48:18',2,2),(3,'2023-06-14 14:48:20',3,3),(4,'2023-06-14 14:48:27',4,4),(5,'2023-06-14 14:48:31',4,5),(6,'2023-06-14 14:48:33',5,5);
 /*!40000 ALTER TABLE `person_tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4060,7 +4182,7 @@ CREATE TABLE `person_tasks_seq` (
 
 LOCK TABLES `person_tasks_seq` WRITE;
 /*!40000 ALTER TABLE `person_tasks_seq` DISABLE KEYS */;
-INSERT INTO `person_tasks_seq` VALUES (1);
+INSERT INTO `person_tasks_seq` VALUES (7);
 /*!40000 ALTER TABLE `person_tasks_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4090,6 +4212,7 @@ CREATE TABLE `person_topic` (
 
 LOCK TABLES `person_topic` WRITE;
 /*!40000 ALTER TABLE `person_topic` DISABLE KEYS */;
+INSERT INTO `person_topic` VALUES (1,'2023-06-14 14:47:34',1,1),(2,'2023-06-14 14:47:38',2,2),(3,'2023-06-14 14:47:40',3,3),(4,'2023-06-14 14:47:42',4,4),(5,'2023-06-14 14:47:44',4,5),(6,'2023-06-14 14:47:46',5,5);
 /*!40000 ALTER TABLE `person_topic` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4111,7 +4234,7 @@ CREATE TABLE `person_topic_seq` (
 
 LOCK TABLES `person_topic_seq` WRITE;
 /*!40000 ALTER TABLE `person_topic_seq` DISABLE KEYS */;
-INSERT INTO `person_topic_seq` VALUES (1);
+INSERT INTO `person_topic_seq` VALUES (7);
 /*!40000 ALTER TABLE `person_topic_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4507,9 +4630,10 @@ CREATE TABLE `reminder` (
   `reminder_id` bigint NOT NULL,
   `created_date` datetime DEFAULT NULL,
   `reminder` varchar(255) DEFAULT NULL,
-  `data_time` datetime DEFAULT NULL,
+  `reminder_date_time` datetime DEFAULT NULL,
   `account_id` bigint DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
   `event_id` bigint DEFAULT NULL,
   `expense_id` bigint DEFAULT NULL,
   `expenses_id` bigint DEFAULT NULL,
@@ -4569,7 +4693,7 @@ CREATE TABLE `reminder` (
 
 LOCK TABLES `reminder` WRITE;
 /*!40000 ALTER TABLE `reminder` DISABLE KEYS */;
-INSERT INTO `reminder` VALUES (1,'2023-06-04 16:02:50','reminder1',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,'2023-06-04 16:03:00','reminder2',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'2023-06-04 16:03:04','reminder3',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'2023-06-04 16:03:07','reminder4',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'2023-06-04 16:03:09','reminder5',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `reminder` VALUES (1,'2023-06-04 16:02:50',NULL,'2023-06-04 16:03:11',NULL,1,'reminder1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,'2023-06-04 16:03:00',NULL,'2023-06-04 16:03:07',NULL,1,'reminder2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'2023-06-04 16:03:04',NULL,'2023-06-04 16:03:08',NULL,1,'reminder3',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'2023-06-04 16:03:07',NULL,'2023-06-04 16:03:37',NULL,1,'reminder33',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'2023-06-04 16:03:09',NULL,'2023-06-04 16:03:47',NULL,1,'reminder333',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'2023-06-17 23:11:46',NULL,'2023-06-04 16:03:27',NULL,1,'reminder6',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4625,6 +4749,58 @@ INSERT INTO `reminder_history_seq` VALUES (1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reminder_reminder`
+--
+
+DROP TABLE IF EXISTS `reminder_reminder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reminder_reminder` (
+  `reminder_reminder_id` bigint NOT NULL,
+  `linked_date` datetime DEFAULT NULL,
+  `reminder_id` bigint DEFAULT NULL,
+  `repeated_reminder_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`reminder_reminder_id`),
+  KEY `FK2lxisns1svlmh4qvjcld8p1xv` (`reminder_id`),
+  KEY `FKkhwrjjhrm8h5qnuvxdqdh976f` (`repeated_reminder_id`),
+  CONSTRAINT `FK2lxisns1svlmh4qvjcld8p1xv` FOREIGN KEY (`reminder_id`) REFERENCES `reminder` (`reminder_id`),
+  CONSTRAINT `FKkhwrjjhrm8h5qnuvxdqdh976f` FOREIGN KEY (`repeated_reminder_id`) REFERENCES `reminder` (`reminder_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reminder_reminder`
+--
+
+LOCK TABLES `reminder_reminder` WRITE;
+/*!40000 ALTER TABLE `reminder_reminder` DISABLE KEYS */;
+INSERT INTO `reminder_reminder` VALUES (1,'2023-06-17 23:13:18',1,2),(2,'2023-06-17 23:13:30',1,3),(3,'2023-06-17 23:13:34',1,4),(4,'2023-06-17 23:13:45',1,5),(5,'2023-06-17 23:13:48',2,5),(6,'2023-06-17 23:13:52',2,4),(7,'2023-06-17 23:13:53',2,3),(8,'2023-06-17 23:13:55',2,1),(9,'2023-06-17 23:14:03',3,1),(10,'2023-06-17 23:14:04',3,2),(11,'2023-06-17 23:14:06',3,4),(12,'2023-06-17 23:14:07',3,5),(13,'2023-06-17 23:14:11',4,5),(14,'2023-06-17 23:14:14',4,3),(15,'2023-06-17 23:14:15',4,2),(16,'2023-06-17 23:14:17',4,1),(17,'2023-06-17 23:14:20',5,1),(18,'2023-06-17 23:14:22',5,2),(19,'2023-06-17 23:14:23',5,3),(20,'2023-06-17 23:14:25',5,4);
+/*!40000 ALTER TABLE `reminder_reminder` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reminder_reminder_seq`
+--
+
+DROP TABLE IF EXISTS `reminder_reminder_seq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reminder_reminder_seq` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reminder_reminder_seq`
+--
+
+LOCK TABLES `reminder_reminder_seq` WRITE;
+/*!40000 ALTER TABLE `reminder_reminder_seq` DISABLE KEYS */;
+INSERT INTO `reminder_reminder_seq` VALUES (21);
+/*!40000 ALTER TABLE `reminder_reminder_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `reminder_seq`
 --
 
@@ -4642,8 +4818,60 @@ CREATE TABLE `reminder_seq` (
 
 LOCK TABLES `reminder_seq` WRITE;
 /*!40000 ALTER TABLE `reminder_seq` DISABLE KEYS */;
-INSERT INTO `reminder_seq` VALUES (6);
+INSERT INTO `reminder_seq` VALUES (7);
 /*!40000 ALTER TABLE `reminder_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reminder_snooze`
+--
+
+DROP TABLE IF EXISTS `reminder_snooze`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reminder_snooze` (
+  `reminder_snooze_id` bigint NOT NULL,
+  `reminder_date` datetime DEFAULT NULL,
+  `reminder_id` bigint DEFAULT NULL,
+  `snooze_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`reminder_snooze_id`),
+  KEY `FK60xeae54dtqbojv0qdc3w58rh` (`reminder_id`),
+  KEY `FKpicjausdrb1tld2inyewx0nhd` (`snooze_id`),
+  CONSTRAINT `FK60xeae54dtqbojv0qdc3w58rh` FOREIGN KEY (`reminder_id`) REFERENCES `reminder` (`reminder_id`),
+  CONSTRAINT `FKpicjausdrb1tld2inyewx0nhd` FOREIGN KEY (`snooze_id`) REFERENCES `snooze` (`snooze_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reminder_snooze`
+--
+
+LOCK TABLES `reminder_snooze` WRITE;
+/*!40000 ALTER TABLE `reminder_snooze` DISABLE KEYS */;
+INSERT INTO `reminder_snooze` VALUES (1,'2023-06-18 01:06:32',1,1),(2,'2023-06-18 01:06:37',2,2),(3,'2023-06-18 01:06:39',3,3),(4,'2023-06-18 01:06:41',4,4),(6,'2023-06-18 01:06:44',5,5);
+/*!40000 ALTER TABLE `reminder_snooze` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reminder_snooze_seq`
+--
+
+DROP TABLE IF EXISTS `reminder_snooze_seq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reminder_snooze_seq` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reminder_snooze_seq`
+--
+
+LOCK TABLES `reminder_snooze_seq` WRITE;
+/*!40000 ALTER TABLE `reminder_snooze_seq` DISABLE KEYS */;
+INSERT INTO `reminder_snooze_seq` VALUES (7);
+/*!40000 ALTER TABLE `reminder_snooze_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -4672,7 +4900,7 @@ CREATE TABLE `reminder_user` (
 
 LOCK TABLES `reminder_user` WRITE;
 /*!40000 ALTER TABLE `reminder_user` DISABLE KEYS */;
-INSERT INTO `reminder_user` VALUES (1,'2023-06-04 16:02:50',1,1),(2,'2023-06-04 16:02:50',2,1),(3,'2023-06-04 16:02:50',3,1),(4,'2023-06-04 16:02:50',4,1),(5,'2023-06-04 16:02:50',5,1);
+INSERT INTO `reminder_user` VALUES (1,'2023-06-04 16:02:50',1,1),(2,'2023-06-04 16:02:52',2,1),(3,'2023-06-04 16:02:55',3,1),(4,'2023-06-04 16:02:57',4,1),(5,'2023-06-04 16:02:59',5,1),(6,'2023-06-17 21:56:15',2,2),(7,'2023-06-17 21:59:40',3,3),(8,'2023-06-17 21:59:53',1,2),(9,'2023-06-17 22:21:54',4,4),(10,'2023-06-17 23:11:46',6,1);
 /*!40000 ALTER TABLE `reminder_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4694,7 +4922,7 @@ CREATE TABLE `reminder_user_seq` (
 
 LOCK TABLES `reminder_user_seq` WRITE;
 /*!40000 ALTER TABLE `reminder_user_seq` DISABLE KEYS */;
-INSERT INTO `reminder_user_seq` VALUES (1);
+INSERT INTO `reminder_user_seq` VALUES (11);
 /*!40000 ALTER TABLE `reminder_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4769,6 +4997,7 @@ CREATE TABLE `shop` (
 
 LOCK TABLES `shop` WRITE;
 /*!40000 ALTER TABLE `shop` DISABLE KEYS */;
+INSERT INTO `shop` VALUES (1,'2023-06-14 21:55:35','shop1','loc1',1),(2,'2023-06-14 21:55:40','shop2','loc2',1),(3,'2023-06-14 21:55:45','shop3','loc3',1),(4,'2023-06-14 21:55:54','shop33','loc33',1),(5,'2023-06-14 21:55:56','shop333','loc333',1);
 /*!40000 ALTER TABLE `shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4863,7 +5092,7 @@ CREATE TABLE `shop_seq` (
 
 LOCK TABLES `shop_seq` WRITE;
 /*!40000 ALTER TABLE `shop_seq` DISABLE KEYS */;
-INSERT INTO `shop_seq` VALUES (1);
+INSERT INTO `shop_seq` VALUES (6);
 /*!40000 ALTER TABLE `shop_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5046,6 +5275,7 @@ CREATE TABLE `shop_user` (
 
 LOCK TABLES `shop_user` WRITE;
 /*!40000 ALTER TABLE `shop_user` DISABLE KEYS */;
+INSERT INTO `shop_user` VALUES (1,'2023-06-14 21:55:35',1,1),(2,'2023-06-14 21:55:40',2,1),(3,'2023-06-14 21:55:45',3,1),(4,'2023-06-14 21:55:54',4,1),(5,'2023-06-14 21:55:56',5,1);
 /*!40000 ALTER TABLE `shop_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5067,7 +5297,7 @@ CREATE TABLE `shop_user_seq` (
 
 LOCK TABLES `shop_user_seq` WRITE;
 /*!40000 ALTER TABLE `shop_user_seq` DISABLE KEYS */;
-INSERT INTO `shop_user_seq` VALUES (1);
+INSERT INTO `shop_user_seq` VALUES (6);
 /*!40000 ALTER TABLE `shop_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5080,12 +5310,17 @@ DROP TABLE IF EXISTS `snooze`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snooze` (
   `snooze_id` bigint NOT NULL,
-  `snooze_count` int DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
   `snooze_time` time DEFAULT NULL,
-  `Reminder_id` bigint DEFAULT NULL,
+  `remainder_id` bigint DEFAULT NULL,
+  `reminder` varchar(255) DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`snooze_id`),
-  KEY `FKfm4uom9lwf4cwnj6byx7lptlk` (`Reminder_id`),
-  CONSTRAINT `FKfm4uom9lwf4cwnj6byx7lptlk` FOREIGN KEY (`Reminder_id`) REFERENCES `reminder` (`reminder_id`)
+  KEY `FKfm4uom9lwf4cwnj6byx7lptlk` (`remainder_id`),
+  KEY `FKdyx12efmijkhvwjjlt5i936rd` (`user_id`),
+  CONSTRAINT `FKdyx12efmijkhvwjjlt5i936rd` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `FKfm4uom9lwf4cwnj6byx7lptlk` FOREIGN KEY (`remainder_id`) REFERENCES `reminder` (`reminder_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -5095,6 +5330,7 @@ CREATE TABLE `snooze` (
 
 LOCK TABLES `snooze` WRITE;
 /*!40000 ALTER TABLE `snooze` DISABLE KEYS */;
+INSERT INTO `snooze` VALUES (1,'2023-06-18 00:37:14','snooze1','00:48:01',NULL,NULL,1),(2,'2023-06-18 00:37:58','snooze2','00:48:02',NULL,NULL,1),(3,'2023-06-18 00:38:00','snooze3','00:48:03',NULL,NULL,1),(4,'2023-06-18 00:38:03','snooze33','00:48:04',NULL,NULL,1),(5,'2023-06-18 00:38:05','snooze333','00:48:06',NULL,NULL,1);
 /*!40000 ALTER TABLE `snooze` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5116,8 +5352,60 @@ CREATE TABLE `snooze_seq` (
 
 LOCK TABLES `snooze_seq` WRITE;
 /*!40000 ALTER TABLE `snooze_seq` DISABLE KEYS */;
-INSERT INTO `snooze_seq` VALUES (1);
+INSERT INTO `snooze_seq` VALUES (6);
 /*!40000 ALTER TABLE `snooze_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `snooze_user`
+--
+
+DROP TABLE IF EXISTS `snooze_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `snooze_user` (
+  `snooze_user_id` bigint NOT NULL,
+  `snooze_date` datetime DEFAULT NULL,
+  `snooze_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`snooze_user_id`),
+  KEY `FK17f8p387ak7b5sn1g79xgg3ex` (`snooze_id`),
+  KEY `FK1oisu85l08ewenv6hvqydc8ag` (`user_id`),
+  CONSTRAINT `FK17f8p387ak7b5sn1g79xgg3ex` FOREIGN KEY (`snooze_id`) REFERENCES `snooze` (`snooze_id`),
+  CONSTRAINT `FK1oisu85l08ewenv6hvqydc8ag` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `snooze_user`
+--
+
+LOCK TABLES `snooze_user` WRITE;
+/*!40000 ALTER TABLE `snooze_user` DISABLE KEYS */;
+INSERT INTO `snooze_user` VALUES (1,'2023-06-18 00:37:14',1,1),(2,'2023-06-18 00:37:58',2,1),(3,'2023-06-18 00:38:00',3,1),(4,'2023-06-18 00:38:03',4,1),(5,'2023-06-18 00:38:05',5,1),(6,'2023-06-18 00:49:13',1,2),(7,'2023-06-18 00:49:18',1,3),(8,'2023-06-18 00:49:19',1,4),(9,'2023-06-18 00:49:21',1,5),(10,'2023-06-18 00:49:24',2,5),(11,'2023-06-18 00:49:26',2,4),(12,'2023-06-18 00:49:28',2,3);
+/*!40000 ALTER TABLE `snooze_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `snooze_user_seq`
+--
+
+DROP TABLE IF EXISTS `snooze_user_seq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `snooze_user_seq` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `snooze_user_seq`
+--
+
+LOCK TABLES `snooze_user_seq` WRITE;
+/*!40000 ALTER TABLE `snooze_user_seq` DISABLE KEYS */;
+INSERT INTO `snooze_user_seq` VALUES (13);
+/*!40000 ALTER TABLE `snooze_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -5144,7 +5432,7 @@ CREATE TABLE `tag` (
 
 LOCK TABLES `tag` WRITE;
 /*!40000 ALTER TABLE `tag` DISABLE KEYS */;
-INSERT INTO `tag` VALUES (1,'2023-06-04 15:51:35','tag1',1),(2,'2023-06-04 15:51:45','tag2',1),(3,'2023-06-04 15:51:48','tag3',1),(4,'2023-06-04 15:51:52','tag4',1),(5,'2023-06-04 15:58:25','tag5',1);
+INSERT INTO `tag` VALUES (1,'2023-06-04 15:51:35','tag1',1),(2,'2023-06-04 15:51:45','tag2',1),(3,'2023-06-04 15:51:48','tag3',1),(4,'2023-06-04 15:51:52','tag4',1),(5,'2023-06-04 15:58:25','tag5',1),(6,'2023-06-17 19:05:08','tag3333',1);
 /*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5217,7 +5505,7 @@ CREATE TABLE `tag_seq` (
 
 LOCK TABLES `tag_seq` WRITE;
 /*!40000 ALTER TABLE `tag_seq` DISABLE KEYS */;
-INSERT INTO `tag_seq` VALUES (6);
+INSERT INTO `tag_seq` VALUES (7);
 /*!40000 ALTER TABLE `tag_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5247,7 +5535,7 @@ CREATE TABLE `tag_user` (
 
 LOCK TABLES `tag_user` WRITE;
 /*!40000 ALTER TABLE `tag_user` DISABLE KEYS */;
-INSERT INTO `tag_user` VALUES (1,'2023-06-04 15:51:35',1,1),(2,'2023-06-04 15:51:45',2,1),(3,'2023-06-04 15:51:48',3,1),(4,'2023-06-04 15:51:52',4,1),(5,'2023-06-04 15:58:25',5,1);
+INSERT INTO `tag_user` VALUES (1,'2023-06-17 19:05:08',6,1),(3,'2023-06-17 19:12:24',6,3),(4,'2023-06-17 19:14:08',6,2),(5,'2023-06-17 19:14:08',1,1),(6,'2023-06-17 19:14:08',2,1),(7,'2023-06-17 19:14:08',3,1),(8,'2023-06-17 19:14:08',4,1),(9,'2023-06-17 19:14:08',5,1),(10,'2023-06-17 22:00:33',2,2),(11,'2023-06-17 22:00:43',3,3),(12,'2023-06-17 22:00:54',2,3),(13,'2023-06-17 22:00:58',3,2);
 /*!40000 ALTER TABLE `tag_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5269,7 +5557,7 @@ CREATE TABLE `tag_user_seq` (
 
 LOCK TABLES `tag_user_seq` WRITE;
 /*!40000 ALTER TABLE `tag_user_seq` DISABLE KEYS */;
-INSERT INTO `tag_user_seq` VALUES (6);
+INSERT INTO `tag_user_seq` VALUES (14);
 /*!40000 ALTER TABLE `tag_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5612,7 +5900,7 @@ CREATE TABLE `task_user` (
 
 LOCK TABLES `task_user` WRITE;
 /*!40000 ALTER TABLE `task_user` DISABLE KEYS */;
-INSERT INTO `task_user` VALUES (1,'2023-06-04 20:15:22',1,1),(2,'2023-06-04 20:15:31',2,1),(3,'2023-06-04 20:15:35',3,1),(4,'2023-06-04 20:15:38',4,1),(5,'2023-06-04 20:15:58',5,1);
+INSERT INTO `task_user` VALUES (1,'2023-06-04 20:15:22',1,1),(2,'2023-06-04 20:15:31',2,1),(3,'2023-06-04 20:15:35',3,1),(4,'2023-06-04 20:15:38',4,1),(5,'2023-06-04 20:15:58',5,1),(6,'2023-06-17 21:59:03',3,3);
 /*!40000 ALTER TABLE `task_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5634,7 +5922,7 @@ CREATE TABLE `task_user_seq` (
 
 LOCK TABLES `task_user_seq` WRITE;
 /*!40000 ALTER TABLE `task_user_seq` DISABLE KEYS */;
-INSERT INTO `task_user_seq` VALUES (6);
+INSERT INTO `task_user_seq` VALUES (7);
 /*!40000 ALTER TABLE `task_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6669,10 +6957,13 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `user_id` bigint NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  `created_date` datetime DEFAULT NULL,
+  `email_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `FKqdcjp0ysjegpu2jb76u3f3nx` (`email_id`),
+  CONSTRAINT `FKqdcjp0ysjegpu2jb76u3f3nx` FOREIGN KEY (`email_id`) REFERENCES `email` (`email_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -6682,7 +6973,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,NULL,'$2a$12$sJZ7/SZpCOTSeMg1jos87ulm.OcN31uQKnYisY/5r5XlNXSoQKPRi','User1'),(2,NULL,'$2a$12$gaUsXx4r4JlzHYXomu/XguBgQZbj2XXOWq5h683u7KCOPUozoRy56','User2'),(3,NULL,'$2a$12$b/jcMc9LC8sTk.8mV6Mzv.0GFCqgD7O/oK6m96nojFVKuGj8LlJv2','User3');
+INSERT INTO `user` VALUES (1,'$2a$12$sJZ7/SZpCOTSeMg1jos87ulm.OcN31uQKnYisY/5r5XlNXSoQKPRi','User1',NULL,1),(2,'$2a$12$gaUsXx4r4JlzHYXomu/XguBgQZbj2XXOWq5h683u7KCOPUozoRy56','User2',NULL,2),(3,'$2a$12$b/jcMc9LC8sTk.8mV6Mzv.0GFCqgD7O/oK6m96nojFVKuGj8LlJv2','User3',NULL,3),(4,'$2a$10$m0tyrKkl6Vz2mB6hnjQFdOdETv5o4SQTqVBEdoDVNNyY11ZwthSUa','user4','2023-06-17 16:14:14',NULL),(5,'$2a$10$0XhxLZ0Ktpww0GIDivuvL.N88vrzNnwTvjMGzeUJI4tDOj7h027zi','user5','2023-06-17 16:19:00',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6712,7 +7003,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,'2023-06-04 15:43:59',1,1),(2,'2023-06-04 15:43:59',2,1),(3,'2023-06-04 15:43:59',2,2),(4,'2023-06-04 15:43:59',1,3);
+INSERT INTO `user_role` VALUES (1,'2023-06-04 15:43:59',1,1),(2,'2023-06-04 15:43:59',2,1),(3,'2023-06-04 15:43:59',2,2),(4,'2023-06-04 15:43:59',1,3),(5,'2023-06-17 16:14:14',1,4),(6,'2023-06-17 16:19:00',2,5),(9,'2023-06-17 16:46:03',1,2);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6734,7 +7025,7 @@ CREATE TABLE `user_role_seq` (
 
 LOCK TABLES `user_role_seq` WRITE;
 /*!40000 ALTER TABLE `user_role_seq` DISABLE KEYS */;
-INSERT INTO `user_role_seq` VALUES (5);
+INSERT INTO `user_role_seq` VALUES (10);
 /*!40000 ALTER TABLE `user_role_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6756,7 +7047,7 @@ CREATE TABLE `user_seq` (
 
 LOCK TABLES `user_seq` WRITE;
 /*!40000 ALTER TABLE `user_seq` DISABLE KEYS */;
-INSERT INTO `user_seq` VALUES (4);
+INSERT INTO `user_seq` VALUES (8);
 /*!40000 ALTER TABLE `user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6786,6 +7077,7 @@ CREATE TABLE `user_user` (
 
 LOCK TABLES `user_user` WRITE;
 /*!40000 ALTER TABLE `user_user` DISABLE KEYS */;
+INSERT INTO `user_user` VALUES (1,'2023-06-17 16:14:14',1,4),(2,'2023-06-17 16:19:00',1,5),(5,'2023-06-17 16:44:55',1,2),(6,'2023-06-17 16:45:07',1,3);
 /*!40000 ALTER TABLE `user_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6807,7 +7099,7 @@ CREATE TABLE `user_user_seq` (
 
 LOCK TABLES `user_user_seq` WRITE;
 /*!40000 ALTER TABLE `user_user_seq` DISABLE KEYS */;
-INSERT INTO `user_user_seq` VALUES (1);
+INSERT INTO `user_user_seq` VALUES (7);
 /*!40000 ALTER TABLE `user_user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7126,4 +7418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-14 14:15:58
+-- Dump completed on 2023-06-18  3:16:13

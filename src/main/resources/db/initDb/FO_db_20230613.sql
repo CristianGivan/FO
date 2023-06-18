@@ -3021,54 +3021,54 @@ INSERT INTO `note_history_seq` VALUES (1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `note_remainder`
+-- Table structure for table `note_Reminder`
 --
 
-DROP TABLE IF EXISTS `note_remainder`;
+DROP TABLE IF EXISTS `note_Reminder`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `note_remainder` (
-  `note_remainder_id` bigint NOT NULL,
+CREATE TABLE `note_Reminder` (
+  `note_Reminder_id` bigint NOT NULL,
   `link_date` datetime DEFAULT NULL,
   `note_id` bigint DEFAULT NULL,
-  `remainder_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`note_remainder_id`),
+  `Reminder_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`note_Reminder_id`),
   KEY `FKnvroi70n8vqevdp3o2mhrju41` (`note_id`),
-  KEY `FK2hleild9tydqlcej5rxatugpe` (`remainder_id`),
-  CONSTRAINT `FK2hleild9tydqlcej5rxatugpe` FOREIGN KEY (`remainder_id`) REFERENCES `reminder` (`reminder_id`),
+  KEY `FK2hleild9tydqlcej5rxatugpe` (`Reminder_id`),
+  CONSTRAINT `FK2hleild9tydqlcej5rxatugpe` FOREIGN KEY (`Reminder_id`) REFERENCES `reminder` (`reminder_id`),
   CONSTRAINT `FKnvroi70n8vqevdp3o2mhrju41` FOREIGN KEY (`note_id`) REFERENCES `note` (`note_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `note_remainder`
+-- Dumping data for table `note_Reminder`
 --
 
-LOCK TABLES `note_remainder` WRITE;
-/*!40000 ALTER TABLE `note_remainder` DISABLE KEYS */;
-/*!40000 ALTER TABLE `note_remainder` ENABLE KEYS */;
+LOCK TABLES `note_Reminder` WRITE;
+/*!40000 ALTER TABLE `note_Reminder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `note_Reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `note_remainder_seq`
+-- Table structure for table `note_Reminder_seq`
 --
 
-DROP TABLE IF EXISTS `note_remainder_seq`;
+DROP TABLE IF EXISTS `note_Reminder_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `note_remainder_seq` (
+CREATE TABLE `note_Reminder_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `note_remainder_seq`
+-- Dumping data for table `note_Reminder_seq`
 --
 
-LOCK TABLES `note_remainder_seq` WRITE;
-/*!40000 ALTER TABLE `note_remainder_seq` DISABLE KEYS */;
-INSERT INTO `note_remainder_seq` VALUES (1);
-/*!40000 ALTER TABLE `note_remainder_seq` ENABLE KEYS */;
+LOCK TABLES `note_Reminder_seq` WRITE;
+/*!40000 ALTER TABLE `note_Reminder_seq` DISABLE KEYS */;
+INSERT INTO `note_Reminder_seq` VALUES (1);
+/*!40000 ALTER TABLE `note_Reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -4753,10 +4753,10 @@ CREATE TABLE `snooze` (
   `snooze_id` bigint NOT NULL,
   `snooze_count` int DEFAULT NULL,
   `snooze_time` time DEFAULT NULL,
-  `remainder_id` bigint DEFAULT NULL,
+  `Reminder_id` bigint DEFAULT NULL,
   PRIMARY KEY (`snooze_id`),
-  KEY `FKfm4uom9lwf4cwnj6byx7lptlk` (`remainder_id`),
-  CONSTRAINT `FKfm4uom9lwf4cwnj6byx7lptlk` FOREIGN KEY (`remainder_id`) REFERENCES `reminder` (`reminder_id`)
+  KEY `FKfm4uom9lwf4cwnj6byx7lptlk` (`Reminder_id`),
+  CONSTRAINT `FKfm4uom9lwf4cwnj6byx7lptlk` FOREIGN KEY (`Reminder_id`) REFERENCES `reminder` (`reminder_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

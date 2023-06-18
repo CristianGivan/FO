@@ -1,6 +1,7 @@
 package com.app.FO.service.transaction;
 
 import com.app.FO.config.DateTime;
+import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.account.Account;
 import com.app.FO.model.account.AccountTransaction;
@@ -11,7 +12,6 @@ import com.app.FO.model.topic.Topic;
 import com.app.FO.model.transaction.*;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.transaction.TransactionRepository;
-import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

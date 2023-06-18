@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface NoteReminderRepository extends JpaRepository<NoteReminder, Long> {
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM note_remainder as nr where nr.note_id=?1 and nr.remainder_id=?2")
-    NoteReminder getNoteReminderByNoteIdAndReminderId(Long noteId, Long remainderId);
+            "SELECT * FROM note_Reminder as nr where nr.note_id=?1 and nr.Reminder_id=?2")
+    NoteReminder getNoteReminderByNoteIdAndReminderId(Long noteId, Long ReminderId);
 
 
 }

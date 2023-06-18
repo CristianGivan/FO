@@ -7,6 +7,7 @@ import com.app.FO.model.event.Event;
 import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.link.Link;
+import com.app.FO.model.note.NoteReminder;
 import com.app.FO.model.person.Person;
 import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.task.Task;
@@ -59,6 +60,8 @@ public class Reminder {
     @OneToMany(mappedBy = "repeatedReminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ReminderReminder> repeatedReminderList;
 
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<NoteReminder> noteReminderList;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "topic_id")
     @JsonIgnore
@@ -149,6 +152,7 @@ public class Reminder {
                 ", reminderUserList=" + reminderUserList +
                 ", reminderSnoozeList=" + reminderSnoozeList +
                 ", repeatedReminderList=" + repeatedReminderList +
+                ", noteReminderList=" + noteReminderList +
                 ", topic=" + topic +
                 ", task=" + task +
                 ", work=" + work +
@@ -234,6 +238,14 @@ public class Reminder {
 
     public void setRepeatedReminderList(List<ReminderReminder> repeatedReminderList) {
         this.repeatedReminderList = repeatedReminderList;
+    }
+
+    public List<NoteReminder> getNoteReminderList() {
+        return noteReminderList;
+    }
+
+    public void setNoteReminderList(List<NoteReminder> noteReminderList) {
+        this.noteReminderList = noteReminderList;
     }
 
     public Topic getTopic() {

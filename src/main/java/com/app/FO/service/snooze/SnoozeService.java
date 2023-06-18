@@ -1,12 +1,12 @@
 package com.app.FO.service.snooze;
 
 import com.app.FO.config.DateTime;
+import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.snooze.Snooze;
 import com.app.FO.model.snooze.SnoozeUser;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.snooze.SnoozeRepository;
-import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

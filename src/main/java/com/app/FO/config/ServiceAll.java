@@ -1,4 +1,4 @@
-package com.app.FO.util;
+package com.app.FO.config;
 
 import com.app.FO.model.account.*;
 import com.app.FO.model.address.*;
@@ -10,6 +10,9 @@ import com.app.FO.model.expense.*;
 import com.app.FO.model.expenses.*;
 import com.app.FO.model.link.*;
 import com.app.FO.model.note.Note;
+import com.app.FO.model.note.NoteReminder;
+import com.app.FO.model.note.NoteTag;
+import com.app.FO.model.note.NoteUser;
 import com.app.FO.model.person.*;
 import com.app.FO.model.phoneNumber.*;
 import com.app.FO.model.reminder.Reminder;
@@ -25,7 +28,6 @@ import com.app.FO.model.task.*;
 import com.app.FO.model.tasks.*;
 import com.app.FO.model.topic.*;
 import com.app.FO.model.transaction.*;
-import com.app.FO.model.user.Role;
 import com.app.FO.model.user.User;
 import com.app.FO.model.user.UserRole;
 import com.app.FO.model.user.UserUser;
@@ -39,7 +41,10 @@ import com.app.FO.repository.event.*;
 import com.app.FO.repository.expense.*;
 import com.app.FO.repository.expenses.*;
 import com.app.FO.repository.link.*;
+import com.app.FO.repository.note.NoteReminderRepository;
 import com.app.FO.repository.note.NoteRepository;
+import com.app.FO.repository.note.NoteTagRepository;
+import com.app.FO.repository.note.NoteUserRepository;
 import com.app.FO.repository.person.*;
 import com.app.FO.repository.phoneNumber.*;
 import com.app.FO.repository.reminder.ReminderReminderRepository;
@@ -67,7 +72,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Configuration
 public class ServiceAll {
-    private NoteRepository noteRepository;
+
 
     @Autowired
     private UserRepository userRepository;
@@ -81,8 +86,10 @@ public class ServiceAll {
     private RoleRepository roleRepository;
 
     private TagRepository tagRepository;
+
     @Autowired
     private TagUserRepository tagUserRepository;
+
 
     @Autowired
     private ReminderRepository reminderRepository;
@@ -98,6 +105,16 @@ public class ServiceAll {
     private SnoozeRepository snoozeRepository;
     @Autowired
     private SnoozeUserRepository snoozeUserRepository;
+
+    private NoteRepository noteRepository;
+    @Autowired
+    private NoteUserRepository noteUserRepository;
+
+    @Autowired
+    private NoteTagRepository noteTagRepository;
+
+    @Autowired
+    private NoteReminderRepository noteReminderRepository;
     @Autowired
     private TopicRepository topicRepository;
     @Autowired
@@ -411,100 +428,100 @@ public class ServiceAll {
         this.noteRepository = noteRepository;
         this.tagRepository = tagRepository;
     }
-
-    public Boolean isNote(Note note) {
-        if (note == null) {
-            return false;
-        }
-        return true;
-    }
-
-    public Boolean isTag(Tag tag) {
-        if (tag == null) {
-            return false;
-        }
-        return true;
-    }
-
-    public Boolean isTopic(Topic topic) {
-        if (topic == null) {
-            return false;
-        }
-        return true;
-    }
-
-    public Boolean isReminder(Reminder reminder) {
-        if (reminder == null) {
-            return false;
-        }
-        return true;
-    }
-
-    public Boolean isUser(User user) {
-        if (user == null) {
-            return false;
-        }
-        return true;
-    }
-
-
-    public Boolean isUserTagCreator(User user, Tag tag) {
-        if (user.getId() == tag.getCreator().getId()) {
-            return true;
-        }
-        return false;
-    }
-
-
-    public Boolean NoteHasTag(Note note, Tag tag) {
-        if (noteRepository.noteIdHasTagId(note.getId(), tag.getId())) {
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean noteHasTopic(Note note, Topic topic) {
-        if (noteRepository.noteIdHasTopicId(note.getId(), topic.getId())) {
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean noteHasReminder(Note note, Reminder reminder) {
-        if (noteRepository.noteIdHasReminderId(note.getId(), reminder.getId())) {
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean noteHasUser(Note note, User user) {
-        if (noteRepository.noteIdHasUserId(note.getId(), user.getId())) {
-            return true;
-        }
-        return false;
-    }
-
-
-    public Role userHasRole(User user, Role role) {
-        return roleRepository.userIdHasRoleId(role.getId(), user.getId());
-    }
-
-//    public User userHasUser(User userFrom, User user) {
-//        return userRepository.getUserFromUserIdByUserId(userFrom.getId(), user.getId());
+//
+//    public Boolean isNote(Note note) {
+//        if (note == null) {
+//            return false;
+//        }
+//        return true;
 //    }
-
-    public Boolean userIsAdmin(User user) {
-        Boolean isAdminRole = user.getUserRoleList().stream().
-                map(userRole -> userRole.getRole().getRoleType().toString()).
-                filter(t -> t == "ROLE_ADMIN").findAny().isPresent();
-        if (isAdminRole) {
-            return true;
-        }
-        return false;
-    }
-
-
-    //--------------------------
+//
+//    public Boolean isTag(Tag tag) {
+//        if (tag == null) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    public Boolean isTopic(Topic topic) {
+//        if (topic == null) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    public Boolean isReminder(Reminder reminder) {
+//        if (reminder == null) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    public Boolean isUser(User user) {
+//        if (user == null) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//
+//    public Boolean isUserTagCreator(User user, Tag tag) {
+//        if (user.getId() == tag.getCreator().getId()) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//
+//    public Boolean NoteHasTag(Note note, Tag tag) {
+//        if (noteRepository.noteIdHasTagId(note.getId(), tag.getId())) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public Boolean noteHasTopic(Note note, Topic topic) {
+//        if (noteRepository.noteIdHasTopicId(note.getId(), topic.getId())) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public Boolean noteHasReminder(Note note, Reminder reminder) {
+//        if (noteRepository.noteIdHasReminderId(note.getId(), reminder.getId())) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public Boolean noteHasUser(Note note, User user) {
+//        if (noteRepository.noteIdHasUserId(note.getId(), user.getId())) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//
+//    public Role userHasRole(User user, Role role) {
+//        return roleRepository.userIdHasRoleId(role.getId(), user.getId());
+//    }
+//
+////    public User userHasUser(User userFrom, User user) {
+////        return userRepository.getUserFromUserIdByUserId(userFrom.getId(), user.getId());
+////    }
+//
+//    public Boolean userIsAdmin(User user) {
+//        Boolean isAdminRole = user.getUserRoleList().stream().
+//                map(userRole -> userRole.getRole().getRoleType().toString()).
+//                filter(t -> t == "ROLE_ADMIN").findAny().isPresent();
+//        if (isAdminRole) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//
+//    //--------------------------
 
     //-- getUserAnd
 
@@ -563,9 +580,21 @@ public class ServiceAll {
         return snoozeUserRepository.getSnoozeUserBySnoozeIdAndUserId(snoozeId, userId);
     }
 
-    //-- getNote
+    //-- getNoteAnd
     public Note getNoteByIdAndUserId(Long noteId, Long userId) {
-        return noteRepository.getNoteByIdAndUserId(noteId, userId);
+        return noteRepository.getNoteFromUserIdByNoteId(userId, noteId);
+    }
+
+    public NoteUser getNoteUser(Long noteId, Long userId) {
+        return noteUserRepository.getNoteUserByNoteIdAndUserId(noteId, userId);
+    }
+
+    public NoteTag getNoteTag(Long noteId, Long tagId) {
+        return noteTagRepository.getNoteTagByNoteIdAndTagId(noteId, tagId);
+    }
+
+    public NoteReminder getNoteReminder(Long noteId, Long reminderId) {
+        return noteReminderRepository.getNoteReminderByNoteIdAndReminderId(noteId, reminderId);
     }
 
     //-- getTopicAnd
