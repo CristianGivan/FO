@@ -512,7 +512,7 @@ public class WorkService {
         return workList;
     }
 
-    public List<Work> getWorkByTaskStatus(String taskStatusText) {
+    public List<Work> getWorkListByTaskStatus(String taskStatusText) {
 
         TaskStatus taskStatus = serviceAll.convertTaskStatusTextToTaskStatus(taskStatusText);
 

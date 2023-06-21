@@ -1140,13 +1140,12 @@ public class ServiceAll {
             case "PENDING":
                 taskStatus = TaskStatus.PENDING;
                 break;
-            case "COMPLITED":
+            case "COMPLETED":
                 taskStatus = TaskStatus.COMPLETED;
                 break;
             default:
                 taskStatus = TaskStatus.UNDEFINE;
                 break;
-
         }
         return taskStatus;
     }

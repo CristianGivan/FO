@@ -95,12 +95,12 @@ public class WorkController {
         Work work = workService.putTopicToWork(workId, topicId);
         return workDTOMapper.workToWorkDTO(work);
     }
-
-    @PutMapping("/putTaskToWork")
-    public WorkDTO putTaskToWork(@RequestParam Long workId, @RequestParam Long taskId) {
-        Work work = workService.putTaskToWork(workId, taskId);
-        return workDTOMapper.workToWorkDTO(work);
-    }
+//
+//    @PutMapping("/putTaskToWork")
+//    public WorkDTO putTaskToWork(@RequestParam Long workId, @RequestParam Long taskId) {
+//        Work work = workService.putTaskToWork(workId, taskId);
+//        return workDTOMapper.workToWorkDTO(work);
+//    }
 
     //-- DeleteMapping
 
@@ -129,12 +129,12 @@ public class WorkController {
         Work work = workService.deleteTopicFromWork(workId, topicId);
         return workDTOMapper.workToWorkDTO(work);
     }
-
-    @DeleteMapping("/deleteTaskFromWork")
-    public WorkDTO deleteTaskFromWork(@RequestParam Long workId, @RequestParam Long taskId) {
-        Work work = workService.deleteTaskFromWork(workId, taskId);
-        return workDTOMapper.workToWorkDTO(work);
-    }
+//
+//    @DeleteMapping("/deleteTaskFromWork")
+//    public WorkDTO deleteTaskFromWork(@RequestParam Long workId, @RequestParam Long taskId) {
+//        Work work = workService.deleteTaskFromWork(workId, taskId);
+//        return workDTOMapper.workToWorkDTO(work);
+//    }
 
     @DeleteMapping("/deleteWork")
     public List<WorkDTO> deleteWork(@RequestParam Long workId) {
@@ -230,9 +230,9 @@ public class WorkController {
         return workDTOMapper.workListToWorkDTOList(workList);
     }
 
-    @GetMapping("/getWorkByTaskStatus")
-    public List<WorkDTO> getWorkByTaskStatus(@RequestParam String workStatus) {
-        List<Work> workList = workService.getWorkByTaskStatus(workStatus);
+    @GetMapping("/getWorkListByTaskStatus")
+    public List<WorkDTO> getWorkListByTaskStatus(@RequestParam String workStatus) {
+        List<Work> workList = workService.getWorkListByTaskStatus(workStatus);
         return workDTOMapper.workListToWorkDTOList(workList);
     }
 
@@ -259,12 +259,12 @@ public class WorkController {
         List<Work> workList = workService.getWorkListByTopicId(topicId);
         return workDTOMapper.workListToWorkDTOList(workList);
     }
-
-    @GetMapping("/getWorkListByTaskId")
-    public List<WorkDTO> getWorkListByTaskId(@RequestParam Long taskId) {
-        List<Work> workList = workService.getWorkListByTaskId(taskId);
-        return workDTOMapper.workListToWorkDTOList(workList);
-    }
+//
+//    @GetMapping("/getWorkListByTaskId")
+//    public List<WorkDTO> getWorkListByTaskId(@RequestParam Long taskId) {
+//        List<Work> workList = workService.getWorkListByTaskId(taskId);
+//        return workDTOMapper.workListToWorkDTOList(workList);
+//    }
 
 
     //--- Other

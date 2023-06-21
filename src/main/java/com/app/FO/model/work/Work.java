@@ -25,11 +25,11 @@ public class Work {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "working_date")
+    @Column(name = "working_date_time")
     private LocalDateTime workingDateTime;
 
     //todo time or double what should be?
-    @Column(name = "working_effort")
+    @Column(name = "working_time")
     private Double workingTime;
 
     @Column(name = "estimated_time")

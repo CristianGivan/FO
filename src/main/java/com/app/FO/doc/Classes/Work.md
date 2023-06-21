@@ -73,46 +73,45 @@ Only topic has a link
 
 ### Put
 
-- [ ] putSubjectToWork
-- [ ] putWorkingDateTimeToWork
-- [ ] putWorkingTimeToWork
-- [ ] putEstimatedTimeToWork
-- [ ] putWorkingProgressToWork
-- [ ] putTaskStatusToWork
-- [ ] putUserToWork
-- [ ] putTagToWork
-- [ ] putReminderToWork
-- [ ] putTopicToWork
+- [x] putSubjectToWork
+- [x] putWorkingDateTimeToWork
+- [x] putWorkingTimeToWork
+- [x] putEstimatedTimeToWork
+- [x] putWorkingProgressToWork
+- [x] putTaskStatusToWork
+- [x] putUserToWork
+- [x] putTagToWork
+- [x] putReminderToWork
+- [x] putTopicToWork
 
 ### Delete
 
-- [ ] deleteUserFromWork
-- [ ] deleteTagFromWork
-- [ ] deleteReminderFromWork
-- [ ] deleteTopicFromWork
-- [ ] deleteTaskFromWork
-- [ ] deleteWork
+- [x]  deleteUserFromWork
+- [x]  deleteTagFromWork
+- [x]  deleteReminderFromWork
+- [x]  deleteTopicFromWork
+- [x]  deleteTaskFromWork
+- [x]  deleteWork
 
 ### Get
 
-- [ ] getAllWork
-- [ ] getWorkById
-- [ ] getWorkBySubject
-- [ ] getWorkListBySubjectContains
-- [ ] getWorkByCreatedDate
-- [ ] getWorkListByCreatedDateBetween
-- [ ] getWorkListByWorkingDateTime
-- [ ] getWorkListByWorkingDateTimeBetween
-- [ ] getWorkListByWorkingTime
-- [ ] getWorkListByWorkingTimeBetween
-- [ ] getWorkListByEstimatedTime
-- [ ] getWorkListByEstimatedTimeBetween
-- [ ] getWorkListByWorkingProgress
-- [ ] getTaskListByTaskStatus
-- [ ] getWorkListByUser
-- [ ] getWorkListByTag
-- [ ] getWorkListByReminder
-- [ ] getWorkListByTopic
-- [ ] getWorkListByTask
+- [x]  getAllWork
+- [x]  getWorkById
+- [x]  getWorkBySubject
+- [x]  getWorkListBySubjectContains
+- [x]  getWorkByCreatedDate
+- [x]  getWorkListByCreatedDateBetween
+- [x]  getWorkListByWorkingDateTime
+- [x]  getWorkListByWorkingDateTimeBetween
+- [x]  getWorkListByWorkingTime
+- [x]  getWorkListByWorkingTimeBetween
+- [x]  getWorkListByEstimatedTime
+- [x]  getWorkListByEstimatedTimeBetween
+- [x]  getWorkListByWorkingProgress
+- [x]  getTaskListByTaskStatus
+- [x]  getWorkListByUser
+- [x]  getWorkListByTag
+- [x]  getWorkListByReminder
+- [x]  getWorkListByTopic
 
 ## Other
