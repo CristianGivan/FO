@@ -219,6 +219,8 @@ public class TaskService {
         task.setWorkingProgress(work.getWorkingProgress());
         task.setTaskStatus(work.getTaskStatus());
 
+        //todo Update also the tasks where this task is present
+        
         task.getTaskWorkList().add(taskWork);
         return taskRepository.save(task);
     }
@@ -352,6 +354,7 @@ public class TaskService {
 
         task.getTaskWorkList().remove(taskWork);
 
+
         task.setWorkingTime(task.getWorkingTime() - work.getWorkingTime());
         task.setEstimatedTime(task.getEstimatedTime() - work.getEstimatedTime());
         task.setEstimatedLeftTime(task.getEstimatedTime() + task.getWorkingTime());
@@ -359,6 +362,7 @@ public class TaskService {
         //task.setWorkingProgress(work.getWorkingProgress());
         //task.setTaskStatus(work.getTaskStatus());
 
+        //todo Update also the tasks where this task is present
         return taskRepository.save(task);
     }
 

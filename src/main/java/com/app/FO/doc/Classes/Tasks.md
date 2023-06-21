@@ -4,7 +4,6 @@
 - Tasks have a topic where more details about it are present
 - When a task is created also the topic is crated
 
-
 # ToDo
 
 ## Entity
@@ -22,36 +21,39 @@
       @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
       private List<Entity> entityList;
   ```
-   
 
 ### Entity
 
-
 - [ ] Add to all OneToMany the orphanRemoval and cascade
+
 ```
 , orphanRemoval = true,  cascade = {CascadeType.PERSIST, CascadeType.MERGE}
 ```
 
-
 ### DTO
+
 - [ ] Create DTO
 - [ ] Create FDTO
 - [ ] Create Mapper
-  - Add in uses the mappers needed:
-    ```
-    uses = {UserDTOMapper.class}
-    ```
-  - Add @Autowired DTOMapper for the list is needed to be created
-    ```
-     @Autowired
-     protected UserDTOMapper userDTOMapper;
-    ```
+    - Add in uses the mappers needed:
+      ```
+      uses = {UserDTOMapper.class}
+      ```
+    - Add @Autowired DTOMapper for the list is needed to be created
+      ```
+       @Autowired
+       protected UserDTOMapper userDTOMapper;
+      ```
 
 ### Attributes
 
 - [x] subject
 - [x] startDate
 - [x] endDate
+- [x] workingTime
+- [x] estimatedTime
+- [x] estimatedLeftTime
+- [x] workingProgress
 - [x] taskStatus
 - [x] createdDate
 - [x] creator
@@ -61,9 +63,6 @@
 - [x] tasksTopicList
 - [x] tasksTaskList
 - [x] taskHistoryList
-- [ ] estimatedTime
-- [ ] workingTime
-- [ ] tasksProgress
 
 ### Post
 
@@ -80,9 +79,6 @@
 - [x] putStartDateToTasks
 - [x] putEndDateToTasks
 - [x] putTaskStatusToTasks
-- [ ] putEstimatedTimeToTask
-- [ ] putWorkingTimeTimeToTask
-- [ ] putWorkingProgressToTask
 
 ### Delete
 
@@ -96,15 +92,27 @@
 ### Get
 
 - [x] getAllTasks
+- [x] getTasksByTasksId
 - [x] getTasksBySubject
 - [x] getTasksListBySubjectContains
-- [x] getTasksByTasksId
+- [x] getTaskByCreatedDate
+- [x] getTaskListByCreatedDateBetween
+- [x] getTaskListByStartDate
+- [x] getTaskListByStartDateBetween
+- [x] getTaskListByEndDate
+- [x] getTaskListByEndDateBetween
+- [x] getTaskListByWorkingTime
+- [x] getTaskListByWorkingTimeBetween
+- [x] getTaskListByEstimatedTime
+- [x] getTaskListByEstimatedTimeBetween
+- [x] getTaskListByEstimatedLeftTime
+- [x] getTaskListByEstimatedLeftTimeBetween
+- [x] getTaskListByWorkingProgress
+- [x] getTasksByTaskStatus
 - [x] getTasksListByUserId
 - [x] getTasksListByTagId
 - [x] getTasksListByReminderId
 - [x] getTasksListByTopicId
 - [x] getTasksListByTaskId
-- [x] getTasksByStartDate
-- [x] getTasksByEndDate
-- [x] getTasksByTaskStatus
+
 ## Other

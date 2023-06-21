@@ -24,7 +24,7 @@
 - [x] Snooze
 - [x] Tag
 - [x] Task
-- [7] Tasks
+- [x] Tasks
 - [x] Topic
 - [13] Transaction
 - [x] User
