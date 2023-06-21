@@ -212,6 +212,13 @@ public class TaskService {
         }
 
         taskWork = new TaskWork(task, work);
+
+        task.setWorkingTime(task.getWorkingTime() + work.getWorkingTime());
+        task.setEstimatedTime(task.getEstimatedTime() + work.getEstimatedTime());
+        task.setEstimatedLeftTime(task.getEstimatedTime() - task.getWorkingTime());
+        task.setWorkingProgress(work.getWorkingProgress());
+        task.setTaskStatus(work.getTaskStatus());
+
         task.getTaskWorkList().add(taskWork);
         return taskRepository.save(task);
     }
@@ -333,7 +340,7 @@ public class TaskService {
             throw new TaskNotFoundException("Task not found in your list");
         }
 
-        Work work = serviceAll.getWorkByUserIdAndWorkId(workId, logInUser.getId());
+        Work work = serviceAll.getWorkByUserIdAndWorkId(logInUser.getId(), workId);
         if (work == null) {
             throw new WorkNotFoundException("Work not found");
         }
@@ -344,6 +351,13 @@ public class TaskService {
         }
 
         task.getTaskWorkList().remove(taskWork);
+
+        task.setWorkingTime(task.getWorkingTime() - work.getWorkingTime());
+        task.setEstimatedTime(task.getEstimatedTime() - work.getEstimatedTime());
+        task.setEstimatedLeftTime(task.getEstimatedTime() + task.getWorkingTime());
+        //todo find the previous work and add the status
+        //task.setWorkingProgress(work.getWorkingProgress());
+        //task.setTaskStatus(work.getTaskStatus());
 
         return taskRepository.save(task);
     }

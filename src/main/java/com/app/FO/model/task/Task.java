@@ -151,6 +151,9 @@ public class Task {
     }
 
     public Double getWorkingTime() {
+        if (workingTime == null) {
+            workingTime = 0.0;
+        }
         return workingTime;
     }
 
@@ -159,6 +162,9 @@ public class Task {
     }
 
     public Double getEstimatedTime() {
+        if (estimatedTime == null) {
+            estimatedTime = 0.0;
+        }
         return estimatedTime;
     }
 
@@ -167,6 +173,9 @@ public class Task {
     }
 
     public Double getEstimatedLeftTime() {
+        if (estimatedLeftTime == null) {
+            estimatedLeftTime = 0.0;
+        }
         return estimatedLeftTime;
     }
 
@@ -175,6 +184,9 @@ public class Task {
     }
 
     public Double getWorkingProgress() {
+        if (workingProgress == null) {
+            workingProgress = 0.0;
+        }
         return workingProgress;
     }
 
@@ -183,6 +195,9 @@ public class Task {
     }
 
     public TaskStatus getTaskStatus() {
+        if (taskStatus == null) {
+            taskStatus = TaskStatus.UNDEFINE;
+        }
         return taskStatus;
     }
 

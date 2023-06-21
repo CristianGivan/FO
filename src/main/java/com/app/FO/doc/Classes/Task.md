@@ -88,7 +88,7 @@
 - [x] putTagToTask
 - [x] putReminderToTask
 - [x] putTopicToTask
-- [                ] putWorkToTask
+- [x] putWorkToTask
 - [x] putTaskStatusToTask
 
 ### Delete
@@ -118,7 +118,7 @@
 - [x] getTaskListByEstimatedLeftTime
 - [x] getTaskListByEstimatedLeftTimeBetween
 - [x] getTaskListByWorkingProgress
-- [ ] getTaskListByTaskStatus
+- [x] getTaskListByTaskStatus
 - [x] getTaskByTaskId
 - [x] getTasksListByUserId
 - [x] getTaskListByTagId

@@ -1122,7 +1122,7 @@ public class ServiceAll {
 
     //-- getWork
 
-    public Work getWorkByUserIdAndWorkId(Long workId, Long userId) {
+    public Work getWorkByUserIdAndWorkId(Long userId, Long workId) {
         return workRepository.getWorkFromUserIdByWorkId(userId, workId);
     }
 

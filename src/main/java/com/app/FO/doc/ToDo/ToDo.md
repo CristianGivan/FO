@@ -23,7 +23,7 @@
 - [10] Shop
 - [x] Snooze
 - [x] Tag
-- [6] Task
+- [x] Task
 - [7] Tasks
 - [x] Topic
 - [13] Transaction
