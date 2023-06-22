@@ -29,6 +29,16 @@ public class Transaction {
     private Double sum;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+
+    @Column(name = "planed_date")
+    private LocalDateTime planedDate;
+
+    @Column(name = "completed_date")
+    private LocalDateTime completedDate;
+
+    @Column(name = "transaction_status")
+    private TransactionStatus transactionStatus;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -70,16 +80,19 @@ public class Transaction {
         return "Transaction{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
+                ", type='" + type + '\'' +
+                ", sum=" + sum +
                 ", createdDate=" + createdDate +
+                ", planedDate=" + planedDate +
+                ", completedDate=" + completedDate +
+                ", transactionStatus=" + transactionStatus +
                 ", creator=" + creator +
-                ", transactionUserList=" + transactionUserList +
-                ", transactionTopicList=" + transactionTopicList +
-                ", transactionTasksList=" + transactionTasksList +
                 ", transactionUserList=" + transactionUserList +
                 ", transactionTagList=" + transactionTagList +
                 ", transactionReminderList=" + transactionReminderList +
-                ", fromAccount=" + accountTransactionList +
-                ", toAccount=" + accountTransactionList +
+                ", transactionTopicList=" + transactionTopicList +
+                ", transactionTasksList=" + transactionTasksList +
+                ", accountTransactionList=" + accountTransactionList +
                 ", transactionHistoryList=" + transactionHistoryList +
                 '}';
     }
@@ -128,6 +141,33 @@ public class Transaction {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getPlanedDate() {
+        if (planedDate == null) {
+            planedDate = LocalDateTime.now();
+        }
+        return planedDate;
+    }
+
+    public void setPlanedDate(LocalDateTime planedDate) {
+        this.planedDate = planedDate;
+    }
+
+    public LocalDateTime getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(LocalDateTime completedDate) {
+        this.completedDate = completedDate;
+    }
+
+    public TransactionStatus getTransactionStatus() {
+        return transactionStatus;
+    }
+
+    public void setTransactionStatus(TransactionStatus transactionStatus) {
+        this.transactionStatus = transactionStatus;
     }
 
     public User getCreator() {

@@ -32,8 +32,8 @@ public class EventController {
         return eventDTOMapper.eventToEventDTO(event);
     }
 
-
     //-- PutMapping
+
     @PutMapping("/putSubjectToEvent")
     public EventDTO putSubjectToEvent(@RequestParam Long eventId, @RequestParam String subject) {
         Event event = eventService.putSubjectToEvent(eventId, subject);
@@ -51,7 +51,6 @@ public class EventController {
         Event event = eventService.putTagToEvent(eventId, tagId);
         return eventDTOMapper.eventToEventDTO(event);
     }
-
 
     @PutMapping("/putReminderToEvent")
     public EventDTO putReminderToEvent(@RequestParam Long eventId, @RequestParam Long reminderId) {

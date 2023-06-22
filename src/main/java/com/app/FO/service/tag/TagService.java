@@ -51,7 +51,13 @@ public class TagService {
 
     public Tag putSubjectToTag(Long tagId, String subject) {
         User logInUser = serviceAll.getLogInUser();
-        Tag tag = tagRepository.getTagFromUserIdByTagId(logInUser.getId(), tagId);
+
+        Tag tag = tagRepository.getTagFromUserIdBySubject(logInUser.getId(), subject);
+        if (tag != null) {
+            throw new TagAlreadyExistException("Tag with this subject already exist");
+        }
+
+        tag = tagRepository.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found in your list");
         }

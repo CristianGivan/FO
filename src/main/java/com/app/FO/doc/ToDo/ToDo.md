@@ -4,6 +4,14 @@
 
 ### Classes
 
+- [11] Expense
+- [12] Expenses
+- [14] Account
+- [15] Event
+- [20] Person
+
+All
+
 - [14] Account
     - accont expenses account see
 - [9] Address
@@ -26,13 +34,16 @@
 - [x] Task
 - [x] Tasks
 - [x] Topic
-- [13] Transaction
+- [x] Transaction
 - [x] User
 - [x] Work
 
 ### General
 
-- [ ] when get a value treat the case when more values are possible
+- [ ] when get a value treat the case when more values are possible - see Transaction
+    - if make not sens to have ex 2 entity with the same subject check it on put but also when the subject is changed
+      see Tag
+    - if the entity can have duplicate subject when you query after subject it should return a list Transaction
 - [ ] topicLink(wishful) or linkTopic (now)
 
 ## Old Check

@@ -257,6 +257,47 @@ public class AccountService {
 //        account.getAccountTransactionList().add(accountTransaction);
 //        return accountRepository.save(account);
 //    }
+//
+//    public Transaction putTransactionFromAccountToAccount(Long transactionId, Long accountId, String direction) {
+//        //todo update balance of the previous account
+//        User logInUser = serviceAll.getLogInUser();
+//
+//        Transaction transaction = transactionRepository.getTransactionFromUserIdByTransactionId(logInUser.getId(), transactionId);
+//        if (transaction == null) {
+//            throw new TransactionNotFoundException("Transaction not found in your list");
+//        }
+//
+//        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
+//        if (account == null) {
+//            throw new AccountNotFoundException("Account not found");
+//        }
+//        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
+//        if (accountTransaction != null) {
+//            throw new AccountTransactionAlreadyExistException("The transaction already has the account");
+//        }
+//
+//        AccountTransaction replacedAccountTransaction = serviceAll.getAccountTransactionByDirection(direction, transactionId);
+//        if (replacedAccountTransaction == null) {
+//            throw new AccountTransactionNotFoundException("The transaction not found at account");
+//        }
+//        Account replacedAccount = replacedAccountTransaction.getAccount();
+//
+//        if (direction.equals("from")) {
+//            replacedAccount.setBalance(replacedAccount.getBalance() + transaction.getSum());
+//            account.setBalance(account.getBalance() - transaction.getSum());
+//        } else if (direction.equals("to")) {
+//            replacedAccount.setBalance(replacedAccount.getBalance() - transaction.getSum());
+//            account.setBalance(account.getBalance() + transaction.getSum());
+//        } else {
+//            throw new AccountTransactionNotFoundException("The direction is not specified correctly");
+//        }
+//
+//        accountTransaction = new AccountTransaction(account, transaction, transaction.getSum(), direction);
+//        transaction.getAccountTransactionList().add(accountTransaction);
+//        //todo for the future the accountTransaction to be moved to history
+//        replacedAccountTransaction.setDirection(replacedAccountTransaction.getDirection() + " deleted");
+//        return transactionRepository.save(transaction);
+//    }
 
     //--Delete
 

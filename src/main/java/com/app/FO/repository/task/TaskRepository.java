@@ -83,6 +83,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> getTaskFromUserIdByWorkingProgress(Long userId, Double workingProgress);
 
     @Query(nativeQuery = true, value =
+            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.task_status=?2")
+    List<Task> getTaskListFromUserIdByTaskStatus(Long userId, int taskStatus);
+
+    @Query(nativeQuery = true, value =
             "SELECT * FROM task as t inner join (SELECT ti.task_id FROM (SELECT t.task_id FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1) as ti inner join task_user tu on ti.task_id = tu.task_id where tu.user_id=?2)as tr on tr.task_id=t.task_id")
     List<Task> getTaskListFromUserIdByUserId(Long logInUser, Long userId);
 
@@ -111,7 +115,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.end_date=?2")
     List<Task> getTaskListFromUserIdByEndDate(Long userId, LocalDateTime endDate);
 
-    @Query(nativeQuery = true, value =
-            "SELECT * FROM task as t inner join task_user tu on t.task_id = tu.task_id where tu.user_id=?1 and t.task_status=?2")
-    List<Task> getTaskListFromUserIdByTaskStatus(Long userId, int taskStatus);
+
 }

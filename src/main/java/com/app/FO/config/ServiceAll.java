@@ -1150,4 +1150,25 @@ public class ServiceAll {
         return taskStatus;
     }
 
+    public TransactionStatus convertTransactionStatusTextToTransactionStatus(String transactionStatusText) {
+        TransactionStatus transactionStatus;
+        switch (transactionStatusText) {
+            case "CREATED":
+                transactionStatus = TransactionStatus.CREATED;
+                break;
+            case "PLANED":
+                transactionStatus = TransactionStatus.PLANED;
+                break;
+            case "PENDING":
+                transactionStatus = TransactionStatus.PENDING;
+                break;
+            case "COMPLETED":
+                transactionStatus = TransactionStatus.COMPLETED;
+                break;
+            default:
+                transactionStatus = TransactionStatus.UNDEFINE;
+                break;
+        }
+        return transactionStatus;
+    }
 }

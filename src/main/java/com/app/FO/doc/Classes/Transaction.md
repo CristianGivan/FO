@@ -5,7 +5,23 @@
 # ToDo
 
 - [ ] putSum update also the balance from accounts
-- [ ] putaccount update deleted the accountTransaction to be moved to history
+- [ ] putAccount update deleted the accountTransaction to be moved to history
+- deleteAccountFromTransaction is not used because you cannot have a transaction with only one account it chan be only
+  changed
+- transaction can have status pending planed completed (pending is not used could be that it is the balance is changed
+  but the money are not to the recipient)
+  done https://support-paypage.ecom-psp.com/en/get-started/transaction-management/transaction-statuses
+- UNDEFINE(0),
+  CREATED(1),
+  PLANED(2),
+  PENDING(3),
+  COMPLETED(4);
+    - first a transaction is created and the status is created waiting to be completed - nothing changed in balance of
+      the account
+    - a transaction can have status planed where it has a time when it can be done a remainder will be created to this
+      date - nothing changed in balance of the account
+    - completed balance is updated
+- when a transaction is planed or completed calculate if enough money will remain for the planed dates
 
 ## Entity
 
@@ -52,16 +68,20 @@
 - [x] type
 - [x] sum
 - [x] createdDate
+- [x] planedDate
+- [x] completedDate
+- [x] transactionStatus
 - [x] creator
 - [x] transactionUserList
 - [x] transactionTagList
 - [x] transactionReminderList
 - [x] transactionTopicList
 - [x] transactionTasksList
-- [x] accountTransactionList
+- [x] AccountTransactionList
 - [x] transactionHistoryList
 
-- 
+-
+
 ### Post
 
 - [x] postTransaction
@@ -70,22 +90,25 @@
 
 - [x] putSubjectToTransaction
 - [x] putTypeToTransaction
-- [x] putSumToTransaction
+- [] putSumToTransaction
+- [x] putPlanedDateToTransaction
+- [x] putCompletedDateToTransaction
+- [x] putTransactionStatusToTransaction
 - [x] putUserToTransaction
 - [x] putTagToTransaction
 - [x] putReminderToTransaction
 - [x] putTopicToTransaction
 - [x] putTasksToTransaction
-- [x] putAccountToTransaction
+- [ ] putAccountToTransaction
 
 ### Delete
 
-- [ ] deleteUserFromTransaction
-- [ ] deleteTagFromTransaction
-- [ ] deleteReminderFromTransaction
-- [ ] deleteTopicFromTransaction
-- [ ] deleteTasksFromTransaction
-- [ ] deleteTransaction
+- [x] deleteUserFromTransaction
+- [x] deleteTagFromTransaction
+- [x] deleteReminderFromTransaction
+- [x] deleteTopicFromTransaction
+- [x] deleteTasksFromTransaction
+- [x] deleteTransaction
 
 ### Get
 
@@ -99,11 +122,16 @@
 - [x] getTransactionListBySumBetween
 - [x] getTransactionByCreatedDate
 - [x] getTransactionListByCreatedDateBetween
+- [x] getTransactionListByPlaned
+- [x] getTransactionListByPlanedDateBetween
+- [x] getTransactionListByCompleted
+- [x] getTransactionListByCompletedDateBetween
+- [x] getTransactionListByTransactionStatus
 - [x] getTransactionListByUser
 - [x] getTransactionListByTag
 - [x] getTransactionListByReminder
 - [x] getTransactionListByTopic
 - [x] getTransactionListByTasks
-- [x] getTransactionListByAccountByDirection
+- [x] getTransactionListByAccountWithDirection
 
 ## Other

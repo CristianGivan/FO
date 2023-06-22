@@ -5,6 +5,7 @@ import com.app.FO.mapper.dto.transaction.TransactionDTO;
 import com.app.FO.mapper.mappers.TransactionDTOMapper;
 import com.app.FO.model.transaction.Transaction;
 import com.app.FO.service.transaction.TransactionService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,27 @@ public class TransactionController {
     @PutMapping("/putSumToTransaction")
     public TransactionDTO putSumToTransaction(@RequestParam Long transactionId, @RequestParam Double sum) {
         Transaction transaction = transactionService.putSumToTransaction(transactionId, sum);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @PutMapping("/putPlanedDateToTransaction")
+    public TransactionDTO putPlanedDateToTransaction(@RequestParam Long transactionId, @RequestParam String planedDate) {
+        Transaction transaction = transactionService.putPlanedDateToTransaction(transactionId, planedDate);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+    @PutMapping("/putCompletedDateToTransaction")
+
+    public TransactionDTO putCompletedDateToTransaction(@RequestParam Long transactionId, @RequestParam String completedDate) {
+
+        Transaction transaction = transactionService.putCompletedDateToTransaction(transactionId, completedDate);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
+
+
+    @PutMapping("/putTransactionStatusToTransaction")
+    public TransactionDTO putTransactionStatusToTransaction(@RequestParam Long transactionId, @RequestParam String transactionStatus, @RequestParam String date) {
+        Transaction transaction = transactionService.putTransactionStatusToTransaction(transactionId, transactionStatus, date);
         return transactionDTOMapper.transactionToTransactionDTO(transaction);
     }
 
@@ -138,6 +160,11 @@ public class TransactionController {
         return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
     }
 
+    @GetMapping("/getTransactionById")
+    public TransactionDTO getTransactionById(@RequestParam Long transactionId) {
+        Transaction transaction = transactionService.getTransactionByTransactionId(transactionId);
+        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+    }
 
     @GetMapping("/getTransactionBySubject")
     public TransactionDTO getTransactionBySubject(@RequestParam String subject) {
@@ -187,12 +214,40 @@ public class TransactionController {
         return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
     }
 
-    @GetMapping("/getTransactionById")
-    public TransactionDTO getTransactionById(@RequestParam Long transactionId) {
-        Transaction transaction = transactionService.getTransactionByTransactionId(transactionId);
-        return transactionDTOMapper.transactionToTransactionDTO(transaction);
+
+    @GetMapping("/getTransactionListByPlanedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public List<TransactionDTO> getTransactionByPlanedDate(@RequestParam String planedDate) {
+        List<Transaction> transactionList = transactionService.getTransactionByPlanedDate(planedDate);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
     }
 
+    @GetMapping("/getTransactionListByPlanedDateBetween")
+    public List<TransactionDTO> getTransactionListByPlanedDateBetween(@RequestParam String planedDateMin, @RequestParam String planedDateMax) {
+        List<Transaction> transactionList = transactionService.getTransactionListByPlanedDateBetween(planedDateMin, planedDateMax);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
+
+
+    @GetMapping("/getTransactionListByCompletedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public List<TransactionDTO> getTransactionByCompletedDate(@RequestParam String completedDate) {
+        List<Transaction> transactionList = transactionService.getTransactionByCompletedDate(completedDate);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
+
+    @GetMapping("/getTransactionListByCompletedDateBetween")
+    public List<TransactionDTO> getTransactionListByCompletedDateBetween(@RequestParam String completedDateMin, @RequestParam String completedDateMax) {
+        List<Transaction> transactionList = transactionService.getTransactionListByCompletedDateBetween(completedDateMin, completedDateMax);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
+
+
+    @GetMapping("/getTransactionByTransactionStatus")
+    public List<TransactionDTO> getTransactionByTransactionStatus(@RequestParam String transactionStatus) {
+        List<Transaction> transactionList = transactionService.getTransactionByTransactionStatus(transactionStatus);
+        return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
+    }
 
     @GetMapping("/getTransactionListByUserId")
     public List<TransactionDTO> getTransactionListByUserId(@RequestParam Long userId) {
@@ -224,9 +279,9 @@ public class TransactionController {
         return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
     }
 
-    @GetMapping("/getTransactionListByAccountByDirection")
-    public List<TransactionDTO> getTransactionListByAccountByDirection(@RequestParam Long accountId, @RequestParam String direction) {
-        List<Transaction> transactionList = transactionService.getTransactionListByAccountByDirection(accountId, direction);
+    @GetMapping("/getTransactionListByAccountWithDirection")
+    public List<TransactionDTO> getTransactionListByAccountWithDirection(@RequestParam Long accountId, @RequestParam String direction) {
+        List<Transaction> transactionList = transactionService.getTransactionListByAccountWithDirection(accountId, direction);
         return transactionDTOMapper.transactionListToTransactionDTOList(transactionList);
     }
 

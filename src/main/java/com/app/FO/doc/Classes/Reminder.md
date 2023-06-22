@@ -12,7 +12,7 @@ Ideas:
 
 ## ToDo
 
-- [ ] clarify the relation ReminderReminder check delition
+- [ ] clarify the relation ReminderReminder check deletion
 
 ### Attributes
 

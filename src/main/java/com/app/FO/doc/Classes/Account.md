@@ -81,7 +81,7 @@
 - [x] putTopicToAccount
 - [x] putTasksToAccount
 - [x] putExpensesToAccount
-- [x] putTransactionToAccount
+- [x] putTransactionFromAccountToAccount
 
 ### Delete
 
@@ -113,6 +113,8 @@
 - [x] getAccountListByTasks
 - [x] getAccountListByExpenses
 - [x] getAccountListByTransaction
+- [x] getAccountListByTransactionWithDirection
+- [x] getAccountListByTransactionDirection
 
 ## Other
 

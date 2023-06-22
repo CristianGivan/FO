@@ -55,6 +55,27 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "SELECT * FROM transaction as t inner join transaction_user ut on t.transaction_id = ut.transaction_id where ut.user_id=?1 and t.created_date between ?2 and ?3")
     List<Transaction> getTransactionListFromUserIdByCreatedDateBetween(Long UserId, LocalDateTime createdDateMin, LocalDateTime createdDateMax);
 
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM transaction as t inner join transaction_user tu on t.transaction_id = tu.transaction_id where tu.user_id=?1 and t.planed_date=?2")
+    List<Transaction> getTransactionFromUserIdByPlanedDate(Long userId, LocalDateTime planedDate);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM transaction as t inner join transaction_user ut on t.transaction_id = ut.transaction_id where ut.user_id=?1 and t.planed_date between ?2 and ?3")
+    List<Transaction> getTransactionListFromUserIdByPlanedDateBetween(Long UserId, LocalDateTime planedDateMin, LocalDateTime planedDateMax);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM transaction as t inner join transaction_user tu on t.transaction_id = tu.transaction_id where tu.user_id=?1 and t.completed_date=?2")
+    List<Transaction> getTransactionFromUserIdByCompletedDate(Long userId, LocalDateTime completedDate);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM transaction as t inner join transaction_user ut on t.transaction_id = ut.transaction_id where ut.user_id=?1 and t.completed_date between ?2 and ?3")
+    List<Transaction> getTransactionListFromUserIdByCompletedDateBetween(Long UserId, LocalDateTime completedDateMin, LocalDateTime completedDateMax);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM transaction as t inner join transaction_user tu on t.transaction_id = tu.transaction_id where tu.user_id=?1 and t.transaction_status=?2")
+    List<Transaction> getTransactionListFromUserIdByTransactionStatus(Long userId, int transactionStatus);
+
     @Query(nativeQuery = true, value =
             "SELECT * FROM transaction as t inner join (SELECT ti.transaction_id FROM (SELECT t.transaction_id FROM transaction as t inner join transaction_user tu on t.transaction_id = tu.transaction_id where tu.user_id=?1) as ti inner join transaction_user tu on ti.transaction_id = tu.transaction_id where tu.user_id=?2)as tr on tr.transaction_id=t.transaction_id")
     List<Transaction> getTransactionListFromUserIdByUserId(Long logInUserId, Long userId);

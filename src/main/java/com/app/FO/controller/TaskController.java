@@ -52,6 +52,13 @@ public class TaskController {
         return taskDTOMapper.taskToTaskDTO(task);
     }
 
+
+    @PutMapping("/putTaskStatusToTask")
+    public TaskDTO putTaskStatusToTask(@RequestParam Long taskId, @RequestParam String taskStatus) {
+        Task task = taskService.putTaskStatusToTask(taskId, taskStatus);
+        return taskDTOMapper.taskToTaskDTO(task);
+    }
+
     @PutMapping("/putUserToTask")
     public TaskDTO putUserToTask(@RequestParam Long taskId, @RequestParam Long userId) {
         Task task = taskService.putUserToTask(taskId, userId);
@@ -79,13 +86,6 @@ public class TaskController {
     @PutMapping("/putWorkToTask")
     public TaskDTO putWorkToTask(@RequestParam Long taskId, @RequestParam Long workId) {
         Task task = taskService.putWorkToTask(taskId, workId);
-        return taskDTOMapper.taskToTaskDTO(task);
-    }
-
-
-    @PutMapping("/putTaskStatusToTask")
-    public TaskDTO putTaskStatusToTask(@RequestParam Long taskId, @RequestParam String taskStatus) {
-        Task task = taskService.putTaskStatusToTask(taskId, taskStatus);
         return taskDTOMapper.taskToTaskDTO(task);
     }
 

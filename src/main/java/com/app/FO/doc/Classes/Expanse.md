@@ -1,6 +1,9 @@
 # General
 
 - from time to time the mean can be calculated as ponderat mean for a more relabel mean
+- every time when an expensesExpense is created than numberOfBuys is increased
+- every time when expensesExpense is updated check the
+- shall be created a oneToOne relation with expenseStatistic
 
 # ToDo
 
@@ -44,6 +47,7 @@
 ```
 
 ### Attributes
+
 - [x] name
 - [x] producer
 - [x] subject
