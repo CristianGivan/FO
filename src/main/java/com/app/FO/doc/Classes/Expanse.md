@@ -52,8 +52,8 @@
 
 - [x] expense
 - [x] product
+- [x] subject
 - [x] check
-- [x] unit
 - [x] quantity
 - [x] unitPrice
 - [x] totalPrice

@@ -364,6 +364,9 @@ public class ServiceAll {
     private ExpensesPersonRepository expensesPersonRepository;
 
     @Autowired
+    private ExpensesShopRepository expensesShopRepository;
+
+    @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
     private TransactionUserRepository transactionUserRepository;
@@ -1004,6 +1007,10 @@ public class ServiceAll {
         return expensesPersonRepository.getExpensesPersonByExpensesIdAndPersonId(expensesId, personId);
     }
 
+    public ExpensesShop getExpensesShop(Long expensesId, Long shopId) {
+        return expensesShopRepository.getExpensesShopByExpensesIdAndShopId(expensesId, shopId);
+    }
+
     //-- getTransactionAnd
 
 
@@ -1217,5 +1224,27 @@ public class ServiceAll {
                 break;
         }
         return transactionStatus;
+    }
+
+    public ExpensesStatus convertExpensesStatusTextToExpensesStatus(String expensesStatusText) {
+        ExpensesStatus expensesStatus;
+        switch (expensesStatusText) {
+            case "CREATED":
+                expensesStatus = ExpensesStatus.CREATED;
+                break;
+            case "PLANED":
+                expensesStatus = ExpensesStatus.PLANED;
+                break;
+            case "PENDING":
+                expensesStatus = ExpensesStatus.PENDING;
+                break;
+            case "COMPLETED":
+                expensesStatus = ExpensesStatus.COMPLETED;
+                break;
+            default:
+                expensesStatus = ExpensesStatus.UNDEFINE;
+                break;
+        }
+        return expensesStatus;
     }
 }

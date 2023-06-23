@@ -32,22 +32,24 @@ public class Expense {
     @JsonIgnore
     private Product product;
 
-    @Column(name = "name")
-    private String name;
-    @Column(name = "producer")
-    private String producer;
     @Column(name = "subject")
     private String subject;
+
+    @Column(name = "check")
+    private Boolean check;
     @Column(name = "category")
     private String category;
-    @Column(name = "number_buys")
-    private Integer numberOfBuys;
-    @Column(name = "number_mean")
-    private Integer numberForMean;
-    @Column(name = "mean_quantity")
-    private Double meanQuantity;
-    @Column(name = "mean_unit_price")
-    private Double meanUnitPrice;
+    @Column(name = "quantity")
+    private Double quantity;
+    @Column(name = "unit_price")
+    private Double unitPrice;
+    @Column(name = "total_price")
+    private Double totalPrice;
+    @Column(name = "estimated_price")
+    private Double estimatedPrice;
+    @Column(name = "check_date")
+    private LocalDateTime checkDate;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -77,10 +79,8 @@ public class Expense {
     public Expense() {
     }
 
-    public Expense(String name, String producer, User creator) {
-        this.subject = name;
-        this.subject = producer;
-        this.subject = name + " from " + producer;
+    public Expense(String subject, User creator) {
+        this.subject = subject;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -89,26 +89,27 @@ public class Expense {
     public String toString() {
         return "Expense{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", producer='" + producer + '\'' +
+                ", expenses=" + expenses +
+                ", product=" + product +
                 ", subject='" + subject + '\'' +
+                ", check=" + check +
                 ", category='" + category + '\'' +
-                ", numberOfBuys=" + numberOfBuys +
-                ", numberForMean=" + numberForMean +
-                ", meanQuantity=" + meanQuantity +
-                ", meanUnitPrice=" + meanUnitPrice +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", totalPrice=" + totalPrice +
+                ", estimatedPrice=" + estimatedPrice +
+                ", checkDate=" + checkDate +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator.getId() +
+                ", creator=" + creator +
                 ", expenseUserList=" + expenseUserList +
                 ", expenseTagList=" + expenseTagList +
                 ", expenseReminderList=" + expenseReminderList +
                 ", expenseTopicList=" + expenseTopicList +
                 ", expenseTasksList=" + expenseTasksList +
-                ", expenses=" + expenses +
-                ", product=" + product +
                 ", expenseHistoryList=" + expenseHistoryList +
                 '}';
     }
+
 
     public Long getId() {
         return id;
@@ -118,26 +119,20 @@ public class Expense {
         this.id = id;
     }
 
-    public String getName() {
-        if (name == null) {
-            name = "";
-        }
-        return name;
+    public Expenses getExpenses() {
+        return expenses;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setExpenses(Expenses expenses) {
+        this.expenses = expenses;
     }
 
-    public String getProducer() {
-        if (producer == null) {
-            producer = "";
-        }
-        return producer;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducer(String producer) {
-        this.producer = producer;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public String getSubject() {
@@ -148,6 +143,13 @@ public class Expense {
         this.subject = subject;
     }
 
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
+    }
 
     public String getCategory() {
         return category;
@@ -157,36 +159,44 @@ public class Expense {
         this.category = category;
     }
 
-    public Integer getNumberOfBuys() {
-        return numberOfBuys;
+    public Double getQuantity() {
+        return quantity;
     }
 
-    public void setNumberOfBuys(Integer numberOfBuys) {
-        this.numberOfBuys = numberOfBuys;
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 
-    public Integer getNumberForMean() {
-        return numberForMean;
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setNumberForMean(Integer numberForMean) {
-        this.numberForMean = numberForMean;
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    public Double getMeanQuantity() {
-        return meanQuantity;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setMeanQuantity(Double meanQuantity) {
-        this.meanQuantity = meanQuantity;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public Double getMeanUnitPrice() {
-        return meanUnitPrice;
+    public Double getEstimatedPrice() {
+        return estimatedPrice;
     }
 
-    public void setMeanUnitPrice(Double meanUnitPrice) {
-        this.meanUnitPrice = meanUnitPrice;
+    public void setEstimatedPrice(Double estimatedPrice) {
+        this.estimatedPrice = estimatedPrice;
+    }
+
+    public LocalDateTime getCheckDate() {
+        return checkDate;
+    }
+
+    public void setCheckDate(LocalDateTime checkDate) {
+        this.checkDate = checkDate;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -232,7 +242,6 @@ public class Expense {
         this.expenseReminderList = expenseReminderList;
     }
 
-
     public List<ExpenseTopic> getExpenseTopicList() {
         return expenseTopicList;
     }
@@ -247,22 +256,6 @@ public class Expense {
 
     public void setExpenseTasksList(List<ExpenseTasks> expenseTasksList) {
         this.expenseTasksList = expenseTasksList;
-    }
-
-    public Expenses getExpenses() {
-        return expenses;
-    }
-
-    public void setExpenses(Expenses expenses) {
-        this.expenses = expenses;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public List<ExpenseHistory> getExpenseHistoryList() {

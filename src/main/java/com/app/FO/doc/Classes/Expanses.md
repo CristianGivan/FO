@@ -16,6 +16,9 @@
 # ToDo
 
 - create and link shop entity
+- private void payedCheckedAccountExpenses(Expenses expenses)
+- private void refundCheckedAccountExpenses(Expenses expenses)
+-
 
 ## Feature
 
@@ -98,7 +101,6 @@
 - [x] putTypeToExpenses
 - [x] putExpensesStatusToExpenses
 - [x] putPayedDateToExpenses
-- [x] putCreatedDateToExpenses
 - [x] putUserToExpenses
 - [x] putTagToExpenses
 - [x] putReminderToExpenses
@@ -132,9 +134,9 @@
 - [x] getExpensesByType
 - [x] getExpensesListByTypeContains
 - [ ] getExpensesByExpensesStatus
-- [ ] getExpensesByExpensesNumber
+- [ ] getExpensesListByExpensesNumber
 - [ ] getExpensesListByExpensesNumberBetween
-- [ ] getExpensesByCheckedNumber
+- [ ] getExpensesListByCheckedNumber
 - [ ] getExpensesListByCheckedNumberBetween
 - [ ] getExpensesByCheckedPrice
 - [ ] getExpensesListByCheckedPriceBetween

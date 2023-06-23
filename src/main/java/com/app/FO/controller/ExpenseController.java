@@ -25,8 +25,8 @@ public class ExpenseController {
     //-- PostMapping
 
     @PostMapping("/postNewExpense")
-    public ExpenseDTO postNewExpense(@RequestParam String name, @RequestParam String producer) {
-        Expense expense = expenseService.postExpense(name, producer);
+    public ExpenseDTO postNewExpense(@RequestParam String subject) {
+        Expense expense = expenseService.postExpense(subject);
         return expenseDTOMapper.expenseToExpenseDTO(expense);
     }
 
@@ -36,12 +36,6 @@ public class ExpenseController {
     @PutMapping("/putNameToExpense")
     public ExpenseDTO putNameToExpense(@RequestParam Long expenseId, @RequestParam String name) {
         Expense expense = expenseService.putNameToExpense(expenseId, name);
-        return expenseDTOMapper.expenseToExpenseDTO(expense);
-    }
-
-    @PutMapping("/putProducerToExpense")
-    public ExpenseDTO putProducerToExpense(@RequestParam Long expenseId, @RequestParam String producer) {
-        Expense expense = expenseService.putProducerToExpense(expenseId, producer);
         return expenseDTOMapper.expenseToExpenseDTO(expense);
     }
 
@@ -149,19 +143,6 @@ public class ExpenseController {
     @GetMapping("/getExpenseListByNameContains")
     public List<ExpenseDTO> getExpenseListByNameContains(@RequestParam String nameContain) {
         List<Expense> expenseList = expenseService.getExpenseListByNameContains(nameContain);
-        return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
-    }
-
-
-    @GetMapping("/getExpenseByProducer")
-    public ExpenseDTO getExpenseByProducer(@RequestParam String producer) {
-        Expense expense = expenseService.getExpenseByProducer(producer);
-        return expenseDTOMapper.expenseToExpenseDTO(expense);
-    }
-
-    @GetMapping("/getExpenseListByProducerContains")
-    public List<ExpenseDTO> getExpenseListByProducerContains(@RequestParam String producerContain) {
-        List<Expense> expenseList = expenseService.getExpenseListByProducerContains(producerContain);
         return expenseDTOMapper.expenseListToExpenseDTOList(expenseList);
     }
 

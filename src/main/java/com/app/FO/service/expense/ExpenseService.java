@@ -30,15 +30,14 @@ public class ExpenseService {
 
 //-- Post
 
-    public Expense postExpense(String name, String producer) {
+    public Expense postExpense(String subject) {
         User logInUser = serviceAll.getLogInUser();
-        String subject = name + " from " + producer;
         Expense expense = expenseRepository.getExpenseFromUserIdBySubject(logInUser.getId(), subject);
         if (expense != null) {
             throw new ExpenseAlreadyExistException("Expense with this subject already exist");
         }
 
-        expense = expenseRepository.save(new Expense(name, producer, logInUser));
+        expense = expenseRepository.save(new Expense(subject, logInUser));
 
         ExpenseUser expenseUser = new ExpenseUser(expense, logInUser);
         expense.getExpenseUserList().add(expenseUser);
@@ -47,41 +46,22 @@ public class ExpenseService {
     }
 
     //-- Put
-    public Expense putNameToExpense(Long expenseId, String name) {
+    public Expense putNameToExpense(Long expenseId, String subject) {
         User logInUser = serviceAll.getLogInUser();
         Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found in your list");
         }
 
-        String subject = name + " from " + expense.getProducer();
         if (expense.getSubject().equals(subject)) {
             throw new ExpenseAlreadyExistException("Expense has already the same subject");
         }
 
-        expense.setName(name);
         expense.setSubject(subject);
 
         return expenseRepository.save(expense);
     }
 
-    public Expense putProducerToExpense(Long expenseId, String producer) {
-        User logInUser = serviceAll.getLogInUser();
-        Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
-        if (expense == null) {
-            throw new ExpenseNotFoundException("Expense not found in your list");
-        }
-
-        String subject = expense.getName() + " from " + producer;
-        if (expense.getSubject().equals(subject)) {
-            throw new ExpenseAlreadyExistException("Expense has already the same subject");
-        }
-
-        expense.setProducer(producer);
-        expense.setSubject(subject);
-
-        return expenseRepository.save(expense);
-    }
 
     public Expense putCategoryToExpense(Long expenseId, String category) {
         User logInUser = serviceAll.getLogInUser();
@@ -383,23 +363,6 @@ public class ExpenseService {
         return expenseList;
     }
 
-    public Expense getExpenseByProducer(String producer) {
-        User logInUser = serviceAll.getLogInUser();
-        Expense expense = expenseRepository.getExpenseFromUserIdByProducer(logInUser.getId(), producer);
-        if (expense == null) {
-            throw new ExpenseNotFoundException("No expense found");
-        }
-        return expense;
-    }
-
-    public List<Expense> getExpenseListByProducerContains(String producerContains) {
-        User logInUser = serviceAll.getLogInUser();
-        List<Expense> expenseList = expenseRepository.getExpenseListByProducerContains(logInUser.getId(), producerContains);
-        if (expenseList.isEmpty()) {
-            throw new ExpenseNotFoundException("No expense found");
-        }
-        return expenseList;
-    }
 
     public Expense getExpenseBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();

@@ -31,6 +31,9 @@ public class AccountExpenses {
     @Column(name = "sum")
     private Double sum;
 
+    @Column(name = "checked")
+    private Boolean checked;
+
     @Column(name = "account_date")
     private LocalDateTime accountDate;
 
@@ -49,8 +52,10 @@ public class AccountExpenses {
     public String toString() {
         return "AccountExpenses{" +
                 "id=" + id +
-                ", accountId=" + account.getId() +
-                ", expensesId=" + expenses.getId() +
+                ", account=" + account +
+                ", expenses=" + expenses +
+                ", sum=" + sum +
+                ", checked=" + checked +
                 ", accountDate=" + accountDate +
                 '}';
     }
@@ -77,6 +82,22 @@ public class AccountExpenses {
 
     public void setExpenses(Expenses expenses) {
         this.expenses = expenses;
+    }
+
+    public Double getSum() {
+        return sum;
+    }
+
+    public void setSum(Double sum) {
+        this.sum = sum;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 
     public LocalDateTime getAccountDate() {

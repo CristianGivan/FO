@@ -5,6 +5,7 @@
 - [ ] putBalanceToAccount is done by expenses and transaction
 - [ ] during modifi balance check if the balance is negative mabe add methods as add to balance substract to balance
 - [ ] a currency shall be added to the account shall be considered also conversion rate
+- accountExpenses if is checked the
 
 # ToDo
 

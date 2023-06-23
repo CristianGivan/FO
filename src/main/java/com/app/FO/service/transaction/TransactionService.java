@@ -221,7 +221,6 @@ public class TransactionService {
         if (newTransactionStatus == TransactionStatus.COMPLETED) {
             fromAccount.setBalance(fromAccount.getBalance() - transactionSum);
             toAccount.setBalance(toAccount.getBalance() + transactionSum);
-            transaction.setCompletedDate(LocalDateTime.now());
             transaction.setCompletedDate(date);
         }
 

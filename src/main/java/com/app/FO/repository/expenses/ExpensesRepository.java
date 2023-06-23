@@ -39,15 +39,25 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Long> {
             "SELECT * FROM expenses as t inner join expenses_user ut on t.expenses_id = ut.expenses_id where ut.user_id=:userId and t.type like %:containingText%")
     List<Expenses> getExpensesListByTypeContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
 
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expenses as t inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and t.expenses_status=?2")
+    List<Expenses> getExpensesListFromUserIdByExpensesStatus(Long userId, int expensesStatus);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expenses as t inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and t.shop=?2")
-    Expenses getExpensesFromUserIdByShop(Long userId, String shop);
+            "SELECT * FROM expenses as t inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and t.expenses_number=?2")
+    List<Expenses> getExpensesFromUserIdByExpensesNumber(Long userId, Integer expensesNumber);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expenses as t inner join expenses_user ut on t.expenses_id = ut.expenses_id where ut.user_id=:userId and t.shop like %:containingText%")
-    List<Expenses> getExpensesListFromUserIdByShopContains(@Param("userId") Long UserId, @Param("containingText") String tagText);
+            "SELECT * FROM expenses as t inner join expenses_user ut on t.expenses_id = ut.expenses_id where ut.user_id=?1 and t.expenses_number between ?2 and ?3")
+    List<Expenses> getExpensesListFromUserIdByExpensesNumberBetween(Long UserId, Integer expensesNumberMin, Integer expensesNumberMax);
 
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expenses as t inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and t.checked_number=?2")
+    List<Expenses> getExpensesFromUserIdByCheckedNumber(Long userId, Integer checkedNumber);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expenses as t inner join expenses_user ut on t.expenses_id = ut.expenses_id where ut.user_id=?1 and t.checked_number between ?2 and ?3")
+    List<Expenses> getExpensesListFromUserIdByCheckedNumberBetween(Long UserId, Integer checkedNumberMin, Integer checkedNumberMax);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM expenses as t inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and t.checked_price=?2")
@@ -65,6 +75,15 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Long> {
     @Query(nativeQuery = true, value =
             "SELECT * FROM expenses as t inner join expenses_user ut on t.expenses_id = ut.expenses_id where ut.user_id=?1 and t.total_price between ?2 and ?3")
     List<Expenses> getExpensesListFromUserIdByTotalPriceBetween(Long UserId, Double totalPriceMin, Double totalPriceMax);
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expenses as t inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and t.total_price=?2")
+    Expenses getExpensesFromUserIdByEstimatedTotalPrice(Long userId, Double estimatedEstimatedTotalPrice);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expenses as t inner join expenses_user ut on t.expenses_id = ut.expenses_id where ut.user_id=?1 and t.total_price between ?2 and ?3")
+    List<Expenses> getExpensesListFromUserIdByEstimatedTotalPriceBetween(Long UserId, Double estimatedEstimatedTotalPriceMin, Double estimatedEstimatedTotalPriceMax);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM expenses as t inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and t.payed_date=?2")
@@ -103,6 +122,14 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Long> {
             "SELECT * FROM expenses as t inner join expenses_tasks as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.tasks_id=?2")
     List<Expenses> getExpensesListFromUserIdByTasksId(Long userId, Long tasksId);
 
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expenses as t inner join expenses_person as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.person_id=?2")
+    List<Expenses> getExpensesListFromUserIdByPersonId(Long userId, Long personId);
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expenses as t inner join expenses_shop as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.shop_id=?2")
+    List<Expenses> getExpensesListFromUserIdByShopId(Long userId, Long shopId);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM expenses as t inner join expenses_expense as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.expense_id=?2")
@@ -113,9 +140,5 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Long> {
             "SELECT * FROM expenses as t inner join account_expenses as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.account_id=?2")
     List<Expenses> getExpensesListFromUserIdByAccountId(Long userId, Long accountId);
 
-
-    @Query(nativeQuery = true, value =
-            "SELECT * FROM expenses as t inner join expenses_person as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.person_id=?2")
-    List<Expenses> getExpensesListFromUserIdByPayerId(Long userId, Long payerId);
 
 }
