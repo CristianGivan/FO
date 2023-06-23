@@ -99,7 +99,7 @@
 - [x] putReminderToTransaction
 - [x] putTopicToTransaction
 - [x] putTasksToTransaction
-- [ ] putAccountToTransaction
+- [x] putAccountToTransaction
 
 ### Delete
 

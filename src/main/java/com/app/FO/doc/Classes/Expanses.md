@@ -14,7 +14,9 @@
   new list
 
 # ToDo
+
 - create and link shop entity
+
 ## Feature
 
 - [ ] check how to treat the if the list is reopened to adjustments
@@ -64,24 +66,27 @@
 
 ### Attributes
 
-- [x] subject
-- [x] type
-- [x] shop
-- [x] estimatedTotalPrice
-- [x] checkedPrice
-- [x] totalPrice
-- [x] payedDate
-- [x] createdDate
-- [x] creator
-- [x] expensesUserList
-- [x] expensesTagList
-- [x] expensesReminderList
-- [x] expensesTopicList
-- [x] expensesTasksList
-- [x] expensesExpenseList
-- [x] expensesPayerList
-- [x] accountExpensesList
-- [x] expensesHistoryList
+- [ ] subject
+- [ ] type
+- [ ] expensesStatus
+- [ ] expensesNumber
+- [ ] checkedNumber
+- [ ] totalPrice
+- [ ] estimatedTotalPrice
+- [ ] checkedPrice
+- [ ] payedDate
+- [ ] createdDate
+- [ ] creator
+- [ ] expensesUserList
+- [ ] expensesTagList
+- [ ] expensesReminderList
+- [ ] expensesTopicList
+- [ ] expensesTasksList
+- [ ] expensesPersonList
+- [ ] expensesShopList
+- [ ] expenseList
+- [ ] accountExpensesList
+- [ ] expensesHistoryList
 
 ### Post
 
@@ -91,17 +96,19 @@
 
 - [x] putSubjectToExpenses
 - [x] putTypeToExpenses
-- [x] putShopToExpenses
+- [x] putExpensesStatusToExpenses
 - [x] putPayedDateToExpenses
+- [x] putCreatedDateToExpenses
 - [x] putUserToExpenses
 - [x] putTagToExpenses
 - [x] putReminderToExpenses
 - [x] putTopicToExpenses
 - [x] putTasksToExpenses
+- [x] putPersonToExpenses
+- [x] putShopToExpenses
 - [x] putExpenseToExpenses
 - [x] putAccountToExpenses
 - [x] putAccountToExpensesWithAmount
-- [x] putPayerToExpenses
 
 ### Delete
 
@@ -110,9 +117,10 @@
 - [ ] deleteReminderFromExpenses
 - [ ] deleteTopicFromExpenses
 - [ ] deleteTasksFromExpenses
+- [ ] deletePersonFromExpenses
+- [ ] deleteShopFromExpenses
 - [ ] deleteExpenseFromExpenses
 - [ ] deleteAccountFromExpenses
-- [ ] deletePayerFromExpenses
 - [ ] deleteExpenses
 
 ### Get
@@ -123,12 +131,17 @@
 - [x] getExpensesListBySubjectContains
 - [x] getExpensesByType
 - [x] getExpensesListByTypeContains
-- [x] getExpensesByShop
-- [x] getExpensesListByShopContains
+- [ ] getExpensesByExpensesStatus
+- [ ] getExpensesByExpensesNumber
+- [ ] getExpensesListByExpensesNumberBetween
+- [ ] getExpensesByCheckedNumber
+- [ ] getExpensesListByCheckedNumberBetween
 - [ ] getExpensesByCheckedPrice
 - [ ] getExpensesListByCheckedPriceBetween
 - [ ] getExpensesByTotalPrice
 - [ ] getExpensesListByTotalPriceBetween
+- [ ] getExpensesByEstimatedTotalPrice
+- [ ] getExpensesListByEstimatedTotalPriceBetween
 - [x] getExpensesByPayedDate
 - [x] getExpensesListByPayedDateBetween
 - [x] getExpensesByCreatedDate
@@ -138,8 +151,9 @@
 - [x] getExpensesListByReminder
 - [x] getExpensesListByTopic
 - [x] getExpensesListByTasks
+- [x] getExpensesListByPerson
+- [x] getExpensesByShopId
 - [x] getExpensesListByExpense
 - [x] getExpensesListByAccount
-- [x] getExpensesListByPayer
 
 ## Other

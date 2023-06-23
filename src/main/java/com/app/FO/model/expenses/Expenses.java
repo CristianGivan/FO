@@ -1,6 +1,8 @@
 package com.app.FO.model.expenses;
 
 import com.app.FO.model.account.AccountExpenses;
+import com.app.FO.model.expense.Expense;
+import com.app.FO.model.shop.Shop;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,17 +28,25 @@ public class Expenses {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "shop")
-    private String shop;
+    @Column(name = "expenses_status")
+    private ExpensesStatus expensesStatus;
 
-    @Column(name = "estimatedTotalPrice")
+
+    @Column(name = "expense_number")
+    private Integer expenseNumber;
+
+    @Column(name = "checked_number")
+    private Integer checkedNumber;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
+
+    @Column(name = "estimated_total_price")
     private Double estimatedTotalPrice;
 
-    @Column(name = "checkedPrice")
+    @Column(name = "checked_price")
     private Double checkedPrice;
 
-    @Column(name = "totalPrice")
-    private Double totalPrice;
 
     @Column(name = "payedDate")
     private LocalDateTime payedDate;
@@ -63,13 +73,20 @@ public class Expenses {
     private List<ExpensesTasks> expensesTasksList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesExpense> expensesExpenseList;
+    private List<ExpensesPerson> expensesPersonList;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "shop_id")
+    @JsonIgnore
+    private Shop shop;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesPerson> expensesPersonList;
+    private List<Expense> expenseList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountExpenses> accountExpensesList;
+
+
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesHistory> expensesHistoryList;
 
@@ -89,20 +106,23 @@ public class Expenses {
                 "id=" + id +
                 ", subject='" + subject + '\'' +
                 ", type='" + type + '\'' +
-                ", shop='" + shop + '\'' +
+                ", expensesStatus=" + expensesStatus +
+                ", shop=" + shop +
+                ", expenseNumber=" + expenseNumber +
+                ", checkedNumber=" + checkedNumber +
+                ", totalPrice=" + totalPrice +
                 ", estimatedTotalPrice=" + estimatedTotalPrice +
                 ", checkedPrice=" + checkedPrice +
-                ", totalPrice=" + totalPrice +
                 ", payedDate=" + payedDate +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator.getId() +
+                ", creator=" + creator +
                 ", expensesUserList=" + expensesUserList +
                 ", expensesTagList=" + expensesTagList +
                 ", expensesReminderList=" + expensesReminderList +
                 ", expensesTopicList=" + expensesTopicList +
                 ", expensesTasksList=" + expensesTasksList +
-                ", expensesExpenseList=" + expensesExpenseList +
-                ", expensesPayerList=" + expensesPersonList +
+                ", expensesPersonList=" + expensesPersonList +
+                ", expenseList=" + expenseList +
                 ", accountExpensesList=" + accountExpensesList +
                 ", expensesHistoryList=" + expensesHistoryList +
                 '}';
@@ -132,12 +152,36 @@ public class Expenses {
         this.type = type;
     }
 
-    public String getShop() {
+    public ExpensesStatus getExpensesStatus() {
+        return expensesStatus;
+    }
+
+    public void setExpensesStatus(ExpensesStatus expensesStatus) {
+        this.expensesStatus = expensesStatus;
+    }
+
+    public Shop getShop() {
         return shop;
     }
 
-    public void setShop(String shop) {
+    public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public Integer getExpenseNumber() {
+        return expenseNumber;
+    }
+
+    public void setExpenseNumber(Integer expenseNumber) {
+        this.expenseNumber = expenseNumber;
+    }
+
+    public Integer getCheckedNumber() {
+        return checkedNumber;
+    }
+
+    public void setCheckedNumber(Integer checkedNumber) {
+        this.checkedNumber = checkedNumber;
     }
 
     public Double getEstimatedTotalPrice() {
@@ -228,20 +272,20 @@ public class Expenses {
         this.expensesTasksList = expensesTasksList;
     }
 
-    public List<ExpensesExpense> getExpensesExpenseList() {
-        return expensesExpenseList;
-    }
-
-    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
-        this.expensesExpenseList = expensesExpenseList;
-    }
-
     public List<ExpensesPerson> getExpensesPersonList() {
         return expensesPersonList;
     }
 
-    public void setExpensesPersonList(List<ExpensesPerson> expensesPayerList) {
-        this.expensesPersonList = expensesPayerList;
+    public void setExpensesPersonList(List<ExpensesPerson> expensesPersonList) {
+        this.expensesPersonList = expensesPersonList;
+    }
+
+    public List<Expense> getExpenseList() {
+        return expenseList;
+    }
+
+    public void setExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
     }
 
     public List<AccountExpenses> getAccountExpensesList() {

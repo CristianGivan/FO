@@ -9,6 +9,7 @@ import com.app.FO.model.expenses.ExpensesTasks;
 import com.app.FO.model.link.LinkTasks;
 import com.app.FO.model.person.PersonTasks;
 import com.app.FO.model.phoneNumber.PhoneNumberTasks;
+import com.app.FO.model.product.ProductTasks;
 import com.app.FO.model.task.TaskStatus;
 import com.app.FO.model.transaction.TransactionTasks;
 import com.app.FO.model.user.User;
@@ -50,7 +51,7 @@ public class Tasks {
     private Double estimatedLeftTime;
     @Column(name = "working_progress")
     private Double workingProgress;
-    
+
     @Column(name = "tasks_status")
     private TaskStatus taskStatus;
 
@@ -85,6 +86,8 @@ public class Tasks {
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTasks> eventTasksList;
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductTasks> productTasksList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTasks> expenseTasksList;

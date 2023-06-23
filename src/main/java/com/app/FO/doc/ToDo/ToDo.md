@@ -60,7 +60,7 @@ All
 - [x] when get a value treat the case when more values are possible
 - [ ] link_date to created_date
 - [ ] clarify total price checked price and estimated price how is updated
-- [ ] controller for expensesExpense?
+- [ ] controller for expense?
 - [x] get by user (user is a user from UserList)
 - [x] Refactoring all methods to have the same naming conventions
 - [x] Check Account

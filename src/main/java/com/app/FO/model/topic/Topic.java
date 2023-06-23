@@ -9,6 +9,7 @@ import com.app.FO.model.expenses.ExpensesTopic;
 import com.app.FO.model.link.LinkTopic;
 import com.app.FO.model.person.PersonTopic;
 import com.app.FO.model.phoneNumber.PhoneNumberTopic;
+import com.app.FO.model.product.ProductTopic;
 import com.app.FO.model.task.TaskTopic;
 import com.app.FO.model.tasks.TasksTopic;
 import com.app.FO.model.transaction.TransactionTopic;
@@ -77,6 +78,8 @@ public class Topic {
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTopic> eventTopicList;
 
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductTopic> productTopicList;
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTopic> expenseTopicList;
 

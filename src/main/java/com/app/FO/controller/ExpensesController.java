@@ -46,9 +46,9 @@ public class ExpensesController {
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
-    @PutMapping("/putShopToExpenses")
-    public ExpensesDTO putShopToExpenses(@RequestParam Long expensesId, @RequestParam String shop) {
-        Expenses expenses = expensesService.putShopToExpenses(expensesId, shop);
+    @PutMapping("/putExpensesStatusToExpenses")
+    public ExpensesDTO putExpensesStatusToExpenses(@RequestParam Long expensesId, @RequestParam String expensesStatus) {
+        Expenses expenses = expensesService.putExpensesStatusToExpenses(expensesId, expensesStatus);
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
@@ -57,6 +57,13 @@ public class ExpensesController {
     @ApiOperation(value = "Formatter \"yyyy-MM-dd HH:mm:ss\" 2023.06.01 13:14:15")
     public ExpensesDTO putPayedDateToExpenses(@RequestParam Long expensesId, @RequestParam String payedDate) {
         Expenses expenses = expensesService.putPayedDateToExpenses(expensesId, payedDate);
+        return expensesDTOMapper.expensesToExpensesDTO(expenses);
+    }
+
+    @PutMapping("/putCreatedDateToExpenses")
+    @ApiOperation(value = "Formatter \"yyyy-MM-dd HH:mm:ss\" 2023.06.01 13:14:15")
+    public ExpensesDTO putCreatedDateToExpenses(@RequestParam Long expensesId, @RequestParam String createdDate) {
+        Expenses expenses = expensesService.putCreatedDateToExpenses(expensesId, createdDate);
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
@@ -91,11 +98,26 @@ public class ExpensesController {
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
+
+    @PutMapping("/putPersonToExpenses")
+    public ExpensesDTO putPersonToExpenses(@RequestParam Long expensesId, @RequestParam Long personId) {
+        Expenses expenses = expensesService.putPersonToExpenses(expensesId, personId);
+        return expensesDTOMapper.expensesToExpensesDTO(expenses);
+    }
+
+    @PutMapping("/putShopToExpenses")
+    public ExpensesDTO putShopToExpenses(@RequestParam Long expensesId, @RequestParam Long shopId) {
+        Expenses expenses = expensesService.putShopToExpenses(expensesId, shopId);
+        return expensesDTOMapper.expensesToExpensesDTO(expenses);
+    }
+
+
     @PutMapping("/putExpenseToExpenses")
     public ExpensesDTO putExpenseToExpenses(@RequestParam Long expensesId, @RequestParam Long expenseId) {
         Expenses expenses = expensesService.putExpenseToExpenses(expensesId, expenseId);
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
+
 
     @PutMapping("/putAccountToExpenses")
     public ExpensesDTO putAccountToExpenses(@RequestParam Long expensesId, @RequestParam Long accountId) {
@@ -103,11 +125,6 @@ public class ExpensesController {
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
-    @PutMapping("/putPayerToExpenses")
-    public ExpensesDTO putPayerToExpenses(@RequestParam Long expensesId, @RequestParam Long payerId) {
-        Expenses expenses = expensesService.putPayerToExpenses(expensesId, payerId);
-        return expensesDTOMapper.expensesToExpensesDTO(expenses);
-    }
 
     //-- DeleteMapping
 
@@ -143,6 +160,18 @@ public class ExpensesController {
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
+    @DeleteMapping("/deletePersonFromExpenses")
+    public ExpensesDTO deletePersonFromExpenses(@RequestParam Long expensesId, @RequestParam Long personId) {
+        Expenses expenses = expensesService.deletePersonFromExpenses(expensesId, personId);
+        return expensesDTOMapper.expensesToExpensesDTO(expenses);
+    }
+
+    @DeleteMapping("/deleteShopFromExpenses")
+    public ExpensesDTO deleteShopFromExpenses(@RequestParam Long expensesId, @RequestParam Long shopId) {
+        Expenses expenses = expensesService.deleteShopFromExpenses(expensesId, shopId);
+        return expensesDTOMapper.expensesToExpensesDTO(expenses);
+    }
+
     @DeleteMapping("/deleteExpenseFromExpenses")
     public ExpensesDTO deleteExpenseFromExpenses(@RequestParam Long expensesId, @RequestParam Long expenseId) {
         Expenses expenses = expensesService.deleteExpenseFromExpenses(expensesId, expenseId);
@@ -155,11 +184,6 @@ public class ExpensesController {
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
-    @DeleteMapping("/deletePayerFromExpenses")
-    public ExpensesDTO deletePayerFromExpenses(@RequestParam Long expensesId, @RequestParam Long payerId) {
-        Expenses expenses = expensesService.deletePayerFromExpenses(expensesId, payerId);
-        return expensesDTOMapper.expensesToExpensesDTO(expenses);
-    }
 
     @DeleteMapping("/deleteExpenses")
     public List<ExpensesDTO> deleteExpenses(@RequestParam Long expensesId) {
@@ -198,29 +222,47 @@ public class ExpensesController {
 
 
     @GetMapping("/getExpensesByType")
-    public ExpensesDTO getExpensesByType(@RequestParam String subject) {
-        Expenses expenses = expensesService.getExpensesByType(subject);
+    public ExpensesDTO getExpensesByType(@RequestParam String type) {
+        Expenses expenses = expensesService.getExpensesByType(type);
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
     @GetMapping("/getExpensesListByTypeContains")
-    public List<ExpensesDTO> getExpensesListByTypeContains(@RequestParam String subjectContain) {
-        List<Expenses> expensesList = expensesService.getExpensesListByTypeContains(subjectContain);
+    public List<ExpensesDTO> getExpensesListByTypeContains(@RequestParam String typeContains) {
+        List<Expenses> expensesList = expensesService.getExpensesListByTypeContains(typeContains);
         return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
     }
 
-    @GetMapping("/getExpensesByShop")
-    public ExpensesDTO getExpensesByShop(@RequestParam String shop) {
-        Expenses expenses = expensesService.getExpensesByShop(shop);
+    @GetMapping("/getExpensesListByExpensesStatus")
+    public List<ExpensesDTO> getExpensesListByExpensesStatus(@RequestParam String expensesStatus) {
+        List<Expenses> expensesList = expensesService.getExpensesListByExpensesStatus(expensesStatus);
+        return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
+    }
+
+
+    @GetMapping("/getExpensesByExpensesNumber")
+    public ExpensesDTO getExpensesByExpensesNumber(@RequestParam Integer expensesNumber) {
+        Expenses expenses = expensesService.getExpensesByExpensesNumber(expensesNumber);
         return expensesDTOMapper.expensesToExpensesDTO(expenses);
     }
 
-    @GetMapping("/getExpensesListByShopContains")
-    public List<ExpensesDTO> getExpensesListByShopContains(@RequestParam String shopContain) {
-        List<Expenses> expensesList = expensesService.getExpensesListByShopContains(shopContain);
+    @GetMapping("/getExpensesListByExpensesNumberBetween")
+    public List<ExpensesDTO> getExpensesListByExpensesNumberBetween(@RequestParam Integer expensesNumberMin, @RequestParam Integer expensesNumberMax) {
+        List<Expenses> expensesList = expensesService.getExpensesListByExpensesNumberBetween(expensesNumberMin, expensesNumberMax);
         return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
     }
 
+    @GetMapping("/getExpensesByCheckedNumber")
+    public ExpensesDTO getExpensesByCheckedNumber(@RequestParam Integer checkedNumber) {
+        Expenses expenses = expensesService.getExpensesByCheckedNumber(checkedNumber);
+        return expensesDTOMapper.expensesToExpensesDTO(expenses);
+    }
+
+    @GetMapping("/getExpensesListByCheckedNumberBetween")
+    public List<ExpensesDTO> getExpensesListByCheckedNumberBetween(@RequestParam Integer checkedNumberMin, @RequestParam Integer checkedNumberMax) {
+        List<Expenses> expensesList = expensesService.getExpensesListByCheckedNumberBetween(checkedNumberMin, checkedNumberMax);
+        return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
+    }
 
     @GetMapping("/getExpensesByCheckedPrice")
     public ExpensesDTO getExpensesByCheckedPrice(@RequestParam Double checkedPrice) {
@@ -247,6 +289,17 @@ public class ExpensesController {
         return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
     }
 
+    @GetMapping("/getExpensesByEstimatedTotalPrice")
+    public ExpensesDTO getExpensesByEstimatedTotalPrice(@RequestParam Double EstimatedTotalPriceBetween) {
+        Expenses expenses = expensesService.getExpensesByEstimatedTotalPrice(EstimatedTotalPriceBetween);
+        return expensesDTOMapper.expensesToExpensesDTO(expenses);
+    }
+
+    @GetMapping("/getExpensesListByEstimatedTotalPriceBetween")
+    public List<ExpensesDTO> getExpensesListByEstimatedTotalPriceBetween(@RequestParam Double EstimatedTotalPriceMin, @RequestParam Double EstimatedTotalPriceMax) {
+        List<Expenses> expensesList = expensesService.getExpensesListByEstimatedTotalPriceBetween(EstimatedTotalPriceMin, EstimatedTotalPriceMax);
+        return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
+    }
 
     @GetMapping("/getExpensesByPayedDate")
     public ExpensesDTO getExpensesByPayedDate(@RequestParam String payedDate) {
@@ -303,6 +356,19 @@ public class ExpensesController {
     }
 
 
+    @GetMapping("/getExpensesListByPersonId")
+    public List<ExpensesDTO> getExpensesListByPersonId(@RequestParam Long personId) {
+        List<Expenses> expensesList = expensesService.getExpensesListByPersonId(personId);
+        return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
+    }
+
+    @GetMapping("/getExpensesListByShopId")
+    public List<ExpensesDTO> getExpensesListByShopId(@RequestParam Long shopId) {
+        List<Expenses> expensesList = expensesService.getExpensesListByShopId(shopId);
+        return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
+    }
+
+
     @GetMapping("/getExpensesListByExpenseId")
     public List<ExpensesDTO> getExpensesListByExpenseId(@RequestParam Long expenseId) {
         List<Expenses> expensesList = expensesService.getExpensesListByExpenseId(expenseId);
@@ -316,12 +382,6 @@ public class ExpensesController {
         return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
     }
 
-
-    @GetMapping("/getExpensesListByPayerId")
-    public List<ExpensesDTO> getExpensesListByPayerId(@RequestParam Long payerId) {
-        List<Expenses> expensesList = expensesService.getExpensesListByPayerId(payerId);
-        return expensesDTOMapper.expensesListToExpensesDTOList(expensesList);
-    }
 
     //--- Other
 

@@ -22,6 +22,10 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     Expense getExpenseFromUserIdByExpenseId(Long userId, Long expenseId);
 
     @Query(nativeQuery = true, value =
+            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and tu.expenses_id=?2 and tu.product_id=?3")
+    Expense getExpenseFromUserIdByExpensesIdProductId(Long userId, Long expenseId, Long productId);
+
+    @Query(nativeQuery = true, value =
             "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.name=?2")
     Expense getExpenseFromUserIdByName(Long userId, String name);
 

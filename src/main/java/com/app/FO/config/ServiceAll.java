@@ -15,6 +15,7 @@ import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.note.NoteUser;
 import com.app.FO.model.person.*;
 import com.app.FO.model.phoneNumber.*;
+import com.app.FO.model.product.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.reminder.ReminderReminder;
 import com.app.FO.model.reminder.ReminderSnooze;
@@ -47,6 +48,7 @@ import com.app.FO.repository.note.NoteTagRepository;
 import com.app.FO.repository.note.NoteUserRepository;
 import com.app.FO.repository.person.*;
 import com.app.FO.repository.phoneNumber.*;
+import com.app.FO.repository.product.*;
 import com.app.FO.repository.reminder.ReminderReminderRepository;
 import com.app.FO.repository.reminder.ReminderRepository;
 import com.app.FO.repository.reminder.ReminderSnoozeRepository;
@@ -306,6 +308,23 @@ public class ServiceAll {
     private EventPersonRepository eventPersonRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private ProductUserRepository productUserRepository;
+    @Autowired
+    private ProductTagRepository productTagRepository;
+
+    @Autowired
+    private ProductReminderRepository productReminderRepository;
+
+    @Autowired
+    private ProductTopicRepository productTopicRepository;
+
+    @Autowired
+    private ProductTasksRepository productTasksRepository;
+
+
+    @Autowired
     private ExpenseRepository expenseRepository;
     @Autowired
     private ExpenseUserRepository expenseUserRepository;
@@ -320,6 +339,7 @@ public class ServiceAll {
 
     @Autowired
     private ExpenseTasksRepository expenseTasksRepository;
+
 
     @Autowired
     private ExpensesRepository expensesRepository;
@@ -338,7 +358,7 @@ public class ServiceAll {
     private ExpensesTasksRepository expensesTasksRepository;
 
     @Autowired
-    private ExpensesExpenseRepository expensesExpenseRepository;
+    private ExpenseRepository expensesExpenseRepository;
 
     @Autowired
     private ExpensesPersonRepository expensesPersonRepository;
@@ -897,8 +917,38 @@ public class ServiceAll {
     //-- getExpenseAnd
 
 
+    public Product getProductFromUserIdAndProductId(Long userId, Long productId) {
+        return productRepository.getProductFromUserIdByProductId(userId, productId);
+    }
+
+    public ProductUser getProductUser(Long productId, Long userId) {
+        return productUserRepository.getProductUserByProductIdAndUserId(productId, userId);
+    }
+
+    public ProductTag getProductTag(Long productId, Long tagId) {
+        return productTagRepository.getProductTagByProductIdAndTagId(productId, tagId);
+    }
+
+    public ProductReminder getProductReminder(Long productId, Long reminderId) {
+        return productReminderRepository.getProductReminderByProductIdAndReminderId(productId, reminderId);
+    }
+
+    public ProductTopic getProductTopic(Long productId, Long topicId) {
+        return productTopicRepository.getProductTopicByProductIdAndTopicId(productId, topicId);
+    }
+
+    public ProductTasks getProductTasks(Long productId, Long tasksId) {
+        return productTasksRepository.getProductTasksByProductIdAndTasksId(productId, tasksId);
+    }
+    //-- getExpenseAnd
+
+
     public Expense getExpenseFromUserIdAndExpenseId(Long userId, Long expenseId) {
         return expenseRepository.getExpenseFromUserIdByExpenseId(userId, expenseId);
+    }
+
+    public Expense getExpenseFromUserIdAndExpenseIdAndProductId(Long userId, Long expenseId, Long productId) {
+        return expenseRepository.getExpenseFromUserIdByExpensesIdProductId(userId, expenseId, productId);
     }
 
     public ExpenseUser getExpenseUser(Long expenseId, Long userId) {
@@ -920,6 +970,7 @@ public class ServiceAll {
     public ExpenseTasks getExpenseTasks(Long expenseId, Long tasksId) {
         return expenseTasksRepository.getExpenseTasksByExpenseIdAndTasksId(expenseId, tasksId);
     }
+
 
     //-- getExpensesAnd
 
@@ -946,10 +997,6 @@ public class ServiceAll {
 
     public ExpensesTasks getExpensesTasks(Long expensesId, Long tasksId) {
         return expensesTasksRepository.getExpensesTasksByExpensesIdAndTasksId(expensesId, tasksId);
-    }
-
-    public ExpensesExpense getExpensesExpense(Long expensesId, Long expenseId) {
-        return expensesExpenseRepository.getExpensesExpenseByExpensesIdAndExpenseId(expensesId, expenseId);
     }
 
 

@@ -14,7 +14,6 @@ import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expense.ExpenseHistory;
 import com.app.FO.model.expense.ExpenseUser;
 import com.app.FO.model.expenses.Expenses;
-import com.app.FO.model.expenses.ExpensesExpense;
 import com.app.FO.model.expenses.ExpensesHistory;
 import com.app.FO.model.expenses.ExpensesUser;
 import com.app.FO.model.link.Link;
@@ -28,6 +27,9 @@ import com.app.FO.model.person.PersonHistory;
 import com.app.FO.model.person.PersonUser;
 import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.phoneNumber.PhoneNumberUser;
+import com.app.FO.model.product.Product;
+import com.app.FO.model.product.ProductHistory;
+import com.app.FO.model.product.ProductUser;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.reminder.ReminderHistory;
 import com.app.FO.model.reminder.ReminderUser;
@@ -161,6 +163,13 @@ public class User {
     private List<EventHistory> eventHistoryList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Product> productList;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductUser> productUserList;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductHistory> productHistoryList;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Expense> expenseList;
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseUser> expenseUserList;
@@ -176,8 +185,6 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesHistory> expensesHistoryList;
 
-    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesExpense> expensesExpenseList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Transaction> transactionList;
@@ -258,6 +265,7 @@ public class User {
                 ", eventList=" + eventList +
                 ", eventUserList=" + eventUserList +
                 ", eventHistoryList=" + eventHistoryList +
+                ", productList=" + productList +
                 ", expenseList=" + expenseList +
                 ", expenseUserList=" + expenseUserList +
                 ", expenseHistoryList=" + expenseHistoryList +
@@ -265,7 +273,7 @@ public class User {
                 ", expensesUserList=" + expensesUserList +
                 ", expensesPayedList=" + expensesPayedList +
                 ", expensesHistoryList=" + expensesHistoryList +
-                ", expensesExpenseList=" + expensesExpenseList +
+                ", expensesExpenseList=" + expenseList +
                 ", transactionList=" + transactionList +
                 ", transactionUserList=" + transactionUserList +
                 ", transactionHistoryList=" + transactionHistoryList +
@@ -375,6 +383,14 @@ public class User {
 
     public void setReminderList(List<Reminder> reminderList) {
         this.reminderList = reminderList;
+    }
+
+    public List<ReminderUser> getReminderUserList() {
+        return reminderUserList;
+    }
+
+    public void setReminderUserList(List<ReminderUser> reminderUserList) {
+        this.reminderUserList = reminderUserList;
     }
 
     public List<ReminderHistory> getReminderHistoryList() {
@@ -580,6 +596,30 @@ public class User {
         this.eventHistoryList = eventHistoryList;
     }
 
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public List<ProductUser> getProductUserList() {
+        return productUserList;
+    }
+
+    public void setProductUserList(List<ProductUser> productUserList) {
+        this.productUserList = productUserList;
+    }
+
+    public List<ProductHistory> getProductHistoryList() {
+        return productHistoryList;
+    }
+
+    public void setProductHistoryList(List<ProductHistory> productHistoryList) {
+        this.productHistoryList = productHistoryList;
+    }
+
     public List<Expense> getExpenseList() {
         return expenseList;
     }
@@ -636,12 +676,12 @@ public class User {
         this.expensesHistoryList = expensesHistoryList;
     }
 
-    public List<ExpensesExpense> getExpensesExpenseList() {
-        return expensesExpenseList;
+    public List<Expense> getExpensesExpenseList() {
+        return expenseList;
     }
 
-    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
-        this.expensesExpenseList = expensesExpenseList;
+    public void setExpensesExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
     }
 
     public List<Transaction> getTransactionList() {

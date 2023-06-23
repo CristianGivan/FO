@@ -10,6 +10,7 @@ import com.app.FO.model.link.LinkReminder;
 import com.app.FO.model.note.NoteReminder;
 import com.app.FO.model.person.PersonReminder;
 import com.app.FO.model.phoneNumber.PhoneNumberReminder;
+import com.app.FO.model.product.ProductReminder;
 import com.app.FO.model.task.TaskReminder;
 import com.app.FO.model.tasks.TasksReminder;
 import com.app.FO.model.topic.TopicReminder;
@@ -82,6 +83,8 @@ public class Reminder {
     @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PersonReminder> personReminderList;
 
+    @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductReminder> productReminderList;
     @OneToMany(mappedBy = "reminder", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseReminder> expenseReminderList;
 

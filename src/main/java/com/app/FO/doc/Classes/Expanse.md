@@ -1,11 +1,13 @@
 # General
 
-- from time to time the mean can be calculated as ponderat mean for a more relabel mean
-- every time when an expensesExpense is created than numberOfBuys is increased
-- every time when expensesExpense is updated check the
-- shall be created a oneToOne relation with expenseStatistic
+- in linking table shall be also the check
+- the estimationPrice is unit price * quantity but if there are not found it toked the mean values
 
 # ToDo
+
+## FrontEnd
+
+- [ ] after the payment was done from uncheck items a new list had to be created
 
 ## Entity
 
@@ -48,14 +50,15 @@
 
 ### Attributes
 
-- [x] name
-- [x] producer
-- [x] subject
-- [x] category
-- [x] numberOfBuys
-- [x] numberForMean
-- [x] meanQuantity
-- [x] meanUnitPrice
+- [x] expense
+- [x] product
+- [x] check
+- [x] unit
+- [x] quantity
+- [x] unitPrice
+- [x] totalPrice
+- [x] estimatedPrice
+- [x] checkDate
 - [x] createdDate
 - [x] creator
 - [x] expenseUserList
@@ -63,30 +66,25 @@
 - [x] expenseReminderList
 - [x] expenseTopicList
 - [x] expenseTasksList
-- [x] expensesExpenseList
-- [x] expenseHistoryList
 
 ### Post
 
-- [x] postExpense
+- [ ] postExpense
 
 ### Put
 
-- [x] putNameToExpense
-- [x] putProducerToExpense
-- [x] putCategoryToExpense
-- [ ] putNumberOfBuysToExpense
-- [ ] putNumberForMeanToExpense
-- [ ] putMeanQuantityToExpense
-- [ ] putMeanUnitPriceToExpense
-- [ ] putQuantityToExpense
-- [ ] putUnitPriceToExpense
+- [ ] putSubjectToExpense
+- [ ] putTypeToExpense
+- [ ] putMarkedPriceToExpense
 - [ ] putTotalPriceToExpense
-- [x] putUserToExpense
-- [x] putTagToExpense
-- [x] putReminderToExpense
-- [x] putTopicToExpense
+- [ ] putShopToExpense
+- [ ] putUserToExpense
+- [ ] putTagToExpense
+- [ ] putReminderToExpense
+- [ ] putTopicToExpense
 - [ ] putTasksToExpense
+- [ ] putAccountToExpense
+- [ ] putPayerToExpense
 
 ### Delete
 
@@ -96,33 +94,25 @@
 - [ ] deleteTopicFromExpense
 - [ ] deleteTasksFromExpense
 - [ ] deleteExpense
+- [ ] deletePayerFromExpense
 
 ### Get
 
-- [x] getAllExpense
-- [x] getExpenseById
-- [x] getExpenseByName
-- [x] getExpenseListByNameContains
-- [x] getExpenseByProducer
-- [x] getExpenseListByProducerContains
-- [x] getExpenseBySubject
-- [x] getExpenseListBySubjectContains
-- [x] getExpenseByCategory
-- [x] getExpenseListByCategoryContains
-- [x] getExpenseByNumberOfBuys
-- [x] getExpenseListByNumberOfBuysBetween
-- [x] getExpenseByNumberForMean
-- [x] getExpenseListByNumberForMeanBetween
-- [x] getExpenseByMeanQuantity
-- [x] getExpenseListByMeanQuantityBetween
-- [x] getExpenseByMeanUnitPrice
-- [x] getExpenseListByMeanUnitPriceBetween
-- [x] getExpenseByCreatedDate
-- [x] getExpenseListByCreatedDateBetween
-- [x] getExpenseListByUser
-- [x] getExpenseListByTag
-- [x] getExpenseListByReminder
-- [x] getExpenseListByTopic
-- [x] getExpenseListByTasks
+- [ ] getAllExpense
+- [ ] getExpenseById
+- [ ] getTaskBySubject
+- [ ] getTaskListBySubjectContains
+- [ ] getExpenseByType
+- [ ] getExpenseByMarkedPrice
+- [ ] getExpenseByTotalPrice
+- [ ] getExpenseByShop
+- [ ] getExpenseByCreatedDate
+- [ ] getExpenseListByUser
+- [ ] getExpenseListByTag
+- [ ] getExpenseListByReminder
+- [ ] getExpenseListByTopic
+- [ ] getExpenseListByTasks
+- [ ] getExpenseListByAccount
+- [ ] getExpenseListByPayer
 
 ## Other

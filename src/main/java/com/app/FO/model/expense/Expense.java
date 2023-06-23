@@ -1,6 +1,7 @@
 package com.app.FO.model.expense;
 
-import com.app.FO.model.expenses.ExpensesExpense;
+import com.app.FO.model.expenses.Expenses;
+import com.app.FO.model.product.Product;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,6 +21,16 @@ public class Expense {
             allocationSize = 1)
     @Column(name = "expense_id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "expenses_id")
+    @JsonIgnore
+    private Expenses expenses;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @JsonIgnore
+    private Product product;
 
     @Column(name = "name")
     private String name;
@@ -59,8 +70,6 @@ public class Expense {
     @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTasks> expenseTasksList;
 
-    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesExpense> expensesExpenseList;
 
     @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseHistory> expenseHistoryList;
@@ -95,7 +104,8 @@ public class Expense {
                 ", expenseReminderList=" + expenseReminderList +
                 ", expenseTopicList=" + expenseTopicList +
                 ", expenseTasksList=" + expenseTasksList +
-                ", expensesExpenseList=" + expensesExpenseList +
+                ", expenses=" + expenses +
+                ", product=" + product +
                 ", expenseHistoryList=" + expenseHistoryList +
                 '}';
     }
@@ -239,13 +249,20 @@ public class Expense {
         this.expenseTasksList = expenseTasksList;
     }
 
-
-    public List<ExpensesExpense> getExpensesExpenseList() {
-        return expensesExpenseList;
+    public Expenses getExpenses() {
+        return expenses;
     }
 
-    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
-        this.expensesExpenseList = expensesExpenseList;
+    public void setExpenses(Expenses expenses) {
+        this.expenses = expenses;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public List<ExpenseHistory> getExpenseHistoryList() {
