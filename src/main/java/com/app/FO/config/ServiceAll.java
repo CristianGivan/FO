@@ -324,6 +324,9 @@ public class ServiceAll {
     private ProductTasksRepository productTasksRepository;
 
     @Autowired
+    private ProductExpenseRepository productExpenseRepository;
+
+    @Autowired
     private ExpenseRepository expenseRepository;
     @Autowired
     private ExpenseUserRepository expenseUserRepository;
@@ -356,6 +359,8 @@ public class ServiceAll {
     @Autowired
     private ExpensesTasksRepository expensesTasksRepository;
 
+    @Autowired
+    private ExpensesExpenseRepository expensesExpenseRepository;
 
     @Autowired
     private ExpensesPersonRepository expensesPersonRepository;
@@ -820,7 +825,7 @@ public class ServiceAll {
         return eventPersonRepository.getEventPersonByEventIdAndPersonId(eventId, personId);
     }
 
-    //-- getExpenseAnd
+    //-- getProductAnd
 
 
     public Product getProductFromUserIdAndProductId(Long userId, Long productId) {
@@ -845,6 +850,10 @@ public class ServiceAll {
 
     public ProductTasks getProductTasks(Long productId, Long tasksId) {
         return productTasksRepository.getProductTasksByProductIdAndTasksId(productId, tasksId);
+    }
+
+    public ProductExpense getProductExpense(Long productId, Long expenseId) {
+        return productExpenseRepository.getProductExpenseByProductIdAndExpenseId(productId, expenseId);
     }
     //-- getExpenseAnd
 
@@ -904,6 +913,9 @@ public class ServiceAll {
         return expensesTasksRepository.getExpensesTasksByExpensesIdAndTasksId(expensesId, tasksId);
     }
 
+    public ExpensesExpense getExpensesExpense(Long expensesId, Long expenseId) {
+        return expensesExpenseRepository.getExpensesExpenseByExpensesIdAndExpenseId(expensesId, expenseId);
+    }
 
     public ExpensesPerson getExpensesPerson(Long expensesId, Long personId) {
         return expensesPersonRepository.getExpensesPersonByExpensesIdAndPersonId(expensesId, personId);

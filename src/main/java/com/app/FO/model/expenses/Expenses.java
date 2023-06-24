@@ -1,7 +1,6 @@
 package com.app.FO.model.expenses;
 
 import com.app.FO.model.account.AccountExpenses;
-import com.app.FO.model.expense.Expense;
 import com.app.FO.model.shop.Shop;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -73,6 +72,9 @@ public class Expenses {
     private List<ExpensesTasks> expensesTasksList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesExpense> expensesExpenseList;
+
+    @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesPerson> expensesPersonList;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -80,8 +82,6 @@ public class Expenses {
     @JsonIgnore
     private Shop shop;
 
-    @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Expense> expenseList;
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountExpenses> accountExpensesList;
@@ -122,7 +122,7 @@ public class Expenses {
                 ", expensesTopicList=" + expensesTopicList +
                 ", expensesTasksList=" + expensesTasksList +
                 ", expensesPersonList=" + expensesPersonList +
-                ", expenseList=" + expenseList +
+                ", expensesExpenseList=" + expensesExpenseList +
                 ", accountExpensesList=" + accountExpensesList +
                 ", expensesHistoryList=" + expensesHistoryList +
                 '}';
@@ -272,6 +272,14 @@ public class Expenses {
         this.expensesTasksList = expensesTasksList;
     }
 
+    public List<ExpensesExpense> getExpensesExpenseList() {
+        return expensesExpenseList;
+    }
+
+    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
+        this.expensesExpenseList = expensesExpenseList;
+    }
+
     public List<ExpensesPerson> getExpensesPersonList() {
         return expensesPersonList;
     }
@@ -280,13 +288,6 @@ public class Expenses {
         this.expensesPersonList = expensesPersonList;
     }
 
-    public List<Expense> getExpenseList() {
-        return expenseList;
-    }
-
-    public void setExpenseList(List<Expense> expenseList) {
-        this.expenseList = expenseList;
-    }
 
     public List<AccountExpenses> getAccountExpensesList() {
         return accountExpensesList;

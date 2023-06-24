@@ -1,6 +1,5 @@
 package com.app.FO.model.product;
 
-import com.app.FO.model.expense.Expense;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -68,7 +67,7 @@ public class Product {
     private List<ProductTasks> productTasksList;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Expense> expenseList;
+    private List<ProductExpense> productExpenseList;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ProductHistory> productHistoryList;
@@ -105,7 +104,7 @@ public class Product {
                 ", productReminderList=" + productReminderList +
                 ", productTopicList=" + productTopicList +
                 ", productTasksList=" + productTasksList +
-                ", expenseList=" + expenseList +
+                ", productExpenseList=" + productExpenseList +
                 ", productHistoryList=" + productHistoryList +
                 '}';
     }
@@ -266,15 +265,15 @@ public class Product {
         this.productTasksList = productTasksList;
     }
 
-    public List<Expense> getExpenseList() {
-        if (expenseList == null) {
-            expenseList = new ArrayList<>();
+    public List<ProductExpense> getProductExpenseList() {
+        if (productExpenseList == null) {
+            productExpenseList = new ArrayList<>();
         }
-        return expenseList;
+        return productExpenseList;
     }
 
-    public void setExpenseList(List<Expense> expenseList) {
-        this.expenseList = expenseList;
+    public void setProductExpenseList(List<ProductExpense> productExpenseList) {
+        this.productExpenseList = productExpenseList;
     }
 
     public List<ProductHistory> getProductHistoryList() {

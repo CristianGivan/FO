@@ -86,6 +86,7 @@
 - [ ] putReminderToExpense
 - [ ] putTopicToExpense
 - [ ] putTasksToExpense
+- [ ] putProductToExpense
 
 ### Delete
 

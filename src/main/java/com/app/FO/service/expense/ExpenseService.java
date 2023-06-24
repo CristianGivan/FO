@@ -4,6 +4,8 @@ import com.app.FO.config.DateTime;
 import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.expense.*;
+import com.app.FO.model.product.Product;
+import com.app.FO.model.product.ProductExpense;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
@@ -294,6 +296,28 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
+    public Expense putProductToExpense(Long expenseId, Long productId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Expense expense = expenseRepository.getExpenseFromUserIdByExpenseId(logInUser.getId(), expenseId);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("Expense not found in your list");
+        }
+
+        Product product = serviceAll.getProductFromUserIdAndProductId(logInUser.getId(), productId);
+        if (product == null) {
+            throw new ProductNotFoundException("Product not found");
+        }
+
+        ProductExpense productExpense = serviceAll.getProductExpense(expenseId, productId);
+        if (productExpense != null) {
+            throw new ProductExpenseAlreadyExistException("The expense already has the product");
+        }
+
+        productExpense = new ProductExpense(product, expense);
+        expense.getProductExpenseList().add(productExpense);
+        return expenseRepository.save(expense);
+    }
 
     //--Delete
 

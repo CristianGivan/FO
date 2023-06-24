@@ -117,6 +117,11 @@ public class ExpenseController {
         return expenseDTOMapper.expenseToExpenseDTO(expense);
     }
 
+    @PutMapping("/putProductToExpense")
+    public ExpenseDTO putProductToExpense(@RequestParam Long expenseId, @RequestParam Long productId) {
+        Expense expense = expenseService.putProductToExpense(expenseId, productId);
+        return expenseDTOMapper.expenseToExpenseDTO(expense);
+    }
 
     //-- DeleteMapping
 

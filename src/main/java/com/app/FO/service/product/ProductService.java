@@ -240,13 +240,20 @@ public class ProductService {
             throw new ExpenseNotFoundException("Expense not found");
         }
 
+        ProductExpense productExpense = serviceAll.getProductExpense(productId, expenseId);
+        if (productExpense != null) {
+            throw new ProductExpenseAlreadyExistException("The product already has the expense");
+        }
+
+        productExpense = new ProductExpense(product, expense);
+
+
         //todo to be update the product with the information of expense ex price or quantity
         expense.setMeanQuantity(product.getMeanQuantity());
         expense.setMeanUnitPrice(product.getMeanUnitPrice());
         expense.setEstimatedTotalPrice(product.getMeanQuantity() * product.getMeanUnitPrice());
 
-        //todo check why is not working OneToMany
-        product.getExpenseList().add(expense);
+        product.getProductExpenseList().add(productExpense);
         return productRepository.save(product);
     }
 
@@ -380,7 +387,13 @@ public class ProductService {
             throw new ExpenseNotFoundException("Expense not found");
         }
 
-        product.getExpenseList().remove(expense);
+        ProductExpense productExpense = serviceAll.getProductExpense(productId, expenseId);
+        if (productExpense == null) {
+            throw new ProductExpenseNotFoundException("The product don't has the expense");
+        }
+
+
+        product.getProductExpenseList().remove(expense);
 
         return productRepository.save(product);
     }

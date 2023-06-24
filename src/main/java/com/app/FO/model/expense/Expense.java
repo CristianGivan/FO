@@ -1,7 +1,7 @@
 package com.app.FO.model.expense;
 
-import com.app.FO.model.expenses.Expenses;
-import com.app.FO.model.product.Product;
+import com.app.FO.model.expenses.ExpensesExpense;
+import com.app.FO.model.product.ProductExpense;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,15 +22,6 @@ public class Expense {
     @Column(name = "expense_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "expenses_id")
-    @JsonIgnore
-    private Expenses expenses;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    @JsonIgnore
-    private Product product;
 
     @Column(name = "subject")
     private String subject;
@@ -78,7 +69,10 @@ public class Expense {
     @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTasks> expenseTasksList;
 
-
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductExpense> productExpenseList;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesExpense> expensesExpenseList;
     @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseHistory> expenseHistoryList;
 
@@ -94,8 +88,6 @@ public class Expense {
     public String toString() {
         return "Expense{" +
                 "id=" + id +
-                ", expenses=" + expenses +
-                ", product=" + product +
                 ", subject='" + subject + '\'' +
                 ", checked=" + checked +
                 ", category='" + category + '\'' +
@@ -113,6 +105,8 @@ public class Expense {
                 ", expenseReminderList=" + expenseReminderList +
                 ", expenseTopicList=" + expenseTopicList +
                 ", expenseTasksList=" + expenseTasksList +
+                ", productExpenseList=" + productExpenseList +
+                ", expensesExpenseList=" + expensesExpenseList +
                 ", expenseHistoryList=" + expenseHistoryList +
                 '}';
     }
@@ -125,21 +119,6 @@ public class Expense {
         this.id = id;
     }
 
-    public Expenses getExpenses() {
-        return expenses;
-    }
-
-    public void setExpenses(Expenses expenses) {
-        this.expenses = expenses;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     public String getSubject() {
         return subject;
@@ -284,6 +263,22 @@ public class Expense {
 
     public void setExpenseTasksList(List<ExpenseTasks> expenseTasksList) {
         this.expenseTasksList = expenseTasksList;
+    }
+
+    public List<ProductExpense> getProductExpenseList() {
+        return productExpenseList;
+    }
+
+    public void setProductExpenseList(List<ProductExpense> productExpenseList) {
+        this.productExpenseList = productExpenseList;
+    }
+
+    public List<ExpensesExpense> getExpensesExpenseList() {
+        return expensesExpenseList;
+    }
+
+    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
+        this.expensesExpenseList = expensesExpenseList;
     }
 
     public List<ExpenseHistory> getExpenseHistoryList() {

@@ -263,6 +263,31 @@ public class ExpensesService {
         return expensesRepository.save(expenses);
     }
 
+    public Expenses putExpenseToExpenses(Long expensesId, Long expenseId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found in your list");
+        }
+        Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("Expense not found");
+        }
+        ExpensesExpense expensesExpense = serviceAll.getExpensesExpense(expensesId, expenseId);
+        if (expensesExpense != null) {
+            throw new ExpensesExpenseAlreadyExistException("The expenses already has the expense");
+        }
+
+        expensesExpense = new ExpensesExpense(expenses, expense);
+
+        expenses.setTotalPrice(expenses.getTotalPrice() + expense.getTotalPrice());
+        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() + expense.getEstimatedTotalPrice());
+
+        expenses.getExpensesExpenseList().add(expensesExpense);
+        return expensesRepository.save(expenses);
+    }
+
     public Expenses putPersonToExpenses(Long expensesId, Long personId) {
         User logInUser = serviceAll.getLogInUser();
 
@@ -303,23 +328,6 @@ public class ExpensesService {
         return expensesRepository.save(expenses);
     }
 
-    public Expenses putExpenseToExpenses(Long expensesId, Long expenseId) {
-        User logInUser = serviceAll.getLogInUser();
-
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
-        if (expenses == null) {
-            throw new ExpensesNotFoundException("Expenses not found in your list");
-        }
-        Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
-        if (expense == null) {
-            throw new ExpenseNotFoundException("Expense not found");
-        }
-
-        expenses.setTotalPrice(expenses.getTotalPrice() + expense.getTotalPrice());
-        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() + expense.getEstimatedTotalPrice());
-        expenses.getExpenseList().add(expense);
-        return expensesRepository.save(expenses);
-    }
 
     public Expenses putAccountToExpenses(Long expensesId, Long accountId, Double sumFromAccount) {
         //todo check is the sum is added
@@ -521,7 +529,7 @@ public class ExpensesService {
 
         expenses.setTotalPrice(expenses.getTotalPrice() - expense.getTotalPrice());
         expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() - expense.getEstimatedTotalPrice());
-        expenses.getExpenseList().remove(expense);
+        expenses.getExpensesExpenseList().remove(expense);
 
         return expensesRepository.save(expenses);
     }
