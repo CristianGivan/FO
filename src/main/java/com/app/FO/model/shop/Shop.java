@@ -1,6 +1,6 @@
 package com.app.FO.model.shop;
 
-import com.app.FO.model.expense.Expense;
+import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -48,7 +48,7 @@ public class Shop {
     private List<ShopTasks> shopTasksList;
 
     @OneToMany(mappedBy = "shop", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Expense> expenseList;
+    private List<Expenses> expensesList;
     @OneToMany(mappedBy = "shop", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ShopHistory> shopHistoryList;
 
@@ -76,7 +76,7 @@ public class Shop {
                 ", shopReminderList=" + shopReminderList +
                 ", shopTopicList=" + shopTopicList +
                 ", shopTasksList=" + shopTasksList +
-                ", expenses=" + expenseList +
+                ", expenses=" + expensesList +
                 ", shopHistoryList=" + shopHistoryList +
                 '}';
     }
@@ -183,15 +183,15 @@ public class Shop {
         this.shopTasksList = shopTasksList;
     }
 
-    public List<Expense> getExpenseList() {
-        if (expenseList == null) {
-            expenseList = new ArrayList<>();
+    public List<Expenses> getExpensesList() {
+        if (expensesList == null) {
+            expensesList = new ArrayList<>();
         }
-        return expenseList;
+        return expensesList;
     }
 
-    public void setExpenseList(List<Expense> expenseList) {
-        this.expenseList = expenseList;
+    public void setExpensesList(List<Expenses> expensesList) {
+        this.expensesList = expensesList;
     }
 
     public List<ShopHistory> getShopHistoryList() {

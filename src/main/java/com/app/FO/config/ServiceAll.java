@@ -323,7 +323,6 @@ public class ServiceAll {
     @Autowired
     private ProductTasksRepository productTasksRepository;
 
-
     @Autowired
     private ExpenseRepository expenseRepository;
     @Autowired
@@ -357,8 +356,6 @@ public class ServiceAll {
     @Autowired
     private ExpensesTasksRepository expensesTasksRepository;
 
-    @Autowired
-    private ExpenseRepository expensesExpenseRepository;
 
     @Autowired
     private ExpensesPersonRepository expensesPersonRepository;
@@ -456,100 +453,6 @@ public class ServiceAll {
         this.noteRepository = noteRepository;
         this.tagRepository = tagRepository;
     }
-//
-//    public Boolean isNote(Note note) {
-//        if (note == null) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    public Boolean isTag(Tag tag) {
-//        if (tag == null) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    public Boolean isTopic(Topic topic) {
-//        if (topic == null) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    public Boolean isReminder(Reminder reminder) {
-//        if (reminder == null) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    public Boolean isUser(User user) {
-//        if (user == null) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//
-//    public Boolean isUserTagCreator(User user, Tag tag) {
-//        if (user.getId() == tag.getCreator().getId()) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//
-//    public Boolean NoteHasTag(Note note, Tag tag) {
-//        if (noteRepository.noteIdHasTagId(note.getId(), tag.getId())) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public Boolean noteHasTopic(Note note, Topic topic) {
-//        if (noteRepository.noteIdHasTopicId(note.getId(), topic.getId())) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public Boolean noteHasReminder(Note note, Reminder reminder) {
-//        if (noteRepository.noteIdHasReminderId(note.getId(), reminder.getId())) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public Boolean noteHasUser(Note note, User user) {
-//        if (noteRepository.noteIdHasUserId(note.getId(), user.getId())) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//
-//    public Role userHasRole(User user, Role role) {
-//        return roleRepository.userIdHasRoleId(role.getId(), user.getId());
-//    }
-//
-////    public User userHasUser(User userFrom, User user) {
-////        return userRepository.getUserFromUserIdByUserId(userFrom.getId(), user.getId());
-////    }
-//
-//    public Boolean userIsAdmin(User user) {
-//        Boolean isAdminRole = user.getUserRoleList().stream().
-//                map(userRole -> userRole.getRole().getRoleType().toString()).
-//                filter(t -> t == "ROLE_ADMIN").findAny().isPresent();
-//        if (isAdminRole) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//
-//    //--------------------------
 
     //-- getUserAnd
 
@@ -944,7 +847,6 @@ public class ServiceAll {
         return productTasksRepository.getProductTasksByProductIdAndTasksId(productId, tasksId);
     }
     //-- getExpenseAnd
-
 
     public Expense getExpenseFromUserIdAndExpenseId(Long userId, Long expenseId) {
         return expenseRepository.getExpenseFromUserIdByExpenseId(userId, expenseId);

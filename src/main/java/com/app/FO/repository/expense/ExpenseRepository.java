@@ -26,20 +26,8 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     Expense getExpenseFromUserIdByExpensesIdProductId(Long userId, Long expenseId, Long productId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.name=?2")
-    Expense getExpenseFromUserIdByName(Long userId, String name);
-
-    @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=:userId and t.name like %:containingText%")
-    List<Expense> getExpenseListByNameContains(@Param("userId") Long UserId, @Param("containingText") String nameText);
-
-    @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.producer=?2")
-    Expense getExpenseFromUserIdByProducer(Long userId, String producer);
-
-    @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=:userId and t.producer like %:containingText%")
-    List<Expense> getExpenseListByProducerContains(@Param("userId") Long UserId, @Param("containingText") String producerText);
+            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.checked=?2")
+    List<Expense> getExpenseListFromUserIdByChecked(Long userId, Boolean checked);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.subject=?2")
@@ -59,36 +47,46 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.number_buys=?2")
-    Expense getExpenseFromUserIdByNumberOfBuys(Long userId, Integer numberOfBuys);
+            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.quantity=?2")
+    Expense getExpenseFromUserIdByQuantity(Long userId, Double quantity);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.number_buys between ?2 and ?3")
-    List<Expense> getExpenseListFromUserIdByNumberOfBuysBetween(Long UserId, Integer numberOfBuysMin, Integer numberOfBuysMax);
+            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.quantity between ?2 and ?3")
+    List<Expense> getExpenseListFromUserIdByQuantityBetween(Long userId, Double quantityMin, Double quantityMax);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.number_mean=?2")
-    Expense getExpenseFromUserIdByNumberForMean(Long userId, Integer numberForMean);
+            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.unit_price=?2")
+    Expense getExpenseFromUserIdByUnitPrice(Long userId, Double unitPrice);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.number_mean between ?2 and ?3")
-    List<Expense> getExpenseListFromUserIdByNumberForMeanBetween(Long UserId, Integer numberForMeanMin, Integer numberForMeanMax);
+            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.unit_price between ?2 and ?3")
+    List<Expense> getExpenseListFromUserIdByUnitPriceBetween(Long userId, Double unitPriceMin, Double unitPriceMax);
+
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.mean_quantity=?2")
-    Expense getExpenseFromUserIdByMeanQuantity(Long userId, Double meanQuantity);
+            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.total_price=?2")
+    Expense getExpenseFromUserIdByTotalPrice(Long userId, Double totalPrice);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.mean_quantity between ?2 and ?3")
-    List<Expense> getExpenseListFromUserIdByMeanQuantityBetween(Long UserId, Double meanQuantityMin, Double meanQuantityMax);
+            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.total_price between ?2 and ?3")
+    List<Expense> getExpenseListFromUserIdByTotalPriceBetween(Long userId, Double totalPriceMin, Double totalPriceMax);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.mean_unit_price=?2")
-    Expense getExpenseFromUserIdByMeanUnitPrice(Long userId, Double meanUnitPrice);
+            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.estimated_total_price=?2")
+    Expense getExpenseFromUserIdByEstimatedTotalPrice(Long userId, Double estimatedTotalPrice);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.mean_unit_price between ?2 and ?3")
-    List<Expense> getExpenseListFromUserIdByMeanUnitPriceBetween(Long UserId, Double meanUnitPriceMin, Double meanUnitPriceMax);
+            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.estimated_total_price between ?2 and ?3")
+    List<Expense> getExpenseListFromUserIdByEstimatedTotalPriceBetween(Long UserId, Double estimatedTotalPriceMin, Double estimatedTotalPriceMax);
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.checked_date=?2")
+    Expense getExpenseFromUserIdByCheckedDate(Long userId, LocalDateTime checkedDate);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM expense as t inner join expense_user ut on t.expense_id = ut.expense_id where ut.user_id=?1 and t.checked_date between ?2 and ?3")
+    List<Expense> getExpenseListFromUserIdByCheckedDateBetween(Long UserId, LocalDateTime checkedDateMin, LocalDateTime checkedDateMax);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM expense as t inner join expense_user tu on t.expense_id = tu.expense_id where tu.user_id=?1 and t.created_date=?2")

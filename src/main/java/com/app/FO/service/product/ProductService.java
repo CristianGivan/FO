@@ -241,11 +241,14 @@ public class ProductService {
         if (product == null) {
             throw new ProductNotFoundException("Product not found in your list");
         }
-
         Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found");
         }
+
+        expense.setMeanQuantity(product.getMeanQuantity());
+        expense.setMeanUnitPrice(product.getMeanUnitPrice());
+        expense.setEstimatedTotalPrice(product.getMeanQuantity() * product.getMeanUnitPrice());
 
         product.getExpenseList().add(expense);
         return productRepository.save(product);
@@ -376,7 +379,6 @@ public class ProductService {
         if (product == null) {
             throw new ProductNotFoundException("Product not found in your list");
         }
-
         Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found");

@@ -310,14 +310,13 @@ public class ExpensesService {
         if (expenses == null) {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
-
         Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found");
         }
 
         expenses.setTotalPrice(expenses.getTotalPrice() + expense.getTotalPrice());
-        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() + expense.getEstimatedPrice());
+        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() + expense.getEstimatedTotalPrice());
         expenses.getExpenseList().add(expense);
         return expensesRepository.save(expenses);
     }
@@ -515,14 +514,13 @@ public class ExpensesService {
         if (expenses == null) {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
-
         Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found");
         }
 
         expenses.setTotalPrice(expenses.getTotalPrice() - expense.getTotalPrice());
-        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() - expense.getEstimatedPrice());
+        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() - expense.getEstimatedTotalPrice());
         expenses.getExpenseList().remove(expense);
 
         return expensesRepository.save(expenses);

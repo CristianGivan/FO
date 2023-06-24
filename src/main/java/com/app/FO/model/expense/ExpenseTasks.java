@@ -42,7 +42,7 @@ public class ExpenseTasks {
 
     @Override
     public String toString() {
-        return "ExpenseTaskss{" +
+        return "ExpenseTasks{" +
                 "id=" + id +
                 ", tasksId=" + tasks.getId() +
                 ", expense=" + expense.getId() +

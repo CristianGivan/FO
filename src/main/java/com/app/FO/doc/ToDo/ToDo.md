@@ -4,6 +4,7 @@
 
 ### Classes
 
+- [11] Product
 - [11] Expense
 - [12] Expenses
 - [14] Account

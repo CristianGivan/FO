@@ -1,7 +1,7 @@
 # General
 
-- in linking table shall be also the check
 - the estimationPrice is unit price * quantity but if there are not found it toked the mean values
+- when a expense is created is neeaded the subject the product if is in a bux or by item will be added after
 
 # ToDo
 
@@ -52,12 +52,13 @@
 
 - [x] expense
 - [x] product
-- [x] subject
 - [x] check
+- [x] subject
+- [x] category
 - [x] quantity
 - [x] unitPrice
 - [x] totalPrice
-- [x] estimatedPrice
+- [x] estimatedTotalPrice
 - [x] checkDate
 - [x] createdDate
 - [x] creator
@@ -73,18 +74,18 @@
 
 ### Put
 
+- [ ] putCheckToExpense
 - [ ] putSubjectToExpense
-- [ ] putTypeToExpense
-- [ ] putMarkedPriceToExpense
+- [ ] putCategoryToExpense
+- [ ] putQuantityToExpense
+- [ ] putUnitPriceToExpense
 - [ ] putTotalPriceToExpense
-- [ ] putShopToExpense
+- [ ] putCheckDateToExpense
 - [ ] putUserToExpense
 - [ ] putTagToExpense
 - [ ] putReminderToExpense
 - [ ] putTopicToExpense
 - [ ] putTasksToExpense
-- [ ] putAccountToExpense
-- [ ] putPayerToExpense
 
 ### Delete
 
@@ -93,26 +94,32 @@
 - [ ] deleteReminderFromExpense
 - [ ] deleteTopicFromExpense
 - [ ] deleteTasksFromExpense
-- [ ] deleteExpense
-- [ ] deletePayerFromExpense
 
 ### Get
 
 - [ ] getAllExpense
 - [ ] getExpenseById
+- [ ] getTaskListByCheck
 - [ ] getTaskBySubject
 - [ ] getTaskListBySubjectContains
-- [ ] getExpenseByType
-- [ ] getExpenseByMarkedPrice
-- [ ] getExpenseByTotalPrice
-- [ ] getExpenseByShop
+- [ ] getTaskByCategory
+- [ ] getTaskListByCategoryContains
+- [ ] getExpenseListByQuantity
+- [ ] getExpenseListByQuantityBetween
+- [ ] getExpenseListByUnitPrice
+- [ ] getExpenseListByUnitPriceBetween
+- [ ] getExpenseListByTotalPrice
+- [ ] getExpenseListByTotalPriceBetween
+- [ ] getExpenseListByEstimatedTotalPrice
+- [ ] getExpenseListByEstimatedTotalPriceBetween
+- [ ] getExpenseByCheckDate
+- [ ] getExpenseByCheckDateBetween
 - [ ] getExpenseByCreatedDate
+- [ ] getExpenseByCreatedDateBetween
 - [ ] getExpenseListByUser
 - [ ] getExpenseListByTag
 - [ ] getExpenseListByReminder
 - [ ] getExpenseListByTopic
 - [ ] getExpenseListByTasks
-- [ ] getExpenseListByAccount
-- [ ] getExpenseListByPayer
 
 ## Other

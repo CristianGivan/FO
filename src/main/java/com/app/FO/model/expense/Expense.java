@@ -35,8 +35,8 @@ public class Expense {
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "check")
-    private Boolean check;
+    @Column(name = "checked")
+    private Boolean checked;
     @Column(name = "category")
     private String category;
     @Column(name = "quantity")
@@ -45,10 +45,16 @@ public class Expense {
     private Double unitPrice;
     @Column(name = "total_price")
     private Double totalPrice;
-    @Column(name = "estimated_price")
-    private Double estimatedPrice;
-    @Column(name = "check_date")
-    private LocalDateTime checkDate;
+
+    @Column(name = "mean_quantity")
+    private Double meanQuantity;
+    @Column(name = "mean_unit_price")
+    private Double meanUnitPrice;
+
+    @Column(name = "estimated_total_price")
+    private Double estimatedTotalPrice;
+    @Column(name = "checked_date")
+    private LocalDateTime checkedDate;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
@@ -82,7 +88,6 @@ public class Expense {
     public Expense(String subject, User creator) {
         this.subject = subject;
         this.creator = creator;
-        this.createdDate = LocalDateTime.now();
     }
 
     @Override
@@ -92,13 +97,15 @@ public class Expense {
                 ", expenses=" + expenses +
                 ", product=" + product +
                 ", subject='" + subject + '\'' +
-                ", check=" + check +
+                ", checked=" + checked +
                 ", category='" + category + '\'' +
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 ", totalPrice=" + totalPrice +
-                ", estimatedPrice=" + estimatedPrice +
-                ", checkDate=" + checkDate +
+                ", meanQuantity=" + meanQuantity +
+                ", meanUnitPrice=" + meanUnitPrice +
+                ", estimatedTotalPrice=" + estimatedTotalPrice +
+                ", checkedDate=" + checkedDate +
                 ", createdDate=" + createdDate +
                 ", creator=" + creator +
                 ", expenseUserList=" + expenseUserList +
@@ -109,7 +116,6 @@ public class Expense {
                 ", expenseHistoryList=" + expenseHistoryList +
                 '}';
     }
-
 
     public Long getId() {
         return id;
@@ -143,12 +149,12 @@ public class Expense {
         this.subject = subject;
     }
 
-    public Boolean getCheck() {
-        return check;
+    public Boolean getChecked() {
+        return checked;
     }
 
-    public void setCheck(Boolean check) {
-        this.check = check;
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 
     public String getCategory() {
@@ -160,6 +166,9 @@ public class Expense {
     }
 
     public Double getQuantity() {
+        if (quantity == null) {
+            quantity = 0.0;
+        }
         return quantity;
     }
 
@@ -168,6 +177,9 @@ public class Expense {
     }
 
     public Double getUnitPrice() {
+        if (unitPrice == null) {
+            unitPrice = 0.0;
+        }
         return unitPrice;
     }
 
@@ -183,20 +195,36 @@ public class Expense {
         this.totalPrice = totalPrice;
     }
 
-    public Double getEstimatedPrice() {
-        return estimatedPrice;
+    public Double getEstimatedTotalPrice() {
+        return estimatedTotalPrice;
     }
 
-    public void setEstimatedPrice(Double estimatedPrice) {
-        this.estimatedPrice = estimatedPrice;
+    public void setEstimatedTotalPrice(Double estimatedTotalPrice) {
+        this.estimatedTotalPrice = estimatedTotalPrice;
     }
 
-    public LocalDateTime getCheckDate() {
-        return checkDate;
+    public Double getMeanQuantity() {
+        return meanQuantity;
     }
 
-    public void setCheckDate(LocalDateTime checkDate) {
-        this.checkDate = checkDate;
+    public void setMeanQuantity(Double meanQuantity) {
+        this.meanQuantity = meanQuantity;
+    }
+
+    public Double getMeanUnitPrice() {
+        return meanUnitPrice;
+    }
+
+    public void setMeanUnitPrice(Double meanUnitPrice) {
+        this.meanUnitPrice = meanUnitPrice;
+    }
+
+    public LocalDateTime getCheckedDate() {
+        return checkedDate;
+    }
+
+    public void setCheckedDate(LocalDateTime checkedDate) {
+        this.checkedDate = checkedDate;
     }
 
     public LocalDateTime getCreatedDate() {
