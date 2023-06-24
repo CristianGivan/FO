@@ -55,7 +55,7 @@ public class ProductService {
             throw new ProductNotFoundException("Product not found in your list");
         }
 
-        String subject = name + " from " + product.getProducer();
+        String subject = name + " (" + product.getUnit() + ")";
         if (product.getSubject().equals(subject)) {
             throw new ProductAlreadyExistException("Product has already the same subject");
         }
@@ -73,7 +73,7 @@ public class ProductService {
             throw new ProductNotFoundException("Product not found in your list");
         }
 
-        String subject = unit + " from " + product.getProducer();
+        String subject = product.getName() + " (" + unit + ")";
         if (product.getSubject().equals(subject)) {
             throw new ProductAlreadyExistException("Product has already the same subject");
         }
@@ -91,13 +91,7 @@ public class ProductService {
             throw new ProductNotFoundException("Product not found in your list");
         }
 
-        String subject = product.getName() + " from " + producer;
-        if (product.getSubject().equals(subject)) {
-            throw new ProductAlreadyExistException("Product has already the same subject");
-        }
-
         product.setProducer(producer);
-        product.setSubject(subject);
 
         return productRepository.save(product);
     }
@@ -246,10 +240,12 @@ public class ProductService {
             throw new ExpenseNotFoundException("Expense not found");
         }
 
+        //todo to be update the product with the information of expense ex price or quantity
         expense.setMeanQuantity(product.getMeanQuantity());
         expense.setMeanUnitPrice(product.getMeanUnitPrice());
         expense.setEstimatedTotalPrice(product.getMeanQuantity() * product.getMeanUnitPrice());
 
+        //todo check why is not working OneToMany
         product.getExpenseList().add(expense);
         return productRepository.save(product);
     }
@@ -421,13 +417,13 @@ public class ProductService {
     }
 
 
-    public Product getProductByName(String name) {
+    public List<Product> getProductListByName(String name) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByName(logInUser.getId(), name);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByName(logInUser.getId(), name);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByNameContains(String nameContains) {
@@ -439,13 +435,13 @@ public class ProductService {
         return productList;
     }
 
-    public Product getProductByUnit(String unit) {
+    public List<Product> getProductListByUnit(String unit) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByUnit(logInUser.getId(), unit);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByUnit(logInUser.getId(), unit);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByUnitContains(String unitContains) {
@@ -457,13 +453,13 @@ public class ProductService {
         return productList;
     }
 
-    public Product getProductByProducer(String producer) {
+    public List<Product> getProductByProducer(String producer) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByProducer(logInUser.getId(), producer);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByProducer(logInUser.getId(), producer);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByProducerContains(String producerContains) {
@@ -512,13 +508,13 @@ public class ProductService {
         return productList;
     }
 
-    public Product getProductByNumberOfBuys(Integer numberOfBuys) {
+    public List<Product> getProductListByNumberOfBuys(Integer numberOfBuys) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByNumberOfBuys(logInUser.getId(), numberOfBuys);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByNumberOfBuys(logInUser.getId(), numberOfBuys);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByNumberOfBuysBetween(Integer numberOfBuysMin, Integer numberOfBuysMax) {
@@ -531,13 +527,13 @@ public class ProductService {
     }
 
 
-    public Product getProductByNumberForMeanQuantity(Integer numberForMeanQuantity) {
+    public List<Product> getProductListByNumberForMeanQuantity(Integer numberForMeanQuantity) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByNumberForMeanQuantity(logInUser.getId(), numberForMeanQuantity);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByNumberForMeanQuantity(logInUser.getId(), numberForMeanQuantity);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByNumberForMeanQuantityBetween(Integer numberForMeanQuantityMin, Integer numberForMeanQuantityMax) {
@@ -549,13 +545,13 @@ public class ProductService {
         return productList;
     }
 
-    public Product getProductByNumberForMeanPrice(Integer numberForMeanPrice) {
+    public List<Product> getProductListByNumberForMeanPrice(Integer numberForMeanPrice) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByNumberForMeanPrice(logInUser.getId(), numberForMeanPrice);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByNumberForMeanPrice(logInUser.getId(), numberForMeanPrice);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByNumberForMeanPriceBetween(Integer numberForMeanPriceMin, Integer numberForMeanPriceMax) {
@@ -568,13 +564,13 @@ public class ProductService {
     }
 
 
-    public Product getProductByMeanQuantity(Double meanQuantity) {
+    public List<Product> getProductListByMeanQuantity(Double meanQuantity) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByMeanQuantity(logInUser.getId(), meanQuantity);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByMeanQuantity(logInUser.getId(), meanQuantity);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByMeanQuantityBetween(Double meanQuantityMin, Double meanQuantityMax) {
@@ -587,13 +583,13 @@ public class ProductService {
     }
 
 
-    public Product getProductByMeanUnitPrice(Double meanUnitPrice) {
+    public List<Product> getProductListByMeanUnitPrice(Double meanUnitPrice) {
         User logInUser = serviceAll.getLogInUser();
-        Product product = productRepository.getProductFromUserIdByMeanUnitPrice(logInUser.getId(), meanUnitPrice);
-        if (product == null) {
+        List<Product> productList = productRepository.getProductFromUserIdByMeanUnitPrice(logInUser.getId(), meanUnitPrice);
+        if (productList.isEmpty()) {
             throw new ProductNotFoundException("No product found");
         }
-        return product;
+        return productList;
     }
 
     public List<Product> getProductListByMeanUnitPriceBetween(Double meanUnitPriceMin, Double meanUnitPriceMax) {

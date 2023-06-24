@@ -37,9 +37,9 @@ public class Product {
 
     @Column(name = "number_buys")
     private Integer numberOfBuys;
-    @Column(name = "number_quantity")
+    @Column(name = "number_mean_quantity")
     private Integer numberForMeanQuantity;
-    @Column(name = "number_price")
+    @Column(name = "number_mean_price")
     private Integer numberForMeanPrice;
     @Column(name = "mean_quantity")
     private Double meanQuantity;
@@ -267,6 +267,9 @@ public class Product {
     }
 
     public List<Expense> getExpenseList() {
+        if (expenseList == null) {
+            expenseList = new ArrayList<>();
+        }
         return expenseList;
     }
 

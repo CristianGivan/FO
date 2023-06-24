@@ -169,9 +169,9 @@ public class ProductController {
     }
 
     @GetMapping("/getProductByName")
-    public ProductDTO getProductByName(@RequestParam String name) {
-        Product product = productService.getProductByName(name);
-        return productDTOMapper.productToProductDTO(product);
+    public List<ProductDTO> getProductListByName(@RequestParam String name) {
+        List<Product> productList = productService.getProductListByName(name);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
 
@@ -181,10 +181,10 @@ public class ProductController {
         return productDTOMapper.productListToProductDTOList(productList);
     }
 
-    @GetMapping("/getProductByUnit")
-    public ProductDTO getProductByUnit(@RequestParam String unit) {
-        Product product = productService.getProductByUnit(unit);
-        return productDTOMapper.productToProductDTO(product);
+    @GetMapping("/getProductListByUnit")
+    public List<ProductDTO> getProductListByUnit(@RequestParam String unit) {
+        List<Product> productList = productService.getProductListByUnit(unit);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
 
@@ -207,9 +207,9 @@ public class ProductController {
     }
 
     @GetMapping("/getProductByProducer")
-    public ProductDTO getProductByProducer(@RequestParam String producer) {
-        Product product = productService.getProductByProducer(producer);
-        return productDTOMapper.productToProductDTO(product);
+    public List<ProductDTO> getProductByProducer(@RequestParam String producer) {
+        List<Product> productList = productService.getProductByProducer(producer);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
     @GetMapping("/getProductListByProducerContains")
@@ -219,10 +219,10 @@ public class ProductController {
     }
 
 
-    @GetMapping("/getProductByNumberOfBuys")
-    public ProductDTO getProductByNumberOfBuys(@RequestParam Integer numberOfBuys) {
-        Product product = productService.getProductByNumberOfBuys(numberOfBuys);
-        return productDTOMapper.productToProductDTO(product);
+    @GetMapping("/getProductListByNumberOfBuys")
+    public List<ProductDTO> getProductListByNumberOfBuys(@RequestParam Integer numberOfBuys) {
+        List<Product> productList = productService.getProductListByNumberOfBuys(numberOfBuys);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
     @GetMapping("/getProductListByNumberOfBuysBetween")
@@ -231,10 +231,10 @@ public class ProductController {
         return productDTOMapper.productListToProductDTOList(productList);
     }
 
-    @GetMapping("/getProductByNumberForMeanQuantity")
-    public ProductDTO getProductByNumberForMeanQuantity(@RequestParam Integer numberForMeanQuantity) {
-        Product product = productService.getProductByNumberForMeanQuantity(numberForMeanQuantity);
-        return productDTOMapper.productToProductDTO(product);
+    @GetMapping("/getProductListByNumberForMeanQuantity")
+    public List<ProductDTO> getProductListByNumberForMeanQuantity(@RequestParam Integer numberForMeanQuantity) {
+        List<Product> productList = productService.getProductListByNumberForMeanQuantity(numberForMeanQuantity);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
     @GetMapping("/getProductListByNumberForMeanQuantityBetween")
@@ -243,10 +243,10 @@ public class ProductController {
         return productDTOMapper.productListToProductDTOList(productList);
     }
 
-    @GetMapping("/getProductByNumberForMeanPrice")
-    public ProductDTO getProductByNumberForMeanPrice(@RequestParam Integer numberForMeanPrice) {
-        Product product = productService.getProductByNumberForMeanPrice(numberForMeanPrice);
-        return productDTOMapper.productToProductDTO(product);
+    @GetMapping("/getProductListByNumberForMeanPrice")
+    public List<ProductDTO> getProductListByNumberForMeanPrice(@RequestParam Integer numberForMeanPrice) {
+        List<Product> productList = productService.getProductListByNumberForMeanPrice(numberForMeanPrice);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
     @GetMapping("/getProductListByNumberForMeanPriceBetween")
@@ -255,10 +255,10 @@ public class ProductController {
         return productDTOMapper.productListToProductDTOList(productList);
     }
 
-    @GetMapping("/getProductByMeanQuantity")
-    public ProductDTO getProductByMeanQuantity(@RequestParam Double meanQuantity) {
-        Product product = productService.getProductByMeanQuantity(meanQuantity);
-        return productDTOMapper.productToProductDTO(product);
+    @GetMapping("/getProductListByMeanQuantity")
+    public List<ProductDTO> getProductListByMeanQuantity(@RequestParam Double meanQuantity) {
+        List<Product> productList = productService.getProductListByMeanQuantity(meanQuantity);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
     @GetMapping("/getProductListByMeanQuantityBetween")
@@ -267,10 +267,10 @@ public class ProductController {
         return productDTOMapper.productListToProductDTOList(productList);
     }
 
-    @GetMapping("/getProductByMeanUnitPrice")
-    public ProductDTO getProductByMeanUnitPrice(@RequestParam Double meanUnitPrice) {
-        Product product = productService.getProductByMeanUnitPrice(meanUnitPrice);
-        return productDTOMapper.productToProductDTO(product);
+    @GetMapping("/getProductListByMeanUnitPrice")
+    public List<ProductDTO> getProductListByMeanUnitPrice(@RequestParam Double meanUnitPrice) {
+        List<Product> productList = productService.getProductListByMeanUnitPrice(meanUnitPrice);
+        return productDTOMapper.productListToProductDTOList(productList);
     }
 
     @GetMapping("/getProductListByMeanUnitPriceBetween")

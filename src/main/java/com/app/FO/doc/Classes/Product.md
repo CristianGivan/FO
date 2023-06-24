@@ -82,15 +82,15 @@
 
 ### Put
 
-- [ ] putNameToProduct
-- [ ] putUnitToProduct
-- [ ] putCategoryToProduct
-- [ ] putProducerToProduct
-- [ ] putUserToProduct
-- [ ] putTagToProduct
-- [ ] putReminderToProduct
-- [ ] putTopicToProduct
-- [ ] putTasksToProduct
+- [x] putNameToProduct
+- [x] putUnitToProduct
+- [x] putCategoryToProduct
+- [x] putProducerToProduct
+- [x] putUserToProduct
+- [x] putTagToProduct
+- [x] putReminderToProduct
+- [x] putTopicToProduct
+- [x] putTasksToProduct
 - [ ] putExpenseToProduct
 
 ### Delete
@@ -105,34 +105,34 @@
 
 ### Get
 
-- [ ] getAllProduct
-- [ ] getProductById
-- [ ] getProductBySubject
-- [ ] getProductListBySubjectContains
-- [ ] getProductByName
-- [ ] getProductListByNameContains
-- [ ] getProductByUnit
-- [ ] getProductByCategory
-- [ ] getProductListByCategoryContains
-- [ ] getProductListByUnitContains
-- [ ] getProductByProducer
-- [ ] getProductListByProducerContains
-- [ ] getProductByNumberOfBuys
-- [ ] getProductListByNumberOfBuysBetween
-- [ ] getProductByNumberForMeanQuantity
-- [ ] getProductListByNumberForMeanQuantityBetween
-- [ ] getProductByNumberForMeanPrice
-- [ ] getProductListByNumberForMeanPriceBetween
-- [ ] getProductByMeanQuantity
-- [ ] getProductListByMeanQuantityBetween
-- [ ] getProductByMeanUnitPrice
-- [ ] getProductListByMeanUnitPriceBetween
-- [ ] getProductByCreatedDate
-- [ ] getProductListByCreatedDateBetween
-- [ ] getProductListByUser
-- [ ] getProductListByTag
-- [ ] getProductListByReminder
-- [ ] getProductListByTopic
-- [ ] getProductListByTasks
+- [x] getAllProduct
+- [x] getProductById
+- [x] getProductBySubject
+- [x] getProductListBySubjectContains
+- [x] getProductListByName
+- [x] getProductListByNameContains
+- [x] getProductListByUnit
+- [x] getProductByCategory
+- [x] getProductListByCategoryContains
+- [x] getProductListByUnitContains
+- [x] getProductListByProducer
+- [x] getProductListByProducerContains
+- [x] getProductListByNumberOfBuys
+- [x] getProductListByNumberOfBuysBetween
+- [x] getProductListByNumberForMeanQuantity
+- [x] getProductListByNumberForMeanQuantityBetween
+- [x] getProductListByNumberForMeanUnitPrice
+- [x] getProductListByNumberForMeanUnitPriceBetween
+- [x] getProductListByMeanQuantity
+- [x] getProductListByMeanQuantityBetween
+- [x] getProductListByMeanUnitPrice
+- [x] getProductListByMeanUnitPriceBetween
+- [x] getProductByCreatedDate
+- [x] getProductListByCreatedDateBetween
+- [x] getProductListByUser
+- [x] getProductListByTag
+- [x] getProductListByReminder
+- [x] getProductListByTopic
+- [x] getProductListByTasks
 
 ## Other

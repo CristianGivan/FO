@@ -23,7 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.name=?2")
-    Product getProductFromUserIdByName(Long userId, String name);
+    List<Product> getProductFromUserIdByName(Long userId, String name);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=:userId and t.name like %:containingText%")
@@ -31,7 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.unit=?2")
-    Product getProductFromUserIdByUnit(Long userId, String unit);
+    List<Product> getProductFromUserIdByUnit(Long userId, String unit);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=:userId and t.unit like %:containingText%")
@@ -39,7 +39,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.producer=?2")
-    Product getProductFromUserIdByProducer(Long userId, String producer);
+    List<Product> getProductFromUserIdByProducer(Long userId, String producer);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=:userId and t.producer like %:containingText%")
@@ -64,33 +64,33 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.number_buys=?2")
-    Product getProductFromUserIdByNumberOfBuys(Long userId, Integer numberOfBuys);
+    List<Product> getProductFromUserIdByNumberOfBuys(Long userId, Integer numberOfBuys);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=?1 and t.number_buys between ?2 and ?3")
     List<Product> getProductListFromUserIdByNumberOfBuysBetween(Long UserId, Integer numberOfBuysMin, Integer numberOfBuysMax);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.number_mean=?2")
-    Product getProductFromUserIdByNumberForMeanQuantity(Long userId, Integer numberForMeanQuantity);
+            "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.number_mean_quantity=?2")
+    List<Product> getProductFromUserIdByNumberForMeanQuantity(Long userId, Integer numberForMeanQuantity);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=?1 and t.number_mean between ?2 and ?3")
+            "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=?1 and t.number_mean_quantity between ?2 and ?3")
     List<Product> getProductListFromUserIdByNumberForMeanQuantityBetween(Long UserId, Integer numberForMeanQuantityMin, Integer numberForMeanQuantityMax);
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.number_mean=?2")
-    Product getProductFromUserIdByNumberForMeanPrice(Long userId, Integer numberForMeanPrice);
+            "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.number_mean_price=?2")
+    List<Product> getProductFromUserIdByNumberForMeanPrice(Long userId, Integer numberForMeanPrice);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=?1 and t.number_mean between ?2 and ?3")
+            "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=?1 and t.number_mean_price between ?2 and ?3")
     List<Product> getProductListFromUserIdByNumberForMeanPriceBetween(Long UserId, Integer numberForMeanPriceMin, Integer numberForMeanPriceMax);
 
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.mean_quantity=?2")
-    Product getProductFromUserIdByMeanQuantity(Long userId, Double meanQuantity);
+    List<Product> getProductFromUserIdByMeanQuantity(Long userId, Double meanQuantity);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=?1 and t.mean_quantity between ?2 and ?3")
@@ -98,7 +98,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user tu on t.product_id = tu.product_id where tu.user_id=?1 and t.mean_unit_price=?2")
-    Product getProductFromUserIdByMeanUnitPrice(Long userId, Double meanUnitPrice);
+    List<Product> getProductFromUserIdByMeanUnitPrice(Long userId, Double meanUnitPrice);
 
     @Query(nativeQuery = true, value =
             "SELECT * FROM product as t inner join product_user ut on t.product_id = ut.product_id where ut.user_id=?1 and t.mean_unit_price between ?2 and ?3")
