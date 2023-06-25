@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -233,6 +234,9 @@ public class Expenses {
     }
 
     public List<ExpensesUser> getExpensesUserList() {
+        if (expensesUserList == null) {
+            expensesUserList = new ArrayList<>();
+        }
         return expensesUserList;
     }
 

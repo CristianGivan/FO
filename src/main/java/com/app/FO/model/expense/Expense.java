@@ -82,6 +82,7 @@ public class Expense {
     public Expense(String subject, User creator) {
         this.subject = subject;
         this.creator = creator;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
@@ -129,6 +130,9 @@ public class Expense {
     }
 
     public Boolean getChecked() {
+        if (checked == null) {
+            checked = false;
+        }
         return checked;
     }
 
@@ -167,6 +171,9 @@ public class Expense {
     }
 
     public Double getTotalPrice() {
+        if (totalPrice == null) {
+            totalPrice = 0.0;
+        }
         return totalPrice;
     }
 
@@ -175,6 +182,9 @@ public class Expense {
     }
 
     public Double getEstimatedTotalPrice() {
+        if (estimatedTotalPrice == null) {
+            estimatedTotalPrice = 0.0;
+        }
         return estimatedTotalPrice;
     }
 
@@ -183,6 +193,9 @@ public class Expense {
     }
 
     public Double getMeanQuantity() {
+        if (meanQuantity == null) {
+            meanQuantity = 0.0;
+        }
         return meanQuantity;
     }
 
@@ -191,6 +204,9 @@ public class Expense {
     }
 
     public Double getMeanUnitPrice() {
+        if (meanUnitPrice == null) {
+            meanUnitPrice = 0.0;
+        }
         return meanUnitPrice;
     }
 

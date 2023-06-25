@@ -2,8 +2,11 @@
 
 - the estimationPrice is unit price * quantity but if there are not found it toked the mean values
 - when a expense is created is neeaded the subject the product if is in a bux or by item will be added after
+-
 
 # ToDo
+
+- [ ] operations shall be done
 
 ## FrontEnd
 
@@ -70,57 +73,59 @@
 
 ### Post
 
-- [ ] postExpense
+- [x] postExpense
 
 ### Put
 
-- [ ] putCheckToExpense
-- [ ] putSubjectToExpense
-- [ ] putCategoryToExpense
-- [ ] putQuantityToExpense
-- [ ] putUnitPriceToExpense
-- [ ] putTotalPriceToExpense
-- [ ] putCheckDateToExpense
-- [ ] putUserToExpense
-- [ ] putTagToExpense
-- [ ] putReminderToExpense
-- [ ] putTopicToExpense
-- [ ] putTasksToExpense
-- [ ] putProductToExpense
+- [x] putCheckedToExpense
+- [x] putSubjectToExpense
+- [x] putCategoryToExpense
+- [x] putQuantityToExpense
+- [x] putUnitPriceToExpense
+- [x] putTotalPriceToExpense
+- [x] putCheckedDateToExpense
+- [x] putUserToExpense
+- [x] putTagToExpense
+- [x] putReminderToExpense
+- [x] putTopicToExpense
+- [x] putTasksToExpense
+- [x] putProductToExpense
 
 ### Delete
 
-- [ ] deleteUserFromExpense
-- [ ] deleteTagFromExpense
-- [ ] deleteReminderFromExpense
-- [ ] deleteTopicFromExpense
-- [ ] deleteTasksFromExpense
+- [x] deleteUserFromExpense
+- [x] deleteTagFromExpense
+- [x] deleteReminderFromExpense
+- [x] deleteTopicFromExpense
+- [x] deleteTasksFromExpense
+- [x] deleteProductFromExpense
 
 ### Get
 
-- [ ] getAllExpense
-- [ ] getExpenseById
-- [ ] getTaskListByCheck
-- [ ] getTaskBySubject
-- [ ] getTaskListBySubjectContains
-- [ ] getTaskByCategory
-- [ ] getTaskListByCategoryContains
-- [ ] getExpenseListByQuantity
-- [ ] getExpenseListByQuantityBetween
-- [ ] getExpenseListByUnitPrice
-- [ ] getExpenseListByUnitPriceBetween
-- [ ] getExpenseListByTotalPrice
-- [ ] getExpenseListByTotalPriceBetween
-- [ ] getExpenseListByEstimatedTotalPrice
-- [ ] getExpenseListByEstimatedTotalPriceBetween
-- [ ] getExpenseByCheckDate
-- [ ] getExpenseByCheckDateBetween
-- [ ] getExpenseByCreatedDate
-- [ ] getExpenseByCreatedDateBetween
-- [ ] getExpenseListByUser
-- [ ] getExpenseListByTag
-- [ ] getExpenseListByReminder
-- [ ] getExpenseListByTopic
-- [ ] getExpenseListByTasks
+- [x] getAllExpense
+- [x] getExpenseById
+- [x] getExpenseListByChecked
+- [x] getExpenseListBySubject
+- [x] getExpenseListBySubjectContains
+- [x] getExpenseListByCategory
+- [x] getExpenseListByCategoryContains
+- [x] getExpenseListByQuantity
+- [x] getExpenseListByQuantityBetween
+- [x] getExpenseListByUnitPrice
+- [x] getExpenseListByUnitPriceBetween
+- [x] getExpenseListByTotalPrice
+- [x] getExpenseListByTotalPriceBetween
+- [x] getExpenseListByEstimatedTotalPrice
+- [x] getExpenseListByEstimatedTotalPriceBetween
+- [x] getExpenseByCheckedDate
+- [x] getExpenseByCheckedDateBetween
+- [x] getExpenseByCreatedDate
+- [x] getExpenseByCreatedDateBetween
+- [x] getExpenseListByUser
+- [x] getExpenseListByTag
+- [x] getExpenseListByReminder
+- [x] getExpenseListByTopic
+- [x] getExpenseListByTasks
+- [x] getExpenseListByProduct
 
 ## Other

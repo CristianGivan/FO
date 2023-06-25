@@ -4,7 +4,6 @@
 
 ### Classes
 
-- [11] Expense
 - [12] Expenses
 - [14] Account
 - [15] Event
@@ -19,7 +18,7 @@ All
 - [17] Document
 - [18] Email
 - [15] Event
-- [11] Expense
+- [x] Expense
 - [12] Expenses
 - [x] Link
 - [x] Note
