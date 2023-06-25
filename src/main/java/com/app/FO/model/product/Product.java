@@ -190,6 +190,9 @@ public class Product {
     }
 
     public Double getMeanQuantity() {
+        if (meanQuantity == null) {
+            meanQuantity = 0.0;
+        }
         return meanQuantity;
     }
 
@@ -198,6 +201,9 @@ public class Product {
     }
 
     public Double getMeanUnitPrice() {
+        if (meanUnitPrice == null) {
+            meanUnitPrice = 0.0;
+        }
         return meanUnitPrice;
     }
 

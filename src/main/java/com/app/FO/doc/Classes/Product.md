@@ -91,17 +91,17 @@
 - [x] putReminderToProduct
 - [x] putTopicToProduct
 - [x] putTasksToProduct
-- [ ] putExpenseToProduct
+- [x] putExpenseToProduct
 
 ### Delete
 
-- [ ] deleteUserFromProduct
-- [ ] deleteTagFromProduct
-- [ ] deleteReminderFromProduct
-- [ ] deleteTopicFromProduct
-- [ ] deleteTasksFromProduct
-- [ ] deleteExpenseFromProduct
-- [ ] deleteProduct
+- [x] deleteUserFromProduct
+- [x] deleteTagFromProduct
+- [x] deleteReminderFromProduct
+- [x] deleteTopicFromProduct
+- [x] deleteTasksFromProduct
+- [x] deleteExpenseFromProduct
+- [x] deleteProduct
 
 ### Get
 

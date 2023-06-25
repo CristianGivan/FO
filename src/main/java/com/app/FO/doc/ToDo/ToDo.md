@@ -4,7 +4,6 @@
 
 ### Classes
 
-- [11] Product
 - [11] Expense
 - [12] Expenses
 - [14] Account
@@ -27,6 +26,7 @@ All
 - [20] Person
     - [ ] getPersonPerson check
 - [19] PhoneNumber
+- [x] Product
 - [3] Reminder
 - [21] Role
 - [10] Shop
