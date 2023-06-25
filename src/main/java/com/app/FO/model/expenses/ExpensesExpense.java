@@ -28,6 +28,9 @@ public class ExpensesExpense {
     @JsonIgnore
     private Expense expense;
 
+    @Column(name = "checked")
+    private Boolean checked;
+
     @Column(name = "expenses_date")
     private LocalDateTime expensesDate;
 
@@ -44,8 +47,9 @@ public class ExpensesExpense {
     public String toString() {
         return "ExpensesExpense{" +
                 "id=" + id +
-                ", expensesId=" + expenses.getId() +
-                ", expenseId=" + expense.getId() +
+                ", expenses=" + expenses +
+                ", expense=" + expense +
+                ", checked=" + checked +
                 ", expensesDate=" + expensesDate +
                 '}';
     }
@@ -72,6 +76,14 @@ public class ExpensesExpense {
 
     public void setExpense(Expense expense) {
         this.expense = expense;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 
     public LocalDateTime getExpensesDate() {

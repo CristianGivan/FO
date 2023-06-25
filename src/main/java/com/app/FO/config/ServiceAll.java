@@ -365,8 +365,8 @@ public class ServiceAll {
     @Autowired
     private ExpensesPersonRepository expensesPersonRepository;
 
-    @Autowired
-    private ExpensesShopRepository expensesShopRepository;
+//    @Autowired
+//    private ExpensesShopRepository expensesShopRepository;
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -921,9 +921,9 @@ public class ServiceAll {
         return expensesPersonRepository.getExpensesPersonByExpensesIdAndPersonId(expensesId, personId);
     }
 
-    public ExpensesShop getExpensesShop(Long expensesId, Long shopId) {
-        return expensesShopRepository.getExpensesShopByExpensesIdAndShopId(expensesId, shopId);
-    }
+//    public ExpensesShop getExpensesShop(Long expensesId, Long shopId) {
+//        return expensesShopRepository.getExpensesShopByExpensesIdAndShopId(expensesId, shopId);
+//    }
 
     //-- getTransactionAnd
 

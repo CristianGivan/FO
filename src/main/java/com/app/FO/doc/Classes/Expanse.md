@@ -6,6 +6,7 @@
 
 # ToDo
 
+- [ ] One to Many to product to be investigated more
 - [ ] operations shall be done
 
 ## FrontEnd

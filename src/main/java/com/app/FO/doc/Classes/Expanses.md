@@ -12,6 +12,8 @@
   in front end from expense
 - tag reminder and other when a new expanses is created after closing it should be asked if the other shall be puted to
   new list
+- there is a check in expense that mean that at list in one expenses there is checked
+  and there is a check in expensesExpense where in that expense list is checked
 
 # ToDo
 
@@ -69,27 +71,27 @@
 
 ### Attributes
 
-- [ ] subject
-- [ ] type
-- [ ] expensesStatus
-- [ ] expensesNumber
-- [ ] checkedNumber
-- [ ] totalPrice
-- [ ] estimatedTotalPrice
-- [ ] checkedPrice
-- [ ] payedDate
-- [ ] createdDate
-- [ ] creator
-- [ ] expensesUserList
-- [ ] expensesTagList
-- [ ] expensesReminderList
-- [ ] expensesTopicList
-- [ ] expensesTasksList
-- [ ] expensesPersonList
-- [ ] expensesShopList
-- [ ] expenseList
-- [ ] accountExpensesList
-- [ ] expensesHistoryList
+- [x] subject
+- [x] type
+- [x] expensesStatus
+- [x] expensesNumber
+- [x] checkedNumber
+- [x] totalPrice
+- [x] estimatedTotalPrice
+- [x] checkedPrice
+- [x] payedDate
+- [x] createdDate
+- [x] creator
+- [x] expensesUserList
+- [x] expensesTagList
+- [x] expensesReminderList
+- [x] expensesTopicList
+- [x] expensesTasksList
+- [x] expensesExpenseList
+- [x] expensesPersonList
+- [x] Shop
+- [x] accountExpensesList
+- [x] expensesHistoryList
 
 ### Post
 
@@ -106,45 +108,46 @@
 - [x] putReminderToExpenses
 - [x] putTopicToExpenses
 - [x] putTasksToExpenses
+- [x] putExpenseToExpenses
+- [x] putCheckedToExpenseToExpenses
 - [x] putPersonToExpenses
 - [x] putShopToExpenses
-- [x] putExpenseToExpenses
 - [x] putAccountToExpenses
 - [x] putAccountToExpensesWithAmount
 
 ### Delete
 
-- [ ] deleteUserFromExpenses
-- [ ] deleteTagFromExpenses
-- [ ] deleteReminderFromExpenses
-- [ ] deleteTopicFromExpenses
-- [ ] deleteTasksFromExpenses
-- [ ] deletePersonFromExpenses
-- [ ] deleteShopFromExpenses
-- [ ] deleteExpenseFromExpenses
-- [ ] deleteAccountFromExpenses
-- [ ] deleteExpenses
+- [x] deleteUserFromExpenses
+- [x] deleteTagFromExpenses
+- [x] deleteReminderFromExpenses
+- [x] deleteTopicFromExpenses
+- [x] deleteTasksFromExpenses
+- [x] deletePersonFromExpenses
+- [x] deleteShopFromExpenses
+- [x] deleteExpenseFromExpenses
+- [x] deleteAccountFromExpenses
+- [x] deleteExpenses
 
 ### Get
 
 - [x] getAllExpenses
 - [x] getExpensesById
-- [x] getExpensesBySubject
+- [x] getExpensesListBySubject
 - [x] getExpensesListBySubjectContains
-- [x] getExpensesByType
+- [x] getExpensesListByType
 - [x] getExpensesListByTypeContains
-- [ ] getExpensesByExpensesStatus
-- [ ] getExpensesListByExpensesNumber
-- [ ] getExpensesListByExpensesNumberBetween
-- [ ] getExpensesListByCheckedNumber
-- [ ] getExpensesListByCheckedNumberBetween
-- [ ] getExpensesByCheckedPrice
-- [ ] getExpensesListByCheckedPriceBetween
-- [ ] getExpensesByTotalPrice
-- [ ] getExpensesListByTotalPriceBetween
-- [ ] getExpensesByEstimatedTotalPrice
-- [ ] getExpensesListByEstimatedTotalPriceBetween
-- [x] getExpensesByPayedDate
+- [x] getExpensesListByExpensesStatus
+- [x] getExpensesListByExpenseNumber
+- [x] getExpensesListByExpenseNumberBetween
+- [x] getExpensesListByCheckedNumber
+- [x] getExpensesListByCheckedNumberBetween
+- [x] getExpensesListByTotalPrice
+- [x] getExpensesListByTotalPriceBetween
+- [x] getExpensesListByEstimatedTotalPrice
+- [x] getExpensesListByEstimatedTotalPriceBetween
+- [x] getExpensesListByCheckedPrice
+- [x] getExpensesListByCheckedPriceBetween
+- [x] getExpensesListByPayedDate
 - [x] getExpensesListByPayedDateBetween
 - [x] getExpensesByCreatedDate
 - [x] getExpensesListByCreatedDateBetween
@@ -153,9 +156,9 @@
 - [x] getExpensesListByReminder
 - [x] getExpensesListByTopic
 - [x] getExpensesListByTasks
+- [x] getExpensesListByExpense
 - [x] getExpensesListByPerson
 - [x] getExpensesByShopId
-- [x] getExpensesListByExpense
 - [x] getExpensesListByAccount
 
 ## Other

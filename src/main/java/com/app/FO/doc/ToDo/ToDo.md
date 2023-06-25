@@ -40,6 +40,8 @@ All
 
 ### General
 
+-[ ] Product Expense Expenses Account shall redo calculations
+
 - [ ] when get a value treat the case when more values are possible - see Transaction
     - if make not sens to have ex 2 entity with the same subject check it on put but also when the subject is changed
       see Tag

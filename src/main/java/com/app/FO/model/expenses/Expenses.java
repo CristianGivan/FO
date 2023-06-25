@@ -170,6 +170,9 @@ public class Expenses {
     }
 
     public Integer getExpenseNumber() {
+        if (expenseNumber == null) {
+            expenseNumber = 0;
+        }
         return expenseNumber;
     }
 
@@ -178,6 +181,9 @@ public class Expenses {
     }
 
     public Integer getCheckedNumber() {
+        if (checkedNumber == null) {
+            checkedNumber = 0;
+        }
         return checkedNumber;
     }
 
@@ -186,6 +192,9 @@ public class Expenses {
     }
 
     public Double getEstimatedTotalPrice() {
+        if (estimatedTotalPrice == null) {
+            estimatedTotalPrice = 0.0;
+        }
         return estimatedTotalPrice;
     }
 
@@ -194,6 +203,9 @@ public class Expenses {
     }
 
     public Double getCheckedPrice() {
+        if (checkedPrice == null) {
+            checkedPrice = 0.0;
+        }
         return checkedPrice;
     }
 
@@ -202,6 +214,9 @@ public class Expenses {
     }
 
     public Double getTotalPrice() {
+        if (totalPrice == null) {
+            totalPrice = 0.0;
+        }
         return totalPrice;
     }
 
