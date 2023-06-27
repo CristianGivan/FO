@@ -4,7 +4,7 @@ import com.app.FO.config.DateTime;
 import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.account.Account;
-import com.app.FO.model.account.AccountTransaction;
+import com.app.FO.model.account.TransactionAccount;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
@@ -49,8 +49,8 @@ public class TransactionService {
         if (fromAccount == null) {
             throw new AccountNotFoundException("Account not found in your list");
         }
-        AccountTransaction fromAccountTransaction = serviceAll.getAccountTransaction(fromAccountId, transaction.getId());
-        if (fromAccountTransaction != null) {
+        TransactionAccount fromTransactionAccount = serviceAll.getTransactionAccount(fromAccountId, transaction.getId());
+        if (fromTransactionAccount != null) {
             throw new AccountTransactionAlreadyExistException("The account already has the transaction");
         }
 
@@ -59,17 +59,17 @@ public class TransactionService {
             throw new AccountNotFoundException("Account not found in your list");
         }
 
-        AccountTransaction toAccountTransaction = serviceAll.getAccountTransaction(toAccountId, transaction.getId());
-        if (toAccountTransaction != null) {
+        TransactionAccount toTransactionAccount = serviceAll.getTransactionAccount(toAccountId, transaction.getId());
+        if (toTransactionAccount != null) {
             throw new AccountTransactionAlreadyExistException("The account already has the transaction");
         }
 
 
-        fromAccountTransaction = new AccountTransaction(fromAccount, transaction, sum, "from");
-        toAccountTransaction = new AccountTransaction(toAccount, transaction, sum, "to");
+        fromTransactionAccount = new TransactionAccount(fromAccount, transaction, sum, "from");
+        toTransactionAccount = new TransactionAccount(toAccount, transaction, sum, "to");
 
-        transaction.getAccountTransactionList().add(fromAccountTransaction);
-        transaction.getAccountTransactionList().add(toAccountTransaction);
+        transaction.getTransactionAccountList().add(fromTransactionAccount);
+        transaction.getTransactionAccountList().add(toTransactionAccount);
         transaction.getTransactionUserList().add(transactionUser);
         transaction.setTransactionStatus(TransactionStatus.CREATED);
         return transactionRepository.save(transaction);
@@ -162,8 +162,8 @@ public class TransactionService {
             throw new TransactionAlreadyExistException("Transaction is already completed");
         }
 
-        Account fromAccount = serviceAll.getAccountTransactionByDirection("from", transactionId).getAccount();
-        Account toAccount = serviceAll.getAccountTransactionByDirection("to", transactionId).getAccount();
+        Account fromAccount = serviceAll.getTransactionAccountByDirection("from", transactionId).getAccount();
+        Account toAccount = serviceAll.getTransactionAccountByDirection("to", transactionId).getAccount();
         Double transactionSum = transaction.getSum();
 
         fromAccount.setBalance(fromAccount.getBalance() - transactionSum);
@@ -190,8 +190,8 @@ public class TransactionService {
             throw new TransactionAlreadyExistException("Transaction has already the same status");
         }
 
-        Account fromAccount = serviceAll.getAccountTransactionByDirection("from", transactionId).getAccount();
-        Account toAccount = serviceAll.getAccountTransactionByDirection("to", transactionId).getAccount();
+        Account fromAccount = serviceAll.getTransactionAccountByDirection("from", transactionId).getAccount();
+        Account toAccount = serviceAll.getTransactionAccountByDirection("to", transactionId).getAccount();
         Double transactionSum = transaction.getSum();
 
 
@@ -359,9 +359,9 @@ public class TransactionService {
         // todo to be tested
         Long otherAccountId;
         if (direction.equals("from")) {
-            otherAccountId = serviceAll.getAccountTransactionByDirection("to", transactionId).getId();
+            otherAccountId = serviceAll.getTransactionAccountByDirection("to", transactionId).getId();
         } else if (direction.equals("to")) {
-            otherAccountId = serviceAll.getAccountTransactionByDirection("to", transactionId).getId();
+            otherAccountId = serviceAll.getTransactionAccountByDirection("to", transactionId).getId();
         } else {
             otherAccountId = 0L;
         }
@@ -373,17 +373,17 @@ public class TransactionService {
         if (account == null) {
             throw new AccountNotFoundException("Account not found");
         }
-        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
-        if (accountTransaction != null) {
+        TransactionAccount transactionAccount = serviceAll.getTransactionAccount(accountId, transactionId);
+        if (transactionAccount != null) {
             throw new AccountTransactionAlreadyExistException("The transaction already has the account");
         }
 
-        AccountTransaction replacedAccountTransaction = serviceAll.getAccountTransactionByDirection(direction, transactionId);
-        if (replacedAccountTransaction == null) {
+        TransactionAccount replacedTransactionAccount = serviceAll.getTransactionAccountByDirection(direction, transactionId);
+        if (replacedTransactionAccount == null) {
             throw new AccountTransactionNotFoundException("The transaction not found at account");
         }
 
-        Account replacedAccount = replacedAccountTransaction.getAccount();
+        Account replacedAccount = replacedTransactionAccount.getAccount();
 
         if (transaction.getTransactionStatus() == TransactionStatus.COMPLETED) {
             if (direction.equals("from")) {
@@ -397,10 +397,10 @@ public class TransactionService {
             }
         }
 
-        accountTransaction = new AccountTransaction(account, transaction, transaction.getSum(), direction);
-        transaction.getAccountTransactionList().add(accountTransaction);
-        //todo for the future the accountTransaction to be moved to history
-        replacedAccountTransaction.setDirection(replacedAccountTransaction.getDirection() + "-deleted");
+        transactionAccount = new TransactionAccount(account, transaction, transaction.getSum(), direction);
+        transaction.getTransactionAccountList().add(transactionAccount);
+        //todo for the future the transactionAccount to be moved to history
+        replacedTransactionAccount.setDirection(replacedTransactionAccount.getDirection() + "-deleted");
         return transactionRepository.save(transaction);
     }
 

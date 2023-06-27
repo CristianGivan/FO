@@ -141,7 +141,7 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM expenses as t inner join account_expenses as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.account_id=?2")
+            "SELECT * FROM expenses as t inner join expenses_account as tn on t.expenses_id = tn.expenses_id inner join expenses_user tu on t.expenses_id = tu.expenses_id where tu.user_id=?1 and tn.account_id=?2")
     List<Expenses> getExpensesListFromUserIdByAccountId(Long userId, Long accountId);
 
 

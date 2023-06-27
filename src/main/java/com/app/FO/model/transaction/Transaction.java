@@ -1,6 +1,6 @@
 package com.app.FO.model.transaction;
 
-import com.app.FO.model.account.AccountTransaction;
+import com.app.FO.model.account.TransactionAccount;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -59,7 +59,7 @@ public class Transaction {
     private List<TransactionTasks> transactionTasksList;
 
     @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountTransaction> accountTransactionList;
+    private List<TransactionAccount> transactionAccountList;
 
     @OneToMany(mappedBy = "transaction", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TransactionHistory> transactionHistoryList;
@@ -92,7 +92,7 @@ public class Transaction {
                 ", transactionReminderList=" + transactionReminderList +
                 ", transactionTopicList=" + transactionTopicList +
                 ", transactionTasksList=" + transactionTasksList +
-                ", accountTransactionList=" + accountTransactionList +
+                ", transactionAccountList=" + transactionAccountList +
                 ", transactionHistoryList=" + transactionHistoryList +
                 '}';
     }
@@ -221,15 +221,15 @@ public class Transaction {
         this.transactionTasksList = transactionTasksList;
     }
 
-    public List<AccountTransaction> getAccountTransactionList() {
-        if (accountTransactionList == null) {
-            accountTransactionList = new ArrayList<>();
+    public List<TransactionAccount> getTransactionAccountList() {
+        if (transactionAccountList == null) {
+            transactionAccountList = new ArrayList<>();
         }
-        return accountTransactionList;
+        return transactionAccountList;
     }
 
-    public void setAccountTransactionList(List<AccountTransaction> accountTransactionList) {
-        this.accountTransactionList = accountTransactionList;
+    public void setTransactionAccountList(List<TransactionAccount> transactionAccountList) {
+        this.transactionAccountList = transactionAccountList;
     }
 
     public List<TransactionHistory> getTransactionHistoryList() {

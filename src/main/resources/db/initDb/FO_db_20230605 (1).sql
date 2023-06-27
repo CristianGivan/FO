@@ -26,23 +26,23 @@ INSERT INTO `account` VALUES (1,10,'2023-06-01 13:14:15','account1','type1',1),(
 UNLOCK TABLES;
 
 --
--- Dumping data for table `account_expenses`
+-- Dumping data for table `expenses_account`
 --
 
-LOCK TABLES `account_expenses` WRITE;
-/*!40000 ALTER TABLE `account_expenses` DISABLE KEYS */;
-INSERT INTO `account_expenses` VALUES (1,'2023-06-04 22:20:59',1,1),(2,'2023-06-04 22:21:09',2,2),(3,'2023-06-04 22:21:16',3,3),(4,'2023-06-04 22:21:24',4,4),(5,'2023-06-04 22:21:30',4,5),(6,'2023-06-04 22:21:34',5,5);
-/*!40000 ALTER TABLE `account_expenses` ENABLE KEYS */;
+LOCK TABLES `expenses_account` WRITE;
+/*!40000 ALTER TABLE `expenses_account` DISABLE KEYS */;
+INSERT INTO `expenses_account` VALUES (1,'2023-06-04 22:20:59',1,1),(2,'2023-06-04 22:21:09',2,2),(3,'2023-06-04 22:21:16',3,3),(4,'2023-06-04 22:21:24',4,4),(5,'2023-06-04 22:21:30',4,5),(6,'2023-06-04 22:21:34',5,5);
+/*!40000 ALTER TABLE `expenses_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `account_expenses_seq`
+-- Dumping data for table `expenses_account_seq`
 --
 
-LOCK TABLES `account_expenses_seq` WRITE;
-/*!40000 ALTER TABLE `account_expenses_seq` DISABLE KEYS */;
-INSERT INTO `account_expenses_seq` VALUES (7);
-/*!40000 ALTER TABLE `account_expenses_seq` ENABLE KEYS */;
+LOCK TABLES `expenses_account_seq` WRITE;
+/*!40000 ALTER TABLE `expenses_account_seq` DISABLE KEYS */;
+INSERT INTO `expenses_account_seq` VALUES (7);
+/*!40000 ALTER TABLE `expenses_account_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -146,23 +146,23 @@ INSERT INTO `account_topic_seq` VALUES (7);
 UNLOCK TABLES;
 
 --
--- Dumping data for table `account_transaction`
+-- Dumping data for table `transaction_account`
 --
 
-LOCK TABLES `account_transaction` WRITE;
-/*!40000 ALTER TABLE `account_transaction` DISABLE KEYS */;
-INSERT INTO `account_transaction` VALUES (1,'2023-06-04 22:30:59',1,1),(2,'2023-06-04 22:31:08',2,2),(3,'2023-06-04 22:31:16',3,3),(4,'2023-06-04 22:31:22',4,4),(5,'2023-06-04 22:32:28',5,5),(6,'2023-06-04 22:33:41',4,5);
-/*!40000 ALTER TABLE `account_transaction` ENABLE KEYS */;
+LOCK TABLES `transaction_account` WRITE;
+/*!40000 ALTER TABLE `transaction_account` DISABLE KEYS */;
+INSERT INTO `transaction_account` VALUES (1,'2023-06-04 22:30:59',1,1),(2,'2023-06-04 22:31:08',2,2),(3,'2023-06-04 22:31:16',3,3),(4,'2023-06-04 22:31:22',4,4),(5,'2023-06-04 22:32:28',5,5),(6,'2023-06-04 22:33:41',4,5);
+/*!40000 ALTER TABLE `transaction_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `account_transaction_seq`
+-- Dumping data for table `transaction_account_seq`
 --
 
-LOCK TABLES `account_transaction_seq` WRITE;
-/*!40000 ALTER TABLE `account_transaction_seq` DISABLE KEYS */;
-INSERT INTO `account_transaction_seq` VALUES (7);
-/*!40000 ALTER TABLE `account_transaction_seq` ENABLE KEYS */;
+LOCK TABLES `transaction_account_seq` WRITE;
+/*!40000 ALTER TABLE `transaction_account_seq` DISABLE KEYS */;
+INSERT INTO `transaction_account_seq` VALUES (7);
+/*!40000 ALTER TABLE `transaction_account_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

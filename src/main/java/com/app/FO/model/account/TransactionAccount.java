@@ -7,15 +7,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_transaction")
-public class AccountTransaction {
+@Table(name = "transaction_account")
+public class TransactionAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_transaction_seq")
-    @SequenceGenerator(name = "account_transaction_seq",
-            sequenceName = "account_transaction_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_account_seq")
+    @SequenceGenerator(name = "transaction_account_seq",
+            sequenceName = "transaction_account_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_transaction_id")
+    @Column(name = "transaction_account_id")
     private Long id;
 
     // todo trebuie sa vad cum modelez asta o fac cu un singur acount sau o fac cu form to
@@ -38,10 +38,10 @@ public class AccountTransaction {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    public AccountTransaction() {
+    public TransactionAccount() {
     }
 
-    public AccountTransaction(Account account, Transaction transaction, Double sum, String direction) {
+    public TransactionAccount(Account account, Transaction transaction, Double sum, String direction) {
         this.transaction = transaction;
         this.account = account;
         this.sum = sum;
@@ -51,7 +51,7 @@ public class AccountTransaction {
 
     @Override
     public String toString() {
-        return "AccountTransaction{" +
+        return "TransactionAccount{" +
                 "id=" + id +
                 ", transactionId=" + transaction.getId() +
                 ", accountId=" + account.getId() +

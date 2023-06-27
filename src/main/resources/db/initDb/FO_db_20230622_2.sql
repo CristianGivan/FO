@@ -299,20 +299,20 @@ INSERT INTO `account_topic_seq` VALUES (7);
 UNLOCK TABLES;
 
 --
--- Table structure for table `account_transaction`
+-- Table structure for table `transaction_account`
 --
 
-DROP TABLE IF EXISTS `account_transaction`;
+DROP TABLE IF EXISTS `transaction_account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_transaction` (
-  `account_transaction_id` bigint NOT NULL,
+CREATE TABLE `transaction_account` (
+  `transaction_account_id` bigint NOT NULL,
   `direction` varchar(255) DEFAULT NULL,
   `link_date` datetime DEFAULT NULL,
   `sum` double DEFAULT NULL,
   `account_id` bigint DEFAULT NULL,
   `transaction_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`account_transaction_id`),
+  PRIMARY KEY (`transaction_account_id`),
   KEY `FKqonh25s0w6r5cf8jq88m6kd8o` (`account_id`),
   KEY `FK6xxmvl1tnux0xew6y0204fbbo` (`transaction_id`),
   CONSTRAINT `FK6xxmvl1tnux0xew6y0204fbbo` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`),
@@ -321,35 +321,35 @@ CREATE TABLE `account_transaction` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_transaction`
+-- Dumping data for table `transaction_account`
 --
 
-LOCK TABLES `account_transaction` WRITE;
-/*!40000 ALTER TABLE `account_transaction` DISABLE KEYS */;
-INSERT INTO `account_transaction` VALUES (1,'from','2023-06-22 22:28:11',1,2,1),(2,'todeleted','2023-06-22 22:28:11',1,1,1),(3,'from','2023-06-22 22:28:24',2,3,2),(4,'to','2023-06-22 22:28:24',2,2,2),(5,'from','2023-06-22 22:28:45',2,4,3),(6,'to-deleted','2023-06-22 22:28:45',2,3,3),(7,'from','2023-06-22 22:29:09',4,5,4),(8,'to','2023-06-22 22:29:09',4,4,4),(9,'from','2023-06-22 22:29:25',5,1,5),(10,'to','2023-06-22 22:29:25',5,2,5),(11,'todeleted','2023-06-22 22:52:56',1,3,1),(12,'deleted','2023-06-22 22:55:05',1,4,1),(13,'to','2023-06-22 22:55:54',1,5,1),(14,'to','2023-06-22 23:06:32',2,2,3);
-/*!40000 ALTER TABLE `account_transaction` ENABLE KEYS */;
+LOCK TABLES `transaction_account` WRITE;
+/*!40000 ALTER TABLE `transaction_account` DISABLE KEYS */;
+INSERT INTO `transaction_account` VALUES (1,'from','2023-06-22 22:28:11',1,2,1),(2,'todeleted','2023-06-22 22:28:11',1,1,1),(3,'from','2023-06-22 22:28:24',2,3,2),(4,'to','2023-06-22 22:28:24',2,2,2),(5,'from','2023-06-22 22:28:45',2,4,3),(6,'to-deleted','2023-06-22 22:28:45',2,3,3),(7,'from','2023-06-22 22:29:09',4,5,4),(8,'to','2023-06-22 22:29:09',4,4,4),(9,'from','2023-06-22 22:29:25',5,1,5),(10,'to','2023-06-22 22:29:25',5,2,5),(11,'todeleted','2023-06-22 22:52:56',1,3,1),(12,'deleted','2023-06-22 22:55:05',1,4,1),(13,'to','2023-06-22 22:55:54',1,5,1),(14,'to','2023-06-22 23:06:32',2,2,3);
+/*!40000 ALTER TABLE `transaction_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `account_transaction_seq`
+-- Table structure for table `transaction_account_seq`
 --
 
-DROP TABLE IF EXISTS `account_transaction_seq`;
+DROP TABLE IF EXISTS `transaction_account_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_transaction_seq` (
+CREATE TABLE `transaction_account_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_transaction_seq`
+-- Dumping data for table `transaction_account_seq`
 --
 
-LOCK TABLES `account_transaction_seq` WRITE;
-/*!40000 ALTER TABLE `account_transaction_seq` DISABLE KEYS */;
-INSERT INTO `account_transaction_seq` VALUES (15);
-/*!40000 ALTER TABLE `account_transaction_seq` ENABLE KEYS */;
+LOCK TABLES `transaction_account_seq` WRITE;
+/*!40000 ALTER TABLE `transaction_account_seq` DISABLE KEYS */;
+INSERT INTO `transaction_account_seq` VALUES (15);
+/*!40000 ALTER TABLE `transaction_account_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

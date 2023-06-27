@@ -18,8 +18,8 @@
 # ToDo
 
 - create and link shop entity
-- private void payedCheckedAccountExpenses(Expenses expenses)
-- private void refundCheckedAccountExpenses(Expenses expenses)
+- private void payedCheckedExpensesAccount(Expenses expenses)
+- private void refundCheckedExpensesAccount(Expenses expenses)
 -
 
 ## Feature
@@ -90,7 +90,7 @@
 - [x] expensesExpenseList
 - [x] expensesPersonList
 - [x] Shop
-- [x] accountExpensesList
+- [x] expensesAccountList
 - [x] expensesHistoryList
 
 ### Post

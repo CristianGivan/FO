@@ -5,7 +5,7 @@
 - [ ] putBalanceToAccount is done by expenses and transaction
 - [ ] during modifi balance check if the balance is negative mabe add methods as add to balance substract to balance
 - [ ] a currency shall be added to the account shall be considered also conversion rate
-- accountExpenses if is checked the
+- expensesAccount if is checked the
 
 # ToDo
 
@@ -86,14 +86,14 @@
 
 ### Delete
 
-- [] deleteUserFromAccount
-- [] deleteTagFromAccount
-- [] deleteReminderFromAccount
-- [] deleteTopicFromAccount
-- [] deleteTasksFromAccount
-- [] deleteExpensesFromAccount
-- [] deleteTransactionFromAccount
-- [] deleteAccount
+- [x] deleteUserFromAccount
+- [x] deleteTagFromAccount
+- [x] deleteReminderFromAccount
+- [x] deleteTopicFromAccount
+- [x] deleteTasksFromAccount
+- [x] deleteExpensesFromAccount
+- [x] deleteTransactionFromAccount
+- [x] deleteAccount
 
 ### Get
 

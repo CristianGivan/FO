@@ -97,7 +97,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> getTransactionListFromUserIdByTasksId(Long userId, Long tasksId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM transaction as t inner join account_transaction as tn on t.transaction_id = tn.transaction_id inner join transaction_user tu on t.transaction_id = tu.transaction_id where tu.user_id=?1 and tn.account_id=?2 and tn.direction=?3")
+            "SELECT * FROM transaction as t inner join transaction_account as tn on t.transaction_id = tn.transaction_id inner join transaction_user tu on t.transaction_id = tu.transaction_id where tu.user_id=?1 and tn.account_id=?2 and tn.direction=?3")
     List<Transaction> getTransactionListFromUserIdByAccountIdByDirection(Long userId, Long accountId, String direction);
 
 }

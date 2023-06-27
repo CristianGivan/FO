@@ -364,6 +364,8 @@ public class ServiceAll {
 
     @Autowired
     private ExpensesPersonRepository expensesPersonRepository;
+    @Autowired
+    private ExpensesAccountRepository expensesAccountRepository;
 
 //    @Autowired
 //    private ExpensesShopRepository expensesShopRepository;
@@ -383,6 +385,10 @@ public class ServiceAll {
 
     @Autowired
     private TransactionTasksRepository transactionTasksRepository;
+
+
+    @Autowired
+    private TransactionAccountRepository transactionAccountRepository;
 
     @Autowired
     private EmailRepository emailRepository;
@@ -448,10 +454,6 @@ public class ServiceAll {
     @Autowired
     private AccountTasksRepository accountTasksRepository;
 
-    @Autowired
-    private AccountExpensesRepository accountExpensesRepository;
-    @Autowired
-    private AccountTransactionRepository accountTransactionRepository;
 
     @Autowired
     public ServiceAll(NoteRepository noteRepository, TagRepository tagRepository) {
@@ -921,6 +923,11 @@ public class ServiceAll {
         return expensesPersonRepository.getExpensesPersonByExpensesIdAndPersonId(expensesId, personId);
     }
 
+    public ExpensesAccount getExpensesAccount(Long expensesId, Long accountId) {
+        return expensesAccountRepository.getExpensesAccountByAccountIdAndExpensesId(expensesId, accountId);
+    }
+
+
 //    public ExpensesShop getExpensesShop(Long expensesId, Long shopId) {
 //        return expensesShopRepository.getExpensesShopByExpensesIdAndShopId(expensesId, shopId);
 //    }
@@ -952,6 +959,13 @@ public class ServiceAll {
         return transactionTasksRepository.getTransactionTasksByTransactionIdAndTasksId(transactionId, tasksId);
     }
 
+    public TransactionAccount getTransactionAccount(Long transactionId, Long accountId) {
+        return transactionAccountRepository.getTransactionAccountByAccountIdAndTransactionId(transactionId, accountId);
+    }
+
+    public TransactionAccount getTransactionAccountByDirection(String direction, Long transactionId) {
+        return transactionAccountRepository.getTransactionAccountByDirectionAndTransactionId(direction, transactionId);
+    }
     //-- getEmailAnd
 
     public List<Email> getEmailListFromUserId(Long userId) {
@@ -1068,17 +1082,6 @@ public class ServiceAll {
         return accountTasksRepository.getAccountTasksByAccountIdAndTasksId(accountId, tasksId);
     }
 
-    public AccountExpenses getAccountExpenses(Long accountId, Long expensesId) {
-        return accountExpensesRepository.getAccountExpensesByAccountIdAndExpensesId(accountId, expensesId);
-    }
-
-    public AccountTransaction getAccountTransaction(Long accountId, Long transactionId) {
-        return accountTransactionRepository.getAccountTransactionByAccountIdAndTransactionId(accountId, transactionId);
-    }
-
-    public AccountTransaction getAccountTransactionByDirection(String direction, Long transactionId) {
-        return accountTransactionRepository.getAccountTransactionByDirectionAndTransactionId(direction, transactionId);
-    }
 
     //--------------------------
 

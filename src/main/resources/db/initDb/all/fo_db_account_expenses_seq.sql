@@ -16,25 +16,25 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `account_expenses_seq`
+-- Table structure for table `expenses_account_seq`
 --
 
-DROP TABLE IF EXISTS `account_expenses_seq`;
+DROP TABLE IF EXISTS `expenses_account_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_expenses_seq` (
+CREATE TABLE `expenses_account_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_expenses_seq`
+-- Dumping data for table `expenses_account_seq`
 --
 
-LOCK TABLES `account_expenses_seq` WRITE;
-/*!40000 ALTER TABLE `account_expenses_seq` DISABLE KEYS */;
-INSERT INTO `account_expenses_seq` VALUES (7);
-/*!40000 ALTER TABLE `account_expenses_seq` ENABLE KEYS */;
+LOCK TABLES `expenses_account_seq` WRITE;
+/*!40000 ALTER TABLE `expenses_account_seq` DISABLE KEYS */;
+INSERT INTO `expenses_account_seq` VALUES (7);
+/*!40000 ALTER TABLE `expenses_account_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

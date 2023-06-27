@@ -5,7 +5,7 @@
 # ToDo
 
 - [ ] putSum update also the balance from accounts
-- [ ] putAccount update deleted the accountTransaction to be moved to history
+- [ ] putAccount update deleted the transactionAccount to be moved to history
 - deleteAccountFromTransaction is not used because you cannot have a transaction with only one account it chan be only
   changed
 - transaction can have status pending planed completed (pending is not used could be that it is the balance is changed
@@ -77,7 +77,7 @@
 - [x] transactionReminderList
 - [x] transactionTopicList
 - [x] transactionTasksList
-- [x] AccountTransactionList
+- [x] TransactionAccountList
 - [x] transactionHistoryList
 
 -

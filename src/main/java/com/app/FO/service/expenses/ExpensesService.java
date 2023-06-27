@@ -4,7 +4,7 @@ import com.app.FO.config.DateTime;
 import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.account.Account;
-import com.app.FO.model.account.AccountExpenses;
+import com.app.FO.model.account.ExpensesAccount;
 import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenses.*;
 import com.app.FO.model.person.Person;
@@ -93,24 +93,24 @@ public class ExpensesService {
 
         //todo for each chase detect if Balance of planed balance is ok
         if (newExpensesStatus == ExpensesStatus.UNDEFINE & expensesStatus == ExpensesStatus.COMPLETED) {
-            refundCheckedAccountExpenses(expenses);
+            refundCheckedExpensesAccount(expenses);
         }
 
         if (newExpensesStatus == ExpensesStatus.CREATED & expensesStatus == ExpensesStatus.COMPLETED) {
-            refundCheckedAccountExpenses(expenses);
+            refundCheckedExpensesAccount(expenses);
         }
 
 
         if (newExpensesStatus == ExpensesStatus.PLANED & expensesStatus == ExpensesStatus.COMPLETED) {
-            refundCheckedAccountExpenses(expenses);
+            refundCheckedExpensesAccount(expenses);
         }
 
         if (newExpensesStatus == ExpensesStatus.PENDING & expensesStatus == ExpensesStatus.COMPLETED) {
-            refundCheckedAccountExpenses(expenses);
+            refundCheckedExpensesAccount(expenses);
         }
 
         if (newExpensesStatus == ExpensesStatus.COMPLETED) {
-            payedCheckedAccountExpenses(expenses);
+            payedCheckedExpensesAccount(expenses);
             expenses.setPayedDate(date);
         }
 
@@ -131,7 +131,7 @@ public class ExpensesService {
             throw new TransactionAlreadyExistException("Transaction is already completed");
         }
 
-        payedCheckedAccountExpenses(expenses);
+        payedCheckedExpensesAccount(expenses);
 
         expenses.setExpensesStatus(ExpensesStatus.COMPLETED);
         expenses.setPayedDate(payedDateTime);
@@ -361,14 +361,14 @@ public class ExpensesService {
             throw new AccountNotFoundException("Account not found");
         }
 
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(expensesId, accountId);
-        if (accountExpenses != null) {
-            throw new AccountExpensesAlreadyExistException("The expenses already has the account");
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(expensesId, accountId);
+        if (expensesAccount != null) {
+            throw new ExpensesAccountAlreadyExistException("The expenses already has the account");
         }
         //todo shall be clarified what  should be done
 //        Double sumFromAccount=expenses.getCheckedPrice();
-        accountExpenses = new AccountExpenses(account, expenses, expenses.getCheckedPrice());
-        expenses.getAccountExpensesList().add(accountExpenses);
+        expensesAccount = new ExpensesAccount(account, expenses, expenses.getCheckedPrice());
+        expenses.getExpensesAccountList().add(expensesAccount);
         return expensesRepository.save(expenses);
     }
 
@@ -386,14 +386,14 @@ public class ExpensesService {
             throw new AccountNotFoundException("Account not found");
         }
 
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(expensesId, accountId);
-        if (accountExpenses != null) {
-            throw new AccountExpensesAlreadyExistException("The expenses already has the account");
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(expensesId, accountId);
+        if (expensesAccount != null) {
+            throw new ExpensesAccountAlreadyExistException("The expenses already has the account");
         }
         //todo shall be clarified what  should be done
 //        Double sumFromAccount=expenses.getCheckedPrice();
-        accountExpenses = new AccountExpenses(account, expenses, sumFromAccount);
-        expenses.getAccountExpensesList().add(accountExpenses);
+        expensesAccount = new ExpensesAccount(account, expenses, sumFromAccount);
+        expenses.getExpensesAccountList().add(expensesAccount);
         return expensesRepository.save(expenses);
     }
 
@@ -592,13 +592,13 @@ public class ExpensesService {
             throw new AccountNotFoundException("Account not found");
         }
 
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(accountId, expensesId);
-        if (accountExpenses == null) {
-            throw new AccountExpensesNotFoundException("The expenses don't has the account");
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(accountId, expensesId);
+        if (expensesAccount == null) {
+            throw new ExpensesAccountNotFoundException("The expenses don't has the account");
         }
 
         //todo check if shall be recalculated someting
-        expenses.getAccountExpensesList().remove(accountExpenses);
+        expenses.getExpensesAccountList().remove(expensesAccount);
 
         return expensesRepository.save(expenses);
     }
@@ -905,11 +905,11 @@ public class ExpensesService {
 
     //-- Other
 
-    private void payedCheckedAccountExpenses(Expenses expenses) {
+    private void payedCheckedExpensesAccount(Expenses expenses) {
         //todo to pay all the checked expenses
     }
 
-    private void refundCheckedAccountExpenses(Expenses expenses) {
+    private void refundCheckedExpensesAccount(Expenses expenses) {
         //todo to pay all the checked expenses
     }
 

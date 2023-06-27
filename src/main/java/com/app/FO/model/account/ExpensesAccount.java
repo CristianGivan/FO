@@ -7,15 +7,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_expenses")
-public class AccountExpenses {
+@Table(name = "expenses_account")
+public class ExpensesAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_expenses_seq")
-    @SequenceGenerator(name = "account_expenses_seq",
-            sequenceName = "account_expenses_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_account_seq")
+    @SequenceGenerator(name = "expenses_account_seq",
+            sequenceName = "expenses_account_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_expenses_id")
+    @Column(name = "expenses_account_id")
     private Long id;
 
     @ManyToOne
@@ -37,10 +37,10 @@ public class AccountExpenses {
     @Column(name = "account_date")
     private LocalDateTime accountDate;
 
-    public AccountExpenses() {
+    public ExpensesAccount() {
     }
 
-    public AccountExpenses(Account account, Expenses expenses, Double sum) {
+    public ExpensesAccount(Account account, Expenses expenses, Double sum) {
         this.account = account;
         this.expenses = expenses;
         this.sum = sum;
@@ -50,7 +50,7 @@ public class AccountExpenses {
 
     @Override
     public String toString() {
-        return "AccountExpenses{" +
+        return "ExpensesAccount{" +
                 "id=" + id +
                 ", account=" + account +
                 ", expenses=" + expenses +

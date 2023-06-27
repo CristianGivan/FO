@@ -4,14 +4,12 @@
 
 ### Classes
 
-- [12] Expenses
-- [14] Account
 - [15] Event
 - [20] Person
 
 All
 
-- [14] Account
+- [x] Account
     - accont expenses account see
 - [9] Address
 - [16] Dates
@@ -19,7 +17,7 @@ All
 - [18] Email
 - [15] Event
 - [x] Expense
-- [12] Expenses
+- [x] Expenses
 - [x] Link
 - [x] Note
 - [20] Person
@@ -40,7 +38,9 @@ All
 
 ### General
 
--[ ] Product Expense Expenses Account shall redo calculations
+- [ ] refactor transactionAccount and expensesAccount to other way around
+- [ ] Product Expense Expenses Account shall redo calculations
+-
 
 - [ ] when get a value treat the case when more values are possible - see Transaction
     - if make not sens to have ex 2 entity with the same subject check it on put but also when the subject is changed
@@ -56,7 +56,7 @@ All
 - [x] getPersonPerosn check
 - [ ] dates and phoneNumber dates and number type
 - [x] crete entity for address shop document
-- [ ] include in accountTransaction and all linked tables als the user for query:  query by user account transaction all
+- [ ] include in transactionAccount and all linked tables als the user for query:  query by user account transaction all
   three
 - [ ] when putSubject make sure that there are no other same subject in table
 - [x] when get a value treat the case when more values are possible

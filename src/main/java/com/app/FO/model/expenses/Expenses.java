@@ -1,6 +1,6 @@
 package com.app.FO.model.expenses;
 
-import com.app.FO.model.account.AccountExpenses;
+import com.app.FO.model.account.ExpensesAccount;
 import com.app.FO.model.shop.Shop;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -85,7 +85,7 @@ public class Expenses {
 
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountExpenses> accountExpensesList;
+    private List<ExpensesAccount> expensesAccountList;
 
 
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -124,7 +124,7 @@ public class Expenses {
                 ", expensesTasksList=" + expensesTasksList +
                 ", expensesPersonList=" + expensesPersonList +
                 ", expensesExpenseList=" + expensesExpenseList +
-                ", accountExpensesList=" + accountExpensesList +
+                ", expensesAccountList=" + expensesAccountList +
                 ", expensesHistoryList=" + expensesHistoryList +
                 '}';
     }
@@ -308,12 +308,12 @@ public class Expenses {
     }
 
 
-    public List<AccountExpenses> getAccountExpensesList() {
-        return accountExpensesList;
+    public List<ExpensesAccount> getExpensesAccountList() {
+        return expensesAccountList;
     }
 
-    public void setAccountExpensesList(List<AccountExpenses> accountExpensesList) {
-        this.accountExpensesList = accountExpensesList;
+    public void setExpensesAccountList(List<ExpensesAccount> expensesAccountList) {
+        this.expensesAccountList = expensesAccountList;
     }
 
     public List<ExpensesHistory> getExpensesHistoryList() {
