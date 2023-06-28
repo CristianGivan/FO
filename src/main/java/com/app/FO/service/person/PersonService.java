@@ -389,7 +389,7 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public Person putPersonToPerson(Long personId, Long reletedPersonId) {
+    public Person putPersonToPerson(Long personId, Long relatedPersonId) {
         User logInUser = serviceAll.getLogInUser();
 
         Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
@@ -397,12 +397,12 @@ public class PersonService {
             throw new PersonNotFoundException("Person not found in your list");
         }
 
-        Person reletedPerson = serviceAll.getPersonFromUserIdAndPersonId(logInUser.getId(), reletedPersonId);
+        Person reletedPerson = serviceAll.getPersonFromUserIdAndPersonId(logInUser.getId(), relatedPersonId);
         if (reletedPerson == null) {
             throw new PersonNotFoundException("Person not found");
         }
 
-        PersonPerson personPerson = serviceAll.getPersonPerson(personId, reletedPersonId);
+        PersonPerson personPerson = serviceAll.getPersonPerson(personId, relatedPersonId);
         if (personPerson != null) {
             throw new PersonPersonAlreadyExistException("The person already has the reletedPerson");
         }
@@ -525,6 +525,144 @@ public class PersonService {
         }
 
         person.getPersonTasksList().remove(personTasks);
+
+        return personRepository.save(person);
+    }
+
+    public Person deleteDocumentFromPerson(Long personId, Long documentId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Document document = serviceAll.getDocumentFromUserIdAndDocumentId(logInUser.getId(), documentId);
+        if (document == null) {
+            throw new DocumentNotFoundException("Document not found");
+        }
+
+        PersonDocument personDocument = serviceAll.getPersonDocument(personId, documentId);
+        if (personDocument == null) {
+            throw new PersonDocumentNotFoundException("The person don't has the document");
+        }
+
+        person.getPersonDocumentList().remove(personDocument);
+
+        return personRepository.save(person);
+    }
+
+    public Person deleteAddressFromPerson(Long personId, Long addressId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Address address = serviceAll.getAddressFromUserIdAndAddressId(logInUser.getId(), addressId);
+        if (address == null) {
+            throw new AddressNotFoundException("Address not found");
+        }
+
+        PersonAddress personAddress = serviceAll.getPersonAddress(personId, addressId);
+        if (personAddress == null) {
+            throw new PersonAddressNotFoundException("The person don't has the address");
+        }
+
+        person.getPersonAddressList().remove(personAddress);
+
+        return personRepository.save(person);
+    }
+
+    public Person deleteEmailFromPerson(Long personId, Long emailId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Email email = serviceAll.getEmailFromUserIdAndEmailId(logInUser.getId(), emailId);
+        if (email == null) {
+            throw new EmailNotFoundException("Email not found");
+        }
+
+        PersonEmail personEmail = serviceAll.getPersonEmail(personId, emailId);
+        if (personEmail == null) {
+            throw new PersonEmailNotFoundException("The person don't has the email");
+        }
+
+        person.getPersonEmailList().remove(personEmail);
+
+        return personRepository.save(person);
+    }
+
+    public Person deletePhoneNumberFromPerson(Long personId, Long phoneNumberId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        PhoneNumber phoneNumber = serviceAll.getPhoneNumberFromUserIdAndPhoneNumberId(logInUser.getId(), phoneNumberId);
+        if (phoneNumber == null) {
+            throw new PhoneNumberNotFoundException("PhoneNumber not found");
+        }
+
+        PersonPhoneNumber personPhoneNumber = serviceAll.getPersonPhoneNumber(personId, phoneNumberId);
+        if (personPhoneNumber == null) {
+            throw new PersonPhoneNumberNotFoundException("The person don't has the phoneNumber");
+        }
+
+        person.getPersonPhoneNumberList().remove(personPhoneNumber);
+
+        return personRepository.save(person);
+    }
+
+    public Person deleteDatesFromPerson(Long personId, Long datesId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Dates dates = serviceAll.getDatesFromUserIdAndDatesId(logInUser.getId(), datesId);
+        if (dates == null) {
+            throw new DatesNotFoundException("Dates not found");
+        }
+
+        PersonDates personDates = serviceAll.getPersonDates(personId, datesId);
+        if (personDates == null) {
+            throw new PersonDatesNotFoundException("The person don't has the dates");
+        }
+
+        person.getPersonDatesList().remove(personDates);
+
+        return personRepository.save(person);
+    }
+
+    public Person deletePersonFromPerson(Long personId, Long relatedPersonId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Person person = personRepository.getPersonFromUserIdByPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found in your list");
+        }
+
+        Person relatedPerson = serviceAll.getPersonFromUserIdAndPersonId(logInUser.getId(), relatedPersonId);
+        if (relatedPerson == null) {
+            throw new PersonNotFoundException("Person not found");
+        }
+
+        PersonPerson personPerson = serviceAll.getPersonPerson(personId, relatedPersonId);
+        if (personPerson == null) {
+            throw new PersonPersonNotFoundException("The person don't has the relatedPerson");
+        }
+
+        person.getPersonPersonList().remove(personPerson);
 
         return personRepository.save(person);
     }

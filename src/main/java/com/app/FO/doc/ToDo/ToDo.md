@@ -4,8 +4,6 @@
 
 ### Classes
 
-- [20] Person
-
 All
 
 - [x] Account
@@ -19,11 +17,10 @@ All
 - [x] Expenses
 - [x] Link
 - [x] Note
-- [20] Person
-    - [ ] getPersonPerson check
+- [1] Person
 - [19] PhoneNumber
 - [x] Product
-- [3] Reminder
+- [2] Reminder
 - [21] Role
 - [10] Shop
 - [x] Snooze

@@ -8,6 +8,9 @@
 
 # ToDo
 
+- [ ] deletePerson shall be update so that the entry where is linked other person
+- [ ] getPersonListByRelatedPerson is not done properly
+
 ## Entity
 
 - [ ] Add creator (log in user)
@@ -74,7 +77,7 @@
 
 ### Post
 
-- [ ] postPerson
+- [x] postPerson
 
 ### Put
 
@@ -98,54 +101,50 @@
 
 ### Delete
 
-- [ ] deleteEmailFromPerson
-- [ ] deletePhoneNumberFromPerson
-- [ ] deleteDatesFromPerson
-- [ ] deleteUserFromPerson
-- [ ] deleteTagFromPerson
-- [ ] deleteReminderFromPerson
-- [ ] deleteTopicFromPerson
-- [ ] deleteTasksFromPerson
-- [ ] deleteDocumentFromPerson
-- [ ] deleteAddressFromPerson
-- [ ] deleteEmailFromPerson
-- [ ] deletePhoneNumberFromPerson
-- [ ] deleteDatesFromPerson
-- [ ] deleteRelatedPersonFromPerson
+- [x] deleteUserFromPerson
+- [x] deleteTagFromPerson
+- [x] deleteReminderFromPerson
+- [x] deleteTopicFromPerson
+- [x] deleteTasksFromPerson
+- [x] deleteDocumentFromPerson
+- [x] deleteAddressFromPerson
+- [x] deleteEmailFromPerson
+- [x] deletePhoneNumberFromPerson
+- [x] deleteDatesFromPerson
+- [x] deleteRelatedPersonFromPerson
 - [ ] deletePerson
 
 ### Get
 
-- [x]  getAllPerson
-- [x]  getPersonById
-- [x]  getPersonListByNickName
-- [x]  getPersonListByNickNameContains
-- [x]  getPersonListByFirstName
-- [x]  getPersonListByFirstNameContains
-- [x]  getPersonListByMiddleName
-- [x]  getPersonListByMiddleNameContains
-- [x]  getPersonListByLastName
-- [x]  getPersonListByLastNameContains
-- [x]  getPersonListByFullName
-- [x]  getPersonListByFullNameContains
-- [x]  getPersonListByDescription
-- [x]  getPersonListByDescriptionContains
-- [x]  getPersonBySubject
-- [x]  getPersonListBySubjectContains
-- [ ]  getPersonByCreatedDate
-- [ ]  getPersonListByCreatedDateBetween
-- [x]  getPersonListByRelatedPerson
-- [x]  getPersonListByUser
-- [x]  getPersonListByTag
-- [x]  getPersonListByReminder
-- [x]  getPersonListByTopic
-- [x]  getPersonListByTasks
-- [x]  getPersonListByDocument
-- [x]  getPersonListByAddress
-- [x]  getPersonListByEmail
-- [x]  getPersonListByPhoneNumber
-- [x]  getPersonListByDates
-- [ ]  getPersonListByDatesBetween
+- [x] getAllPerson
+- [x] getPersonById
+- [x] getPersonListByNickName
+- [x] getPersonListByNickNameContains
+- [x] getPersonListByFirstName
+- [x] getPersonListByFirstNameContains
+- [x] getPersonListByMiddleName
+- [x] getPersonListByMiddleNameContains
+- [x] getPersonListByLastName
+- [x] getPersonListByLastNameContains
+- [x] getPersonListByFullName
+- [x] getPersonListByFullNameContains
+- [x] getPersonListByDescription
+- [x] getPersonListByDescriptionContains
+- [x] getPersonBySubject
+- [x] getPersonListBySubjectContains
+- [x] getPersonByCreatedDate
+- [x] getPersonListByCreatedDateBetween
+- [x] getPersonListByRelatedPerson
+- [x] getPersonListByUser
+- [x] getPersonListByTag
+- [x] getPersonListByReminder
+- [x] getPersonListByTopic
+- [x] getPersonListByTasks
+- [x] getPersonListByDocument
+- [x] getPersonListByAddress
+- [x] getPersonListByEmail
+- [x] getPersonListByPhoneNumber
+- [x] getPersonListByDates
 - [x] getPersonListByExpenses
 - [ ] getPersonListByRelatedPerson
 
