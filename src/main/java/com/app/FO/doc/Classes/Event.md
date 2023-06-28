@@ -72,14 +72,14 @@
 
 ### Delete
 
-- [ ] deleteUserFromEvent
-- [ ] deleteTagFromEvent
-- [ ] deleteReminderFromEvent
-- [ ] deleteTopicFromEvent
-- [ ] deleteTasksFromEvent
-- [ ] deleteExpensesFromEvent
-- [ ] deletePersonFromEvent
-- [ ] deleteEvent
+- [x] deleteUserFromEvent
+- [x] deleteTagFromEvent
+- [x] deleteReminderFromEvent
+- [x] deleteTopicFromEvent
+- [x] deleteTasksFromEvent
+- [x] deleteExpensesFromEvent
+- [x] deletePersonFromEvent
+- [x] deleteEvent
 
 ### Get
 

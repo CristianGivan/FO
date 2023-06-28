@@ -4,7 +4,6 @@
 
 ### Classes
 
-- [15] Event
 - [20] Person
 
 All
@@ -15,7 +14,7 @@ All
 - [16] Dates
 - [17] Document
 - [18] Email
-- [15] Event
+- [x] Event
 - [x] Expense
 - [x] Expenses
 - [x] Link

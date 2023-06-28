@@ -117,6 +117,20 @@ public class EventController {
         return eventDTOMapper.eventToEventDTO(event);
     }
 
+    @DeleteMapping("/deleteExpensesFromEvent")
+    public EventDTO deleteExpensesFromEvent(@RequestParam Long eventId, @RequestParam Long expensesId) {
+        Event event = eventService.deleteExpensesFromEvent(eventId, expensesId);
+        return eventDTOMapper.eventToEventDTO(event);
+    }
+
+
+    @DeleteMapping("/deletePersonFromEvent")
+    public EventDTO deletePersonFromEvent(@RequestParam Long eventId, @RequestParam Long personId) {
+        Event event = eventService.deletePersonFromEvent(eventId, personId);
+        return eventDTOMapper.eventToEventDTO(event);
+    }
+
+
     @DeleteMapping("/deleteEvent")
     public List<EventDTO> deleteEvent(@RequestParam Long eventId) {
         List<Event> eventList = eventService.deleteEvent(eventId);

@@ -369,6 +369,52 @@ public class EventService {
         return eventRepository.save(event);
     }
 
+    public Event deleteExpensesFromEvent(Long eventId, Long expensesId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Event event = eventRepository.getEventFromUserIdByEventId(logInUser.getId(), eventId);
+        if (event == null) {
+            throw new EventNotFoundException("Event not found in your list");
+        }
+
+        Expenses expenses = serviceAll.getExpensesFromUserIdAndExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found");
+        }
+
+        EventExpenses eventExpenses = serviceAll.getEventExpenses(eventId, expensesId);
+        if (eventExpenses == null) {
+            throw new EventExpensesNotFoundException("The event don't has the expenses");
+        }
+
+        event.getEventExpensesList().remove(eventExpenses);
+
+        return eventRepository.save(event);
+    }
+
+    public Event deletePersonFromEvent(Long eventId, Long personId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Event event = eventRepository.getEventFromUserIdByEventId(logInUser.getId(), eventId);
+        if (event == null) {
+            throw new EventNotFoundException("Event not found in your list");
+        }
+
+        Person person = serviceAll.getPersonFromUserIdAndPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found");
+        }
+
+        EventPerson eventPerson = serviceAll.getEventPerson(eventId, personId);
+        if (eventPerson == null) {
+            throw new EventPersonNotFoundException("The event don't has the person");
+        }
+
+        event.getEventPersonList().remove(eventPerson);
+
+        return eventRepository.save(event);
+    }
+
     public List<Event> deleteEvent(Long eventId) {
         User logInUser = serviceAll.getLogInUser();
 
