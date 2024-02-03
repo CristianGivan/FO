@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class ReminderDTOMapper {
-    public abstract ReminderDTO ReminderTOReminderDTO(Reminder reminder);
+    public abstract ReminderDTO reminderTOReminderDTO(Reminder reminder);
 
-    public abstract List<ReminderDTO> ReminderListTOReminderDTOList(List<Reminder> reminder);
+    public abstract List<ReminderDTO> reminderListTOReminderDTOList(List<Reminder> reminder);
 }

@@ -16,6 +16,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     @Query(nativeQuery = true, value =
             "SELECT * FROM note as n inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and n.note_text=?2")
     Note getNoteFromUserIdByNoteText(Long userId, String noteText);
+
     @Query(nativeQuery = true, value =
             "SELECT * FROM note as n inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1")
     List<Note> getNoteListByUserId(Long userId);
@@ -35,6 +36,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     @Query(nativeQuery = true, value =
             "SELECT * FROM note as n inner join topic_note as tn on n.note_id = tn.note_id inner join note_user nu on n.note_id = nu.note_id where nu.user_id=?1 and tn.topic_id=?2")
     List<Note> getNoteListFromUserIdByTopicId(Long noteId, Long topicId);
+
 
     @Query(nativeQuery = true, value =
             "SELECT IF(EXISTS(SELECT * FROM note_tag as nt where nt.note_id = ?1 and nt.tag_id = ?2), 'True', 'False')")

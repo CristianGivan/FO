@@ -32,11 +32,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "SELECT * FROM user as u inner join user_role ur on u.user_id = ur.user_id where ur.role_id=?1")
     List<User> getUserListByRole(Long roleId);
 
-    @Query(nativeQuery = true, value =
-            "SELECT IF(EXISTS(SELECT * FROM user_role as ur where ur.user_id = ?1 and ur.role_id = ?2), 'True', 'False')")
-    Boolean userIdHasRoleId(Long userId, Long roleId);
 
     @Query(nativeQuery = true, value =
-            "SELECT IF(EXISTS(SELECT * FROM user_role as ur where ur.user_id = ?1 and ur.role_id = ?2), 'True', 'False')")
-    Boolean userIdHasUserId(Long userId, Long roleId);
+            "SELECT * FROM user as u inner join user_user uu on u.user_id = uu.user_id where uu.user_id=?1")
+    List<User> getUserListByUserId(Long userId);
+
+    @Query(nativeQuery = true, value =
+            "SELECT user_linked_id FROM user as u inner join user_user uu on u.user_id = uu.user_id where uu.user_id=?1")
+    List<Long> getUserIdListByUserId(Long userId);
+
+//    List<User> getUsersByUserList_User(User user);
+
+    @Query(nativeQuery = true, value =
+            "SELECT * FROM user_user as uu where uu.user_id = ?1 and uu.user_linked_id = ?2")
+    Long userIdHasUserId(Long userId, Long roleId);
 }

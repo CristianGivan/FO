@@ -4,9 +4,11 @@ Abbreviates
     tbdel = to be deleted
     tnu = to not use
     tbd = to be discussed
-    tbm = to be modified
+    tbr= to be refactored (tbm)
+    ff = for future
 
-    -c to continue
+
+    -c or tc = to continue
 
 
 Namings

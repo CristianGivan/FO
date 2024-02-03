@@ -10,27 +10,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ChecksUser {
     private UserRepository userRepository;
-    private Checks checks;
+    private ServiceAll serviceAll;
 
     @Autowired
-    public ChecksUser(UserRepository userRepository, Checks checks) {
+    public ChecksUser(UserRepository userRepository, ServiceAll serviceAll) {
         this.userRepository = userRepository;
-        this.checks = checks;
+        this.serviceAll = serviceAll;
 
     }
 
-    public void checkIsUserWithUserName(String username) {
+    public Boolean checkIsUserWithUserName(String username) {
         User user = userRepository.getUserByUserName(username);
         if (user != null) {
             throw new UserAlreadyExistException("User already exist has id: " + user.getId());
         }
+        return true;
     }
 
     public void checkUserHasPermission(User user) {
-        Boolean isAdminRole = user.getUserRoleList().stream().
-                map(userRole -> userRole.getRole().getRoleType().toString()).
-                filter(t -> t == "ROLE_ADMIN").findAny().isPresent();
-        if (!isAdminRole) {
+        if (!serviceAll.userIsAdmin(user)) {
 //            throw new UserNotFoundException("The user has not enough rights to create another user");
             throw new UserHasNotEnoughPrivileges("The user has not enough rights to create another user");
         }
@@ -41,7 +39,7 @@ public class ChecksUser {
             throw new UserNotFoundException("User not found");
         } else if (role == null) {
             throw new RoleNotFoundException("Role not found");
-        } else if (checks.userHasRole(user, role)) {
+        } else if (serviceAll.userHasRole(user, role) != null) {
             throw new RoleAlreadyExistException("Role is already mapped to the user");
 
         }

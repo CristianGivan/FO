@@ -142,7 +142,7 @@ public class NoteService {
         return userService.getUserByUsername(userDetails.getUsername());
     }
 
-    public List<Note> getNoteList() {
+    public List<Note> getAllNote() {
         List<Note> noteList = noteRepository.getNoteListByUserId(getLogInUser().getId());
         checksNote.checkIsNoteList(noteList);
         return noteList;

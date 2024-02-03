@@ -34,6 +34,12 @@ public class TasksTask {
     public TasksTask() {
     }
 
+    public TasksTask(Tasks tasks, Task task) {
+        this.tasks = tasks;
+        this.task = task;
+        this.linkDate = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "TasksTask{" +
@@ -42,5 +48,37 @@ public class TasksTask {
                 ", tasks=" + tasks.getId() +
                 ", linkDate=" + linkDate +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public Tasks getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Tasks tasks) {
+        this.tasks = tasks;
+    }
+
+    public LocalDateTime getLinkDate() {
+        return linkDate;
+    }
+
+    public void setLinkDate(LocalDateTime linkDate) {
+        this.linkDate = linkDate;
     }
 }

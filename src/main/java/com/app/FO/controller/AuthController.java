@@ -46,8 +46,9 @@ public class AuthController {
         return jwtTokenService.generateToken(userDetails);
     }
 
+    //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5Njg4MTg3NX0.fBU-cMbgrvQMJeI2FQ4rbLQkVQBNX5OlycIJ04F8msQWsC-LfB7gq_UddQIIIy1K5DvgEg1uyOnw8OHYPGw0yA
     @PostMapping("/authenticateUser1")
-    @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY4NDUyNjgwNn0.G32GHNQ3ly1jJuje7mT0DEoMNVx8Nv0STqs2-IPYAHjUDb9ebl_53HV0JvLICLtoM9iIuAYvFA3ciImrNXja9g")
+    @ApiOperation(value = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMSIsImV4cCI6MTY5Njg4MTg3NX0.fBU-cMbgrvQMJeI2FQ4rbLQkVQBNX5OlycIJ04F8msQWsC-LfB7gq_UddQIIIy1K5DvgEg1uyOnw8OHYPGw0yA")
     public String authenticateUser1(@RequestBody String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
@@ -66,7 +67,7 @@ public class AuthController {
 
     @PostMapping("/authenticateUser3")
     @ApiOperation(value =
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY4NDUyNzc1M30.sTJUcJZ047Kgr4sdZaVbu8w-OCArFtgqOsQR7c7cRaie0kW-DNf2Bgxxr0h3ar1LhqrXgpNK4usTFYasmfivZA"
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyMyIsImV4cCI6MTY5NTY0MTM5Mn0.bfmaVSWDkb-vBiXEeV13_BhMkZ-Hzv9pvLdEgCnDf27FyiND4jqszqWTtyTInYYFrxzh_sSZxjgrek81BWQ5Zg"
     )
     public String authenticateUser3(@RequestBody String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

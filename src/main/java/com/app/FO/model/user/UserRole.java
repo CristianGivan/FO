@@ -1,7 +1,5 @@
 package com.app.FO.model.user;
 
-import com.app.FO.model.user.Role;
-import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -26,7 +24,7 @@ public class UserRole {
     private Role role;
 
     @Column(name = "date")
-    private LocalDateTime allocatedDay;
+    private LocalDateTime allocatedDates;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
@@ -40,7 +38,7 @@ public class UserRole {
     public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
-        this.allocatedDay =LocalDateTime.now();
+        this.allocatedDates = LocalDateTime.now();
     }
 
     @Override
@@ -49,7 +47,7 @@ public class UserRole {
                 "id=" + id +
                 ", user_id=" + user.getId() +
                 ", role_id =" + role.getId() +
-                ", allocatedDay=" + allocatedDay +
+                ", allocatedDates=" + allocatedDates +
                 '}';
     }
 
@@ -69,12 +67,12 @@ public class UserRole {
         this.role = role;
     }
 
-    public LocalDateTime getAllocatedDay() {
-        return allocatedDay;
+    public LocalDateTime getAllocatedDates() {
+        return allocatedDates;
     }
 
-    public void setAllocatedDay(LocalDateTime allocatedDay) {
-        this.allocatedDay = allocatedDay;
+    public void setAllocatedDates(LocalDateTime allocatedDates) {
+        this.allocatedDates = allocatedDates;
     }
 
     public User getUser() {

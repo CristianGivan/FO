@@ -15,16 +15,16 @@ import java.util.List;
 @Configuration
 public class ChecksNote {
     private NoteRepository noteRepository;
-    private Checks checks;
+    private ServiceAll serviceAll;
 
     @Autowired
-    public ChecksNote(NoteRepository noteRepository, Checks checks) {
+    public ChecksNote(NoteRepository noteRepository, ServiceAll serviceAll) {
         this.noteRepository = noteRepository;
-        this.checks = checks;
+        this.serviceAll = serviceAll;
     }
 
     public void checkIsNote(Note note) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
         }
     }
@@ -36,7 +36,7 @@ public class ChecksNote {
     }
 
     public void checkIsNoteWithTheSame(Note note) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
         }
     }
@@ -49,61 +49,61 @@ public class ChecksNote {
     }
 
     public void checkIsNoteAndTagAndAreLinked(Note note, Tag tag) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isTag(tag)) {
+        } else if (!serviceAll.isTag(tag)) {
             throw new TagNotFoundException("Tag not found!");
-        } else if (!checks.NoteHasTag(note, tag)) {
+        } else if (!serviceAll.NoteHasTag(note, tag)) {
             throw new NoteTagNotFoundException("Tag not linked to note!");
         }
     }
 
     public void checkIsNoteAndTagAndAreNotLinked(Note note, Tag tag) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isTag(tag)) {
+        } else if (!serviceAll.isTag(tag)) {
             throw new TagNotFoundException("Tag not found!");
-        } else if (checks.NoteHasTag(note, tag)) {
+        } else if (serviceAll.NoteHasTag(note, tag)) {
             throw new TagAlreadyExistException("Tag already exist");
         }
     }
 
     public void checkIsNoteAndTopicAndAreLinked(Note note, Topic topic) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isTopic(topic)) {
+        } else if (!serviceAll.isTopic(topic)) {
             throw new TopicNotFoundException("Topic not found!");
-        } else if (!checks.noteHasTopic(note, topic)) {
+        } else if (!serviceAll.noteHasTopic(note, topic)) {
             throw new TopicNoteNotFoundException("Topic not linked to note!");
         }
     }
 
     public void checkIsNoteAndTopicAndAreNotLinked(Note note, Topic topic) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isTopic(topic)) {
+        } else if (!serviceAll.isTopic(topic)) {
             throw new TopicNotFoundException("Topic not found!");
-        } else if (checks.noteHasTopic(note, topic)) {
+        } else if (serviceAll.noteHasTopic(note, topic)) {
             throw new TopicAlreadyExistException("Topic already exist");
         }
     }
 
     public void checkIsNoteAndReminderAndAreLiked(Note note, Reminder reminder) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isReminder(reminder)) {
+        } else if (!serviceAll.isReminder(reminder)) {
             throw new ReminderNotFoundException("Reminder not found!");
-        } else if (!checks.noteHasReminder(note, reminder)) {
+        } else if (!serviceAll.noteHasReminder(note, reminder)) {
             throw new ReminderNotFoundException("Reminder not linked to note!");
         }
     }
 
     public void checkIsNoteAndReminderAndAreNotLiked(Note note, Reminder reminder) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isReminder(reminder)) {
+        } else if (!serviceAll.isReminder(reminder)) {
             throw new ReminderNotFoundException("Reminder not found!");
-        } else if (checks.noteHasReminder(note, reminder)) {
+        } else if (serviceAll.noteHasReminder(note, reminder)) {
             throw new ReminderAlreadyExistException("Reminder already exist");
         }
     }
@@ -115,21 +115,21 @@ public class ChecksNote {
     }
 
     public void checkIsNoteAndUserAndAreLiked(Note note, User user) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isUser(user)) {
+        } else if (!serviceAll.isUser(user)) {
             throw new UserNotFoundException("User not found");
-        } else if (!checks.noteHasUser(note, user)) {
+        } else if (!serviceAll.noteHasUser(note, user)) {
             throw new UserNotFoundException("User is not linked to note");
         }
     }
 
     public void checkIsNoteAndUserAndAreNotLiked(Note note, User user) {
-        if (!checks.isNote(note)) {
+        if (!serviceAll.isNote(note)) {
             throw new NoteNotFoundException("Note not found!");
-        } else if (!checks.isUser(user)) {
+        } else if (!serviceAll.isUser(user)) {
             throw new UserNotFoundException("User not found");
-        } else if (checks.noteHasUser(note, user)) {
+        } else if (serviceAll.noteHasUser(note, user)) {
             throw new UserAlreadyExistException("User linked to note");
         }
     }

@@ -34,6 +34,12 @@ public class TaskTag {
     public TaskTag() {
     }
 
+    public TaskTag(Task task, Tag tag) {
+        this.task = task;
+        this.tag = tag;
+        this.linkDate = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "TaskTag{" +

@@ -1,11 +1,12 @@
 package com.app.FO.model.expense;
 
-import com.app.FO.model.expenses.Expenses;
+import com.app.FO.model.expenses.ExpensesExpense;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,66 +22,81 @@ public class Expense {
     private Long id;
 
     @Column(name = "name")
-    private String expanseName;
-
-    @Column(name = "details")
-    private String details;
-
-    @Column(name = "quantity")
-    private double quantity;
-
-    @Column(name = "unit")
-    private String unit;
-
-    @Column(name = "unit_price")
-    private double unitPrice;
-
+    private String name;
+    @Column(name = "producer")
+    private String producer;
+    @Column(name = "subject")
+    private String subject;
+    @Column(name = "category")
+    private String category;
+    @Column(name = "number_buys")
+    private Integer numberOfBuys;
+    @Column(name = "number_mean")
+    private Integer numberForMean;
+    @Column(name = "mean_quantity")
+    private Double meanQuantity;
+    @Column(name = "mean_unit_price")
+    private Double meanUnitPrice;
     @Column(name = "created_date")
-    private LocalDateTime createDate;
-
-    @Column(name = "paid_date")
-    private LocalDateTime paidDate;
-
-    @Column(name = "market")
-    private String market;
-
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "creator_id")
+    private LocalDateTime createdDate;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creator;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseUser> expenseUserList;
 
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "payer_id")
-    @JsonIgnore
-    private User payer;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTag> expenseTagList;
 
-    @OneToMany(mappedBy = "expense", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpenseTag> expenseTags;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseReminder> expenseReminderList;
 
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "expenses_id")
-    @JsonIgnore
-    private Expenses expenses;
+
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTopic> expenseTopicList;
+
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseTasks> expenseTasksList;
+
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpensesExpense> expensesExpenseList;
+
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ExpenseHistory> expenseHistoryList;
 
     public Expense() {
+    }
+
+    public Expense(String name, String producer, User creator) {
+        this.subject = name;
+        this.subject = producer;
+        this.subject = name + " from " + producer;
+        this.creator = creator;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Expense{" +
                 "id=" + id +
-                ", expanseName='" + expanseName + '\'' +
-                ", details='" + details + '\'' +
-                ", quantity=" + quantity +
-                ", unit='" + unit + '\'' +
-                ", unitPrice=" + unitPrice +
-                ", createDate=" + createDate +
-                ", paidDate=" + paidDate +
-                ", market='" + market + '\'' +
-                ", creatorId=" + creator.getId() +
-                ", payerId=" + payer.getId() +
-                ", expenseTags=" + expenseTags +
-                ", expensesId=" + expenses.getId() +
+                ", name='" + name + '\'' +
+                ", producer='" + producer + '\'' +
+                ", subject='" + subject + '\'' +
+                ", category='" + category + '\'' +
+                ", numberOfBuys=" + numberOfBuys +
+                ", numberForMean=" + numberForMean +
+                ", meanQuantity=" + meanQuantity +
+                ", meanUnitPrice=" + meanUnitPrice +
+                ", createdDate=" + createdDate +
+                ", creator=" + creator.getId() +
+                ", expenseUserList=" + expenseUserList +
+                ", expenseTagList=" + expenseTagList +
+                ", expenseReminderList=" + expenseReminderList +
+                ", expenseTopicList=" + expenseTopicList +
+                ", expenseTasksList=" + expenseTasksList +
+                ", expensesExpenseList=" + expensesExpenseList +
+                ", expenseHistoryList=" + expenseHistoryList +
                 '}';
     }
 
@@ -92,68 +108,83 @@ public class Expense {
         this.id = id;
     }
 
-    public String getExpanseName() {
-        return expanseName;
+    public String getName() {
+        if (name == null) {
+            name = "";
+        }
+        return name;
     }
 
-    public void setExpanseName(String expanseName) {
-        this.expanseName = expanseName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDetails() {
-        return details;
+    public String getProducer() {
+        if (producer == null) {
+            producer = "";
+        }
+        return producer;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 
-    public double getQuantity() {
-        return quantity;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public String getUnit() {
-        return unit;
+
+    public String getCategory() {
+        return category;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
+    public Integer getNumberOfBuys() {
+        return numberOfBuys;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setNumberOfBuys(Integer numberOfBuys) {
+        this.numberOfBuys = numberOfBuys;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
+    public Integer getNumberForMean() {
+        return numberForMean;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
+    public void setNumberForMean(Integer numberForMean) {
+        this.numberForMean = numberForMean;
     }
 
-    public LocalDateTime getPaidDate() {
-        return paidDate;
+    public Double getMeanQuantity() {
+        return meanQuantity;
     }
 
-    public void setPaidDate(LocalDateTime paidDate) {
-        this.paidDate = paidDate;
+    public void setMeanQuantity(Double meanQuantity) {
+        this.meanQuantity = meanQuantity;
     }
 
-    public String getMarket() {
-        return market;
+    public Double getMeanUnitPrice() {
+        return meanUnitPrice;
     }
 
-    public void setMarket(String market) {
-        this.market = market;
+    public void setMeanUnitPrice(Double meanUnitPrice) {
+        this.meanUnitPrice = meanUnitPrice;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public User getCreator() {
@@ -164,27 +195,64 @@ public class Expense {
         this.creator = creator;
     }
 
-    public User getPayer() {
-        return payer;
+    public List<ExpenseUser> getExpenseUserList() {
+        if (expenseUserList == null) {
+            expenseUserList = new ArrayList<>();
+        }
+        return expenseUserList;
     }
 
-    public void setPayer(User payer) {
-        this.payer = payer;
+    public void setExpenseUserList(List<ExpenseUser> expenseUserList) {
+        this.expenseUserList = expenseUserList;
     }
 
-    public List<ExpenseTag> getExpenseTags() {
-        return expenseTags;
+    public List<ExpenseTag> getExpenseTagList() {
+        return expenseTagList;
     }
 
-    public void setExpenseTags(List<ExpenseTag> expenseTags) {
-        this.expenseTags = expenseTags;
+    public void setExpenseTagList(List<ExpenseTag> expenseTagList) {
+        this.expenseTagList = expenseTagList;
     }
 
-    public Expenses getExpensesList() {
-        return expenses;
+    public List<ExpenseReminder> getExpenseReminderList() {
+        return expenseReminderList;
     }
 
-    public void setExpensesList(Expenses expenses) {
-        this.expenses = expenses;
+    public void setExpenseReminderList(List<ExpenseReminder> expenseReminderList) {
+        this.expenseReminderList = expenseReminderList;
+    }
+
+
+    public List<ExpenseTopic> getExpenseTopicList() {
+        return expenseTopicList;
+    }
+
+    public void setExpenseTopicList(List<ExpenseTopic> expenseTopicList) {
+        this.expenseTopicList = expenseTopicList;
+    }
+
+    public List<ExpenseTasks> getExpenseTasksList() {
+        return expenseTasksList;
+    }
+
+    public void setExpenseTasksList(List<ExpenseTasks> expenseTasksList) {
+        this.expenseTasksList = expenseTasksList;
+    }
+
+
+    public List<ExpensesExpense> getExpensesExpenseList() {
+        return expensesExpenseList;
+    }
+
+    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
+        this.expensesExpenseList = expensesExpenseList;
+    }
+
+    public List<ExpenseHistory> getExpenseHistoryList() {
+        return expenseHistoryList;
+    }
+
+    public void setExpenseHistoryList(List<ExpenseHistory> expenseHistoryList) {
+        this.expenseHistoryList = expenseHistoryList;
     }
 }

@@ -28,10 +28,16 @@ public class ExpenseTag {
     @JsonIgnore
     private Tag tag;
 
-    @Column(name = "link_date")
-    private LocalDateTime linkDate;
+    @Column(name = "expense_date")
+    private LocalDateTime expenseDate;
 
     public ExpenseTag() {
+    }
+
+    public ExpenseTag(Expense expense, Tag tag) {
+        this.expense = expense;
+        this.tag = tag;
+        this.expenseDate = LocalDateTime.now();
     }
 
     @Override
@@ -40,7 +46,7 @@ public class ExpenseTag {
                 "id=" + id +
                 ", expenseId=" + expense.getId() +
                 ", tagId=" + tag.getId() +
-                ", linkDate=" + linkDate +
+                ", expenseDate=" + expenseDate +
                 '}';
     }
 
@@ -68,11 +74,11 @@ public class ExpenseTag {
         this.tag = tag;
     }
 
-    public LocalDateTime getLinkDate() {
-        return linkDate;
+    public LocalDateTime getExpenseDate() {
+        return expenseDate;
     }
 
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
+    public void setExpenseDate(LocalDateTime expenseDate) {
+        this.expenseDate = expenseDate;
     }
 }

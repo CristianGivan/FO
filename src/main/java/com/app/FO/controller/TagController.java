@@ -46,13 +46,25 @@ public class TagController {
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
-    @PutMapping("/putTextToTag/")
-    public TagDTO putTextToTag(@RequestParam Long tagId, @RequestParam String tagText) {
+    @PutMapping("/putSubbjectToTag/")
+    public TagDTO putSubjectToTag(@RequestParam Long tagId, @RequestParam String tagText) {
         Tag tag = tagService.putTextToTag(tagId, tagText);
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
 
+    //-- DeleteMapping
+    @DeleteMapping("/deleteTag/{tagId}")
+    public String deleteTag(@RequestParam Long tagId) {
+        String message = tagService.deleteTag(tagId);
+        return message;
+    }
+
+    @DeleteMapping("/deleteUserFromTag")
+    public TagDTO deleteUserFromTag(@RequestParam Long tagId, @RequestParam Long userId) {
+        Tag tag = tagService.deleteUserFromTag(tagId, userId);
+        return tagDTOMapper.tagToTagDTO(tag);
+    }
     //-- GetMapping
 
     @GetMapping("/getTagById/{tagId}")
@@ -80,8 +92,8 @@ public class TagController {
         return tagDTOMapper.tagToTagDTO(tagList);
     }
 
-    @GetMapping("/getAllTagList")
-    public List<TagDTO> getAllTagList() {
+    @GetMapping("/getAllTag")
+    public List<TagDTO> getAllTag() {
         List<Tag> tagList = tagService.getTagListByUserId(userService.getLogInUser().getId());
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
@@ -103,22 +115,6 @@ public class TagController {
         List<Tag> tagList = tagService.getTagsByTopicId(topicId);
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
-
-
-    //-- DeleteMapping
-    @DeleteMapping("/deleteTag/{tagId}")
-    public String deleteTag(@RequestParam Long tagId) {
-        String message = tagService.deleteTag(tagId);
-        return message;
-    }
-
-    @DeleteMapping("/deleteUserFromTag")
-    public TagDTO deleteUserFromTag(@RequestParam Long tagId, @RequestParam Long userId) {
-        Tag tag = tagService.deleteUserFromTag(tagId, userId);
-        return tagDTOMapper.tagToTagDTO(tag);
-    }
-
-    //-- Converter
 
     //--- Other
 

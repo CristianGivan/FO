@@ -19,28 +19,34 @@ public class EventUser {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    @JsonIgnore
-    private Event event;
-
-    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
-    @Column(name = "link_date")
-    private LocalDateTime linkDate;
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    @JsonIgnore
+    private Event event;
+
+    @Column(name = "event_date")
+    private LocalDateTime eventDate;
 
     public EventUser() {
     }
 
+    public EventUser(Event event, User user) {
+        this.user = user;
+        this.event = event;
+        this.eventDate = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
-        return "EventUser{" +
+        return "EventTasks{" +
                 "id=" + id +
-                ", eventId=" + event.getId() +
-                ", userId=" + user.getId() +
-                ", linkDate=" + linkDate +
+                ", taskId=" + user.getId() +
+                ", event=" + event.getId() +
+                ", eventDate=" + eventDate +
                 '}';
     }
 
@@ -52,14 +58,6 @@ public class EventUser {
         this.id = id;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     public User getUser() {
         return user;
     }
@@ -68,11 +66,19 @@ public class EventUser {
         this.user = user;
     }
 
-    public LocalDateTime getLinkDate() {
-        return linkDate;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public LocalDateTime getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(LocalDateTime eventDate) {
+        this.eventDate = eventDate;
     }
 }

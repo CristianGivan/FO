@@ -1,6 +1,5 @@
 package com.app.FO.model.account;
 
-//import com.app.FO.model.expenses.Expenses;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,15 +7,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account_users")
+@Table(name = "account_user")
 public class AccountUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_users_seq")
-    @SequenceGenerator(name = "account_users_seq",
-            sequenceName = "account_users_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_user_seq")
+    @SequenceGenerator(name = "account_user_seq",
+            sequenceName = "account_user_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "account_users_id")
+    @Column(name = "account_user_id")
     private Long id;
 
     @ManyToOne
@@ -29,19 +28,25 @@ public class AccountUser {
     @JsonIgnore
     private Account account;
 
-    @Column(name = "link_date")
-    private LocalDateTime linkDate;
+    @Column(name = "account_date")
+    private LocalDateTime accountDate;
 
     public AccountUser() {
     }
 
+    public AccountUser(Account account, User user) {
+        this.user = user;
+        this.account = account;
+        this.accountDate = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
-        return "AccountUser{" +
+        return "AccountTasks{" +
                 "id=" + id +
-                ", userId=" + user.getId() +
-                ", accountId=" + account.getId() +
-                ", linkDate=" + linkDate +
+                ", taskId=" + user.getId() +
+                ", account=" + account.getId() +
+                ", accountDate=" + accountDate +
                 '}';
     }
 
@@ -69,11 +74,11 @@ public class AccountUser {
         this.account = account;
     }
 
-    public LocalDateTime getLinkDate() {
-        return linkDate;
+    public LocalDateTime getAccountDate() {
+        return accountDate;
     }
 
-    public void setLinkDate(LocalDateTime linkDate) {
-        this.linkDate = linkDate;
+    public void setAccountDate(LocalDateTime accountDate) {
+        this.accountDate = accountDate;
     }
 }

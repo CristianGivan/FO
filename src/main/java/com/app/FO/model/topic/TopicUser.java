@@ -34,10 +34,11 @@ public class TopicUser {
 
     public TopicUser() {
     }
-    public TopicUser(User user, Topic topic){
-        this.user=user;
-        this.topic=topic;
-        this.createdDate=LocalDateTime.now();
+
+    public TopicUser(Topic topic, User user) {
+        this.user = user;
+        this.topic = topic;
+        this.createdDate = LocalDateTime.now();
     }
 
 

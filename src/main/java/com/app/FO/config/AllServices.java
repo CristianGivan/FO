@@ -1,8 +1,8 @@
 package com.app.FO.config;
 
-import com.app.FO.mapper.dto.user.UserDTO;
-import com.app.FO.mapper.mappers.UserDTOMapper;
 import com.app.FO.model.tag.Tag;
+import com.app.FO.model.user.User;
+import com.app.FO.service.tag.TagService;
 import com.app.FO.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -16,17 +16,28 @@ public class AllServices {
      * after inserting to many services in Note and Tag mapper I receive spring.main.allow-circular-references if I uncomment note service
      * */
 
-    public UserService userService;
-    public UserDTOMapper userDTOMapper;
+    private UserService userService;
+
+    private TagService tagService;
+
+//    @Autowired
+//    private UserDTOMapper userDTOMapper;
 
     @Autowired
-    public AllServices(UserService userService, UserDTOMapper userDTOMapper) {
+    public AllServices(UserService userService) {
         this.userService = userService;
-        this.userDTOMapper = userDTOMapper;
     }
 
-    public List<UserDTO> getUserListDTOByTag(Tag tag) {
-        return userDTOMapper.UserListToUserDTOList(userService.getUserListByTagId(tag.getId()));
+    public List<User> getUserListDTOByTag(Tag tag) {
+        return userService.getUserListByTagId(tag.getId());
+    }
+
+    public List<User> getUserListDTOByUser(User user) {
+        return userService.getUserListByUserId(user.getId());
+    }
+
+    public List<Tag> getTagListDTOByUser(User user) {
+        return tagService.getTagListByUserId(user.getId());
     }
 
 }

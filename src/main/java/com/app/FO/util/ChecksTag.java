@@ -13,52 +13,56 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ChecksTag {
     private TagRepository tagRepository;
-    private Checks checks;
+    private ServiceAll serviceAll;
 
     @Autowired
-    public ChecksTag(TagRepository tagRepository,Checks checks) {
+    public ChecksTag(TagRepository tagRepository, ServiceAll serviceAll) {
         this.tagRepository = tagRepository;
-        this.checks=checks;
+        this.serviceAll = serviceAll;
 
     }
-    public void checkIsTag(Tag tag){
-        if(!checks.isTag(tag)){
+
+    public void checkIsTag(Tag tag) {
+        if (!serviceAll.isTag(tag)) {
             throw new TagNotFoundException("Tag not found!");
         }
     }
-    public void checkIsTagWithTagText(User user, String tagText){
-        Tag tag =tagRepository.getTagsByUserIdAndTagText(user.getId(), tagText);
+
+    public void checkIsTagWithTagText(User user, String tagText) {
+        Tag tag = tagRepository.getTagsByUserIdAndTagText(user.getId(), tagText);
         if (tag != null) {
             throw new TagAlreadyExistException("Tag already exist");
         }
     }
 
-    public void checkIsTagAndUserAndAreLinked(Tag tag, User user){
-        if(!checks.isTag(tag)){
+    public void checkIsTagAndUserAndAreLinked(Tag tag, User user) {
+        if (!serviceAll.isTag(tag)) {
             throw new TagNotFoundException("Tag not found!");
-        }else if(!checks.isUser(user)){
+        } else if (!serviceAll.isUser(user)) {
             throw new UserNotFoundException("User not found");
-        }else if(!checks.tagHasUser(tag, user)) {
+        } else if (!serviceAll.tagHasUser(tag, user)) {
             throw new UserNotFoundException("User is not linked to tag");
         }
     }
-    public void checkIsTagAndTheCreatorAndAreLinked(Tag tag, User user){
-        if(!checks.isTag(tag)){
+
+    public void checkIsTagAndTheCreatorAndAreLinked(Tag tag, User user) {
+        if (!serviceAll.isTag(tag)) {
             throw new TagNotFoundException("Tag not found!");
-        }else if(!checks.isUser(user)){
+        } else if (!serviceAll.isUser(user)) {
             throw new UserNotFoundException("User not found");
-        }else if(!checks.isUserTagCreator(user, tag)){
+        } else if (!serviceAll.isUserTagCreator(user, tag)) {
             throw new UserNotFoundException("User not the creator");
-        }else if(!checks.tagHasUser(tag, user)) {
+        } else if (!serviceAll.tagHasUser(tag, user)) {
             throw new UserNotFoundException("User is not linked to tag");
         }
     }
-    public void checkIsTagAndUserAndAreNotLinked(Tag tag, User user){
-        if(!checks.isTag(tag)){
+
+    public void checkIsTagAndUserAndAreNotLinked(Tag tag, User user) {
+        if (!serviceAll.isTag(tag)) {
             throw new TagNotFoundException("Tag not found!");
-        }else if(!checks.isUser(user)){
+        } else if (!serviceAll.isUser(user)) {
             throw new UserNotFoundException("User not found");
-        }else if(checks.tagHasUser(tag, user)) {
+        } else if (serviceAll.tagHasUser(tag, user)) {
             throw new UserAlreadyExistException("User is linked to tag");
         }
     }

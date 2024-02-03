@@ -14,7 +14,15 @@ public class UserRoleService {
         this.userRoleRepository = userRoleRepository;
     }
 
-    public UserRole saveUserRole(UserRole userRole){
+    public UserRole saveUserRole(UserRole userRole) {
         return userRoleRepository.save(userRole);
+    }
+
+    public void deleteUserRole(UserRole userRole) {
+        userRoleRepository.delete(userRole);
+    }
+
+    public UserRole getUserRoleByUserRoleId(Long userId, Long roleId) {
+        return userRoleRepository.getUserRoleByUserIdAndRoleId(userId, roleId);
     }
 }
