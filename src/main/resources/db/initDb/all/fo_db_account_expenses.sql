@@ -16,18 +16,18 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `account_expenses`
+-- Table structure for table `expenses_account`
 --
 
-DROP TABLE IF EXISTS `account_expenses`;
+DROP TABLE IF EXISTS `expenses_account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_expenses` (
-  `account_expenses_id` bigint NOT NULL,
+CREATE TABLE `expenses_account` (
+  `expenses_account_id` bigint NOT NULL,
   `account_date` datetime DEFAULT NULL,
   `account_id` bigint DEFAULT NULL,
   `expenses_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`account_expenses_id`),
+  PRIMARY KEY (`expenses_account_id`),
   KEY `FKbj9canf7nwqeeb90wdh5s5cyq` (`account_id`),
   KEY `FKl3ua1m699m3ppshq11hdvweq5` (`expenses_id`),
   CONSTRAINT `FKbj9canf7nwqeeb90wdh5s5cyq` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`),
@@ -36,13 +36,13 @@ CREATE TABLE `account_expenses` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_expenses`
+-- Dumping data for table `expenses_account`
 --
 
-LOCK TABLES `account_expenses` WRITE;
-/*!40000 ALTER TABLE `account_expenses` DISABLE KEYS */;
-INSERT INTO `account_expenses` VALUES (1,'2023-06-04 22:20:59',1,1),(2,'2023-06-04 22:21:09',2,2),(3,'2023-06-04 22:21:16',3,3),(4,'2023-06-04 22:21:24',4,4),(5,'2023-06-04 22:21:30',4,5),(6,'2023-06-04 22:21:34',5,5);
-/*!40000 ALTER TABLE `account_expenses` ENABLE KEYS */;
+LOCK TABLES `expenses_account` WRITE;
+/*!40000 ALTER TABLE `expenses_account` DISABLE KEYS */;
+INSERT INTO `expenses_account` VALUES (1,'2023-06-04 22:20:59',1,1),(2,'2023-06-04 22:21:09',2,2),(3,'2023-06-04 22:21:16',3,3),(4,'2023-06-04 22:21:24',4,4),(5,'2023-06-04 22:21:30',4,5),(6,'2023-06-04 22:21:34',5,5);
+/*!40000 ALTER TABLE `expenses_account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

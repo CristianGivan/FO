@@ -46,12 +46,12 @@ public class AccountController {
         return accountDTOMapper.accountToAccountDTO(account);
     }
 
-    @PutMapping("/putCreatedDateToAccount")
-    @ApiOperation(value = "Formatter yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
-    public AccountDTO putCreatedDateToAccount(@RequestParam Long accountId, @RequestParam String createdData) {
-        Account account = accountService.putCreatedDateToAccount(accountId, createdData);
-        return accountDTOMapper.accountToAccountDTO(account);
-    }
+//    @PutMapping("/putCreatedDateToAccount")
+//    @ApiOperation(value = "Formatter yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+//    public AccountDTO putCreatedDateToAccount(@RequestParam Long accountId, @RequestParam String createdData) {
+//        Account account = accountService.putCreatedDateToAccount(accountId, createdData);
+//        return accountDTOMapper.accountToAccountDTO(account);
+//    }
 
     @PutMapping("/putUserToAccount")
     public AccountDTO putUserToAccount(@RequestParam Long accountId, @RequestParam Long userId) {
@@ -83,12 +83,12 @@ public class AccountController {
         Account account = accountService.putTasksToAccount(accountId, tasksId);
         return accountDTOMapper.accountToAccountDTO(account);
     }
-
-    @PutMapping("/putExpensesToAccount")
-    public AccountDTO putExpensesToAccount(@RequestParam Long accountId, @RequestParam Long expensesId) {
-        Account account = accountService.putExpensesToAccount(accountId, expensesId);
-        return accountDTOMapper.accountToAccountDTO(account);
-    }
+//
+//    @PutMapping("/putExpensesToAccount")
+//    public AccountDTO putExpensesToAccount(@RequestParam Long accountId, @RequestParam Long expensesId) {
+//        Account account = accountService.putExpensesToAccount(accountId, expensesId);
+//        return accountDTOMapper.accountToAccountDTO(account);
+//    }
 
 //    @PutMapping("/putTransactionToAccount")
 //    public AccountDTO putTransactionToAccount(@RequestParam Long accountId, @RequestParam Long transactionId) {
@@ -131,19 +131,19 @@ public class AccountController {
         return accountDTOMapper.accountToAccountDTO(account);
     }
 
-
-    @DeleteMapping("/deleteExpensesFromAccount")
-    public AccountDTO deleteExpensesFromAccount(@RequestParam Long accountId, @RequestParam Long tasksId) {
-        Account account = accountService.deleteExpensesFromAccount(accountId, tasksId);
-        return accountDTOMapper.accountToAccountDTO(account);
-    }
-
-
-    @DeleteMapping("/deleteTransactionFromAccount")
-    public AccountDTO deleteTransactionFromAccount(@RequestParam Long accountId, @RequestParam Long tasksId) {
-        Account account = accountService.deleteTransactionFromAccount(accountId, tasksId);
-        return accountDTOMapper.accountToAccountDTO(account);
-    }
+//
+//    @DeleteMapping("/deleteExpensesFromAccount")
+//    public AccountDTO deleteExpensesFromAccount(@RequestParam Long accountId, @RequestParam Long tasksId) {
+//        Account account = accountService.deleteExpensesFromAccount(accountId, tasksId);
+//        return accountDTOMapper.accountToAccountDTO(account);
+//    }
+//
+//
+//    @DeleteMapping("/deleteTransactionFromAccount")
+//    public AccountDTO deleteTransactionFromAccount(@RequestParam Long accountId, @RequestParam Long tasksId) {
+//        Account account = accountService.deleteTransactionFromAccount(accountId, tasksId);
+//        return accountDTOMapper.accountToAccountDTO(account);
+//    }
 
 
     @DeleteMapping("/deleteAccount")

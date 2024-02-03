@@ -7,15 +7,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "note_remainder")
+@Table(name = "note_reminder")
 public class NoteReminder {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_remainder_seq")
-    @SequenceGenerator(name = "note_remainder_seq",
-            sequenceName = "note_remainder_seq",
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_reminder_seq")
+    @SequenceGenerator(name = "note_reminder_seq",
+            sequenceName = "note_reminder_seq",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "note_remainder_id")
+    @Column(name = "note_reminder_id")
     private Long id;
 
     @ManyToOne
@@ -24,7 +24,7 @@ public class NoteReminder {
     private Note note;
 
     @ManyToOne
-    @JoinColumn(name = "remainder_id")
+    @JoinColumn(name = "reminder_id")
     @JsonIgnore
     private Reminder reminder;
 
@@ -35,20 +35,20 @@ public class NoteReminder {
     public NoteReminder() {
     }
 
-    @Override
-    public String toString() {
-        return "noteRemainder{" +
-                "id=" + id +
-                ", noteId=" + note.getId() +
-                ", remainderId=" + reminder.getId() +
-                ", createdDate=" + linkDate +
-                '}';
-    }
-
     public NoteReminder(Note note, Reminder reminder) {
         this.note = note;
         this.reminder = reminder;
         this.linkDate = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "noteReminder{" +
+                "id=" + id +
+                ", noteId=" + note.getId() +
+                ", ReminderId=" + reminder.getId() +
+                ", createdDate=" + linkDate +
+                '}';
     }
 
     public Long getId() {
@@ -67,11 +67,11 @@ public class NoteReminder {
         this.note = note;
     }
 
-    public Reminder getRemainder() {
+    public Reminder getReminder() {
         return reminder;
     }
 
-    public void setRemainder(Reminder reminder) {
+    public void setReminder(Reminder reminder) {
         this.reminder = reminder;
     }
 

@@ -46,18 +46,18 @@ INSERT INTO `account` VALUES (1,10,'2023-06-01 13:14:15','account1','type1',1),(
 UNLOCK TABLES;
 
 --
--- Table structure for table `account_expenses`
+-- Table structure for table `expenses_account`
 --
 
-DROP TABLE IF EXISTS `account_expenses`;
+DROP TABLE IF EXISTS `expenses_account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_expenses` (
-  `account_expenses_id` bigint NOT NULL,
+CREATE TABLE `expenses_account` (
+  `expenses_account_id` bigint NOT NULL,
   `account_date` datetime DEFAULT NULL,
   `account_id` bigint DEFAULT NULL,
   `expenses_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`account_expenses_id`),
+  PRIMARY KEY (`expenses_account_id`),
   KEY `FKbj9canf7nwqeeb90wdh5s5cyq` (`account_id`),
   KEY `FKl3ua1m699m3ppshq11hdvweq5` (`expenses_id`),
   CONSTRAINT `FKbj9canf7nwqeeb90wdh5s5cyq` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`),
@@ -66,35 +66,35 @@ CREATE TABLE `account_expenses` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_expenses`
+-- Dumping data for table `expenses_account`
 --
 
-LOCK TABLES `account_expenses` WRITE;
-/*!40000 ALTER TABLE `account_expenses` DISABLE KEYS */;
-INSERT INTO `account_expenses` VALUES (1,'2023-06-04 22:20:59',1,1),(2,'2023-06-04 22:21:09',2,2),(3,'2023-06-04 22:21:16',3,3),(4,'2023-06-04 22:21:24',4,4),(5,'2023-06-04 22:21:30',4,5),(6,'2023-06-04 22:21:34',5,5);
-/*!40000 ALTER TABLE `account_expenses` ENABLE KEYS */;
+LOCK TABLES `expenses_account` WRITE;
+/*!40000 ALTER TABLE `expenses_account` DISABLE KEYS */;
+INSERT INTO `expenses_account` VALUES (1,'2023-06-04 22:20:59',1,1),(2,'2023-06-04 22:21:09',2,2),(3,'2023-06-04 22:21:16',3,3),(4,'2023-06-04 22:21:24',4,4),(5,'2023-06-04 22:21:30',4,5),(6,'2023-06-04 22:21:34',5,5);
+/*!40000 ALTER TABLE `expenses_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `account_expenses_seq`
+-- Table structure for table `expenses_account_seq`
 --
 
-DROP TABLE IF EXISTS `account_expenses_seq`;
+DROP TABLE IF EXISTS `expenses_account_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_expenses_seq` (
+CREATE TABLE `expenses_account_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_expenses_seq`
+-- Dumping data for table `expenses_account_seq`
 --
 
-LOCK TABLES `account_expenses_seq` WRITE;
-/*!40000 ALTER TABLE `account_expenses_seq` DISABLE KEYS */;
-INSERT INTO `account_expenses_seq` VALUES (7);
-/*!40000 ALTER TABLE `account_expenses_seq` ENABLE KEYS */;
+LOCK TABLES `expenses_account_seq` WRITE;
+/*!40000 ALTER TABLE `expenses_account_seq` DISABLE KEYS */;
+INSERT INTO `expenses_account_seq` VALUES (7);
+/*!40000 ALTER TABLE `expenses_account_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -350,18 +350,18 @@ INSERT INTO `account_topic_seq` VALUES (7);
 UNLOCK TABLES;
 
 --
--- Table structure for table `account_transaction`
+-- Table structure for table `transaction_account`
 --
 
-DROP TABLE IF EXISTS `account_transaction`;
+DROP TABLE IF EXISTS `transaction_account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_transaction` (
-  `account_transaction_id` bigint NOT NULL,
+CREATE TABLE `transaction_account` (
+  `transaction_account_id` bigint NOT NULL,
   `link_date` datetime DEFAULT NULL,
   `account_id` bigint DEFAULT NULL,
   `transaction_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`account_transaction_id`),
+  PRIMARY KEY (`transaction_account_id`),
   KEY `FKqonh25s0w6r5cf8jq88m6kd8o` (`account_id`),
   KEY `FK6xxmvl1tnux0xew6y0204fbbo` (`transaction_id`),
   CONSTRAINT `FK6xxmvl1tnux0xew6y0204fbbo` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`),
@@ -370,35 +370,35 @@ CREATE TABLE `account_transaction` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_transaction`
+-- Dumping data for table `transaction_account`
 --
 
-LOCK TABLES `account_transaction` WRITE;
-/*!40000 ALTER TABLE `account_transaction` DISABLE KEYS */;
-INSERT INTO `account_transaction` VALUES (1,'2023-06-04 22:30:59',1,1),(2,'2023-06-04 22:31:08',2,2),(3,'2023-06-04 22:31:16',3,3),(4,'2023-06-04 22:31:22',4,4),(5,'2023-06-04 22:32:28',5,5),(6,'2023-06-04 22:33:41',4,5);
-/*!40000 ALTER TABLE `account_transaction` ENABLE KEYS */;
+LOCK TABLES `transaction_account` WRITE;
+/*!40000 ALTER TABLE `transaction_account` DISABLE KEYS */;
+INSERT INTO `transaction_account` VALUES (1,'2023-06-04 22:30:59',1,1),(2,'2023-06-04 22:31:08',2,2),(3,'2023-06-04 22:31:16',3,3),(4,'2023-06-04 22:31:22',4,4),(5,'2023-06-04 22:32:28',5,5),(6,'2023-06-04 22:33:41',4,5);
+/*!40000 ALTER TABLE `transaction_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `account_transaction_seq`
+-- Table structure for table `transaction_account_seq`
 --
 
-DROP TABLE IF EXISTS `account_transaction_seq`;
+DROP TABLE IF EXISTS `transaction_account_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account_transaction_seq` (
+CREATE TABLE `transaction_account_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account_transaction_seq`
+-- Dumping data for table `transaction_account_seq`
 --
 
-LOCK TABLES `account_transaction_seq` WRITE;
-/*!40000 ALTER TABLE `account_transaction_seq` DISABLE KEYS */;
-INSERT INTO `account_transaction_seq` VALUES (7);
-/*!40000 ALTER TABLE `account_transaction_seq` ENABLE KEYS */;
+LOCK TABLES `transaction_account_seq` WRITE;
+/*!40000 ALTER TABLE `transaction_account_seq` DISABLE KEYS */;
+INSERT INTO `transaction_account_seq` VALUES (7);
+/*!40000 ALTER TABLE `transaction_account_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1892,54 +1892,54 @@ INSERT INTO `note_history_seq` VALUES (1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `note_remainder`
+-- Table structure for table `note_Reminder`
 --
 
-DROP TABLE IF EXISTS `note_remainder`;
+DROP TABLE IF EXISTS `note_Reminder`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `note_remainder` (
-  `note_remainder_id` bigint NOT NULL,
+CREATE TABLE `note_Reminder` (
+  `note_Reminder_id` bigint NOT NULL,
   `link_date` datetime DEFAULT NULL,
   `note_id` bigint DEFAULT NULL,
-  `remainder_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`note_remainder_id`),
+  `Reminder_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`note_Reminder_id`),
   KEY `FKnvroi70n8vqevdp3o2mhrju41` (`note_id`),
-  KEY `FK2hleild9tydqlcej5rxatugpe` (`remainder_id`),
-  CONSTRAINT `FK2hleild9tydqlcej5rxatugpe` FOREIGN KEY (`remainder_id`) REFERENCES `reminder` (`reminder_id`),
+  KEY `FK2hleild9tydqlcej5rxatugpe` (`Reminder_id`),
+  CONSTRAINT `FK2hleild9tydqlcej5rxatugpe` FOREIGN KEY (`Reminder_id`) REFERENCES `reminder` (`reminder_id`),
   CONSTRAINT `FKnvroi70n8vqevdp3o2mhrju41` FOREIGN KEY (`note_id`) REFERENCES `note` (`note_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `note_remainder`
+-- Dumping data for table `note_Reminder`
 --
 
-LOCK TABLES `note_remainder` WRITE;
-/*!40000 ALTER TABLE `note_remainder` DISABLE KEYS */;
-/*!40000 ALTER TABLE `note_remainder` ENABLE KEYS */;
+LOCK TABLES `note_Reminder` WRITE;
+/*!40000 ALTER TABLE `note_Reminder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `note_Reminder` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `note_remainder_seq`
+-- Table structure for table `note_Reminder_seq`
 --
 
-DROP TABLE IF EXISTS `note_remainder_seq`;
+DROP TABLE IF EXISTS `note_Reminder_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `note_remainder_seq` (
+CREATE TABLE `note_Reminder_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `note_remainder_seq`
+-- Dumping data for table `note_Reminder_seq`
 --
 
-LOCK TABLES `note_remainder_seq` WRITE;
-/*!40000 ALTER TABLE `note_remainder_seq` DISABLE KEYS */;
-INSERT INTO `note_remainder_seq` VALUES (1);
-/*!40000 ALTER TABLE `note_remainder_seq` ENABLE KEYS */;
+LOCK TABLES `note_Reminder_seq` WRITE;
+/*!40000 ALTER TABLE `note_Reminder_seq` DISABLE KEYS */;
+INSERT INTO `note_Reminder_seq` VALUES (1);
+/*!40000 ALTER TABLE `note_Reminder_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2642,10 +2642,10 @@ CREATE TABLE `snooze` (
   `snooze_id` bigint NOT NULL,
   `snooze_count` int DEFAULT NULL,
   `snooze_time` time DEFAULT NULL,
-  `remainder_id` bigint DEFAULT NULL,
+  `Reminder_id` bigint DEFAULT NULL,
   PRIMARY KEY (`snooze_id`),
-  KEY `FKfm4uom9lwf4cwnj6byx7lptlk` (`remainder_id`),
-  CONSTRAINT `FKfm4uom9lwf4cwnj6byx7lptlk` FOREIGN KEY (`remainder_id`) REFERENCES `reminder` (`reminder_id`)
+  KEY `FKfm4uom9lwf4cwnj6byx7lptlk` (`Reminder_id`),
+  CONSTRAINT `FKfm4uom9lwf4cwnj6byx7lptlk` FOREIGN KEY (`Reminder_id`) REFERENCES `reminder` (`reminder_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

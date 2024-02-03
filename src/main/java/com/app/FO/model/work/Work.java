@@ -1,12 +1,12 @@
 package com.app.FO.model.work;
 
+import com.app.FO.model.task.TaskStatus;
 import com.app.FO.model.task.TaskWork;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +25,20 @@ public class Work {
 
     @Column(name = "subject")
     private String subject;
-    @Column(name = "working_date")
+    @Column(name = "working_date_time")
     private LocalDateTime workingDateTime;
 
     //todo time or double what should be?
-    @Column(name = "working_efort")
-    private LocalTime workingEfFort;
+    @Column(name = "working_time")
+    private Double workingTime;
 
-    @Column(name = "link_date")
+    @Column(name = "estimated_time")
+    private Double estimatedTime;
+    @Column(name = "working_progress")
+    private Double workingProgress;
+    @Column(name = "task_status")
+    private TaskStatus taskStatus;
+    @Column(name = "created_Date")
     private LocalDateTime createdDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -72,10 +78,13 @@ public class Work {
         return "Work{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
-                ", workingDate=" + workingDateTime +
-                ", workingTime=" + workingEfFort +
+                ", workingDateTime=" + workingDateTime +
+                ", workingTime=" + workingTime +
+                ", estimatedTime=" + estimatedTime +
+                ", workingProgress=" + workingProgress +
+                ", taskStatus=" + taskStatus +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator.getId() +
+                ", creator=" + creator +
                 ", workUserList=" + workUserList +
                 ", workTagList=" + workTagList +
                 ", workReminderList=" + workReminderList +
@@ -109,12 +118,36 @@ public class Work {
         this.workingDateTime = workingDate;
     }
 
-    public LocalTime getWorkingEfFort() {
-        return workingEfFort;
+    public Double getWorkingTime() {
+        return workingTime;
     }
 
-    public void setWorkingEfFort(LocalTime workingEfort) {
-        this.workingEfFort = workingEfort;
+    public void setWorkingTime(Double workingEfort) {
+        this.workingTime = workingEfort;
+    }
+
+    public Double getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(Double estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
+    public Double getWorkingProgress() {
+        return workingProgress;
+    }
+
+    public void setWorkingProgress(Double workingProgress) {
+        this.workingProgress = workingProgress;
+    }
+
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
     public LocalDateTime getCreatedDate() {

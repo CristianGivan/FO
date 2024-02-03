@@ -5,6 +5,7 @@ import com.app.FO.mapper.dto.work.WorkDTO;
 import com.app.FO.mapper.mappers.WorkDTOMapper;
 import com.app.FO.model.work.Work;
 import com.app.FO.service.work.WorkService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,36 @@ public class WorkController {
         return workDTOMapper.workToWorkDTO(work);
     }
 
+    @PutMapping("/putWorkingDateTimeToWork")
+    public WorkDTO putWorkingDateTimeToWork(@RequestParam Long workId, @RequestParam String workingDateTime) {
+        Work work = workService.putWorkingDateTimeToWork(workId, workingDateTime);
+        return workDTOMapper.workToWorkDTO(work);
+    }
+
+    @PutMapping("/putWorkingTimeToWork")
+    public WorkDTO putWorkingTimeToWork(@RequestParam Long workId, @RequestParam Double workingTime) {
+        Work work = workService.putWorkingTimeToWork(workId, workingTime);
+        return workDTOMapper.workToWorkDTO(work);
+    }
+
+    @PutMapping("/putEstimatedTimeToWork")
+    public WorkDTO putEstimatedTimeToWork(@RequestParam Long workId, @RequestParam Double estimatedTime) {
+        Work work = workService.putEstimatedTimeToWork(workId, estimatedTime);
+        return workDTOMapper.workToWorkDTO(work);
+    }
+
+    @PutMapping("/putWorkingProgressToWork")
+    public WorkDTO putWorkingProgressToWork(@RequestParam Long workId, @RequestParam Double workingProgress) {
+        Work work = workService.putWorkingProgressToWork(workId, workingProgress);
+        return workDTOMapper.workToWorkDTO(work);
+    }
+
+    @PutMapping("/putTaskStatusToWork")
+    public WorkDTO putTaskStatusToWork(@RequestParam Long workId, @RequestParam String taskStatus) {
+        Work work = workService.putTaskStatusToWork(workId, taskStatus);
+        return workDTOMapper.workToWorkDTO(work);
+    }
+
     @PutMapping("/putUserToWork")
     public WorkDTO putUserToWork(@RequestParam Long workId, @RequestParam Long userId) {
         Work work = workService.putUserToWork(workId, userId);
@@ -64,24 +95,12 @@ public class WorkController {
         Work work = workService.putTopicToWork(workId, topicId);
         return workDTOMapper.workToWorkDTO(work);
     }
-
-    @PutMapping("/putTaskToWork")
-    public WorkDTO putTaskToWork(@RequestParam Long workId, @RequestParam Long taskId) {
-        Work work = workService.putTaskToWork(workId, taskId);
-        return workDTOMapper.workToWorkDTO(work);
-    }
-
-    @PutMapping("/putWorkingDateTimeToWork")
-    public WorkDTO putWorkingDateTimeToWork(@RequestParam Long workId, @RequestParam String workingDateTime) {
-        Work work = workService.putWorkingDateTimeToWork(workId, workingDateTime);
-        return workDTOMapper.workToWorkDTO(work);
-    }
-
-    @PutMapping("/putWorkingEfortToWork")
-    public WorkDTO putWorkingEfortToWork(@RequestParam Long workId, @RequestParam String workingEfort) {
-        Work work = workService.putWorkingEfortToWork(workId, workingEfort);
-        return workDTOMapper.workToWorkDTO(work);
-    }
+//
+//    @PutMapping("/putTaskToWork")
+//    public WorkDTO putTaskToWork(@RequestParam Long workId, @RequestParam Long taskId) {
+//        Work work = workService.putTaskToWork(workId, taskId);
+//        return workDTOMapper.workToWorkDTO(work);
+//    }
 
     //-- DeleteMapping
 
@@ -110,12 +129,12 @@ public class WorkController {
         Work work = workService.deleteTopicFromWork(workId, topicId);
         return workDTOMapper.workToWorkDTO(work);
     }
-
-    @DeleteMapping("/deleteTaskFromWork")
-    public WorkDTO deleteTaskFromWork(@RequestParam Long workId, @RequestParam Long taskId) {
-        Work work = workService.deleteTaskFromWork(workId, taskId);
-        return workDTOMapper.workToWorkDTO(work);
-    }
+//
+//    @DeleteMapping("/deleteTaskFromWork")
+//    public WorkDTO deleteTaskFromWork(@RequestParam Long workId, @RequestParam Long taskId) {
+//        Work work = workService.deleteTaskFromWork(workId, taskId);
+//        return workDTOMapper.workToWorkDTO(work);
+//    }
 
     @DeleteMapping("/deleteWork")
     public List<WorkDTO> deleteWork(@RequestParam Long workId) {
@@ -132,6 +151,11 @@ public class WorkController {
         return workDTOMapper.workListToWorkDTOList(workList);
     }
 
+    @GetMapping("/getWorkById")
+    public WorkDTO getWorkById(@RequestParam Long workId) {
+        Work work = workService.getWorkByWorkId(workId);
+        return workDTOMapper.workToWorkDTO(work);
+    }
 
     @GetMapping("/getWorkBySubject")
     public WorkDTO getWorkBySubject(@RequestParam String subject) {
@@ -145,10 +169,71 @@ public class WorkController {
         return workDTOMapper.workListToWorkDTOList(workList);
     }
 
-    @GetMapping("/getWorkById")
-    public WorkDTO getWorkById(@RequestParam Long workId) {
-        Work work = workService.getWorkByWorkId(workId);
+
+    @GetMapping("/getWorkByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public WorkDTO getWorkByCreatedDate(@RequestParam String createdDate) {
+        Work work = workService.getWorkByCreatedDate(createdDate);
         return workDTOMapper.workToWorkDTO(work);
+    }
+
+    @GetMapping("/getWorkListByCreatedDateBetween")
+    public List<WorkDTO> getWorkListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Work> workList = workService.getWorkListByCreatedDateBetween(createdDateMin, createdDateMax);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+
+    @GetMapping("/getWorkByWorkingDateTime")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public List<WorkDTO> getWorkByWorkingDateTime(@RequestParam String workingDateTime) {
+        List<Work> workList = workService.getWorkListByWorkingDateTime(workingDateTime);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+    @GetMapping("/getWorkListByWorkingDateTimeBetween")
+    public List<WorkDTO> getWorkListByWorkingDateTimeBetween(@RequestParam String workingDateTimeMin, @RequestParam String workingDateTimeMax) {
+        List<Work> workList = workService.getWorkListByWorkingDateTimeBetween(workingDateTimeMin, workingDateTimeMax);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+    @GetMapping("/getWorkByWorkingTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<WorkDTO> getWorkByWorkingTime(@RequestParam Double workingTime) {
+        List<Work> workList = workService.getWorkByWorkingTime(workingTime);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+    @GetMapping("/getWorkListByWorkingTimeBetween")
+    public List<WorkDTO> getWorkListByWorkingTimeBetween(@RequestParam Double workingTimeMin, @RequestParam Double workingTimeMax) {
+        List<Work> workList = workService.getWorkListByWorkingTimeBetween(workingTimeMin, workingTimeMax);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+    @GetMapping("/getWorkByEstimatedTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<WorkDTO> getWorkByEstimatedTime(@RequestParam Double estimatedTime) {
+        List<Work> workList = workService.getWorkByEstimatedTime(estimatedTime);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+    @GetMapping("/getWorkListByEstimatedTimeBetween")
+    public List<WorkDTO> getWorkListByEstimatedTimeBetween(@RequestParam Double estimatedTimeMin, @RequestParam Double estimatedTimeMax) {
+        List<Work> workList = workService.getWorkListByEstimatedTimeBetween(estimatedTimeMin, estimatedTimeMax);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+    @GetMapping("/getWorkByWorkingProgress")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<WorkDTO> getWorkByWorkingProgress(@RequestParam Double workingProgress) {
+        List<Work> workList = workService.getWorkByWorkingProgress(workingProgress);
+        return workDTOMapper.workListToWorkDTOList(workList);
+    }
+
+    @GetMapping("/getWorkListByTaskStatus")
+    public List<WorkDTO> getWorkListByTaskStatus(@RequestParam String workStatus) {
+        List<Work> workList = workService.getWorkListByTaskStatus(workStatus);
+        return workDTOMapper.workListToWorkDTOList(workList);
     }
 
     @GetMapping("/getWorkListByUserId")
@@ -174,25 +259,13 @@ public class WorkController {
         List<Work> workList = workService.getWorkListByTopicId(topicId);
         return workDTOMapper.workListToWorkDTOList(workList);
     }
+//
+//    @GetMapping("/getWorkListByTaskId")
+//    public List<WorkDTO> getWorkListByTaskId(@RequestParam Long taskId) {
+//        List<Work> workList = workService.getWorkListByTaskId(taskId);
+//        return workDTOMapper.workListToWorkDTOList(workList);
+//    }
 
-    @GetMapping("/getWorkListByTaskId")
-    public List<WorkDTO> getWorkListByTaskId(@RequestParam Long taskId) {
-        List<Work> workList = workService.getWorkListByTaskId(taskId);
-        return workDTOMapper.workListToWorkDTOList(workList);
-    }
-
-
-    @GetMapping("/getWorkByWorkingDateTime")
-    public List<WorkDTO> getWorkByWorkingDateTime(@RequestParam String workingDateTime) {
-        List<Work> workList = workService.getWorkByWorkingDateTime(workingDateTime);
-        return workDTOMapper.workListToWorkDTOList(workList);
-    }
-
-    @GetMapping("/getWorkByWorkingEfort")
-    public List<WorkDTO> getWorkByWorkingEfort(@RequestParam String workingEfort) {
-        List<Work> workList = workService.getWorkByWorkingEfort(workingEfort);
-        return workDTOMapper.workListToWorkDTOList(workList);
-    }
 
     //--- Other
 

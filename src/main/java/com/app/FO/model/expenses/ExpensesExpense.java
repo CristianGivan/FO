@@ -1,7 +1,6 @@
 package com.app.FO.model.expenses;
 
 import com.app.FO.model.expense.Expense;
-import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -29,40 +28,18 @@ public class ExpensesExpense {
     @JsonIgnore
     private Expense expense;
 
-    @Column(name = "checks")
-    private Boolean check;
-
-    @Column(name = "unit")
-    private String unit;
-
-    @Column(name = "quantity")
-    private Double quantity;
-
-    @Column(name = "unit_price")
-    private Double unitPrice;
-
-    @Column(name = "total_price")
-    private Double totalPrice;
-
-    @Column(name = "estimated_price")
-    private Double estimatedPrice;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User creator;
+    @Column(name = "checked")
+    private Boolean checked;
 
     @Column(name = "expenses_date")
     private LocalDateTime expensesDate;
 
-
     public ExpensesExpense() {
     }
 
-    public ExpensesExpense(Expenses expenses, Expense expense, User creator) {
+    public ExpensesExpense(Expenses expenses, Expense expense) {
         this.expenses = expenses;
         this.expense = expense;
-        this.creator = creator;
         this.expensesDate = LocalDateTime.now();
     }
 
@@ -70,15 +47,9 @@ public class ExpensesExpense {
     public String toString() {
         return "ExpensesExpense{" +
                 "id=" + id +
-                ", expenses=" + expenses.getId() +
-                ", expense=" + expense.getId() +
-                ", check=" + check +
-                ", unit='" + unit + '\'' +
-                ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
-                ", totalPrice=" + totalPrice +
-                ", estimatedPrice=" + estimatedPrice +
-                ", creator=" + creator.getId() +
+                ", expenses=" + expenses +
+                ", expense=" + expense +
+                ", checked=" + checked +
                 ", expensesDate=" + expensesDate +
                 '}';
     }
@@ -107,60 +78,12 @@ public class ExpensesExpense {
         this.expense = expense;
     }
 
-    public Boolean getCheck() {
-        return check;
+    public Boolean getChecked() {
+        return checked;
     }
 
-    public void setCheck(Boolean check) {
-        this.check = check;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public Double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Double getEstimatedPrice() {
-        return estimatedPrice;
-    }
-
-    public void setEstimatedPrice(Double estimatedPrice) {
-        this.estimatedPrice = estimatedPrice;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 
     public LocalDateTime getExpensesDate() {

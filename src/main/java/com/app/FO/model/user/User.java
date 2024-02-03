@@ -6,7 +6,6 @@ import com.app.FO.model.account.AccountHistory;
 import com.app.FO.model.account.AccountUser;
 import com.app.FO.model.dates.Dates;
 import com.app.FO.model.dates.DatesUser;
-import com.app.FO.model.email.Email;
 import com.app.FO.model.email.EmailUser;
 import com.app.FO.model.event.Event;
 import com.app.FO.model.event.EventHistory;
@@ -15,7 +14,6 @@ import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expense.ExpenseHistory;
 import com.app.FO.model.expense.ExpenseUser;
 import com.app.FO.model.expenses.Expenses;
-import com.app.FO.model.expenses.ExpensesExpense;
 import com.app.FO.model.expenses.ExpensesHistory;
 import com.app.FO.model.expenses.ExpensesUser;
 import com.app.FO.model.link.Link;
@@ -29,8 +27,12 @@ import com.app.FO.model.person.PersonHistory;
 import com.app.FO.model.person.PersonUser;
 import com.app.FO.model.phoneNumber.PhoneNumber;
 import com.app.FO.model.phoneNumber.PhoneNumberUser;
+import com.app.FO.model.product.Product;
+import com.app.FO.model.product.ProductHistory;
+import com.app.FO.model.product.ProductUser;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.reminder.ReminderHistory;
+import com.app.FO.model.reminder.ReminderUser;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tag.TagHistory;
 import com.app.FO.model.tag.TagUser;
@@ -51,6 +53,7 @@ import com.app.FO.model.work.WorkHistory;
 import com.app.FO.model.work.WorkUser;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,8 +75,12 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "main_email")
+    private String mainEmail;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserRole> userRoleList;
@@ -95,6 +102,8 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ReminderHistory> reminderHistoryList;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ReminderUser> reminderUserList;
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Note> noteList;
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -154,6 +163,13 @@ public class User {
     private List<EventHistory> eventHistoryList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Product> productList;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductUser> productUserList;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductHistory> productHistoryList;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Expense> expenseList;
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseUser> expenseUserList;
@@ -169,8 +185,6 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesHistory> expensesHistoryList;
 
-    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ExpensesExpense> expensesExpenseList;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Transaction> transactionList;
@@ -189,9 +203,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountHistory> accountHistoryList;
-
-    @OneToMany(mappedBy = "creator", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Email> emailList;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EmailUser> emailUserList;
@@ -213,6 +224,7 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.createdDate = LocalDateTime.now();
     }
 
     @Override
@@ -221,7 +233,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
+                ", mainEmail='" + mainEmail + '\'' +
                 ", userRoleList=" + userRoleList +
                 ", userUserList=" + userUserList +
                 ", tagList=" + tagList +
@@ -253,6 +265,7 @@ public class User {
                 ", eventList=" + eventList +
                 ", eventUserList=" + eventUserList +
                 ", eventHistoryList=" + eventHistoryList +
+                ", productList=" + productList +
                 ", expenseList=" + expenseList +
                 ", expenseUserList=" + expenseUserList +
                 ", expenseHistoryList=" + expenseHistoryList +
@@ -260,14 +273,13 @@ public class User {
                 ", expensesUserList=" + expensesUserList +
                 ", expensesPayedList=" + expensesPayedList +
                 ", expensesHistoryList=" + expensesHistoryList +
-                ", expensesExpenseList=" + expensesExpenseList +
+                ", expensesExpenseList=" + expenseList +
                 ", transactionList=" + transactionList +
                 ", transactionUserList=" + transactionUserList +
                 ", transactionHistoryList=" + transactionHistoryList +
                 ", accountList=" + accountList +
                 ", accountUserList=" + accountUserList +
                 ", accountHistoryList=" + accountHistoryList +
-                ", emailList=" + emailList +
                 ", emailUserList=" + emailUserList +
                 ", datesList=" + datesList +
                 ", datesUserList=" + datesUserList +
@@ -300,12 +312,20 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getMainEmail() {
+        return mainEmail;
+    }
+
+    public void setMainEmail(String mainEmail) {
+        this.mainEmail = mainEmail;
     }
 
     public List<UserRole> getUserRoleList() {
@@ -363,6 +383,14 @@ public class User {
 
     public void setReminderList(List<Reminder> reminderList) {
         this.reminderList = reminderList;
+    }
+
+    public List<ReminderUser> getReminderUserList() {
+        return reminderUserList;
+    }
+
+    public void setReminderUserList(List<ReminderUser> reminderUserList) {
+        this.reminderUserList = reminderUserList;
     }
 
     public List<ReminderHistory> getReminderHistoryList() {
@@ -568,6 +596,30 @@ public class User {
         this.eventHistoryList = eventHistoryList;
     }
 
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public List<ProductUser> getProductUserList() {
+        return productUserList;
+    }
+
+    public void setProductUserList(List<ProductUser> productUserList) {
+        this.productUserList = productUserList;
+    }
+
+    public List<ProductHistory> getProductHistoryList() {
+        return productHistoryList;
+    }
+
+    public void setProductHistoryList(List<ProductHistory> productHistoryList) {
+        this.productHistoryList = productHistoryList;
+    }
+
     public List<Expense> getExpenseList() {
         return expenseList;
     }
@@ -624,12 +676,12 @@ public class User {
         this.expensesHistoryList = expensesHistoryList;
     }
 
-    public List<ExpensesExpense> getExpensesExpenseList() {
-        return expensesExpenseList;
+    public List<Expense> getExpensesExpenseList() {
+        return expenseList;
     }
 
-    public void setExpensesExpenseList(List<ExpensesExpense> expensesExpenseList) {
-        this.expensesExpenseList = expensesExpenseList;
+    public void setExpensesExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
     }
 
     public List<Transaction> getTransactionList() {
@@ -678,14 +730,6 @@ public class User {
 
     public void setAccountHistoryList(List<AccountHistory> accountHistoryList) {
         this.accountHistoryList = accountHistoryList;
-    }
-
-    public List<Email> getEmailList() {
-        return emailList;
-    }
-
-    public void setEmailList(List<Email> emailList) {
-        this.emailList = emailList;
     }
 
     public List<EmailUser> getEmailUserList() {

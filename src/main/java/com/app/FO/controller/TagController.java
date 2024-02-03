@@ -1,13 +1,11 @@
 package com.app.FO.controller;
 
-import com.app.FO.config.AllServices;
 import com.app.FO.mapper.dto.general.TextDTO;
 import com.app.FO.mapper.dto.tag.TagDTO;
-import com.app.FO.mapper.dto.tag.TagFDTO;
 import com.app.FO.mapper.mappers.TagDTOMapper;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.service.tag.TagService;
-import com.app.FO.service.user.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +16,6 @@ import java.util.List;
 public class TagController {
     private TagService tagService;
     private TagDTOMapper tagDTOMapper;
-
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private AllServices allServices;
 
     @Autowired
     public TagController(TagService tagService, TagDTOMapper tagDTOMapper) {
@@ -40,79 +33,77 @@ public class TagController {
 
     //-- PutMapping
 
+    @PutMapping("/putSubjectToTag/")
+    public TagDTO putSubjectToTag(@RequestParam Long tagId, @RequestParam String subject) {
+        Tag tag = tagService.putSubjectToTag(tagId, subject);
+        return tagDTOMapper.tagToTagDTO(tag);
+    }
+
     @PutMapping("/putUserToTag/")
     public TagDTO putUserToTag(@RequestParam Long tagId, @RequestParam Long userId) {
         Tag tag = tagService.putUserToTag(tagId, userId);
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
-    @PutMapping("/putSubbjectToTag/")
-    public TagDTO putSubjectToTag(@RequestParam Long tagId, @RequestParam String tagText) {
-        Tag tag = tagService.putTextToTag(tagId, tagText);
-        return tagDTOMapper.tagToTagDTO(tag);
-    }
-
 
     //-- DeleteMapping
-    @DeleteMapping("/deleteTag/{tagId}")
-    public String deleteTag(@RequestParam Long tagId) {
-        String message = tagService.deleteTag(tagId);
-        return message;
-    }
 
     @DeleteMapping("/deleteUserFromTag")
     public TagDTO deleteUserFromTag(@RequestParam Long tagId, @RequestParam Long userId) {
         Tag tag = tagService.deleteUserFromTag(tagId, userId);
         return tagDTOMapper.tagToTagDTO(tag);
     }
+
+    @DeleteMapping("/deleteTag/")
+    public List<Tag> deleteTag(@RequestParam Long tagId) {
+        List<Tag> tagList = tagService.deleteTag(tagId);
+        return tagList;
+    }
+
     //-- GetMapping
 
-    @GetMapping("/getTagById/{tagId}")
-    public TagDTO getTagById(@PathVariable Long tagId) {
+
+    @GetMapping("/getAllTag")
+    public List<TagDTO> getAllTag() {
+        List<Tag> tagList = tagService.getAllTag();
+        return tagDTOMapper.tagListToTagDTOList(tagList);
+    }
+
+    @GetMapping("/getTagByTagId/")
+    public TagDTO getTagByTagId(@RequestParam Long tagId) {
         Tag tag = tagService.getTagByTagId(tagId);
         return tagDTOMapper.tagToTagDTO(tag);
     }
 
-    @GetMapping("/returnTagById/{tagId}")
-    public TagFDTO returnTagById(@PathVariable Long tagId) {
-        Tag tag = tagService.getTagByTagId(tagId);
-        return tagDTOMapper.tagToTagFDTO(tag);
-    }
-
-    @GetMapping("/getTagListByContainingText/{containingText}")
-    public List<TagDTO> getTagListByContainingText(@PathVariable String containingText) {
-        List<Tag> tagList = tagService.getTagListByContainingText(containingText);
-        return tagDTOMapper.tagListToTagDTOList(tagList);
-
-    }
-
-    @GetMapping("/getTagListByTagText/{tagText}")
-    public TagDTO getTagListByTagText(@PathVariable String tagText) {
-        Tag tagList = tagService.getTagByUserIdAndTagText(tagText);
+    @GetMapping("/getTagBySubject/")
+    public TagDTO getTagBySubject(@RequestParam String tagText) {
+        Tag tagList = tagService.getTagBySubject(tagText);
         return tagDTOMapper.tagToTagDTO(tagList);
     }
 
-    @GetMapping("/getAllTag")
-    public List<TagDTO> getAllTag() {
-        List<Tag> tagList = tagService.getTagListByUserId(userService.getLogInUser().getId());
+    @GetMapping("/getTagListByContainingText/")
+    public List<TagDTO> getTagListByContainingText(@RequestParam String containingText) {
+        List<Tag> tagList = tagService.getTagListBySubjectContains(containingText);
+        return tagDTOMapper.tagListToTagDTOList(tagList);
+
+    }
+
+    @GetMapping("/getTagByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public TagDTO getTagByCreatedDate(@RequestParam String createdDate) {
+        Tag tag = tagService.getTagByCreatedDate(createdDate);
+        return tagDTOMapper.tagToTagDTO(tag);
+    }
+
+    @GetMapping("/getTagListByCreatedDateBetween")
+    public List<TagDTO> getTagListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Tag> tagList = tagService.getTagListByCreatedDateBetween(createdDateMin, createdDateMax);
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 
-    @GetMapping("/getTagListByUserId/{userId}")
-    public List<TagDTO> getTagListByUserId(@PathVariable Long userId) {
+    @GetMapping("/getTagListByUserId/")
+    public List<TagDTO> getTagListByUserId(@RequestParam Long userId) {
         List<Tag> tagList = tagService.getTagListByUserId(userId);
-        return tagDTOMapper.tagListToTagDTOList(tagList);
-    }
-
-    @GetMapping("/getTagListByNoteId/{noteId}")
-    public List<TagDTO> getTagListByNoteId(@PathVariable Long noteId) {
-        List<Tag> tagList = tagService.getListOfTagByNoteId(noteId);
-        return tagDTOMapper.tagListToTagDTOList(tagList);
-    }
-
-    @GetMapping("/getTagListByTopicId/{topicId}")
-    public List<TagDTO> getTagListByTopicId(@PathVariable Long topicId) {
-        List<Tag> tagList = tagService.getTagsByTopicId(topicId);
         return tagDTOMapper.tagListToTagDTOList(tagList);
     }
 

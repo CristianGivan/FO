@@ -22,5 +22,5 @@ Namings
 Repository
     getTopicFromUserIdByTopicId
 
-    isRemainderAtNoteAndUser
+    isReminderAtNoteAndUser
 

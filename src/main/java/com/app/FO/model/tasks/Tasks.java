@@ -9,6 +9,7 @@ import com.app.FO.model.expenses.ExpensesTasks;
 import com.app.FO.model.link.LinkTasks;
 import com.app.FO.model.person.PersonTasks;
 import com.app.FO.model.phoneNumber.PhoneNumberTasks;
+import com.app.FO.model.product.ProductTasks;
 import com.app.FO.model.task.TaskStatus;
 import com.app.FO.model.transaction.TransactionTasks;
 import com.app.FO.model.user.User;
@@ -34,13 +35,6 @@ public class Tasks {
     @Column(name = "subject")
     private String subject;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User creator;
-
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -48,10 +42,27 @@ public class Tasks {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
+    @Column(name = "working_time")
+    private Double workingTime;
+
+    @Column(name = "estimated_time")
+    private Double estimatedTime;
+    @Column(name = "estimated_left_time")
+    private Double estimatedLeftTime;
+    @Column(name = "working_progress")
+    private Double workingProgress;
+
     @Column(name = "tasks_status")
     private TaskStatus taskStatus;
 
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User creator;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TasksUser> tasksUserList;
 
@@ -75,6 +86,8 @@ public class Tasks {
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTasks> eventTasksList;
+    @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductTasks> productTasksList;
 
     @OneToMany(mappedBy = "tasks", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTasks> expenseTasksList;

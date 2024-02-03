@@ -21,8 +21,11 @@ public class Note {
     @Column(name = "note_id")
     private Long id;
 
-    @Column(name = "note_text")
-    private String noteText;
+    @Column(name = "subject")
+    private String subject;
+    
+    @Column(name = "type")
+    private String type;
 
     @Column(name = "created_date")
     private LocalDateTime createdDateTime;
@@ -42,19 +45,26 @@ public class Note {
     private List<NoteReminder> noteReminderList;
 
     @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<NoteHistory> noteHistoryList;
-
-    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<TopicNote> topicNoteList;
 
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<NoteHistory> noteHistoryList;
+
     public Note() {
+    }
+
+
+    public Note(String subject, User creator) {
+        this.subject = subject;
+        this.creator = creator;
+        this.createdDateTime = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                ", noteText='" + noteText + '\'' +
+                ", subject='" + subject + '\'' +
                 ", createdDate=" + createdDateTime +
                 ", creator=" + creator.getId() +
                 ", noteUserList=" + noteUserList +
@@ -65,27 +75,46 @@ public class Note {
                 '}';
     }
 
-    public Note(String noteText) {
-        this.noteText = noteText;
-    }
-
-    //todo tbdel
-    public Note(String noteText, User creator, LocalDateTime createdDateTime) {
-        this.noteText = noteText;
-        this.creator = creator;
-        this.createdDateTime = createdDateTime;
-    }
-
-    public Note(String noteText, User creator) {
-        this.noteText = noteText;
-        this.creator = creator;
-        this.createdDateTime = LocalDateTime.now();
-    }
-
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(LocalDateTime createdDate) {
+        this.createdDateTime = createdDate;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User user) {
+        this.creator = user;
+    }
 
     public List<NoteUser> getNoteUserList() {
 
@@ -99,26 +128,6 @@ public class Note {
         this.noteUserList = noteUserList;
     }
 
-
-    public List<NoteReminder> getNoteRemainderList() {
-        if (noteReminderList == null) {
-            noteReminderList = new ArrayList<>();
-        }
-        return noteReminderList;
-    }
-
-    public void setNoteRemainderList(List<NoteReminder> noteReminderList) {
-        this.noteReminderList = noteReminderList;
-    }
-
-    public String getNoteText() {
-        return noteText;
-    }
-
-    public void setNoteText(String note) {
-        this.noteText = note;
-    }
-
     public List<NoteTag> getNoteTagList() {
         if (noteTagList == null) {
             noteTagList = new ArrayList<>();
@@ -130,21 +139,29 @@ public class Note {
         this.noteTagList = noteTags;
     }
 
-    public User getCreator() {
-        return creator;
+    public List<NoteReminder> getNoteReminderList() {
+        if (noteReminderList == null) {
+            noteReminderList = new ArrayList<>();
+        }
+        return noteReminderList;
     }
 
-    public void setCreator(User user) {
-        this.creator = user;
+    public void setNoteReminderList(List<NoteReminder> noteReminderList) {
+        this.noteReminderList = noteReminderList;
     }
 
-    public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
+
+    public List<TopicNote> getTopicNoteList() {
+        if (topicNoteList == null) {
+            topicNoteList = new ArrayList<>();
+        }
+        return topicNoteList;
     }
 
-    public void setCreatedDateTime(LocalDateTime createdDate) {
-        this.createdDateTime = createdDate;
+    public void setTopicNoteList(List<TopicNote> topicNotes) {
+        this.topicNoteList = topicNotes;
     }
+
 
     public List<NoteHistory> getNoteHistoryList() {
         if (noteHistoryList == null) {
@@ -157,14 +174,4 @@ public class Note {
         this.noteHistoryList = noteHistories;
     }
 
-    public List<TopicNote> getTopicNoteList() {
-        if (topicNoteList == null) {
-            topicNoteList = new ArrayList<>();
-        }
-        return topicNoteList;
-    }
-
-    public void setTopicNoteList(List<TopicNote> topicNotes) {
-        this.topicNoteList = topicNotes;
-    }
 }

@@ -322,6 +322,9 @@ public class Person {
     }
 
     public List<PersonPerson> getPersonPersonList() {
+//        if (personPersonList == null) {
+//            personPersonList = new ArrayList<>();
+//        }
         return personPersonList;
     }
 

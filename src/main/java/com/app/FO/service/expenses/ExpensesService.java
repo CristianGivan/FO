@@ -1,19 +1,20 @@
 package com.app.FO.service.expenses;
 
 import com.app.FO.config.DateTime;
+import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.account.Account;
-import com.app.FO.model.account.AccountExpenses;
+import com.app.FO.model.account.ExpensesAccount;
 import com.app.FO.model.expense.Expense;
 import com.app.FO.model.expenses.*;
 import com.app.FO.model.person.Person;
 import com.app.FO.model.reminder.Reminder;
+import com.app.FO.model.shop.Shop;
 import com.app.FO.model.tag.Tag;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.expenses.ExpensesRepository;
-import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +38,7 @@ public class ExpensesService {
     public Expenses postExpenses(String subject) {
         User logInUser = serviceAll.getLogInUser();
 
-        Expenses expenses = expensesRepository.getExpensesFromUserIdBySubject(logInUser.getId(), subject);
-        if (expenses != null) {
-            throw new ExpensesAlreadyExistException("Expenses with this subject already exist");
-        }
-
-        expenses = expensesRepository.save(new Expenses(subject, logInUser));
+        Expenses expenses = expensesRepository.save(new Expenses(subject, logInUser));
 
         ExpensesUser expensesUser = new ExpensesUser(expenses, logInUser);
         expenses.getExpensesUserList().add(expensesUser);
@@ -73,28 +69,52 @@ public class ExpensesService {
         if (expenses == null) {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
-//
-//        if (expenses.getType().equals(type)) {
-//            throw new ExpensesAlreadyExistException("Expenses has already the same type");
-//        }
 
         expenses.setType(type);
 
         return expensesRepository.save(expenses);
     }
 
-    public Expenses putShopToExpenses(Long expensesId, String shop) {
+    public Expenses putExpensesStatusToExpenses(Long expensesId, String expensesStatusText, String dateText) {
+        LocalDateTime date = DateTime.textToLocalDateTime(dateText);
         User logInUser = serviceAll.getLogInUser();
         Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
         if (expenses == null) {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
 
-//        if (expenses.getShop().equals(shop)) {
-//            throw new ExpensesAlreadyExistException("Expenses has already the same shop");
-//        }
+        ExpensesStatus newExpensesStatus = serviceAll.convertExpensesStatusTextToExpensesStatus(expensesStatusText);
+        ExpensesStatus expensesStatus = expenses.getExpensesStatus();
 
-        expenses.setShop(shop);
+        if (expensesStatus == newExpensesStatus) {
+            throw new ExpensesAlreadyExistException("Expenses has already the same status");
+        }
+
+
+        //todo for each chase detect if Balance of planed balance is ok
+        if (newExpensesStatus == ExpensesStatus.UNDEFINE & expensesStatus == ExpensesStatus.COMPLETED) {
+            refundCheckedExpensesAccount(expenses);
+        }
+
+        if (newExpensesStatus == ExpensesStatus.CREATED & expensesStatus == ExpensesStatus.COMPLETED) {
+            refundCheckedExpensesAccount(expenses);
+        }
+
+
+        if (newExpensesStatus == ExpensesStatus.PLANED & expensesStatus == ExpensesStatus.COMPLETED) {
+            refundCheckedExpensesAccount(expenses);
+        }
+
+        if (newExpensesStatus == ExpensesStatus.PENDING & expensesStatus == ExpensesStatus.COMPLETED) {
+            refundCheckedExpensesAccount(expenses);
+        }
+
+        if (newExpensesStatus == ExpensesStatus.COMPLETED) {
+            payedCheckedExpensesAccount(expenses);
+            expenses.setPayedDate(date);
+        }
+
+        expenses.setExpensesStatus(newExpensesStatus);
 
         return expensesRepository.save(expenses);
     }
@@ -107,10 +127,13 @@ public class ExpensesService {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
 
-//        if (expenses.getPayedDate().equals(payedDateTime)) {
-//            throw new ExpensesAlreadyExistException("Expenses has already the same payed date");
-//        }
+        if (expenses.getExpensesStatus() == ExpensesStatus.COMPLETED) {
+            throw new TransactionAlreadyExistException("Transaction is already completed");
+        }
 
+        payedCheckedExpensesAccount(expenses);
+
+        expenses.setExpensesStatus(ExpensesStatus.COMPLETED);
         expenses.setPayedDate(payedDateTime);
 
         return expensesRepository.save(expenses);
@@ -148,7 +171,7 @@ public class ExpensesService {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -242,72 +265,49 @@ public class ExpensesService {
         if (expenses == null) {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
-
         Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found");
         }
-
         ExpensesExpense expensesExpense = serviceAll.getExpensesExpense(expensesId, expenseId);
         if (expensesExpense != null) {
             throw new ExpensesExpenseAlreadyExistException("The expenses already has the expense");
         }
 
-        expensesExpense = new ExpensesExpense(expenses, expense, logInUser);
+        expensesExpense = new ExpensesExpense(expenses, expense);
+
+        expenses.setTotalPrice(expenses.getTotalPrice() + expense.getTotalPrice());
+        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() + expense.getEstimatedTotalPrice());
+
         expenses.getExpensesExpenseList().add(expensesExpense);
         return expensesRepository.save(expenses);
     }
 
-    public Expenses putAccountToExpenses(Long expensesId, Long accountId) {
-        //todo check is the sum is added
+    public Expenses putCheckedToExpenseToExpenses(Long expensesId, Long expenseId, Boolean checked) {
         User logInUser = serviceAll.getLogInUser();
-
         Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
         if (expenses == null) {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
-
-        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
-        if (account == null) {
-            throw new AccountNotFoundException("Account not found");
+        Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
+        if (expense == null) {
+            throw new ExpenseNotFoundException("Expense not found");
+        }
+        ExpensesExpense expensesExpense = serviceAll.getExpensesExpense(expensesId, expenseId);
+        if (expensesExpense == null) {
+            throw new ExpensesExpenseNotFoundException("Expense not found in your list");
         }
 
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(expensesId, accountId);
-        if (accountExpenses != null) {
-            throw new AccountExpensesAlreadyExistException("The expenses already has the account");
-        }
 
-        accountExpenses = new AccountExpenses(account, expenses, expenses.getCheckedPrice());
-        expenses.getAccountExpensesList().add(accountExpenses);
+        // todo add additional operations
+
+        expensesExpense.setChecked(checked);
+        expense.setChecked(checked);
+
         return expensesRepository.save(expenses);
     }
 
-    public Expenses putAccountToExpensesWithAmount(Long expensesId, Long accountId, Double amount) {
-        //todo add more account to an expenses
-        User logInUser = serviceAll.getLogInUser();
-
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
-        if (expenses == null) {
-            throw new ExpensesNotFoundException("Expenses not found in your list");
-        }
-
-        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
-        if (account == null) {
-            throw new AccountNotFoundException("Account not found");
-        }//todo maybe asked for update
-
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(expensesId, accountId);
-        if (accountExpenses != null) {
-            throw new AccountExpensesAlreadyExistException("The expenses already has the account");
-        }
-
-        accountExpenses = new AccountExpenses(account, expenses, amount);
-        expenses.getAccountExpensesList().add(accountExpenses);
-        return expensesRepository.save(expenses);
-    }
-
-
-    public Expenses putPayerToExpenses(Long expensesId, Long personId) {
+    public Expenses putPersonToExpenses(Long expensesId, Long personId) {
         User logInUser = serviceAll.getLogInUser();
 
         Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
@@ -327,6 +327,73 @@ public class ExpensesService {
 
         expensesPerson = new ExpensesPerson(expenses, person);
         expenses.getExpensesPersonList().add(expensesPerson);
+        return expensesRepository.save(expenses);
+    }
+
+    public Expenses putShopToExpenses(Long expensesId, Long shopId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found in your list");
+        }
+
+        Shop shop = serviceAll.getShopFromUserIdAndShopId(logInUser.getId(), shopId);
+        if (shop == null) {
+            throw new ShopNotFoundException("Shop not found");
+        }
+
+        expenses.setShop(shop);
+        return expensesRepository.save(expenses);
+    }
+
+    public Expenses putAccountToExpenses(Long expensesId, Long accountId) {
+        //todo check is the sum is added
+        User logInUser = serviceAll.getLogInUser();
+
+        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found in your list");
+        }
+
+        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found");
+        }
+
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(expensesId, accountId);
+        if (expensesAccount != null) {
+            throw new ExpensesAccountAlreadyExistException("The expenses already has the account");
+        }
+        //todo shall be clarified what  should be done
+//        Double sumFromAccount=expenses.getCheckedPrice();
+        expensesAccount = new ExpensesAccount(account, expenses, expenses.getCheckedPrice());
+        expenses.getExpensesAccountList().add(expensesAccount);
+        return expensesRepository.save(expenses);
+    }
+
+    public Expenses putAccountToExpensesWithAmount(Long expensesId, Long accountId, Double sumFromAccount) {
+        //todo check is the sum is added
+        User logInUser = serviceAll.getLogInUser();
+
+        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found in your list");
+        }
+
+        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found");
+        }
+
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(expensesId, accountId);
+        if (expensesAccount != null) {
+            throw new ExpensesAccountAlreadyExistException("The expenses already has the account");
+        }
+        //todo shall be clarified what  should be done
+//        Double sumFromAccount=expenses.getCheckedPrice();
+        expensesAccount = new ExpensesAccount(account, expenses, sumFromAccount);
+        expenses.getExpensesAccountList().add(expensesAccount);
         return expensesRepository.save(expenses);
     }
 
@@ -364,7 +431,7 @@ public class ExpensesService {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -455,48 +522,25 @@ public class ExpensesService {
         if (expenses == null) {
             throw new ExpensesNotFoundException("Expenses not found in your list");
         }
-
         Expense expense = serviceAll.getExpenseFromUserIdAndExpenseId(logInUser.getId(), expenseId);
         if (expense == null) {
             throw new ExpenseNotFoundException("Expense not found");
         }
-
         ExpensesExpense expensesExpense = serviceAll.getExpensesExpense(expensesId, expenseId);
         if (expensesExpense == null) {
             throw new ExpensesExpenseNotFoundException("The expenses don't has the expense");
         }
 
+
+        expenses.setTotalPrice(expenses.getTotalPrice() - expense.getTotalPrice());
+        expenses.setEstimatedTotalPrice(expenses.getEstimatedTotalPrice() - expense.getEstimatedTotalPrice());
         expenses.getExpensesExpenseList().remove(expensesExpense);
 
         return expensesRepository.save(expenses);
     }
 
-    public Expenses deleteAccountFromExpenses(Long expensesId, Long accountId) {
-        //todo check how to add money back to account
-
-        User logInUser = serviceAll.getLogInUser();
-
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
-        if (expenses == null) {
-            throw new ExpensesNotFoundException("Expenses not found in your list");
-        }
-
-        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
-        if (account == null) {
-            throw new AccountNotFoundException("Account not found");
-        }
-
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(expensesId, accountId);
-        if (accountExpenses == null) {
-            throw new AccountExpensesNotFoundException("The expenses don't has the account");
-        }
-
-        expenses.getAccountExpensesList().remove(accountExpenses);
-
-        return expensesRepository.save(expenses);
-    }
-
-    public Expenses deletePayerFromExpenses(Long expensesId, Long personId) {
+    //
+    public Expenses deletePersonFromExpenses(Long expensesId, Long personId) {
         User logInUser = serviceAll.getLogInUser();
 
         Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
@@ -518,6 +562,47 @@ public class ExpensesService {
 
         return expensesRepository.save(expenses);
     }
+
+    public Expenses deleteShopFromExpenses(Long expensesId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found in your list");
+        }
+
+        expenses.setShop(null);
+
+        return expensesRepository.save(expenses);
+    }
+
+
+    public Expenses deleteAccountFromExpenses(Long expensesId, Long accountId) {
+        //todo check how to add money back to account
+
+        User logInUser = serviceAll.getLogInUser();
+
+        Expenses expenses = expensesRepository.getExpensesFromUserIdByExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found in your list");
+        }
+
+        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("Account not found");
+        }
+
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(accountId, expensesId);
+        if (expensesAccount == null) {
+            throw new ExpensesAccountNotFoundException("The expenses don't has the account");
+        }
+
+        //todo check if shall be recalculated someting
+        expenses.getExpensesAccountList().remove(expensesAccount);
+
+        return expensesRepository.save(expenses);
+    }
+
 
     public List<Expenses> deleteExpenses(Long expensesId) {
         User logInUser = serviceAll.getLogInUser();
@@ -550,13 +635,13 @@ public class ExpensesService {
         return expenses;
     }
 
-    public Expenses getExpensesBySubject(String subject) {
+    public List<Expenses> getExpensesListBySubject(String subject) {
         User logInUser = serviceAll.getLogInUser();
-        Expenses expenses = expensesRepository.getExpensesFromUserIdBySubject(logInUser.getId(), subject);
-        if (expenses == null) {
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdBySubject(logInUser.getId(), subject);
+        if (expensesList.isEmpty()) {
             throw new ExpensesNotFoundException("No expenses found");
         }
-        return expenses;
+        return expensesList;
     }
 
     public List<Expenses> getExpensesListBySubjectContains(String subjectContains) {
@@ -568,13 +653,13 @@ public class ExpensesService {
         return expensesList;
     }
 
-    public Expenses getExpensesByType(String type) {
+    public List<Expenses> getExpensesListByType(String type) {
         User logInUser = serviceAll.getLogInUser();
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByType(logInUser.getId(), type);
-        if (expenses == null) {
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByType(logInUser.getId(), type);
+        if (expensesList.isEmpty()) {
             throw new ExpensesNotFoundException("No expenses found");
         }
-        return expenses;
+        return expensesList;
     }
 
     public List<Expenses> getExpensesListByTypeContains(String typeContains) {
@@ -586,31 +671,64 @@ public class ExpensesService {
         return expensesList;
     }
 
-    public Expenses getExpensesByShop(String shop) {
-        User logInUser = serviceAll.getLogInUser();
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByShop(logInUser.getId(), shop);
-        if (expenses == null) {
-            throw new ExpensesNotFoundException("No expenses found");
-        }
-        return expenses;
-    }
 
-    public List<Expenses> getExpensesListByShopContains(String shopContains) {
+    public List<Expenses> getExpensesListByExpensesStatus(String expensesStatusText) {
+
+        ExpensesStatus expensesStatus = serviceAll.convertExpensesStatusTextToExpensesStatus(expensesStatusText);
+
         User logInUser = serviceAll.getLogInUser();
-        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByShopContains(logInUser.getId(), shopContains);
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByExpensesStatus(logInUser.getId(), expensesStatus.getValue());
         if (expensesList.isEmpty()) {
             throw new ExpensesNotFoundException("No expenses found");
         }
         return expensesList;
     }
 
-    public Expenses getExpensesByCheckedPrice(Double checkedPrice) {
+
+    public List<Expenses> getExpensesListByExpenseNumber(Integer expenseNumber) {
         User logInUser = serviceAll.getLogInUser();
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByCheckedPrice(logInUser.getId(), checkedPrice);
-        if (expenses == null) {
+        List<Expenses> expensesList = expensesRepository.getExpensesFromUserIdByExpenseNumber(logInUser.getId(), expenseNumber);
+        if (expensesList.isEmpty()) {
             throw new ExpensesNotFoundException("No expenses found");
         }
-        return expenses;
+        return expensesList;
+    }
+
+    public List<Expenses> getExpensesListByExpenseNumberBetween(Integer expenseNumberMin, Integer expenseNumberMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByExpenseNumberBetween(logInUser.getId(), expenseNumberMin, expenseNumberMax);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
+    }
+
+
+    public List<Expenses> getExpensesListByCheckedNumber(Integer checkedNumber) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesFromUserIdByCheckedNumber(logInUser.getId(), checkedNumber);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
+    }
+
+    public List<Expenses> getExpensesListByCheckedNumberBetween(Integer checkedNumberMin, Integer checkedNumberMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByCheckedNumberBetween(logInUser.getId(), checkedNumberMin, checkedNumberMax);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
+    }
+
+    public List<Expenses> getExpensesListByCheckedPrice(Double checkedPrice) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByCheckedPrice(logInUser.getId(), checkedPrice);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
     }
 
     public List<Expenses> getExpensesListByCheckedPriceBetween(Double checkedPriceMin, Double checkedPriceMax) {
@@ -623,13 +741,13 @@ public class ExpensesService {
     }
 
 
-    public Expenses getExpensesByTotalPrice(Double totalPrice) {
+    public List<Expenses> getExpensesListByTotalPrice(Double totalPrice) {
         User logInUser = serviceAll.getLogInUser();
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByTotalPrice(logInUser.getId(), totalPrice);
-        if (expenses == null) {
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByTotalPrice(logInUser.getId(), totalPrice);
+        if (expensesList.isEmpty()) {
             throw new ExpensesNotFoundException("No expenses found");
         }
-        return expenses;
+        return expensesList;
     }
 
     public List<Expenses> getExpensesListByTotalPriceBetween(Double totalPriceMin, Double totalPriceMax) {
@@ -641,14 +759,32 @@ public class ExpensesService {
         return expensesList;
     }
 
-    public Expenses getExpensesByPayedDate(String payedDate) {
-        LocalDateTime payedDateTime = DateTime.textToLocalDateTime(payedDate);
+    public List<Expenses> getExpensesListByEstimatedTotalPrice(Double estimatedTotalPrice) {
         User logInUser = serviceAll.getLogInUser();
-        Expenses expenses = expensesRepository.getExpensesFromUserIdByPayedDate(logInUser.getId(), payedDateTime);
-        if (expenses == null) {
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByEstimatedTotalPrice(logInUser.getId(), estimatedTotalPrice);
+        if (expensesList.isEmpty()) {
             throw new ExpensesNotFoundException("No expenses found");
         }
-        return expenses;
+        return expensesList;
+    }
+
+    public List<Expenses> getExpensesListByEstimatedTotalPriceBetween(Double estimatedTotalPriceMin, Double estimatedTotalPriceMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByEstimatedTotalPriceBetween(logInUser.getId(), estimatedTotalPriceMin, estimatedTotalPriceMax);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
+    }
+
+    public List<Expenses> getExpensesListByPayedDate(String payedDate) {
+        LocalDateTime payedDateTime = DateTime.textToLocalDateTime(payedDate);
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByPayedDate(logInUser.getId(), payedDateTime);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
     }
 
     public List<Expenses> getExpensesListByPayedDateBetween(String payedDateMin, String payedDateMax) {
@@ -738,6 +874,25 @@ public class ExpensesService {
         return expensesList;
     }
 
+    public List<Expenses> getExpensesListByPersonId(Long personId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByPersonId(logInUser.getId(), personId);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
+    }
+
+    public List<Expenses> getExpensesListByShopId(Long shopId) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByShopId(logInUser.getId(), shopId);
+        if (expensesList.isEmpty()) {
+            throw new ExpensesNotFoundException("No expenses found");
+        }
+        return expensesList;
+    }
+
+
     public List<Expenses> getExpensesListByAccountId(Long accountId) {
         User logInUser = serviceAll.getLogInUser();
         List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByAccountId(logInUser.getId(), accountId);
@@ -747,16 +902,15 @@ public class ExpensesService {
         return expensesList;
     }
 
-    public List<Expenses> getExpensesListByPayerId(Long payerId) {
-        User logInUser = serviceAll.getLogInUser();
-        List<Expenses> expensesList = expensesRepository.getExpensesListFromUserIdByPayerId(logInUser.getId(), payerId);
-        if (expensesList.isEmpty()) {
-            throw new ExpensesNotFoundException("No expenses found");
-        }
-        return expensesList;
-    }
 
     //-- Other
 
+    private void payedCheckedExpensesAccount(Expenses expenses) {
+        //todo to pay all the checked expenses
+    }
+
+    private void refundCheckedExpensesAccount(Expenses expenses) {
+        //todo to pay all the checked expenses
+    }
 
 }

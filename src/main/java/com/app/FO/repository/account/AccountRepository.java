@@ -77,10 +77,10 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM account as t inner join account_expenses as tn on t.account_id = tn.account_id inner join account_user tu on t.account_id = tu.account_id where tu.user_id=?1 and tn.expenses_id=?2")
+            "SELECT * FROM account as t inner join expenses_account as tn on t.account_id = tn.account_id inner join account_user tu on t.account_id = tu.account_id where tu.user_id=?1 and tn.expenses_id=?2")
     List<Account> getAccountListFromUserIdByExpensesId(Long userId, Long expensesId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM account as t inner join account_transaction as tn on t.account_id = tn.account_id inner join account_user tu on t.account_id = tu.account_id where tu.user_id=?1 and tn.transaction_id=?2")
+            "SELECT * FROM account as t inner join transaction_account as tn on t.account_id = tn.account_id inner join account_user tu on t.account_id = tu.account_id where tu.user_id=?1 and tn.transaction_id=?2")
     List<Account> getAccountListFromUserIdByTransactionId(Long userId, Long transactionId);
 }

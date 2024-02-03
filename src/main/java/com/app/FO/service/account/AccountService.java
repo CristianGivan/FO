@@ -1,6 +1,7 @@
 package com.app.FO.service.account;
 
 import com.app.FO.config.DateTime;
+import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.account.*;
 import com.app.FO.model.expenses.Expenses;
@@ -11,7 +12,6 @@ import com.app.FO.model.topic.Topic;
 import com.app.FO.model.transaction.Transaction;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.account.AccountRepository;
-import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class AccountService {
         this.serviceAll = serviceAll;
     }
 
-//-- Post
+    //-- Post
 
     public Account postAccount(String subject) {
         User logInUser = serviceAll.getLogInUser();
@@ -125,7 +125,7 @@ public class AccountService {
             throw new AccountNotFoundException("Account not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -212,7 +212,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account putExpensesToAccount(Long accountId, Long expensesId) {
+    public Account putExpensesToAccount(Long expensesId, Long accountId) {
         User logInUser = serviceAll.getLogInUser();
 
         Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
@@ -225,17 +225,17 @@ public class AccountService {
             throw new ExpensesNotFoundException("Expenses not found");
         }
 
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(accountId, expensesId);
-        if (accountExpenses != null) {
-            throw new AccountExpensesAlreadyExistException("The account already has the expenses");
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(accountId, expensesId);
+        if (expensesAccount != null) {
+            throw new ExpensesAccountAlreadyExistException("The account already has the expenses");
         }
 
-        accountExpenses = new AccountExpenses(account, expenses, expenses.getCheckedPrice());
-        account.getAccountExpensesList().add(accountExpenses);
+        expensesAccount = new ExpensesAccount(account, expenses, expenses.getCheckedPrice());
+        account.getExpensesAccountList().add(expensesAccount);
         return accountRepository.save(account);
     }
 
-//    public Account putTransactionToAccount(Long accountId, Long transactionId) {
+//    public Account putTransactionToAccount(Long transactionId, Long accountId) {
 //        User logInUser = serviceAll.getLogInUser();
 //
 //        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
@@ -248,14 +248,55 @@ public class AccountService {
 //            throw new TransactionNotFoundException("Transaction not found");
 //        }
 //
-//        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
-//        if (accountTransaction != null) {
-//            throw new AccountTransactionAlreadyExistException("The account already has the transaction");
+//        TransactionAccount transactionAccount = serviceAll.getTransactionAccount(accountId, transactionId);
+//        if (transactionAccount != null) {
+//            throw new TransactionAccountAlreadyExistException("The account already has the transaction");
 //        }
 //
-//        accountTransaction = new AccountTransaction(account, transaction, transaction.getSum());
-//        account.getAccountTransactionList().add(accountTransaction);
+//        transactionAccount = new TransactionAccount(account, transaction, transaction.getSum());
+//        account.getTransactionAccountList().add(transactionAccount);
 //        return accountRepository.save(account);
+//    }
+//
+//    public Transaction putTransactionFromAccountToAccount(Long transactionId, Long accountId, String direction) {
+//        //todo update balance of the previous account
+//        User logInUser = serviceAll.getLogInUser();
+//
+//        Transaction transaction = transactionRepository.getTransactionFromUserIdByTransactionId(logInUser.getId(), transactionId);
+//        if (transaction == null) {
+//            throw new TransactionNotFoundException("Transaction not found in your list");
+//        }
+//
+//        Account account = serviceAll.getAccountFromUserIdAndAccountId(logInUser.getId(), accountId);
+//        if (account == null) {
+//            throw new AccountNotFoundException("Account not found");
+//        }
+//        TransactionAccount transactionAccount = serviceAll.getTransactionAccount(accountId, transactionId);
+//        if (transactionAccount != null) {
+//            throw new TransactionAccountAlreadyExistException("The transaction already has the account");
+//        }
+//
+//        TransactionAccount replacedTransactionAccount = serviceAll.getTransactionAccountByDirection(direction, transactionId);
+//        if (replacedTransactionAccount == null) {
+//            throw new TransactionAccountNotFoundException("The transaction not found at account");
+//        }
+//        Account replacedAccount = replacedTransactionAccount.getAccount();
+//
+//        if (direction.equals("from")) {
+//            replacedAccount.setBalance(replacedAccount.getBalance() + transaction.getSum());
+//            account.setBalance(account.getBalance() - transaction.getSum());
+//        } else if (direction.equals("to")) {
+//            replacedAccount.setBalance(replacedAccount.getBalance() - transaction.getSum());
+//            account.setBalance(account.getBalance() + transaction.getSum());
+//        } else {
+//            throw new TransactionAccountNotFoundException("The direction is not specified correctly");
+//        }
+//
+//        transactionAccount = new TransactionAccount(account, transaction, transaction.getSum(), direction);
+//        transaction.getTransactionAccountList().add(transactionAccount);
+//        //todo for the future the transactionAccount to be moved to history
+//        replacedTransactionAccount.setDirection(replacedTransactionAccount.getDirection() + " deleted");
+//        return transactionRepository.save(transaction);
 //    }
 
     //--Delete
@@ -291,7 +332,7 @@ public class AccountService {
             throw new AccountNotFoundException("Account not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -375,7 +416,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account deleteExpensesFromAccount(Long accountId, Long expensesId) {
+    public Account deleteExpensesFromAccount(Long expensesId, Long accountId) {
         User logInUser = serviceAll.getLogInUser();
 
         Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
@@ -388,19 +429,19 @@ public class AccountService {
             throw new ExpensesNotFoundException("Expenses not found");
         }
 
-        AccountExpenses accountExpenses = serviceAll.getAccountExpenses(accountId, expensesId);
-        if (accountExpenses == null) {
-            throw new AccountExpensesNotFoundException("The account don't has the expenses");
+        ExpensesAccount expensesAccount = serviceAll.getExpensesAccount(accountId, expensesId);
+        if (expensesAccount == null) {
+            throw new ExpensesAccountNotFoundException("The account don't has the expenses");
         }
         // todo tbc
 //        Double sum  =expenses.total
 
-        account.getAccountExpensesList().remove(accountExpenses);
+        account.getExpensesAccountList().remove(expensesAccount);
 
         return accountRepository.save(account);
     }
 
-    public Account deleteTransactionFromAccount(Long accountId, Long transactionId) {
+    public Account deleteTransactionFromAccount(Long transactionId, Long accountId) {
         User logInUser = serviceAll.getLogInUser();
 
         Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
@@ -413,12 +454,12 @@ public class AccountService {
             throw new TransactionNotFoundException("Transaction not found");
         }
 
-        AccountTransaction accountTransaction = serviceAll.getAccountTransaction(accountId, transactionId);
-        if (accountTransaction == null) {
+        TransactionAccount transactionAccount = serviceAll.getTransactionAccount(accountId, transactionId);
+        if (transactionAccount == null) {
             throw new AccountTransactionNotFoundException("The account don't has the transaction");
         }
 
-        account.getAccountTransactionList().remove(accountTransaction);
+        account.getTransactionAccountList().remove(transactionAccount);
 
         return accountRepository.save(account);
     }
@@ -445,6 +486,15 @@ public class AccountService {
             throw new AccountNotFoundException("No account found");
         }
         return accountList;
+    }
+
+    public Account getAccountByAccountId(Long accountId) {
+        User logInUser = serviceAll.getLogInUser();
+        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
+        if (account == null) {
+            throw new AccountNotFoundException("No account found");
+        }
+        return account;
     }
 
     public Account getAccountBySubject(String subject) {
@@ -522,14 +572,6 @@ public class AccountService {
         return accountList;
     }
 
-    public Account getAccountByAccountId(Long accountId) {
-        User logInUser = serviceAll.getLogInUser();
-        Account account = accountRepository.getAccountFromUserIdByAccountId(logInUser.getId(), accountId);
-        if (account == null) {
-            throw new AccountNotFoundException("No account found");
-        }
-        return account;
-    }
 
     public List<Account> getAccountListByUserId(Long userId) {
         User logInUser = serviceAll.getLogInUser();

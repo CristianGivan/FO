@@ -54,7 +54,7 @@ public class TaskFDTO {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", taskStatus=" + taskStatus +
-                ", remainders=" + reminderDTOList +
+                ", Reminders=" + reminderDTOList +
                 ", taskEfforts=" + taskEffortSDTOList +
                 ", noteTags=" + tagDTOList +
                 ", taskNotes=" + noteDTOList +
@@ -119,11 +119,11 @@ public class TaskFDTO {
         this.taskStatus = taskStatus;
     }
 
-    public List<ReminderDTO> getRemainderDTOList() {
+    public List<ReminderDTO> getReminderDTOList() {
         return reminderDTOList;
     }
 
-    public void setRemainderDTOList(List<ReminderDTO> reminderDTOList) {
+    public void setReminderDTOList(List<ReminderDTO> reminderDTOList) {
         this.reminderDTOList = reminderDTOList;
     }
 

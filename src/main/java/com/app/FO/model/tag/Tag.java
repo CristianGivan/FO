@@ -10,6 +10,7 @@ import com.app.FO.model.link.LinkTag;
 import com.app.FO.model.note.NoteTag;
 import com.app.FO.model.person.PersonTag;
 import com.app.FO.model.phoneNumber.PhoneNumberTag;
+import com.app.FO.model.product.ProductTag;
 import com.app.FO.model.task.TaskTag;
 import com.app.FO.model.tasks.TasksTag;
 import com.app.FO.model.topic.TopicTag;
@@ -72,6 +73,8 @@ public class Tag {
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EventTag> eventTagList;
 
+    @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductTag> productTagList;
     @OneToMany(mappedBy = "tag", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseTag> expenseTagList;
 

@@ -165,11 +165,49 @@ public class PersonController {
         return personDTOMapper.personToPersonDTO(person);
     }
 
+
     @DeleteMapping("/deleteTasksFromPerson")
     public PersonDTO deleteTasksFromPerson(@RequestParam Long personId, @RequestParam Long tasksId) {
         Person person = personService.deleteTasksFromPerson(personId, tasksId);
         return personDTOMapper.personToPersonDTO(person);
     }
+
+    @DeleteMapping("/deleteDocumentFromPerson")
+    public PersonDTO deleteDocumentFromPerson(@RequestParam Long personId, @RequestParam Long tasksId) {
+        Person person = personService.deleteDocumentFromPerson(personId, tasksId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @DeleteMapping("/deleteAddressFromPerson")
+    public PersonDTO deleteAddressFromPerson(@RequestParam Long personId, @RequestParam Long addressId) {
+        Person person = personService.deleteAddressFromPerson(personId, addressId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @DeleteMapping("/deleteEmailFromPerson")
+    public PersonDTO deleteEmailFromPerson(@RequestParam Long personId, @RequestParam Long emailId) {
+        Person person = personService.deleteEmailFromPerson(personId, emailId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @DeleteMapping("/deletePhoneNumberFromPerson")
+    public PersonDTO deletePhoneNumberFromPerson(@RequestParam Long personId, @RequestParam Long phoneNumberId) {
+        Person person = personService.deletePhoneNumberFromPerson(personId, phoneNumberId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @DeleteMapping("/deleteDatesFromPerson")
+    public PersonDTO deleteDatesFromPerson(@RequestParam Long personId, @RequestParam Long datesId) {
+        Person person = personService.deleteDatesFromPerson(personId, datesId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
+    @DeleteMapping("/deletePersonFromPerson")
+    public PersonDTO deletePersonFromPerson(@RequestParam Long personId, @RequestParam Long releatedPersonId) {
+        Person person = personService.deletePersonFromPerson(personId, releatedPersonId);
+        return personDTOMapper.personToPersonDTO(person);
+    }
+
 
     @DeleteMapping("/deletePerson")
     public List<PersonDTO> deletePerson(@RequestParam Long personId) {

@@ -5,6 +5,7 @@ import com.app.FO.mapper.dto.tasks.TasksDTO;
 import com.app.FO.mapper.mappers.TasksDTOMapper;
 import com.app.FO.model.tasks.Tasks;
 import com.app.FO.service.tasks.TasksService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -138,6 +139,11 @@ public class TasksController {
         return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
     }
 
+    @GetMapping("/getTasksById")
+    public TasksDTO getTasksById(@RequestParam Long tasksId) {
+        Tasks tasks = tasksService.getTasksByTasksId(tasksId);
+        return tasksDTOMapper.tasksToTasksDTO(tasks);
+    }
 
     @GetMapping("/getTasksBySubject")
     public TasksDTO getTasksBySubject(@RequestParam String subject) {
@@ -151,11 +157,99 @@ public class TasksController {
         return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
     }
 
-    @GetMapping("/getTasksById")
-    public TasksDTO getTasksById(@RequestParam Long tasksId) {
-        Tasks tasks = tasksService.getTasksByTasksId(tasksId);
+    @GetMapping("/getTasksByCreatedDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public TasksDTO getTasksByCreatedDate(@RequestParam String createdDate) {
+        Tasks tasks = tasksService.getTasksByCreatedDate(createdDate);
         return tasksDTOMapper.tasksToTasksDTO(tasks);
     }
+
+    @GetMapping("/getTasksListByCreatedDateBetween")
+    public List<TasksDTO> getTasksListByCreatedDateBetween(@RequestParam String createdDateMin, @RequestParam String createdDateMax) {
+        List<Tasks> tasksList = tasksService.getTasksListByCreatedDateBetween(createdDateMin, createdDateMax);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksByStartDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public List<TasksDTO> getTasksByStartDate(@RequestParam String startDate) {
+        List<Tasks> tasksList = tasksService.getTasksByStartDate(startDate);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksListByStartDateBetween")
+    public List<TasksDTO> getTasksListByStartDateBetween(@RequestParam String startDateMin, @RequestParam String startDateMax) {
+        List<Tasks> tasksList = tasksService.getTasksListByStartDateBetween(startDateMin, startDateMax);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+
+    @GetMapping("/getTasksByEndDate")
+    @ApiOperation(value = "Formatter    yyyy-MM-dd HH:mm:ss 2023.06.01 13:14:15")
+    public List<TasksDTO> getTasksByEndDate(@RequestParam String endDate) {
+        List<Tasks> tasksList = tasksService.getTasksByEndDate(endDate);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksListByEndDateBetween")
+    public List<TasksDTO> getTasksListByEndDateBetween(@RequestParam String endDateMin, @RequestParam String endDateMax) {
+        List<Tasks> tasksList = tasksService.getTasksListByEndDateBetween(endDateMin, endDateMax);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksByWorkingTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TasksDTO> getTasksByWorkingTime(@RequestParam Double workingTime) {
+        List<Tasks> tasksList = tasksService.getTasksByWorkingTime(workingTime);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksListByWorkingTimeBetween")
+    public List<TasksDTO> getTasksListByWorkingTimeBetween(@RequestParam Double workingTimeMin, @RequestParam Double workingTimeMax) {
+        List<Tasks> tasksList = tasksService.getTasksListByWorkingTimeBetween(workingTimeMin, workingTimeMax);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksByEstimatedTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TasksDTO> getTasksByEstimatedTime(@RequestParam Double estimatedTime) {
+        List<Tasks> tasksList = tasksService.getTasksByEstimatedTime(estimatedTime);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksListByEstimatedTimeBetween")
+    public List<TasksDTO> getTasksListByEstimatedTimeBetween(@RequestParam Double estimatedTimeMin, @RequestParam Double estimatedTimeMax) {
+        List<Tasks> tasksList = tasksService.getTasksListByEstimatedTimeBetween(estimatedTimeMin, estimatedTimeMax);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksByEstimatedLeftTime")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TasksDTO> getTasksByEstimatedLeftTime(@RequestParam Double estimatedLeftTime) {
+        List<Tasks> tasksList = tasksService.getTasksByEstimatedLeftTime(estimatedLeftTime);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksListByEstimatedLeftTimeBetween")
+    public List<TasksDTO> getTasksListByEstimatedLeftTimeBetween(@RequestParam Double estimatedLeftTimeMin, @RequestParam Double estimatedLeftTimeMax) {
+        List<Tasks> tasksList = tasksService.getTasksListByEstimatedLeftTimeBetween(estimatedLeftTimeMin, estimatedLeftTimeMax);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+
+    @GetMapping("/getTasksByWorkingProgress")
+    @ApiOperation(value = "Hours 1:30h = 1.5")
+    public List<TasksDTO> getTasksByWorkingProgress(@RequestParam Double workingProgress) {
+        List<Tasks> tasksList = tasksService.getTasksByWorkingProgress(workingProgress);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
+    @GetMapping("/getTasksByTasksStatus")
+    public List<TasksDTO> getTasksByTasksStatus(@RequestParam String tasksStatus) {
+        List<Tasks> tasksList = tasksService.getTasksByTasksStatus(tasksStatus);
+        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
+    }
+
 
     @GetMapping("/getTasksListByUserId")
     public List<TasksDTO> getTasksListByUserId(@RequestParam Long userId) {
@@ -185,25 +279,6 @@ public class TasksController {
     @GetMapping("/getTasksListByTaskId")
     public List<TasksDTO> getTasksListByTaskId(@RequestParam Long taskId) {
         List<Tasks> tasksList = tasksService.getTasksListByTaskId(taskId);
-        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
-    }
-
-
-    @GetMapping("/getTasksByStartDate")
-    public List<TasksDTO> getTasksByStartDate(@RequestParam String startDate) {
-        List<Tasks> tasksList = tasksService.getTasksByStartDate(startDate);
-        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
-    }
-
-    @GetMapping("/getTasksByEndDate")
-    public List<TasksDTO> getTasksByEndDate(@RequestParam String endDate) {
-        List<Tasks> tasksList = tasksService.getTasksByEndDate(endDate);
-        return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
-    }
-
-    @GetMapping("/getTasksByTasksStatus")
-    public List<TasksDTO> getTasksByTasksStatus(@RequestParam String tasksStatus) {
-        List<Tasks> tasksList = tasksService.getTasksByTasksStatus(tasksStatus);
         return tasksDTOMapper.tasksListToTasksDTOList(tasksList);
     }
 

@@ -1,6 +1,7 @@
 package com.app.FO.model.expense;
 
 import com.app.FO.model.expenses.ExpensesExpense;
+import com.app.FO.model.product.ProductExpense;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,22 +22,31 @@ public class Expense {
     @Column(name = "expense_id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-    @Column(name = "producer")
-    private String producer;
+
     @Column(name = "subject")
     private String subject;
+
+    @Column(name = "checked")
+    private Boolean checked;
     @Column(name = "category")
     private String category;
-    @Column(name = "number_buys")
-    private Integer numberOfBuys;
-    @Column(name = "number_mean")
-    private Integer numberForMean;
+    @Column(name = "quantity")
+    private Double quantity;
+    @Column(name = "unit_price")
+    private Double unitPrice;
+    @Column(name = "total_price")
+    private Double totalPrice;
+
     @Column(name = "mean_quantity")
     private Double meanQuantity;
     @Column(name = "mean_unit_price")
     private Double meanUnitPrice;
+
+    @Column(name = "estimated_total_price")
+    private Double estimatedTotalPrice;
+    @Column(name = "checked_date")
+    private LocalDateTime checkedDate;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -60,18 +70,17 @@ public class Expense {
     private List<ExpenseTasks> expenseTasksList;
 
     @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductExpense> productExpenseList;
+    @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesExpense> expensesExpenseList;
-
     @OneToMany(mappedBy = "expense", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpenseHistory> expenseHistoryList;
 
     public Expense() {
     }
 
-    public Expense(String name, String producer, User creator) {
-        this.subject = name;
-        this.subject = producer;
-        this.subject = name + " from " + producer;
+    public Expense(String subject, User creator) {
+        this.subject = subject;
         this.creator = creator;
         this.createdDate = LocalDateTime.now();
     }
@@ -80,21 +89,24 @@ public class Expense {
     public String toString() {
         return "Expense{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", producer='" + producer + '\'' +
                 ", subject='" + subject + '\'' +
+                ", checked=" + checked +
                 ", category='" + category + '\'' +
-                ", numberOfBuys=" + numberOfBuys +
-                ", numberForMean=" + numberForMean +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", totalPrice=" + totalPrice +
                 ", meanQuantity=" + meanQuantity +
                 ", meanUnitPrice=" + meanUnitPrice +
+                ", estimatedTotalPrice=" + estimatedTotalPrice +
+                ", checkedDate=" + checkedDate +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator.getId() +
+                ", creator=" + creator +
                 ", expenseUserList=" + expenseUserList +
                 ", expenseTagList=" + expenseTagList +
                 ", expenseReminderList=" + expenseReminderList +
                 ", expenseTopicList=" + expenseTopicList +
                 ", expenseTasksList=" + expenseTasksList +
+                ", productExpenseList=" + productExpenseList +
                 ", expensesExpenseList=" + expensesExpenseList +
                 ", expenseHistoryList=" + expenseHistoryList +
                 '}';
@@ -108,27 +120,6 @@ public class Expense {
         this.id = id;
     }
 
-    public String getName() {
-        if (name == null) {
-            name = "";
-        }
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProducer() {
-        if (producer == null) {
-            producer = "";
-        }
-        return producer;
-    }
-
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
 
     public String getSubject() {
         return subject;
@@ -138,6 +129,16 @@ public class Expense {
         this.subject = subject;
     }
 
+    public Boolean getChecked() {
+        if (checked == null) {
+            checked = false;
+        }
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
 
     public String getCategory() {
         return category;
@@ -147,23 +148,54 @@ public class Expense {
         this.category = category;
     }
 
-    public Integer getNumberOfBuys() {
-        return numberOfBuys;
+    public Double getQuantity() {
+        if (quantity == null) {
+            quantity = 0.0;
+        }
+        return quantity;
     }
 
-    public void setNumberOfBuys(Integer numberOfBuys) {
-        this.numberOfBuys = numberOfBuys;
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 
-    public Integer getNumberForMean() {
-        return numberForMean;
+    public Double getUnitPrice() {
+        if (unitPrice == null) {
+            unitPrice = 0.0;
+        }
+        return unitPrice;
     }
 
-    public void setNumberForMean(Integer numberForMean) {
-        this.numberForMean = numberForMean;
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Double getTotalPrice() {
+        if (totalPrice == null) {
+            totalPrice = 0.0;
+        }
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Double getEstimatedTotalPrice() {
+        if (estimatedTotalPrice == null) {
+            estimatedTotalPrice = 0.0;
+        }
+        return estimatedTotalPrice;
+    }
+
+    public void setEstimatedTotalPrice(Double estimatedTotalPrice) {
+        this.estimatedTotalPrice = estimatedTotalPrice;
     }
 
     public Double getMeanQuantity() {
+        if (meanQuantity == null) {
+            meanQuantity = 0.0;
+        }
         return meanQuantity;
     }
 
@@ -172,11 +204,22 @@ public class Expense {
     }
 
     public Double getMeanUnitPrice() {
+        if (meanUnitPrice == null) {
+            meanUnitPrice = 0.0;
+        }
         return meanUnitPrice;
     }
 
     public void setMeanUnitPrice(Double meanUnitPrice) {
         this.meanUnitPrice = meanUnitPrice;
+    }
+
+    public LocalDateTime getCheckedDate() {
+        return checkedDate;
+    }
+
+    public void setCheckedDate(LocalDateTime checkedDate) {
+        this.checkedDate = checkedDate;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -222,7 +265,6 @@ public class Expense {
         this.expenseReminderList = expenseReminderList;
     }
 
-
     public List<ExpenseTopic> getExpenseTopicList() {
         return expenseTopicList;
     }
@@ -239,6 +281,13 @@ public class Expense {
         this.expenseTasksList = expenseTasksList;
     }
 
+    public List<ProductExpense> getProductExpenseList() {
+        return productExpenseList;
+    }
+
+    public void setProductExpenseList(List<ProductExpense> productExpenseList) {
+        this.productExpenseList = productExpenseList;
+    }
 
     public List<ExpensesExpense> getExpensesExpenseList() {
         return expensesExpenseList;

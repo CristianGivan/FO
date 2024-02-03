@@ -145,6 +145,7 @@ public class Email {
         this.emailTagList = emailTagList;
     }
 
+
     public List<EmailReminder> getEmailReminderList() {
         if (emailReminderList == null) {
             emailReminderList = new ArrayList<>();

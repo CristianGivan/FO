@@ -95,7 +95,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> getPersonListFromUserIdByTagId(Long userId, Long tagId);
 
     @Query(nativeQuery = true, value =
-            "SELECT * FROM person as t inner join person_reminder as tr on t.person_id = tr.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tr.reminder_id=?2")
+//            "SELECT * FROM person as t inner join person_reminder as tr on t.person_id = tr.person_id inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1 and tr.reminder_id=?2")
+            "SELECT * FROM person as t inner join (SELECT ti.person_id FROM (SELECT t.person_id FROM person as t inner join person_user tu on t.person_id = tu.person_id where tu.user_id=?1) as ti inner join person_person as pp on ti.person_id = pp.person_id where pp.related_person_id=?2)as tr on tr.person_id=t.person_id")
     List<Person> getPersonListFromUserIdByReminderId(Long userId, Long reminderId);
 
     @Query(nativeQuery = true, value =

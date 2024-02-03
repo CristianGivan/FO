@@ -32,8 +32,8 @@ public class EventController {
         return eventDTOMapper.eventToEventDTO(event);
     }
 
-
     //-- PutMapping
+
     @PutMapping("/putSubjectToEvent")
     public EventDTO putSubjectToEvent(@RequestParam Long eventId, @RequestParam String subject) {
         Event event = eventService.putSubjectToEvent(eventId, subject);
@@ -51,7 +51,6 @@ public class EventController {
         Event event = eventService.putTagToEvent(eventId, tagId);
         return eventDTOMapper.eventToEventDTO(event);
     }
-
 
     @PutMapping("/putReminderToEvent")
     public EventDTO putReminderToEvent(@RequestParam Long eventId, @RequestParam Long reminderId) {
@@ -117,6 +116,20 @@ public class EventController {
         Event event = eventService.deleteTasksFromEvent(eventId, tasksId);
         return eventDTOMapper.eventToEventDTO(event);
     }
+
+    @DeleteMapping("/deleteExpensesFromEvent")
+    public EventDTO deleteExpensesFromEvent(@RequestParam Long eventId, @RequestParam Long expensesId) {
+        Event event = eventService.deleteExpensesFromEvent(eventId, expensesId);
+        return eventDTOMapper.eventToEventDTO(event);
+    }
+
+
+    @DeleteMapping("/deletePersonFromEvent")
+    public EventDTO deletePersonFromEvent(@RequestParam Long eventId, @RequestParam Long personId) {
+        Event event = eventService.deletePersonFromEvent(eventId, personId);
+        return eventDTOMapper.eventToEventDTO(event);
+    }
+
 
     @DeleteMapping("/deleteEvent")
     public List<EventDTO> deleteEvent(@RequestParam Long eventId) {

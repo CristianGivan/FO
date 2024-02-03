@@ -42,15 +42,15 @@ public abstract class NoteDTOMapper {
     public abstract List<NoteDTO> noteListToNoteDTOList(List<Note> note);
 
     @Mapping(target = "noteId", source = "id")
-    @Mapping(target = "userDTOList", expression = "java(" +
-            "userDTOMapper.userListToUserDTOList(userService.getUserListByNoteId(noteId))" +
-            ")")
-    @Mapping(target = "tagDTOList", expression = "java(" +
-            "tagDTOMapper.tagListToTagDTOList(tagService.getListOfTagByNoteId(noteId))" +
-            ")")
-    @Mapping(target = "remainderDTOList", expression = "java(" +
-            "reminderDTOMapper.reminderListTOReminderDTOList(reminderService.getReminderListByNoteId(noteId))" +
-            ")")
+//    @Mapping(target = "userDTOList", expression = "java(" +
+//            "userDTOMapper.userListToUserDTOList(userService.getUserListByNoteId(noteId))" +
+//            ")")
+//    @Mapping(target = "tagDTOList", expression = "java(" +
+//            "tagDTOMapper.tagListToTagDTOList(tagService.getListOfTagByNoteId(noteId))" +
+//            ")")
+//    @Mapping(target = "ReminderDTOList", expression = "java(" +
+//            "reminderDTOMapper.reminderListTOReminderDTOList(reminderService.getReminderListByNoteId(noteId))" +
+//            ")")
 //    @Mapping(target = "topicDTOList", expression = "java(" +
 //            "topicDTOMapper.TopicListToTopicDTOList(topicService.getTopicsByNote(noteId))" +
 //            ")")

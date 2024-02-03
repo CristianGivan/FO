@@ -1,11 +1,13 @@
 package com.app.FO.model.expenses;
 
-import com.app.FO.model.account.AccountExpenses;
+import com.app.FO.model.account.ExpensesAccount;
+import com.app.FO.model.shop.Shop;
 import com.app.FO.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,17 +28,25 @@ public class Expenses {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "shop")
-    private String shop;
+    @Column(name = "expenses_status")
+    private ExpensesStatus expensesStatus;
 
-    @Column(name = "estimatedTotalPrice")
+
+    @Column(name = "expense_number")
+    private Integer expenseNumber;
+
+    @Column(name = "checked_number")
+    private Integer checkedNumber;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
+
+    @Column(name = "estimated_total_price")
     private Double estimatedTotalPrice;
 
-    @Column(name = "checkedPrice")
+    @Column(name = "checked_price")
     private Double checkedPrice;
 
-    @Column(name = "totalPrice")
-    private Double totalPrice;
 
     @Column(name = "payedDate")
     private LocalDateTime payedDate;
@@ -68,8 +78,16 @@ public class Expenses {
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesPerson> expensesPersonList;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "shop_id")
+    @JsonIgnore
+    private Shop shop;
+
+
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountExpenses> accountExpensesList;
+    private List<ExpensesAccount> expensesAccountList;
+
+
     @OneToMany(mappedBy = "expenses", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ExpensesHistory> expensesHistoryList;
 
@@ -89,21 +107,24 @@ public class Expenses {
                 "id=" + id +
                 ", subject='" + subject + '\'' +
                 ", type='" + type + '\'' +
-                ", shop='" + shop + '\'' +
+                ", expensesStatus=" + expensesStatus +
+                ", shop=" + shop +
+                ", expenseNumber=" + expenseNumber +
+                ", checkedNumber=" + checkedNumber +
+                ", totalPrice=" + totalPrice +
                 ", estimatedTotalPrice=" + estimatedTotalPrice +
                 ", checkedPrice=" + checkedPrice +
-                ", totalPrice=" + totalPrice +
                 ", payedDate=" + payedDate +
                 ", createdDate=" + createdDate +
-                ", creator=" + creator.getId() +
+                ", creator=" + creator +
                 ", expensesUserList=" + expensesUserList +
                 ", expensesTagList=" + expensesTagList +
                 ", expensesReminderList=" + expensesReminderList +
                 ", expensesTopicList=" + expensesTopicList +
                 ", expensesTasksList=" + expensesTasksList +
+                ", expensesPersonList=" + expensesPersonList +
                 ", expensesExpenseList=" + expensesExpenseList +
-                ", expensesPayerList=" + expensesPersonList +
-                ", accountExpensesList=" + accountExpensesList +
+                ", expensesAccountList=" + expensesAccountList +
                 ", expensesHistoryList=" + expensesHistoryList +
                 '}';
     }
@@ -132,15 +153,48 @@ public class Expenses {
         this.type = type;
     }
 
-    public String getShop() {
+    public ExpensesStatus getExpensesStatus() {
+        return expensesStatus;
+    }
+
+    public void setExpensesStatus(ExpensesStatus expensesStatus) {
+        this.expensesStatus = expensesStatus;
+    }
+
+    public Shop getShop() {
         return shop;
     }
 
-    public void setShop(String shop) {
+    public void setShop(Shop shop) {
         this.shop = shop;
     }
 
+    public Integer getExpenseNumber() {
+        if (expenseNumber == null) {
+            expenseNumber = 0;
+        }
+        return expenseNumber;
+    }
+
+    public void setExpenseNumber(Integer expenseNumber) {
+        this.expenseNumber = expenseNumber;
+    }
+
+    public Integer getCheckedNumber() {
+        if (checkedNumber == null) {
+            checkedNumber = 0;
+        }
+        return checkedNumber;
+    }
+
+    public void setCheckedNumber(Integer checkedNumber) {
+        this.checkedNumber = checkedNumber;
+    }
+
     public Double getEstimatedTotalPrice() {
+        if (estimatedTotalPrice == null) {
+            estimatedTotalPrice = 0.0;
+        }
         return estimatedTotalPrice;
     }
 
@@ -149,6 +203,9 @@ public class Expenses {
     }
 
     public Double getCheckedPrice() {
+        if (checkedPrice == null) {
+            checkedPrice = 0.0;
+        }
         return checkedPrice;
     }
 
@@ -157,6 +214,9 @@ public class Expenses {
     }
 
     public Double getTotalPrice() {
+        if (totalPrice == null) {
+            totalPrice = 0.0;
+        }
         return totalPrice;
     }
 
@@ -189,6 +249,9 @@ public class Expenses {
     }
 
     public List<ExpensesUser> getExpensesUserList() {
+        if (expensesUserList == null) {
+            expensesUserList = new ArrayList<>();
+        }
         return expensesUserList;
     }
 
@@ -240,16 +303,17 @@ public class Expenses {
         return expensesPersonList;
     }
 
-    public void setExpensesPersonList(List<ExpensesPerson> expensesPayerList) {
-        this.expensesPersonList = expensesPayerList;
+    public void setExpensesPersonList(List<ExpensesPerson> expensesPersonList) {
+        this.expensesPersonList = expensesPersonList;
     }
 
-    public List<AccountExpenses> getAccountExpensesList() {
-        return accountExpensesList;
+
+    public List<ExpensesAccount> getExpensesAccountList() {
+        return expensesAccountList;
     }
 
-    public void setAccountExpensesList(List<AccountExpenses> accountExpensesList) {
-        this.accountExpensesList = accountExpensesList;
+    public void setExpensesAccountList(List<ExpensesAccount> expensesAccountList) {
+        this.expensesAccountList = expensesAccountList;
     }
 
     public List<ExpensesHistory> getExpensesHistoryList() {

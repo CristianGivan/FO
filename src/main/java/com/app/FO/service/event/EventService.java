@@ -1,6 +1,7 @@
 package com.app.FO.service.event;
 
 import com.app.FO.config.DateTime;
+import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.event.*;
 import com.app.FO.model.expenses.Expenses;
@@ -11,7 +12,6 @@ import com.app.FO.model.tasks.Tasks;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.event.EventRepository;
-import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -118,7 +118,7 @@ public class EventService {
             throw new EventNotFoundException("Event not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -285,7 +285,7 @@ public class EventService {
             throw new EventNotFoundException("Event not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -365,6 +365,52 @@ public class EventService {
         }
 
         event.getEventTasksList().remove(eventTasks);
+
+        return eventRepository.save(event);
+    }
+
+    public Event deleteExpensesFromEvent(Long eventId, Long expensesId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Event event = eventRepository.getEventFromUserIdByEventId(logInUser.getId(), eventId);
+        if (event == null) {
+            throw new EventNotFoundException("Event not found in your list");
+        }
+
+        Expenses expenses = serviceAll.getExpensesFromUserIdAndExpensesId(logInUser.getId(), expensesId);
+        if (expenses == null) {
+            throw new ExpensesNotFoundException("Expenses not found");
+        }
+
+        EventExpenses eventExpenses = serviceAll.getEventExpenses(eventId, expensesId);
+        if (eventExpenses == null) {
+            throw new EventExpensesNotFoundException("The event don't has the expenses");
+        }
+
+        event.getEventExpensesList().remove(eventExpenses);
+
+        return eventRepository.save(event);
+    }
+
+    public Event deletePersonFromEvent(Long eventId, Long personId) {
+        User logInUser = serviceAll.getLogInUser();
+
+        Event event = eventRepository.getEventFromUserIdByEventId(logInUser.getId(), eventId);
+        if (event == null) {
+            throw new EventNotFoundException("Event not found in your list");
+        }
+
+        Person person = serviceAll.getPersonFromUserIdAndPersonId(logInUser.getId(), personId);
+        if (person == null) {
+            throw new PersonNotFoundException("Person not found");
+        }
+
+        EventPerson eventPerson = serviceAll.getEventPerson(eventId, personId);
+        if (eventPerson == null) {
+            throw new EventPersonNotFoundException("The event don't has the person");
+        }
+
+        event.getEventPersonList().remove(eventPerson);
 
         return eventRepository.save(event);
     }

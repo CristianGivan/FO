@@ -103,11 +103,11 @@ public class NoteFDTO {
         this.topicDTOList = topicDTOList;
     }
 
-    public List<ReminderDTO> getRemainderDTOList() {
+    public List<ReminderDTO> getReminderDTOList() {
         return reminderDTOList;
     }
 
-    public void setRemainderDTOList(List<ReminderDTO> reminderDTOList) {
+    public void setReminderDTOList(List<ReminderDTO> reminderDTOList) {
         this.reminderDTOList = reminderDTOList;
     }
 

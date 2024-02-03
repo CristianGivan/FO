@@ -51,10 +51,10 @@ public class Account {
     private List<AccountReminder> accountReminderList;
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountExpenses> accountExpensesList;
+    private List<ExpensesAccount> expensesAccountList;
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AccountTransaction> accountTransactionList;
+    private List<TransactionAccount> transactionAccountList;
 
     @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AccountHistory> accountHistoryList;
@@ -83,8 +83,8 @@ public class Account {
                 ", accountTasksList=" + accountTasksList +
                 ", accountTagList=" + accountTagList +
                 ", accountReminderList=" + accountReminderList +
-                ", accountExpensesList=" + accountExpensesList +
-                ", accountTransactionList=" + accountTransactionList +
+                ", expensesAccountList=" + expensesAccountList +
+                ", transactionAccountList=" + transactionAccountList +
                 ", accountHistoryList=" + accountHistoryList +
                 '}';
     }
@@ -114,6 +114,9 @@ public class Account {
     }
 
     public Double getBalance() {
+        if (balance == null) {
+            balance = 0.0;
+        }
         return balance;
     }
 
@@ -180,20 +183,20 @@ public class Account {
         this.accountReminderList = accountReminderList;
     }
 
-    public List<AccountExpenses> getAccountExpensesList() {
-        return accountExpensesList;
+    public List<ExpensesAccount> getExpensesAccountList() {
+        return expensesAccountList;
     }
 
-    public void setAccountExpensesList(List<AccountExpenses> accountExpensesList) {
-        this.accountExpensesList = accountExpensesList;
+    public void setExpensesAccountList(List<ExpensesAccount> expensesAccountList) {
+        this.expensesAccountList = expensesAccountList;
     }
 
-    public List<AccountTransaction> getAccountTransactionList() {
-        return accountTransactionList;
+    public List<TransactionAccount> getTransactionAccountList() {
+        return transactionAccountList;
     }
 
-    public void setAccountTransactionList(List<AccountTransaction> accountTransactionList) {
-        this.accountTransactionList = accountTransactionList;
+    public void setTransactionAccountList(List<TransactionAccount> transactionAccountList) {
+        this.transactionAccountList = transactionAccountList;
     }
 
     public List<AccountHistory> getAccountHistoryList() {

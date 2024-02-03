@@ -1,6 +1,7 @@
 package com.app.FO.service.tasks;
 
 import com.app.FO.config.DateTime;
+import com.app.FO.config.ServiceAll;
 import com.app.FO.exceptions.*;
 import com.app.FO.model.reminder.Reminder;
 import com.app.FO.model.tag.Tag;
@@ -10,7 +11,6 @@ import com.app.FO.model.tasks.*;
 import com.app.FO.model.topic.Topic;
 import com.app.FO.model.user.User;
 import com.app.FO.repository.tasks.TasksRepository;
-import com.app.FO.util.ServiceAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,7 +96,7 @@ public class TasksService {
             throw new TasksNotFoundException("Tasks not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -261,7 +261,7 @@ public class TasksService {
             throw new TasksNotFoundException("Tasks not found in your list");
         }
 
-        Tag tag = serviceAll.getTagFromUserIdAndTagId(logInUser.getId(), tagId);
+        Tag tag = serviceAll.getTagFromUserIdByTagId(logInUser.getId(), tagId);
         if (tag == null) {
             throw new TagNotFoundException("Tag not found");
         }
@@ -394,6 +394,147 @@ public class TasksService {
         return tasks;
     }
 
+
+    public Tasks getTasksByCreatedDate(String createdDate) {
+        LocalDateTime createdDateTime = DateTime.textToLocalDateTime(createdDate);
+        User logInUser = serviceAll.getLogInUser();
+        Tasks tasks = tasksRepository.getTasksFromUserIdByCreatedDate(logInUser.getId(), createdDateTime);
+        if (tasks == null) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasks;
+    }
+
+    public List<Tasks> getTasksListByCreatedDateBetween(String createdDateMin, String createdDateMax) {
+        LocalDateTime createdDateTimeMin = DateTime.textToLocalDateTime(createdDateMin);
+        LocalDateTime createdDateTimeMax = DateTime.textToLocalDateTime(createdDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByCreatedDateBetween(logInUser.getId(), createdDateTimeMin, createdDateTimeMax);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+
+    public List<Tasks> getTasksByStartDate(String startDate) {
+        LocalDateTime startDateTime = DateTime.textToLocalDateTime(startDate);
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksFromUserIdByStartDate(logInUser.getId(), startDateTime);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksListByStartDateBetween(String startDateMin, String startDateMax) {
+        LocalDateTime startDateTimeMin = DateTime.textToLocalDateTime(startDateMin);
+        LocalDateTime startDateTimeMax = DateTime.textToLocalDateTime(startDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByStartDateBetween(logInUser.getId(), startDateTimeMin, startDateTimeMax);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksByEndDate(String endDate) {
+        LocalDateTime endDateTime = DateTime.textToLocalDateTime(endDate);
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksFromUserIdByEndDate(logInUser.getId(), endDateTime);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksListByEndDateBetween(String endDateMin, String endDateMax) {
+        LocalDateTime endDateTimeMin = DateTime.textToLocalDateTime(endDateMin);
+        LocalDateTime endDateTimeMax = DateTime.textToLocalDateTime(endDateMax);
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByEndDateBetween(logInUser.getId(), endDateTimeMin, endDateTimeMax);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksByWorkingTime(Double workingTime) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByWorkingTime(logInUser.getId(), workingTime);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksListByWorkingTimeBetween(Double workingTimeMin, Double workingTimeMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByWorkingTimeBetween(logInUser.getId(), workingTimeMin, workingTimeMax);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksByEstimatedTime(Double estimatedTime) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksFromUserIdByEstimatedTime(logInUser.getId(), estimatedTime);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksListByEstimatedTimeBetween(Double estimatedTimeMin, Double estimatedTimeMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByEstimatedTimeBetween(logInUser.getId(), estimatedTimeMin, estimatedTimeMax);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksByEstimatedLeftTime(Double estimatedLeftTime) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksFromUserIdByEstimatedLeftTime(logInUser.getId(), estimatedLeftTime);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksListByEstimatedLeftTimeBetween(Double estimatedLeftTimeMin, Double estimatedLeftTimeMax) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByEstimatedLeftTimeBetween(logInUser.getId(), estimatedLeftTimeMin, estimatedLeftTimeMax);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksByWorkingProgress(Double workingProgress) {
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksFromUserIdByWorkingProgress(logInUser.getId(), workingProgress);
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+    public List<Tasks> getTasksByTasksStatus(String tasksStatusText) {
+
+        TaskStatus taskStatus = serviceAll.convertTaskStatusTextToTaskStatus(tasksStatusText);
+
+        User logInUser = serviceAll.getLogInUser();
+        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByTasksStatus(logInUser.getId(), taskStatus.getValue());
+        if (tasksList.isEmpty()) {
+            throw new TasksNotFoundException("No tasks found");
+        }
+        return tasksList;
+    }
+
+
     public List<Tasks> getTasksListByUserId(Long userId) {
         User logInUser = serviceAll.getLogInUser();
         List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByUserId(logInUser.getId(), userId);
@@ -438,45 +579,6 @@ public class TasksService {
         }
         return tasksList;
     }
-
-    public List<Tasks> getTasksByStartDate(String startDateText) {
-        /*      Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
-         */
-        LocalDateTime startDate = DateTime.textToLocalDateTime(startDateText);
-        User logInUser = serviceAll.getLogInUser();
-
-        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByStartDate(logInUser.getId(), startDate);
-        if (tasksList.isEmpty()) {
-            throw new TasksNotFoundException("No tasks found");
-        }
-        return tasksList;
-    }
-
-    public List<Tasks> getTasksByEndDate(String endDateText) {
-        /*      Formatter "yyyy-MM-dd HH:mm:ss" 2023.06.01 13:14:15
-         */
-        LocalDateTime endDate = DateTime.textToLocalDateTime(endDateText);
-        User logInUser = serviceAll.getLogInUser();
-
-        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByEndDate(logInUser.getId(), endDate);
-        if (tasksList.isEmpty()) {
-            throw new TasksNotFoundException("No tasks found");
-        }
-        return tasksList;
-    }
-
-    public List<Tasks> getTasksByTasksStatus(String tasksStatusText) {
-
-        TaskStatus tasksStatus = serviceAll.convertTaskStatusTextToTaskStatus(tasksStatusText);
-
-        User logInUser = serviceAll.getLogInUser();
-        List<Tasks> tasksList = tasksRepository.getTasksListFromUserIdByTasksStatus(logInUser.getId(), tasksStatus.getValue());
-        if (tasksList.isEmpty()) {
-            throw new TasksNotFoundException("No tasks found");
-        }
-        return tasksList;
-    }
-
 
     //-- Other
 
