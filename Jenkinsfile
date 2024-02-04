@@ -13,14 +13,14 @@ pipeline {
         stage('remove the  container'){
             steps{
                 script{
-                    sh 'docker rm -f fo-app --wait'
+                    sh 'docker rm -f fo-app'
                 }
             }
         }
         stage('remove the  image'){
             steps{
                 script{
-                    sh 'docker rmi -f  givanc/fo-app:latest --wait'
+                    sh 'docker rmi -f  givanc/fo-app:latest'
                 }
             }
         }
