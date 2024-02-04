@@ -10,14 +10,14 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('remove the  container'){
+        stage('Remove container'){
             steps{
                 script{
                     sh 'docker rm -f fo-app'
                 }
             }
         }
-        stage('remove the  image'){
+        stage('Remove image'){
             steps{
                 script{
                     sh 'docker rmi -f  givanc/fo-app:latest'
