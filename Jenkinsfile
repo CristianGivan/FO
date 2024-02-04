@@ -24,10 +24,10 @@ pipeline {
                 }
             }
         }
-        stage('Start container'){
+        stage('Create image'){
             steps{
                 script{
-                    sh 'docker compose up -d --wait'
+                    sh 'docker build -t givanc/fo-app:latest .'
                 }
             }
         }
