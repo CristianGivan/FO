@@ -10,10 +10,17 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('Create image'){
+        stage('remove the  container'){
             steps{
                 script{
-                    sh 'docker build -t givanc/fo-app:latest .'
+                    sh 'docker rm -f fo-app --wait'
+                }
+            }
+        }
+        stage('remove the  image'){
+            steps{
+                script{
+                    sh 'docker rmi -f  givanc/fo-app:latest --wait'
                 }
             }
         }
@@ -24,6 +31,13 @@ pipeline {
                 }
             }
         }
+        stage('Start container'){
+                    steps{
+                        script{
+                            sh 'docker compose up -d --wait'
+                        }
+                    }
+                }
         stage('Push image to Hub'){
             steps{
                 script{
